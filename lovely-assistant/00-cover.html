@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Gift for Lovely Assistant | DMT Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0F1A;
+            color: #E2E8F0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid #1E293B;
+            margin-bottom: 3rem;
+        }
+
+        .dmt-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            color: #F59E0B;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: #FFFFFF;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 span {
+            color: #F59E0B;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #94A3B8;
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        /* Intro */
+        .intro {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .intro p {
+            font-size: 1.05rem;
+            color: #CBD5E1;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro strong {
+            color: #F59E0B;
+            font-weight: 600;
+        }
+
+        /* Cards Grid */
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            border-color: #F59E0B;
+            transform: translateY(-2px);
+        }
+
+        .card-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: #F59E0B;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: #FFFFFF;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #94A3B8;
+            line-height: 1.6;
+        }
+
+        .card .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .card .tag {
+            font-size: 0.75rem;
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* How to use */
+        .how-to-use {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .how-to-use h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+        }
+
+        .how-to-use ol {
+            list-style: none;
+            counter-reset: steps;
+        }
+
+        .how-to-use li {
+            counter-increment: steps;
+            padding: 0.75rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            color: #CBD5E1;
+            font-size: 1rem;
+            border-bottom: 1px solid #1E293B;
+        }
+
+        .how-to-use li:last-child {
+            border-bottom: none;
+        }
+
+        .how-to-use li::before {
+            content: counter(steps);
+            position: absolute;
+            left: 0;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: #F59E0B;
+            top: 0.65rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-top: 1px solid #1E293B;
+        }
+
+        .footer .heart {
+            font-size: 1.5rem;
+            color: #F59E0B;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            color: #64748B;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            color: #F59E0B;
+            margin-top: 1rem;
+        }
+
+        /* Print */
+        @media print {
+            body { background: #fff; color: #111; }
+            .card { border: 1px solid #ddd; }
+            .card-number, .dmt-logo, .footer .brand { color: #B45309; }
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .container { padding: 1.5rem 1rem; }
+            .intro, .how-to-use { padding: 1.5rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="header">
+            <div class="dmt-logo">DMT Consulting</div>
+            <h1>A Gift for <span>Lovely Assistant</span></h1>
+            <p class="subtitle">We heard the live album. We wanted to help.</p>
+        </header>
+
+        <section class="intro">
+            <p>We heard the second album and it stopped us in our tracks. What you've built with Lovely Assistant &mdash; the sound, the live shows, the community around it &mdash; is something genuinely special. Congratulations on getting it out into the world.</p>
+            <p>So we put this together. Four documents with <strong>strategies, templates, and practical tools</strong> we've tailored to where you are right now. Everything is based on what we could see from your platforms, your music, and the story you're already telling.</p>
+            <p>Use whatever's useful. Ignore what isn't. No follow-up, no expectation, no catch.</p>
+        </section>
+
+        <h2 class="section-title">What's Inside</h2>
+
+        <div class="cards-grid">
+            <a class="card" href="01-social-media-strategy.html">
+                <div class="card-number">01</div>
+                <h3>Social Media Strategy</h3>
+                <p>A clear-eyed look at your platforms &mdash; what's working, where the energy should go, and a ready-made campaign plan to keep the momentum rolling.</p>
+                <div class="card-tags">
+                    <span class="tag">Instagram</span>
+                    <span class="tag">Content Calendar</span>
+                    <span class="tag">Launch Plan</span>
+                </div>
+            </a>
+
+            <a class="card" href="02-streaming-optimisation.html">
+                <div class="card-number">02</div>
+                <h3>Streaming Optimisation</h3>
+                <p>Honest numbers, practical targets, and everything you need to make Spotify, Bandcamp, and Apple Music work harder with the music you've already got.</p>
+                <div class="card-tags">
+                    <span class="tag">Spotify</span>
+                    <span class="tag">Bandcamp</span>
+                    <span class="tag">Playlists</span>
+                </div>
+            </a>
+
+            <a class="card" href="03-epk-guide.html">
+                <div class="card-number">03</div>
+                <h3>EPK &amp; Press Kit</h3>
+                <p>Your credentials are genuinely impressive &mdash; they just need packaging. This includes a full EPK text, press release template, and pitch emails ready to send.</p>
+                <div class="card-tags">
+                    <span class="tag">Bio</span>
+                    <span class="tag">Press Release</span>
+                    <span class="tag">Booking</span>
+                </div>
+            </a>
+
+            <a class="card" href="04-artist-branding.html">
+                <div class="card-number">04</div>
+                <h3>Artist Branding</h3>
+                <p>You've already got a strong visual identity. This pulls it together into a consistent palette, press photo brief, merch direction, and platform consistency guide.</p>
+                <div class="card-tags">
+                    <span class="tag">Colour Palette</span>
+                    <span class="tag">Visual Identity</span>
+                    <span class="tag">Merch</span>
+                </div>
+            </a>
+        </div>
+
+        <section class="how-to-use">
+            <h2>If You Decide to Dive In</h2>
+            <ol>
+                <li>Each document has three tabs: <strong>Where You Are</strong> (the honest picture), <strong>Opportunities</strong> (what to try), and <strong>Ready-Made Assets</strong> (things to copy and use right now).</li>
+                <li>Start with the <strong>Ready-Made Assets</strong> tab if you're short on time. That's where the immediately useful stuff lives &mdash; bios, templates, posts you can copy and paste today.</li>
+                <li>The <strong>Opportunities</strong> tabs are prioritised. The stuff at the top matters most. You don't need to do everything.</li>
+                <li>Everything is written in your voice as much as possible. Edit freely &mdash; you know your band better than anyone.</li>
+            </ol>
+        </section>
+
+        <footer class="footer">
+            <div class="heart">&#9829;</div>
+            <p>Made with heart by DMT Consulting | A gift for Lovely Assistant | March 2026</p>
+            <p style="margin-top:1.5rem;font-size:0.75rem;color:#475569;line-height:1.5">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+        </footer>
+
+    </div>
+</body>
+</html>

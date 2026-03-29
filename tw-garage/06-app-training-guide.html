@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T&W Garage Manager — Training Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dark:#0A0F1A;--card:#111827;--border:#1E293B;--blue:#3B82F6;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--text:#F1F5F9;--dim:#94A3B8;--white:#FFFFFF;--radius:12px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em}
+
+/* ── LAYOUT ── */
+.page{max-width:860px;margin:0 auto;padding:0 20px 60px}
+
+/* ── HEADER ── */
+.hero{text-align:center;padding:48px 20px 32px;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 20%,rgba(59,130,246,0.1) 0%,transparent 60%);pointer-events:none}
+.brand-tag{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.15em;color:var(--blue);margin-bottom:12px}
+.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.05;margin-bottom:8px}
+.hero h1 span{color:var(--amber)}
+.hero-sub{font-size:16px;color:var(--dim);max-width:480px;margin:0 auto}
+.hero-badge{display:inline-block;background:var(--amber);color:var(--dark);font-size:11px;font-weight:800;padding:5px 16px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+
+/* ── TAB BAR ── */
+.tab-bar-wrap{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:1px solid var(--border);padding:0}
+.tab-bar{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0;max-width:860px;margin:0 auto}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:14px 18px;font-size:13px;font-weight:700;color:var(--dim);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Inter',sans-serif;letter-spacing:0.02em}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--amber);border-bottom-color:var(--amber)}
+@media(max-width:600px){.tab-btn{padding:12px 13px;font-size:12px}}
+
+/* ── TAB CONTENT ── */
+.tab-content{display:none;animation:fadeUp .35s ease}
+.tab-content.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION HEADERS ── */
+.section-head{margin:40px 0 24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.section-head h2{font-size:clamp(28px,4vw,40px);line-height:1.1}
+.section-head h2 span{color:var(--amber)}
+.section-head p{color:var(--dim);margin-top:6px;font-size:15px}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;position:relative}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:20px 0}
+@media(max-width:540px){.card-grid{grid-template-columns:1fr}}
+
+/* ── OVERVIEW CARDS ── */
+.overview-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:transform .2s,border-color .2s}
+.overview-card:hover{transform:translateY(-2px);border-color:var(--blue)}
+.overview-icon{font-size:36px;margin-bottom:12px;display:block}
+.overview-card h4{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:4px;letter-spacing:0.03em}
+.overview-card p{font-size:13px;color:var(--dim);line-height:1.5}
+
+/* ── STEP CARDS ── */
+.step{display:flex;gap:16px;margin-bottom:20px}
+.step-num{flex-shrink:0;width:40px;height:40px;background:var(--blue);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;margin-top:2px}
+.step-num.amber{background:var(--amber);color:var(--dark)}
+.step-num.green{background:var(--green)}
+.step-body{flex:1;min-width:0}
+.step-body h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.step-body p{font-size:14px;color:var(--dim);line-height:1.6}
+.step-body code{background:rgba(59,130,246,0.15);color:var(--blue);padding:2px 8px;border-radius:6px;font-size:13px;font-family:'Inter',sans-serif;font-weight:600}
+
+/* ── CHECKLIST ── */
+.checklist{list-style:none;padding:0;margin:16px 0}
+.checklist li{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;font-size:14px;cursor:pointer;transition:all .2s;user-select:none}
+.checklist li:hover{border-color:var(--blue)}
+.checklist li.checked{opacity:0.5;text-decoration:line-through}
+.check-box{flex-shrink:0;width:22px;height:22px;border:2px solid var(--dim);border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px}
+.checklist li.checked .check-box{background:var(--green);border-color:var(--green);color:var(--white)}
+.check-box::after{content:'';display:none}
+.checklist li.checked .check-box::after{display:block;content:'✓';font-size:13px;font-weight:800;color:var(--white)}
+
+/* ── PRO TIP ── */
+.pro-tip{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-left:4px solid var(--amber);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:24px 0;position:relative}
+.pro-tip::before{content:'PRO TIP';font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.1em;color:var(--amber);display:block;margin-bottom:6px}
+.pro-tip p{font-size:14px;color:var(--text);line-height:1.7;font-style:italic}
+
+/* ── WARNING BOX ── */
+.warning-box{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-left:4px solid var(--red);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:24px 0}
+.warning-box::before{content:'IMPORTANT';font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.1em;color:var(--red);display:block;margin-bottom:6px}
+.warning-box p{font-size:14px;color:var(--dim);line-height:1.7}
+
+/* ── INFO BOX ── */
+.info-box{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-left:4px solid var(--blue);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:24px 0}
+.info-box h4{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--blue);margin-bottom:6px;letter-spacing:0.03em}
+.info-box p,.info-box li{font-size:14px;color:var(--dim);line-height:1.7}
+.info-box ul{list-style:none;padding:0;margin-top:8px}
+.info-box li{padding:4px 0;padding-left:16px;position:relative}
+.info-box li::before{content:'→';position:absolute;left:0;color:var(--blue)}
+
+/* ── COLOUR KEY ── */
+.colour-key{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+.colour-swatch{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 18px;flex:1;min-width:200px}
+.swatch-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0}
+.swatch-dot.red{background:var(--red)}
+.swatch-dot.amber{background:var(--amber)}
+.swatch-dot.green{background:var(--green)}
+.colour-swatch .label{font-size:13px;font-weight:600}
+.colour-swatch .desc{font-size:12px;color:var(--dim)}
+
+/* ── STATUS FLOW ── */
+.status-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:20px 0}
+.status-pill{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;white-space:nowrap}
+.status-pill.progress{background:rgba(59,130,246,0.15);color:var(--blue)}
+.status-pill.complete{background:rgba(16,185,129,0.15);color:var(--green)}
+.status-pill.paid{background:rgba(245,158,11,0.15);color:var(--amber)}
+.flow-arrow{color:var(--dim);font-size:18px}
+
+/* ── FIELD EXPLAINER ── */
+.field-list{margin:16px 0}
+.field-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.field-item:last-child{border-bottom:none}
+.field-name{flex-shrink:0;width:110px;font-size:13px;font-weight:700;color:var(--amber);padding-top:2px}
+.field-desc{font-size:14px;color:var(--dim);line-height:1.6}
+.field-desc strong{color:var(--text);font-weight:600}
+@media(max-width:480px){.field-item{flex-direction:column;gap:4px}.field-name{width:auto}}
+
+/* ── COLLAPSIBLE ── */
+.collapsible{margin-bottom:12px}
+.collapsible-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:15px;font-weight:700;color:var(--text);font-family:'Inter',sans-serif;transition:all .2s}
+.collapsible-toggle:hover{border-color:var(--blue)}
+.collapsible-toggle .arrow{transition:transform .3s;font-size:12px;color:var(--dim)}
+.collapsible.open .collapsible-toggle{border-radius:var(--radius) var(--radius) 0 0;border-bottom-color:transparent}
+.collapsible.open .collapsible-toggle .arrow{transform:rotate(180deg)}
+.collapsible-body{display:none;background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:20px;animation:fadeUp .25s ease}
+.collapsible.open .collapsible-body{display:block}
+
+/* ── COPY BUTTON ── */
+.copy-wrap{position:relative;margin:16px 0}
+.copy-text{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-size:14px;color:var(--dim);line-height:1.7}
+.copy-btn{position:absolute;top:12px;right:12px;background:var(--amber);color:var(--dark);border:none;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.copy-btn:hover{background:#D97706}
+.copy-btn.copied{background:var(--green);color:var(--white)}
+
+/* ── SUMMARY METRIC CARDS ── */
+.metric-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin:20px 0}
+.metric{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.metric .num{font-family:'Bebas Neue',sans-serif;font-size:32px}
+.metric .num.red{color:var(--red)}
+.metric .num.amber{color:var(--amber)}
+.metric .num.green{color:var(--green)}
+.metric .num.blue{color:var(--blue)}
+.metric .mlabel{font-size:11px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+
+/* ── FOOTER ── */
+.guide-footer{text-align:center;padding:48px 20px 32px;border-top:1px solid var(--border);margin-top:48px}
+.guide-footer p{font-size:12px;color:var(--dim);margin-bottom:4px}
+.guide-footer .ai-note{font-size:11px;color:rgba(148,163,184,0.5);margin-top:12px}
+
+/* ── PRINT ── */
+@media print{
+  body{background:white;color:#1a1a1a;font-size:12px}
+  .tab-bar-wrap{display:none}
+  .tab-content{display:block!important;page-break-inside:avoid}
+  .hero::before{display:none}
+  .card,.overview-card,.pro-tip,.warning-box,.info-box,.collapsible-toggle,.collapsible-body,.copy-text,.metric,.colour-swatch{border:1px solid #ddd;background:#fafafa;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .collapsible-body{display:block!important}
+  .step-num{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section-head{page-break-after:avoid}
+  .tab-content+.tab-content .section-head{page-break-before:always}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  .hero{padding:32px 16px 24px}
+  .hero h1{font-size:28px}
+  .page{padding:0 12px 40px}
+  .card{padding:18px}
+  .step{gap:12px}
+  .step-num{width:34px;height:34px;font-size:17px}
+  .colour-key{flex-direction:column}
+  .metric-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <div class="brand-tag">DMT CONSULTING</div>
+  <div class="hero-badge">Training Guide</div>
+  <h1>T&W GARAGE <span>MANAGER</span></h1>
+  <p class="hero-sub">Your garage management app — everything in one place. This guide walks you through every feature, step by step.</p>
+</div>
+
+<!-- ═══════════════ TAB BAR ═══════════════ -->
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="start">Getting Started</button>
+    <button class="tab-btn" data-tab="customers">Customers</button>
+    <button class="tab-btn" data-tab="mot">MOT Reminders</button>
+    <button class="tab-btn" data-tab="reviews">Reviews</button>
+    <button class="tab-btn" data-tab="jobs">Jobs</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+    <button class="tab-btn" data-tab="privacy">Data &amp; Privacy</button>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════════════
+     TAB 1: GETTING STARTED
+     ═══════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-start">
+
+  <div class="section-head">
+    <h2>GETTING <span>STARTED</span></h2>
+    <p>You'll be up and running in five minutes. Let's get the app on your phone first.</p>
+  </div>
+
+  <!-- Install on Phone -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">INSTALL ON YOUR PHONE</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:20px">The app works in your phone's browser, but you can add it to your home screen so it looks and feels like a real app. No app store needed.</p>
+
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>📱 iPhone (Safari)</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Open the app link in Safari</h4><p>It must be Safari — this won't work in Chrome on iPhone.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Tap the Share button</h4><p>It's the square with an arrow pointing up, at the bottom of the screen.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Scroll down and tap "Add to Home Screen"</h4><p>You might need to scroll down the list to find it.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Tap "Add" in the top right</h4><p>The app icon will appear on your home screen. Tap it to open the app full-screen, just like any other app.</p></div></div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>🤖 Android (Chrome)</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Open the app link in Chrome</h4><p>Chrome is the default browser on most Android phones.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Tap the three dots menu</h4><p>Top right corner of the screen — three vertical dots.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Tap "Add to Home screen"</h4><p>If you see "Install app" instead, tap that — even better.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Tap "Add"</h4><p>The app icon appears on your home screen. You're set.</p></div></div>
+    </div>
+  </div>
+
+  <!-- What Each Tab Does -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:36px 0 16px;letter-spacing:0.03em">WHAT EACH TAB DOES</h3>
+
+  <div class="card-grid">
+    <div class="overview-card">
+      <span class="overview-icon">👥</span>
+      <h4>CUSTOMERS</h4>
+      <p>Your customer database. Names, phone numbers, cars, MOT dates — all in one place.</p>
+    </div>
+    <div class="overview-card">
+      <span class="overview-icon">🔔</span>
+      <h4>MOT REMINDERS</h4>
+      <p>See who's due soon. Send a WhatsApp reminder with one tap. Your repeat business engine.</p>
+    </div>
+    <div class="overview-card">
+      <span class="overview-icon">⭐</span>
+      <h4>REVIEWS</h4>
+      <p>Track and grow your Google reviews. Ask happy customers for a review via WhatsApp.</p>
+    </div>
+    <div class="overview-card">
+      <span class="overview-icon">🔧</span>
+      <h4>JOBS</h4>
+      <p>Log every job. Track what's in progress, what's done, and what's been paid.</p>
+    </div>
+    <div class="overview-card">
+      <span class="overview-icon">⚙️</span>
+      <h4>SETTINGS</h4>
+      <p>Your business details, message templates, service types, and backup controls.</p>
+    </div>
+  </div>
+
+  <!-- 5-Minute Setup -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:36px 0 16px;letter-spacing:0.03em">5-MINUTE SETUP</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:16px">Do these five things and your app is ready to go.</p>
+
+  <ul class="checklist" id="setup-checklist">
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Open the app on your phone (or add to home screen first)</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Go to <strong>Settings</strong> — check your business name and phone number are correct</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Paste your Google review link in Settings (see the Settings tab in this guide for where to find it)</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Add your first 3 customers — name, phone, car, MOT date</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>You're ready! Check the MOT Reminders tab to see them appear</span></li>
+  </ul>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 2: CUSTOMERS
+     ═══════════════════════════════════════════ -->
+<div class="tab-content" id="tab-customers">
+
+  <div class="section-head">
+    <h2>MANAGING <span>CUSTOMERS</span></h2>
+    <p>Your customer list is the foundation of everything. Every reminder, every review request, every job starts here.</p>
+  </div>
+
+  <!-- Add a Customer -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">ADDING A NEW CUSTOMER</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Tap the + button</h4><p>You'll find it in the top right corner of the Customers screen.</p></div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Fill in the customer details</h4><p>Name and phone are the essentials. Fill in as much as you can — the more you add, the more the app can do for you.</p></div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Tap Save</h4><p>The customer is added to your list straight away.</p></div></div>
+
+  <!-- Field Guide -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">WHAT EACH FIELD MEANS</h3>
+
+  <div class="card">
+    <div class="field-list">
+      <div class="field-item">
+        <div class="field-name">Name</div>
+        <div class="field-desc">Customer's full name. <strong>First and last name</strong> so you can tell your John Smiths apart.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name">Phone</div>
+        <div class="field-desc">Their mobile number. <strong>This is essential</strong> — it's how the app sends WhatsApp reminders and review requests. No phone number = no reminders.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name">Car</div>
+        <div class="field-desc">Make, model, and year. For example: <code>Ford Focus 2018</code>. Helps you remember what they drive.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name">Registration</div>
+        <div class="field-desc">The car's registration plate. Handy for looking up MOT history and identifying vehicles.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name">MOT Due</div>
+        <div class="field-desc"><strong>This is the key field.</strong> Enter when their MOT expires and the app automatically adds them to the reminder system. This is how you generate repeat business.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name">Last Service</div>
+        <div class="field-desc">When they were last in. Gives you a picture of how often they visit.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name">Notes</div>
+        <div class="field-desc">Anything you want to remember. Access code for a gated property, "always wants a courtesy car", "wife's name is Sarah" — whatever helps you give great service.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search, Edit, Contact -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">FINDING AND CONTACTING CUSTOMERS</h3>
+
+  <div class="collapsible open">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>🔍 How to search for a customer</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7">There's a search bar at the top of the Customers screen. Just start typing — it searches by name, phone number, car, or registration. You'll see results narrow down as you type.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>✏️ How to edit a customer</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7">Tap on any customer to open their details. Tap the <strong>Edit</strong> button to change anything — update their car, change the MOT date, add notes. Tap <strong>Save</strong> when you're done.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>📞 Call a customer (one tap)</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7">Open a customer's details and tap the <strong>phone icon</strong>. Your phone's dialler opens with their number ready to go. One tap and you're ringing them.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>💬 WhatsApp a customer (one tap)</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7">Open a customer's details and tap the <strong>WhatsApp icon</strong>. WhatsApp opens with a new chat to that customer, ready for you to type or send a message. No need to save their number in your phone contacts first.</p>
+    </div>
+  </div>
+
+  <div class="pro-tip">
+    <p>Add every customer who comes through the door. Even if they only come for an MOT. In 6 months, your reminder system will be generating repeat business automatically.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 3: MOT REMINDERS
+     ═══════════════════════════════════════════ -->
+<div class="tab-content" id="tab-mot">
+
+  <div class="section-head">
+    <h2>MOT <span>REMINDERS</span></h2>
+    <p>This is the killer feature. It shows you exactly who needs an MOT and lets you remind them with one tap.</p>
+  </div>
+
+  <!-- Colour Coding -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">THE COLOUR SYSTEM</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:16px">Every customer with an MOT date gets a colour. This tells you at a glance how urgent it is.</p>
+
+  <div class="colour-key">
+    <div class="colour-swatch">
+      <div class="swatch-dot red"></div>
+      <div>
+        <div class="label">RED — Urgent</div>
+        <div class="desc">Overdue or due within 7 days. Contact them today.</div>
+      </div>
+    </div>
+    <div class="colour-swatch">
+      <div class="swatch-dot amber"></div>
+      <div>
+        <div class="label">AMBER — Coming Up</div>
+        <div class="desc">Due within 7 to 30 days. Send a reminder this week.</div>
+      </div>
+    </div>
+    <div class="colour-swatch">
+      <div class="swatch-dot green"></div>
+      <div>
+        <div class="label">GREEN — All Good</div>
+        <div class="desc">Due in 30+ days. No action needed yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Daily Routine -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">YOUR DAILY ROUTINE</h3>
+
+  <div class="info-box">
+    <h4>EVERY MORNING — 2 MINUTES</h4>
+    <p>Open the MOT Reminders tab first thing. If anything is red or amber, send the reminder. That's it. Two minutes a day that keeps your workshop full.</p>
+  </div>
+
+  <!-- How to Send -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">SENDING A REMINDER</h3>
+
+  <div class="step"><div class="step-num amber">1</div><div class="step-body"><h4>Find the customer in the list</h4><p>Red and amber customers appear at the top. They're sorted by urgency.</p></div></div>
+  <div class="step"><div class="step-num amber">2</div><div class="step-body"><h4>Tap "Send Reminder"</h4><p>This opens WhatsApp with a pre-written message. The message includes their name, car details, and your phone number.</p></div></div>
+  <div class="step"><div class="step-num amber">3</div><div class="step-body"><h4>Hit send in WhatsApp</h4><p>Check the message looks right, then tap the send arrow. Done — they've been reminded.</p></div></div>
+
+  <!-- Tracking -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">TRACKING YOUR REMINDERS</h3>
+
+  <div class="collapsible open">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>📋 Mark as Contacted</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7">After you send a reminder, tap <strong>"Mark as Contacted"</strong>. This moves the customer from "needs reminder" to "waiting for reply". You'll know at a glance who you've already reached out to.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>📅 Mark as Booked</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7">When a customer books in, tap <strong>"Mark as Booked"</strong>. This completes the cycle. You reminded them, they replied, they're booked in. Job done.</p>
+    </div>
+  </div>
+
+  <!-- Summary Bar -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE SUMMARY BAR</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:16px">At the top of the MOT Reminders screen, you'll see four numbers. Here's what they mean:</p>
+
+  <div class="metric-row">
+    <div class="metric"><div class="num red">3</div><div class="mlabel">Overdue</div></div>
+    <div class="metric"><div class="num amber">7</div><div class="mlabel">Due This Month</div></div>
+    <div class="metric"><div class="num blue">4</div><div class="mlabel">Contacted</div></div>
+    <div class="metric"><div class="num green">2</div><div class="mlabel">Booked</div></div>
+  </div>
+  <p style="font-size:13px;color:var(--dim);margin-top:8px">Your goal: get the red number to zero every day. Move people from "overdue" through "contacted" to "booked".</p>
+
+  <div class="pro-tip">
+    <p>The MOT is your gateway. When a customer comes in for an MOT, that's when you find the brake pads, the tyres, the exhaust. The reminder system isn't just about MOTs — it's about getting cars through your door.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 4: REVIEWS
+     ═══════════════════════════════════════════ -->
+<div class="tab-content" id="tab-reviews">
+
+  <div class="section-head">
+    <h2>GOOGLE <span>REVIEWS</span></h2>
+    <p>Reviews are how new customers find you. Right now you have 17 — your competitors have 40+. Let's close that gap.</p>
+  </div>
+
+  <!-- Why Reviews Matter -->
+  <div class="info-box">
+    <h4>WHY REVIEWS MATTER</h4>
+    <p>When someone searches "garage near me" on Google, the garages with more reviews and higher ratings appear first. More reviews = more new customers walking through your door. It's that simple.</p>
+  </div>
+
+  <!-- How to Ask -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">ASKING FOR A REVIEW</h3>
+
+  <div class="step"><div class="step-num green">1</div><div class="step-body"><h4>Go to the Reviews tab</h4><p>You'll see your customer list with a "Ask for Review" button next to each one.</p></div></div>
+  <div class="step"><div class="step-num green">2</div><div class="step-body"><h4>Tap "Ask for Review"</h4><p>WhatsApp opens with a friendly, pre-written message. It includes a direct link to your Google review page — the customer just needs to tap it and leave their stars.</p></div></div>
+  <div class="step"><div class="step-num green">3</div><div class="step-body"><h4>Send it in WhatsApp</h4><p>Check the message, tap send. The app tracks that you've asked this customer.</p></div></div>
+
+  <!-- When to Ask -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">WHEN TO ASK</h3>
+
+  <div class="card">
+    <p style="font-size:15px;font-weight:700;margin-bottom:8px;color:var(--amber)">Timing is everything.</p>
+    <p style="font-size:14px;color:var(--dim);line-height:1.7">Ask <strong>right after they collect the car</strong>, while they're happy with the work. Don't wait until the next day — by then they've moved on. The best moment is when they're saying "cheers mate, looks great" as they pick up the keys.</p>
+  </div>
+
+  <!-- Dashboard -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE REVIEW DASHBOARD</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:16px">At the top of the Reviews screen, you'll see your progress:</p>
+
+  <div class="metric-row">
+    <div class="metric"><div class="num blue">48</div><div class="mlabel">Total Customers</div></div>
+    <div class="metric"><div class="num amber">35%</div><div class="mlabel">Asked</div></div>
+    <div class="metric"><div class="num green">17</div><div class="mlabel">Reviews</div></div>
+    <div class="metric"><div class="num red">3</div><div class="mlabel">Monthly Target</div></div>
+  </div>
+
+  <!-- Update Link -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">SETTING YOUR GOOGLE REVIEW LINK</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:12px">The review request message includes a link to your Google review page. You set this up once in Settings. See the <strong>Settings</strong> tab of this guide for exactly how to find your link.</p>
+
+  <div class="pro-tip">
+    <p>Aim for 3 reviews a month. In 6 months you'll have 35+ and be competing with the best garages in South Shields.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 5: JOBS
+     ═══════════════════════════════════════════ -->
+<div class="tab-content" id="tab-jobs">
+
+  <div class="section-head">
+    <h2>TRACKING <span>JOBS</span></h2>
+    <p>Every job logged is money tracked. At the end of the month, you'll know exactly where your revenue came from.</p>
+  </div>
+
+  <!-- Add a Job -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">ADDING A JOB</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Tap the + button on the Jobs tab</h4><p>Opens the new job form.</p></div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Link it to a customer</h4><p>Start typing a customer name — the app will suggest matches. Tap to select. This connects the job to their record.</p></div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Choose the service type</h4><p>MOT, Full Service, Brake Pads, Tyres — pick from the list. You can add your own service types in Settings.</p></div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Set the price</h4><p>Enter what you're charging. This feeds into your revenue dashboard.</p></div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Save the job</h4><p>It starts as "In Progress". Update the status as the job moves along.</p></div></div>
+
+  <!-- Status Flow -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">JOB STATUS FLOW</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:12px">Every job follows this path:</p>
+
+  <div class="status-flow">
+    <span class="status-pill progress">In Progress</span>
+    <span class="flow-arrow">→</span>
+    <span class="status-pill complete">Complete</span>
+    <span class="flow-arrow">→</span>
+    <span class="status-pill paid">Paid</span>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="field-list">
+      <div class="field-item">
+        <div class="field-name" style="color:var(--blue)">In Progress</div>
+        <div class="field-desc">Work is happening. The car is in the workshop.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name" style="color:var(--green)">Complete</div>
+        <div class="field-desc">Work is done but you haven't been paid yet. Customer needs to collect and pay.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name" style="color:var(--amber)">Paid</div>
+        <div class="field-desc">Money in the bank. Job is finished. This is where you want everything to end up.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE JOBS DASHBOARD</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:16px">The summary at the top gives you a snapshot of your workshop:</p>
+
+  <div class="metric-row">
+    <div class="metric"><div class="num blue">8</div><div class="mlabel">This Week</div></div>
+    <div class="metric"><div class="num green">31</div><div class="mlabel">This Month</div></div>
+    <div class="metric"><div class="num amber">£4,280</div><div class="mlabel">Revenue</div></div>
+    <div class="metric"><div class="num red">£640</div><div class="mlabel">Outstanding</div></div>
+  </div>
+  <p style="font-size:13px;color:var(--dim);margin-top:8px"><strong>Outstanding</strong> means jobs that are complete but haven't been paid. Keep an eye on this number — if it's growing, you've got customers who owe you money.</p>
+
+  <div class="pro-tip">
+    <p>Log every job, even small ones. At the end of the month, the revenue dashboard shows you exactly where your money came from.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 6: SETTINGS
+     ═══════════════════════════════════════════ -->
+<div class="tab-content" id="tab-settings">
+
+  <div class="section-head">
+    <h2>APP <span>SETTINGS</span></h2>
+    <p>Set it up once, then you rarely need to touch it again. But it's worth getting right.</p>
+  </div>
+
+  <!-- Business Details -->
+  <div class="collapsible open">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>🏢 Business Details</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px">Your business name and phone number appear in the WhatsApp messages sent to customers. Make sure they're correct.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Go to Settings</h4><p>Tap the Settings tab (the cog icon at the bottom).</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Edit your business name and phone</h4><p>Tap the field, change it, and save. These details are used in reminder and review messages.</p></div></div>
+    </div>
+  </div>
+
+  <!-- Google Review Link -->
+  <div class="collapsible open">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>⭐ Google Review Link</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:16px">This is the link your customers tap to leave you a Google review. Here's how to find it:</p>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Search for your business on Google</h4><p>Open Google on your phone or computer and search for <code>Tyne and Wear Garage and Recovery</code>.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Find your business listing</h4><p>You should see your business with reviews, address, and phone number on the right side (or at the top on mobile).</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Click "Write a review"</h4><p>Don't actually write one — just click the link.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Copy the URL from the address bar</h4><p>The address bar now shows your review link. Copy the entire URL.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Paste it in Settings → Review Link</h4><p>Open the app, go to Settings, paste the link in the Google Review Link field, and save.</p></div></div>
+    </div>
+  </div>
+
+  <!-- Message Templates -->
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>💬 Message Templates</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px">The app comes with pre-written messages for MOT reminders and review requests. They work well out of the box, but you can customise them to sound more like you.</p>
+      <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px">Go to <strong>Settings → Message Templates</strong> to edit. The messages use placeholders like <code>{name}</code> and <code>{car}</code> — these get replaced with the actual customer's details when the message is sent.</p>
+      <div class="warning-box" style="margin-top:16px">
+        <p>Don't delete the placeholders! If you remove <code>{name}</code> from the template, the message won't include the customer's name. Edit the words around them, but keep the placeholders in curly braces.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Types -->
+  <div class="collapsible">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>🔧 Service Types</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px">When you add a job, you pick a service type from a list. The app comes with common ones (MOT, Full Service, Brakes, etc.) but you can add your own.</p>
+      <p style="font-size:14px;color:var(--dim);line-height:1.7">Go to <strong>Settings → Service Types</strong> to add or remove services. Think about the jobs you do most often and make sure they're all on the list.</p>
+    </div>
+  </div>
+
+  <!-- Backup & Restore -->
+  <div class="collapsible open">
+    <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
+      <span>💾 Backup &amp; Restore</span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="collapsible-body">
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--amber)">How to back up your data:</h4>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Go to Settings → Backup &amp; Restore</h4><p>Scroll down in the Settings tab.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Tap "Create Backup"</h4><p>The app saves all your data into a file. You'll be asked where to save it — pick somewhere safe like your phone's Downloads folder, or send it to yourself on WhatsApp.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Done — your data is safe</h4><p>If anything goes wrong, you can restore from this file.</p></div></div>
+
+      <h4 style="font-size:14px;font-weight:700;margin:20px 0 12px;color:var(--amber)">How to restore from a backup:</h4>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Go to Settings → Backup &amp; Restore</h4><p>On the new phone or after reinstalling.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Tap "Restore Backup"</h4><p>Find and select your backup file. All your customers, jobs, and settings come back.</p></div></div>
+
+      <div class="warning-box" style="margin-top:20px">
+        <p>If your phone breaks or gets lost, your customer data goes with it. Back up once a week — it takes 10 seconds. Set a reminder on your phone for every Monday morning.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 7: DATA & PRIVACY
+     ═══════════════════════════════════════════ -->
+<div class="tab-content" id="tab-privacy">
+
+  <div class="section-head">
+    <h2>DATA &amp; <span>PRIVACY</span></h2>
+    <p>You're storing customer information digitally. Here's what that means and what you need to do to stay on the right side of the law.</p>
+  </div>
+
+  <!-- What You're Storing -->
+  <div class="info-box">
+    <h4>WHAT THIS APP STORES</h4>
+    <p>Customer names, phone numbers, car details, and job history. Under UK GDPR, this makes you a <strong>data controller</strong>. That sounds scary, but it's straightforward — here's what it means in plain English.</p>
+  </div>
+
+  <!-- What You Need to Do -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">WHAT YOU NEED TO DO</h3>
+
+  <div class="card">
+    <div class="field-list">
+      <div class="field-item">
+        <div class="field-name" style="color:var(--blue)">Keep it secure</div>
+        <div class="field-desc">Lock your phone with a PIN or fingerprint. Don't let other people use the app unsupervised. This is the most important thing.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name" style="color:var(--blue)">Only collect what you need</div>
+        <div class="field-desc">Name, phone, car, MOT date — that's all you need for the app to work. Don't store anything unnecessary like dates of birth or home addresses unless there's a good reason.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name" style="color:var(--blue)">Delete if asked</div>
+        <div class="field-desc">If a customer asks you to remove their details, you must. Open their record, tap edit, and delete them. It's their right.</div>
+      </div>
+      <div class="field-item">
+        <div class="field-name" style="color:var(--blue)">Tell customers</div>
+        <div class="field-desc">Let customers know you're keeping their details. A simple <em>"We'll keep your details on file for MOT reminders, is that OK?"</em> is enough. Most people say yes without thinking twice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICO Registration -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">ICO REGISTRATION</h3>
+
+  <div class="card">
+    <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px">Most small businesses that process customer data digitally need to pay the <strong>ICO data protection fee</strong>. It's <strong>£40 per year</strong> for small businesses.</p>
+    <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px">Since you're storing customer personal data in this app, you almost certainly need to register.</p>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Check if you need to register</h4><p>Go to <strong>ico.org.uk/registration/self-assessment</strong> — it's a quick questionnaire that tells you if you need to pay.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Register and pay online</h4><p>If you do need to register (you probably do), it takes 5 minutes. You pay £40 by card and you're done for the year.</p></div></div>
+  </div>
+
+  <!-- Practical Steps -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">PRACTICAL SECURITY STEPS</h3>
+
+  <ul class="checklist" id="privacy-checklist">
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Lock your phone with a PIN, fingerprint, or face recognition</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Don't let anyone else use the app unsupervised</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Back up your data regularly (weekly is ideal)</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>If you get a new phone, transfer the backup file securely — don't leave copies lying around</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Delete customer records when asked (open customer → edit → delete)</span></li>
+    <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Check your ICO registration status at ico.org.uk</span></li>
+  </ul>
+
+  <!-- Privacy Notice -->
+  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">YOUR PRIVACY NOTICE</h3>
+  <p style="font-size:14px;color:var(--dim);margin-bottom:16px">Here's a simple privacy notice you can read to customers, print out and put on the wall, or keep on hand if anyone asks. Tap the button to copy it.</p>
+
+  <div class="copy-wrap">
+    <div class="copy-text" id="privacy-notice-text">Tyne &amp; Wear Garage and Recovery keeps your name, phone number, and vehicle details to provide our services and send you MOT reminders. We store this data securely on our devices and don't share it with anyone. You can ask us to delete your details at any time.</div>
+    <button class="copy-btn" onclick="copyText(this, 'privacy-notice-text')">COPY</button>
+  </div>
+
+  <div class="pro-tip">
+    <p>Don't overthink this. Lock your phone, back up your data, and if anyone asks about their data, be upfront and honest. That's 90% of what data protection means for a small garage.</p>
+  </div>
+
+</div>
+
+</div><!-- .page -->
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div class="guide-footer">
+  <p><strong>T&W Garage Manager Training Guide</strong></p>
+  <p>DMT Consulting &bull; March 2026</p>
+  <p class="ai-note">Produced with the assistance of AI tools. All content reviewed and approved for accuracy.</p>
+</div>
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// Collapsible sections
+function toggleCollapsible(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+
+// Checklist items
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+}
+
+// Copy to clipboard
+function copyText(btn, sourceId) {
+  const el = document.getElementById(sourceId);
+  // Get plain text (decode HTML entities)
+  const temp = document.createElement('div');
+  temp.innerHTML = el.innerHTML;
+  const text = temp.textContent || temp.innerText;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'COPIED!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'COPY';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    // Fallback for older browsers
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'COPIED!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'COPY';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Scroll active tab into view on mobile
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  });
+});
+</script>
+
+</body>
+</html>

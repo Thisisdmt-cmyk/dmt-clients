@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Business Profile Optimisation — Tyne & Wear Garage and Recovery | DMT Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dark:#0A0F1A;--card:#111827;--border:#1E293B;--blue:#3B82F6;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--text:#F1F5F9;--dim:#94A3B8;--white:#FFFFFF}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em}
+
+/* Layout */
+.page{max-width:880px;margin:0 auto;padding:0 24px 80px}
+
+/* Hero */
+.hero{padding:60px 0 32px;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(239,68,68,0.1) 0%,transparent 70%);pointer-events:none}
+.brand{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.12em;color:var(--blue);margin-bottom:12px}
+.doc-number{font-size:13px;color:var(--dim);margin-bottom:32px}
+.hero h1{font-size:clamp(40px,6vw,60px);line-height:1;margin-bottom:8px}
+.hero h1 span{color:var(--blue)}
+.hero .subtitle{font-size:18px;color:var(--dim);margin-bottom:0}
+
+/* Tab Bar */
+.tab-bar{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:2px solid var(--border);display:flex;gap:0;margin:0 -24px;padding:0 24px}
+.tab-btn{flex:1;padding:16px 12px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--dim);background:none;border:none;cursor:pointer;position:relative;transition:color 0.25s,background 0.25s;text-align:center;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tab-btn:hover{color:var(--text);background:rgba(255,255,255,0.03)}
+.tab-btn.active{color:var(--white);border-bottom-color:var(--blue)}
+.tab-btn .tab-dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:6px;vertical-align:middle;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* Tab content */
+.tab-content{display:none;padding-top:32px;animation:fadeTab 0.3s ease}
+.tab-content.active{display:block}
+@keyframes fadeTab{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Urgent banner */
+.urgent-banner{background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(239,68,68,0.05));border:1px solid var(--red);border-radius:12px;padding:20px 28px;margin-bottom:32px;display:flex;align-items:center;gap:16px;animation:pulse-border 2s ease-in-out infinite}
+@keyframes pulse-border{0%,100%{border-color:var(--red)}50%{border-color:rgba(239,68,68,0.4)}}
+.urgent-icon{font-size:32px;flex-shrink:0}
+.urgent-text{font-size:14px;font-weight:600;color:var(--red)}
+.urgent-text span{color:var(--white);font-weight:400}
+
+/* Score */
+.score-section{margin:24px 0 32px}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;text-align:center}
+.score-row{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.score-circle{width:100px;height:100px;border-radius:50%;border:4px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.score-num{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--red);line-height:1}
+.score-of{font-size:12px;color:var(--dim)}
+.score-label{font-size:14px;color:var(--dim)}
+.score-label strong{color:var(--white);display:block;font-size:16px;margin-bottom:2px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.stat-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px 12px;text-align:center}
+.stat-value{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin-bottom:4px}
+.stat-value.red{color:var(--red)}
+.stat-value.amber{color:var(--amber)}
+.stat-value.blue{color:var(--blue)}
+.stat-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px}
+
+/* Finding cards */
+.finding-grid{display:flex;flex-direction:column;gap:16px;margin-top:24px}
+.finding-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;display:flex;gap:16px;align-items:flex-start}
+.finding-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.finding-icon.critical{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3)}
+.finding-icon.warning{background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3)}
+.finding-icon.info{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3)}
+.finding-icon.good{background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3)}
+.finding-body h3{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px}
+.finding-body p{font-size:13px;color:var(--dim);line-height:1.6}
+.finding-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px;margin-top:8px}
+.finding-tag.critical{background:rgba(239,68,68,0.15);color:var(--red)}
+.finding-tag.warning{background:rgba(245,158,11,0.15);color:var(--amber)}
+
+/* Competitor table */
+.comp-table{width:100%;border-collapse:collapse;margin:24px 0 0}
+.comp-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);padding:10px 12px;border-bottom:1px solid var(--border)}
+.comp-table td{padding:12px;border-bottom:1px solid var(--border);font-size:14px}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-you{background:rgba(239,68,68,0.06)}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.badge.claimed{background:rgba(16,185,129,0.15);color:var(--green)}
+.badge.unclaimed{background:rgba(239,68,68,0.15);color:var(--red)}
+
+/* Section headers */
+.section{margin-top:40px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.section-number{width:44px;height:44px;border-radius:10px;background:var(--blue);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.section-number.red{background:var(--red)}
+.section-number.green{background:var(--green)}
+.section-number.amber{background:var(--amber)}
+.section h2{font-size:clamp(26px,4vw,34px);line-height:1.1}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px}
+.card p,.card li{font-size:14px;color:var(--dim);line-height:1.7}
+.card p+p{margin-top:12px}
+.card strong{color:var(--text)}
+
+/* Collapsible steps */
+.step-block{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.step-header{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;user-select:none;transition:background 0.2s}
+.step-header:hover{background:rgba(255,255,255,0.02)}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--blue);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;flex-shrink:0}
+.step-num.urgent{background:var(--red)}
+.step-meta{flex:1}
+.step-meta h3{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:2px}
+.step-meta .step-time{font-size:12px;color:var(--dim)}
+.step-chevron{font-size:18px;color:var(--dim);transition:transform 0.3s;flex-shrink:0}
+.step-block.open .step-chevron{transform:rotate(180deg)}
+.step-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.step-block.open .step-body{max-height:2000px}
+.step-inner{padding:0 24px 24px;border-top:1px solid var(--border);padding-top:20px}
+.step-inner p{font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px}
+.step-inner p:last-child{margin-bottom:0}
+.step-inner strong{color:var(--text)}
+.url-box{display:inline-block;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:var(--blue);font-size:13px;padding:6px 14px;border-radius:6px;margin:8px 0;font-family:monospace;word-break:break-all}
+
+/* Asset sections */
+.asset-section{margin-top:36px}
+.asset-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:4px}
+.asset-section .asset-desc{font-size:13px;color:var(--dim);margin-bottom:16px}
+
+/* Copy block */
+.copy-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px;position:relative}
+.copy-block .copy-label{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--blue);margin-bottom:10px;letter-spacing:0.04em}
+.copy-block .copy-text{font-size:14px;color:var(--dim);line-height:1.8;white-space:pre-wrap}
+.copy-btn{position:absolute;top:16px;right:16px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:var(--blue);font-size:12px;font-weight:700;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;letter-spacing:0.5px;text-transform:uppercase}
+.copy-btn:hover{background:var(--blue);color:var(--white)}
+.copy-btn.copied{background:var(--green);border-color:var(--green);color:var(--white)}
+
+/* Service chips grid */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:12px}
+.service-chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.service-chip .svc-name{font-size:14px;font-weight:600;color:var(--text)}
+.service-chip .copy-chip{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);color:var(--blue);font-size:10px;font-weight:700;padding:4px 10px;border-radius:5px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:0.5px;flex-shrink:0;font-family:'Inter',sans-serif}
+.service-chip .copy-chip:hover{background:var(--blue);color:var(--white)}
+.service-chip .copy-chip.copied{background:var(--green);border-color:var(--green);color:var(--white)}
+
+/* Photo checklist */
+.photo-checklist{list-style:none;padding:0;margin-top:12px}
+.photo-checklist li{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--dim)}
+.photo-checklist li:last-child{border-bottom:none}
+.photo-check{width:24px;height:24px;border:2px solid var(--border);border-radius:6px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:1px}
+.photo-check:hover{border-color:var(--blue)}
+.photo-checklist li.checked .photo-check{background:var(--green);border-color:var(--green)}
+.photo-checklist li.checked .photo-check::after{content:'';width:6px;height:10px;border:2px solid var(--white);border-top:none;border-left:none;transform:rotate(45deg);margin-top:-2px}
+.photo-checklist li.checked{opacity:0.5}
+.photo-info .photo-name{font-weight:600;color:var(--text);margin-bottom:2px}
+.photo-info .photo-tip{font-size:12px;color:var(--dim)}
+
+/* Alert card */
+.alert-card{background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(239,68,68,0.03));border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:24px;margin-bottom:16px}
+.alert-card .alert-title{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);margin-bottom:6px}
+.alert-card p{font-size:14px;color:var(--dim);line-height:1.7}
+
+/* So What box */
+.so-what{background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(59,130,246,0.02));border:1px solid rgba(59,130,246,0.3);border-radius:12px;padding:28px;margin-bottom:24px}
+.so-what .label{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--blue);margin-bottom:10px}
+.so-what p{font-size:15px;color:var(--text);line-height:1.8}
+
+/* Footer */
+footer{text-align:center;padding:48px 0 32px;font-size:12px;color:var(--dim);border-top:1px solid var(--border);margin-top:60px}
+footer p{margin-bottom:4px}
+
+/* Print */
+@media print{
+  body{background:white;color:#1a1a1a}
+  .tab-bar{position:static;border:none}
+  .tab-content{display:block!important;page-break-before:always}
+  .copy-btn,.copy-chip{display:none}
+  .step-body{max-height:none!important}
+  .card,.copy-block,.step-block,.finding-card,.alert-card,.so-what{border:1px solid #ddd;background:#f9f9f9}
+}
+
+@media(max-width:640px){
+  .page{padding:0 16px 60px}
+  .hero{padding:40px 0 20px}
+  .tab-btn{font-size:15px;padding:12px 8px}
+  .stat-row{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .score-row{flex-direction:column}
+  .urgent-banner{flex-direction:column;text-align:center;gap:8px}
+  .finding-card{flex-direction:column;gap:10px}
+  .step-header{padding:16px}
+  .step-inner{padding:0 16px 20px;padding-top:16px}
+  .comp-table{font-size:12px}
+  .comp-table td,.comp-table th{padding:8px 6px}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="brand">DMT CONSULTING</div>
+    <div class="doc-number">Deliverable 03 &mdash; Google Business Profile Optimisation</div>
+    <h1>GOOGLE BUSINESS <span>PROFILE</span></h1>
+    <div class="subtitle">Tyne &amp; Wear Garage and Recovery</div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="found">What We Found<span class="tab-dot"></span></button>
+    <button class="tab-btn" data-tab="plan">Your Action Plan</button>
+    <button class="tab-btn" data-tab="assets">Ready-Made Assets</button>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB 1: WHAT WE FOUND                                        -->
+  <!-- ============================================================ -->
+  <div class="tab-content active" id="tab-found">
+
+    <div class="urgent-banner">
+      <div class="urgent-icon">&#9888;</div>
+      <div class="urgent-text">YOUR GOOGLE LISTING IS UNCLAIMED &mdash; THIS IS A CRITICAL RISK<br><span>Anyone could claim your business listing and take control. Act today.</span></div>
+    </div>
+
+    <!-- Score -->
+    <div class="score-section">
+      <div class="score-card">
+        <div class="score-row">
+          <div class="score-circle">
+            <div class="score-num">3</div>
+            <div class="score-of">/10</div>
+          </div>
+          <div class="score-label">
+            <strong>Google Business Profile Score</strong>
+            Profile exists with reviews, but unclaimed = critical risk
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-value red">UNCLAIMED</div>
+            <div class="stat-label">Profile Status</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value amber">17</div>
+            <div class="stat-label">Reviews at Risk</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value blue">0</div>
+            <div class="stat-label">Owner Photos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Findings -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number red">!</div>
+        <h2>KEY FINDINGS</h2>
+      </div>
+
+      <div class="finding-grid">
+
+        <div class="finding-card">
+          <div class="finding-icon critical">&#128274;</div>
+          <div class="finding-body">
+            <h3>Profile Exists but is UNCLAIMED</h3>
+            <p>Your Google Business Profile is live and visible to searchers, but no one has claimed ownership. This means you cannot update hours, respond to reviews, add photos, or control any information displayed. Worse, anyone could attempt to claim it and take control of your listing.</p>
+            <span class="finding-tag critical">Critical Risk</span>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon good">&#11088;</div>
+          <div class="finding-body">
+            <h3>17 Reviews at 4.8 Stars &mdash; Excellent Foundation</h3>
+            <p>Your rating is strong and builds real trust. However, all reviews are 4&ndash;7 years old with no recent activity. Google favours businesses with a steady stream of fresh reviews. Without new reviews, your ranking will continue to drop against competitors who are actively collecting them.</p>
+            <span class="finding-tag warning">Needs Attention</span>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon warning">&#128247;</div>
+          <div class="finding-body">
+            <h3>No Owner Photos Uploaded</h3>
+            <p>Listings with owner-uploaded photos get 42% more requests for directions and 35% more click-throughs to websites. Your profile currently relies entirely on Google Street View and user-submitted images, which you cannot control.</p>
+            <span class="finding-tag warning">Missed Opportunity</span>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon warning">&#128295;</div>
+          <div class="finding-body">
+            <h3>No Services Listed by Owner</h3>
+            <p>Google allows you to list every service you offer (MOT, repairs, tyres, recovery, and more). Without these, you are invisible for specific service searches like "tyre fitting South Shields" or "clutch replacement near me".</p>
+            <span class="finding-tag warning">Missed Opportunity</span>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon info">&#128196;</div>
+          <div class="finding-body">
+            <h3>No Business Description Set</h3>
+            <p>The description field is your chance to tell Google (and customers) exactly what you do, where you are, and why they should choose you. It directly influences which searches your profile appears for. Currently blank.</p>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon critical">&#9878;</div>
+          <div class="finding-body">
+            <h3>Competitors Are Ahead</h3>
+            <p>North East Vehicle Repairs has 5.0 stars with 40 reviews and a likely fully-optimised profile. They are dominating the local search results you should be appearing in. The gap is growing every week you remain unclaimed.</p>
+            <span class="finding-tag critical">Competitive Threat</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Competitor Table -->
+      <div class="card" style="margin-top:24px">
+        <table class="comp-table">
+          <thead>
+            <tr><th>Business</th><th>Rating</th><th>Reviews</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr class="comp-you">
+              <td><strong>Tyne &amp; Wear Garage</strong></td>
+              <td>4.8</td>
+              <td>17</td>
+              <td><span class="badge unclaimed">Unclaimed</span></td>
+            </tr>
+            <tr>
+              <td>North East Vehicle Repairs</td>
+              <td>5.0</td>
+              <td>40</td>
+              <td><span class="badge claimed">Claimed</span></td>
+            </tr>
+            <tr>
+              <td>Tyne View Garage</td>
+              <td>4.6</td>
+              <td>38</td>
+              <td><span class="badge claimed">Claimed</span></td>
+            </tr>
+            <tr>
+              <td>D&amp;T Autospray Recovery</td>
+              <td>5.0</td>
+              <td>13</td>
+              <td><span class="badge claimed">Claimed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB 2: YOUR ACTION PLAN                                      -->
+  <!-- ============================================================ -->
+  <div class="tab-content" id="tab-plan">
+
+    <div class="so-what">
+      <div class="label">THE PLAN</div>
+      <p>Five steps, roughly 90 minutes of total work, and your Google presence goes from a 3/10 to a potential 9/10. <strong>Step 1 is urgent &mdash; do it today.</strong> The rest can follow over the next week.</p>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step-block open">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num urgent">1</div>
+        <div class="step-meta">
+          <h3>CLAIM YOUR PROFILE</h3>
+          <div class="step-time">&#9200; 15 minutes &bull; URGENT &mdash; do this today</div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p><strong>This is the single most important action in this entire document.</strong> Everything else depends on it. Until you claim the profile, you have zero control over how your business appears to thousands of people searching Google each month.</p>
+
+          <p><strong>1. Go to Google Business Profile Manager:</strong></p>
+          <div class="url-box">https://business.google.com</div>
+          <p>Sign in with a Google account. If you don't have one, create one using your business email or phone number. <strong>Use an account you will always have access to</strong> &mdash; not a personal account you might lose.</p>
+
+          <p><strong>2. Search for your business:</strong><br>Type <strong>"Tyne &amp; Wear Garage and Recovery"</strong> in the search box. Your existing listing should appear with the address at 6 Laygate. Select it.</p>
+
+          <p><strong>3. Click "Claim this business":</strong><br>You will see a prompt indicating this business has not been claimed. Click the claim button and confirm you are authorised to manage this business.</p>
+
+          <p><strong>4. Verify ownership via phone:</strong><br>The fastest method is phone verification. Google will call or text <strong>07487 738527</strong> with a verification code. Enter the code and you are verified instantly.</p>
+          <p>If phone is not offered, you can verify by postcard (5&ndash;14 days) or video verification. <strong>Phone is strongly recommended.</strong></p>
+
+          <p><strong>5. Done.</strong><br>Once verified, you now control your listing. All 17 existing reviews stay attached to your profile. You can now update every detail, respond to reviews, add photos, and post updates.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">2</div>
+        <div class="step-meta">
+          <h3>COMPLETE ALL PROFILE FIELDS</h3>
+          <div class="step-time">&#9200; 30 minutes &bull; Do within 48 hours of claiming</div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>Once claimed, go to the <strong>Edit Profile</strong> section in your Google Business dashboard and fill in every field:</p>
+
+          <p><strong>Business Name:</strong> Tyne &amp; Wear Garage and Recovery<br>
+          <em>Must match your signage exactly. Do not add keywords like "MOT South Shields" &mdash; Google penalises keyword stuffing.</em></p>
+
+          <p><strong>Primary Category:</strong> Vehicle repair shop<br>
+          <strong>Secondary Categories:</strong> Auto repair shop, Towing service, MOT testing station</p>
+
+          <p><strong>Address:</strong> 6 Laygate, South Shields NE33 1SH<br>
+          <strong>Phone:</strong> 07487 738527<br>
+          <strong>Website:</strong> Leave blank for now (do not link to a Facebook page)</p>
+
+          <p><strong>Hours:</strong><br>
+          Monday&ndash;Friday: 9:00 AM &ndash; 5:00 PM<br>
+          Saturday: 9:00 AM &ndash; 1:00 PM<br>
+          Sunday: Closed</p>
+
+          <p><strong>Business Description:</strong> Copy the ready-made description from the <strong>Ready-Made Assets</strong> tab &mdash; it is SEO-optimised and ready to paste.</p>
+
+          <p><strong>Services:</strong> Add every service from the list in the <strong>Ready-Made Assets</strong> tab. Each one helps you appear in more search results.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">3</div>
+        <div class="step-meta">
+          <h3>UPLOAD PHOTOS</h3>
+          <div class="step-time">&#9200; 20 minutes &bull; Do within the first week</div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>Listings with photos receive significantly more engagement. In your Google Business dashboard, go to <strong>Photos</strong> and upload the following (use the checklist in the <strong>Ready-Made Assets</strong> tab):</p>
+
+          <p><strong>Minimum to upload:</strong></p>
+          <p>&bull; Shopfront/exterior (well-lit, daytime)<br>
+          &bull; Workshop interior showing your equipment<br>
+          &bull; Team photo (builds trust and shows you are real people)<br>
+          &bull; Your recovery vehicle (key selling point)<br>
+          &bull; Examples of completed work<br>
+          &bull; MOT bay</p>
+
+          <p><strong>Photo tips:</strong> Use landscape orientation, good lighting, and make sure images are clear and professional. Phone photos are fine &mdash; just ensure they are not blurry or dark. Aim for at least 5&ndash;10 photos to start, then add more monthly.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">4</div>
+        <div class="step-meta">
+          <h3>START A REVIEW CAMPAIGN</h3>
+          <div class="step-time">&#9200; Ongoing &bull; Start this week</div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p><strong>Your goal: 2&ndash;3 new reviews per week.</strong> At this rate, you will surpass North East Vehicle Repairs within 3 months.</p>
+
+          <p><strong>How to get your review link:</strong></p>
+          <p>1. Go to your Google Business dashboard<br>
+          2. Click <strong>"Ask for reviews"</strong> (or find it under Home > Get more reviews)<br>
+          3. Copy the short link provided &mdash; this is your unique review URL</p>
+
+          <p><strong>When to ask:</strong> Send the review request within 1&ndash;2 hours of the customer collecting their vehicle. The experience is still fresh. Do not wait until the next day.</p>
+
+          <p><strong>How to ask:</strong> Use the ready-made WhatsApp and text message templates in the <strong>Ready-Made Assets</strong> tab. Simply paste the message and swap in the customer's name and your review link.</p>
+
+          <p><strong>Respond to every review</strong> &mdash; positive and negative. Templates for responses are also in the Ready-Made Assets tab. Responding signals to Google that you are an active, engaged business.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">5</div>
+        <div class="step-meta">
+          <h3>POST WEEKLY GOOGLE POSTS</h3>
+          <div class="step-time">&#9200; 5 minutes each &bull; Once per week</div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>Google Posts appear directly on your listing and signal to Google that your business is active. They expire after 7 days, so posting weekly keeps your profile fresh.</p>
+
+          <p><strong>How to post:</strong></p>
+          <p>1. Go to your Google Business dashboard<br>
+          2. Click <strong>"Add update"</strong> (or Posts section)<br>
+          3. Write a short post (150&ndash;300 words) with a photo<br>
+          4. Add a call-to-action button (e.g., "Call now", "Book online")</p>
+
+          <p><strong>What to post:</strong> Rotate between offers, seasonal tips, service spotlights, and community thank-you posts. Pre-written templates for all of these are in the <strong>Ready-Made Assets</strong> tab.</p>
+
+          <p><strong>Pro tip:</strong> Take a photo of each completed job (with the customer's permission) and use that as the post image. Real photos always outperform stock images.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB 3: READY-MADE ASSETS                                     -->
+  <!-- ============================================================ -->
+  <div class="tab-content" id="tab-assets">
+
+    <div class="so-what">
+      <div class="label">EVERYTHING IS READY TO USE</div>
+      <p>Every asset below has been written specifically for Tyne &amp; Wear Garage and Recovery. <strong>Copy, paste, done.</strong> No editing needed unless you want to personalise further.</p>
+    </div>
+
+    <!-- A) Business Description -->
+    <div class="asset-section">
+      <h2>A) BUSINESS DESCRIPTION</h2>
+      <p class="asset-desc">Paste this directly into your Google Business Profile description field.</p>
+
+      <div class="copy-block">
+        <div class="copy-label">READY TO PASTE</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text" id="desc-text">Tyne &amp; Wear Garage and Recovery is a trusted, independent garage based at 6 Laygate in South Shields. We provide a full range of vehicle services including MOT testing, mechanical repairs, tyre fitting and balancing, engine diagnostics, brake and clutch work, exhaust repairs, and air conditioning servicing. We also offer 24/7 vehicle recovery across the North East.
+
+With years of hands-on experience and a commitment to honest, high-quality workmanship, we treat every vehicle as if it were our own. Our loyal customers return to us time and again because we deliver reliable results at fair prices, with no hidden costs. Whether you need a routine MOT, an emergency repair, or a recovery, Tyne &amp; Wear Garage and Recovery is here to help.
+
+Call us on 07487 738527 or visit us at 6 Laygate, South Shields NE33 1SH. Open Monday to Friday 9am&ndash;5pm, Saturday 9am&ndash;1pm.</div>
+      </div>
+    </div>
+
+    <!-- B) Services List -->
+    <div class="asset-section">
+      <h2>B) SERVICES LIST</h2>
+      <p class="asset-desc">Add each of these as a service in your Google Business Profile. Click to copy each one.</p>
+
+      <div class="services-grid" id="services-grid">
+        <div class="service-chip"><span class="svc-name">MOT Testing</span><button class="copy-chip" onclick="copyChip(this,'MOT Testing')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Vehicle Repairs</span><button class="copy-chip" onclick="copyChip(this,'Vehicle Repairs')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Tyre Fitting &amp; Balancing</span><button class="copy-chip" onclick="copyChip(this,'Tyre Fitting & Balancing')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Engine Diagnostics</span><button class="copy-chip" onclick="copyChip(this,'Engine Diagnostics')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Brake Repairs</span><button class="copy-chip" onclick="copyChip(this,'Brake Repairs')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Clutch Replacement</span><button class="copy-chip" onclick="copyChip(this,'Clutch Replacement')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Exhaust Repairs</span><button class="copy-chip" onclick="copyChip(this,'Exhaust Repairs')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Vehicle Recovery</span><button class="copy-chip" onclick="copyChip(this,'Vehicle Recovery')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Battery Replacement</span><button class="copy-chip" onclick="copyChip(this,'Battery Replacement')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Air Conditioning Service</span><button class="copy-chip" onclick="copyChip(this,'Air Conditioning Service')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Suspension Repairs</span><button class="copy-chip" onclick="copyChip(this,'Suspension Repairs')">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Wheel Alignment</span><button class="copy-chip" onclick="copyChip(this,'Wheel Alignment')">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- C) Review Request Templates -->
+    <div class="asset-section">
+      <h2>C) REVIEW REQUEST TEMPLATES</h2>
+      <p class="asset-desc">Send these to customers after their visit. Replace [NAME] with the customer's first name and [LINK] with your Google review link.</p>
+
+      <div class="copy-block">
+        <div class="copy-label">WHATSAPP &mdash; AFTER REPAIR</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Hi [NAME], thanks for choosing Tyne & Wear Garage for your repair. We hope everything's running smoothly! If you've got 30 seconds, a quick Google review would really help us out: [LINK] Thanks again!</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">WHATSAPP &mdash; AFTER MOT</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Hi [NAME], glad we could get your MOT sorted today. If you were happy with the service, we'd really appreciate a quick Google review: [LINK] It only takes a minute and makes a big difference for a small garage like ours. Cheers!</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">TEXT MESSAGE VERSION</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Hi [NAME], thanks for visiting Tyne & Wear Garage. If you have a moment, a Google review helps us a lot: [LINK] Thanks!</div>
+      </div>
+
+      <div class="card" style="background:rgba(59,130,246,0.05);border-color:rgba(59,130,246,0.2)">
+        <p><strong>How to get your Google review link:</strong></p>
+        <p>1. Go to your Google Business dashboard at <span style="color:var(--blue);font-family:monospace">business.google.com</span><br>
+        2. Click <strong>"Ask for reviews"</strong> (or Home &gt; Get more reviews)<br>
+        3. Copy the short link &mdash; this is your unique review URL<br>
+        4. Replace <strong>[LINK]</strong> in the templates above with this URL</p>
+      </div>
+    </div>
+
+    <!-- D) Review Response Templates -->
+    <div class="asset-section">
+      <h2>D) REVIEW RESPONSE TEMPLATES</h2>
+      <p class="asset-desc">Respond to every review. Replace [NAME] with the reviewer's name.</p>
+
+      <div class="copy-block">
+        <div class="copy-label">POSITIVE REVIEW RESPONSE &mdash; VARIANT 1</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Thanks so much [NAME], really appreciate you taking the time to leave a review. Glad we could help and look forward to seeing you next time!</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">POSITIVE REVIEW RESPONSE &mdash; VARIANT 2</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Cheers [NAME]! Great to hear you were happy with the work. We always aim to get things done right first time. See you again soon.</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">POSITIVE REVIEW RESPONSE &mdash; VARIANT 3</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Thank you [NAME], that means a lot. We take real pride in what we do and it's brilliant to hear it shows. Don't hesitate to give us a call if you ever need anything.</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">NEGATIVE REVIEW RESPONSE</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Hi [NAME], sorry to hear about your experience. That's not the standard we hold ourselves to. We'd really like the chance to put this right &mdash; could you give us a call on 07487 738527 so we can discuss this directly? We take all feedback seriously.</div>
+      </div>
+    </div>
+
+    <!-- E) Google Post Templates -->
+    <div class="asset-section">
+      <h2>E) GOOGLE POST TEMPLATES</h2>
+      <p class="asset-desc">Post one of these each week from your Google Business dashboard. Add a photo to each post for maximum impact.</p>
+
+      <div class="copy-block">
+        <div class="copy-label">MOT SPECIAL &mdash; OFFER POST</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">MOT due soon? Book in with Tyne & Wear Garage and Recovery in South Shields. We offer a straightforward, honest MOT service with no hidden extras. If your vehicle needs any work to pass, we'll talk you through everything before we start. Call 07487 738527 or pop in to 6 Laygate to book your slot. Open Mon-Fri 9-5, Sat 9-1.</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">WINTER CHECK &mdash; SEASONAL POST</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Cold weather puts extra strain on your vehicle. Before the temperature drops further, let us check your battery, tyres, coolant, and brakes to make sure you're winter-ready. A quick check now can save you from a breakdown later. Tyne & Wear Garage and Recovery, 6 Laygate, South Shields. Call 07487 738527 to book.</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">NEW SERVICE &mdash; UPDATE POST</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">Did you know we offer full air conditioning servicing and regas? If your AC isn't blowing cold or has a funny smell, bring it in and we'll sort it. As always, we'll give you an honest assessment and a fair price. Tyne & Wear Garage and Recovery, 6 Laygate, South Shields. 07487 738527.</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">THANK YOU &mdash; COMMUNITY POST</div>
+        <button class="copy-btn" onclick="copyBlock(this)">Copy</button>
+        <div class="copy-text">A big thank you to all our customers in South Shields and across Tyne & Wear. We're a small, independent garage and every person who trusts us with their vehicle means the world. We've been here for our community through breakdowns, MOTs, and everything in between &mdash; and we're not going anywhere. Thanks for your support!</div>
+      </div>
+    </div>
+
+    <!-- F) Photo Checklist -->
+    <div class="asset-section">
+      <h2>F) PHOTO CHECKLIST</h2>
+      <p class="asset-desc">Tick off each photo as you take and upload it to your Google Business Profile.</p>
+
+      <div class="card">
+        <ul class="photo-checklist" id="photo-checklist">
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Shopfront / Exterior</div>
+              <div class="photo-tip">Well-lit, daytime, straight-on angle showing your signage clearly</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Workshop Interior</div>
+              <div class="photo-tip">Show your equipment, lifts, and workspace &mdash; clean and organised</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Team Photo</div>
+              <div class="photo-tip">You and your team in workwear &mdash; builds trust and shows real people</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Recovery Vehicle</div>
+              <div class="photo-tip">Your recovery truck, ideally with branding visible &mdash; key selling point</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Completed Work Examples</div>
+              <div class="photo-tip">Before/after shots of repairs, new tyres fitted, or engine work</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">MOT Bay</div>
+              <div class="photo-tip">Your MOT testing area showing the inspection equipment</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Prepared by <strong>DMT Consulting</strong> | Pilot Programme | March 2026</p>
+    <p>Tyne &amp; Wear Garage and Recovery &mdash; 6 Laygate, South Shields NE33 1SH</p>
+    <p style="font-size: 0.75rem; color: #475569; line-height: 1.5; margin-top: 1.5rem;">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+  </footer>
+
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Collapsible steps
+function toggleStep(header) {
+  const block = header.parentElement;
+  block.classList.toggle('open');
+}
+
+// Copy block text
+function copyBlock(btn) {
+  const text = btn.parentElement.querySelector('.copy-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Copy service chip
+function copyChip(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Photo checklist toggle
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+}
+</script>
+
+</body>
+</html>

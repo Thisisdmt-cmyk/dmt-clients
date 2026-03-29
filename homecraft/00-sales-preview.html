@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homecraft Roofing & Property Maintenance — Digital Preview | DMT Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ══════════════════════════════════════════════════════
+           RESET & FOUNDATION
+           ══════════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #0A0F1A;
+            --card:      #111827;
+            --border:    #1E293B;
+            --text:      #E2E8F0;
+            --muted:     #94A3B8;
+            --dim:       #475569;
+            --blue:      #3B82F6;
+            --green:     #10B981;
+            --amber:     #F59E0B;
+            --red:       #EF4444;
+            --blue-bg:   rgba(59,130,246,.08);
+            --green-bg:  rgba(16,185,129,.08);
+            --amber-bg:  rgba(245,158,11,.08);
+            --red-bg:    rgba(239,68,68,.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           PROGRESS NAV
+           ══════════════════════════════════════════════════════ */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex;
+            background: rgba(6,9,17,.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .progress-step {
+            flex: 1;
+            padding: 14px 8px;
+            text-align: center;
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--dim);
+            cursor: pointer;
+            transition: all .4s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .progress-step::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--border);
+            transition: background .4s ease;
+        }
+
+        .progress-step.active { color: var(--blue); }
+        .progress-step.active::after { background: var(--blue); }
+        .progress-step.completed { color: var(--green); }
+        .progress-step.completed::after { background: var(--green); }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 2px solid var(--dim);
+            font-size: .65rem;
+            margin-right: 6px;
+            transition: all .4s ease;
+            vertical-align: middle;
+        }
+
+        .progress-step.active .step-num { border-color: var(--blue); color: var(--blue); }
+        .progress-step.completed .step-num { border-color: var(--green); background: var(--green); color: var(--bg); }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE PANELS
+           ══════════════════════════════════════════════════════ */
+        .stage {
+            display: none;
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stage.active { display: block; }
+
+        /* ══════════════════════════════════════════════════════
+           KEYFRAMES
+           ══════════════════════════════════════════════════════ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: .35; }
+        }
+        @keyframes fillBar {
+            from { width: 0; }
+        }
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(16,185,129,.12), 0 0 60px rgba(16,185,129,.06); }
+            50%      { box-shadow: 0 0 30px rgba(16,185,129,.25), 0 0 80px rgba(16,185,129,.1); }
+        }
+        @keyframes subtleDrift {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-3px); }
+        }
+
+        .anim {
+            opacity: 0;
+            animation: fadeUp .7s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        .d1 { animation-delay: .1s; }
+        .d2 { animation-delay: .2s; }
+        .d3 { animation-delay: .3s; }
+        .d4 { animation-delay: .4s; }
+        .d5 { animation-delay: .5s; }
+        .d6 { animation-delay: .6s; }
+        .d7 { animation-delay: .7s; }
+        .d8 { animation-delay: .85s; }
+        .d9 { animation-delay: 1s; }
+        .d10 { animation-delay: 1.15s; }
+
+        /* ══════════════════════════════════════════════════════
+           CARDS
+           ══════════════════════════════════════════════════════ */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-green  { border-top: 3px solid var(--green); }
+        .card-amber  { border-top: 3px solid var(--amber); }
+        .card-red    { border-top: 3px solid var(--red); }
+        .card-blue   { border-top: 3px solid var(--blue); }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 1 — STAT DASHBOARD
+           ══════════════════════════════════════════════════════ */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .stat-card { text-align: center; padding: 28px 20px; }
+
+        .stat-label {
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-detail { font-size: .8rem; color: var(--dim); }
+
+        .stat-value.green  { color: var(--green); }
+        .stat-value.amber  { color: var(--amber); }
+        .stat-value.red    { color: var(--red); }
+
+        .pulse-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+            animation: pulse 1.4s ease-in-out infinite;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        /* Health Score */
+        .health-score { text-align: center; padding: 36px 24px; margin: 24px 0; }
+
+        .health-bar-track {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 16px 0 8px;
+        }
+
+        .health-bar-fill {
+            height: 100%;
+            width: 20%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--red), var(--amber));
+            animation: fillBar 1.6s cubic-bezier(.16,1,.3,1) forwards;
+            animation-delay: .9s;
+        }
+
+        .health-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--red);
+            line-height: 1;
+        }
+
+        .health-number span { font-size: .35em; color: var(--dim); }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 2 — FINDINGS
+           ══════════════════════════════════════════════════════ */
+        .finding { padding: 32px 28px; margin-bottom: 24px; }
+
+        .finding-badge {
+            display: inline-block;
+            font-size: .63rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .badge-critical { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239,68,68,.2); }
+        .badge-warning  { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245,158,11,.2); }
+        .badge-positive { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,.2); }
+
+        .finding h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .finding ul { list-style: none; }
+
+        .finding ul li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .finding ul li::before {
+            content: '\2192';
+            position: absolute;
+            left: 0;
+            color: var(--dim);
+        }
+
+        .fix-strip {
+            display: flex;
+            gap: 28px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .fix-item {
+            font-size: .73rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--dim);
+        }
+
+        .fix-item strong { color: var(--green); font-weight: 700; }
+
+        .name-error {
+            color: var(--amber);
+            text-decoration: underline wavy var(--amber);
+            text-underline-offset: 3px;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 3 — DELIVERABLES
+           ══════════════════════════════════════════════════════ */
+        .deliverables-grid {
+            display: grid;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .deliverable {
+            padding: 28px;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .deliverable:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,.3);
+        }
+
+        .del-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .del-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .del-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--blue);
+            white-space: nowrap;
+        }
+
+        .del-desc {
+            font-size: .85rem;
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .del-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .tag {
+            font-size: .63rem;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: var(--blue-bg);
+            color: var(--blue);
+            border: 1px solid rgba(59,130,246,.15);
+        }
+
+        /* Showstopper */
+        .deliverable.showstopper {
+            border: 2px solid var(--blue);
+            background: linear-gradient(160deg, var(--card) 0%, rgba(59,130,246,.06) 100%);
+            padding: 36px 28px;
+        }
+
+        .showstopper-badge {
+            position: absolute;
+            top: -1px; right: 24px;
+            background: var(--blue);
+            color: var(--bg);
+            font-size: .58rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .showstopper .del-title { font-size: 1.45rem; }
+        .showstopper .del-price { font-size: 1.3rem; }
+
+        /* Total bar */
+        .total-bar {
+            text-align: center;
+            padding: 24px;
+            margin: 24px 0;
+            border: 1px solid var(--blue);
+            background: var(--blue-bg);
+        }
+
+        .total-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--blue);
+        }
+
+        .section-note {
+            text-align: center;
+            font-size: .85rem;
+            color: var(--muted);
+            margin: 16px 0;
+            font-style: italic;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 4 — THE OFFER
+           ══════════════════════════════════════════════════════ */
+        .price-stack { text-align: center; padding: 48px 24px; }
+
+        .price-line { margin: 14px 0; }
+
+        .price-line.struck {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            text-decoration: line-through;
+            opacity: .5;
+        }
+
+        .price-line.struck.grey { color: var(--dim); }
+        .price-line.struck.blue { color: var(--blue); }
+
+        .price-label {
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--dim);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .price-trade {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: var(--green);
+            line-height: 1;
+            display: inline-block;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .trust-point { text-align: center; padding: 24px 16px; }
+
+        .trust-icon {
+            width: 48px; height: 48px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .trust-icon.ti-blue   { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(59,130,246,.15); }
+        .trust-icon.ti-green  { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,.15); }
+        .trust-icon.ti-amber  { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245,158,11,.15); }
+
+        .trust-point h4 { font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
+        .trust-point p  { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+        /* CTA */
+        .cta-section { text-align: center; margin: 48px 0; }
+
+        .cta-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--green);
+            margin-bottom: 24px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .contact-link {
+            color: var(--blue);
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 500;
+            transition: color .3s ease;
+        }
+
+        .contact-link:hover { color: var(--text); }
+
+        /* ══════════════════════════════════════════════════════
+           BUTTONS
+           ══════════════════════════════════════════════════════ */
+        .next-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            background: var(--blue);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: .88rem;
+            font-weight: 600;
+            letter-spacing: .02em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all .3s ease;
+            margin-top: 36px;
+        }
+
+        .next-btn:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 28px rgba(59,130,246,.25);
+        }
+
+        .next-btn .arrow { transition: transform .3s ease; }
+        .next-btn:hover .arrow { transform: translateX(4px); }
+
+        .btn-wrap { text-align: center; }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE HERO (shared)
+           ══════════════════════════════════════════════════════ */
+        .stage-hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stage-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .stage-hero .sub {
+            font-size: .9rem;
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           FOOTER
+           ══════════════════════════════════════════════════════ */
+        .footer {
+            text-align: center;
+            padding: 48px 20px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            font-size: .73rem;
+            color: var(--dim);
+            margin-bottom: 14px;
+            letter-spacing: .02em;
+        }
+
+        .footer-ai {
+            font-size: .68rem;
+            color: var(--dim);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           PRINT
+           ══════════════════════════════════════════════════════ */
+        @media print {
+            .progress-bar { display: none !important; }
+            .next-btn { display: none !important; }
+            .stage {
+                display: block !important;
+                min-height: auto;
+                padding: 32px 0;
+                page-break-inside: avoid;
+                page-break-after: always;
+            }
+            body { background: #fff; color: #111; }
+            .card { border-color: #ddd; background: #f8f9fa; }
+            .stage-hero h1 { color: #111; }
+            .health-number { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .stat-value { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .price-trade { animation: none; box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        /* ══════════════════════════════════════════════════════
+           RESPONSIVE
+           ══════════════════════════════════════════════════════ */
+        @media (max-width: 600px) {
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+            .trust-grid { grid-template-columns: 1fr; }
+            .finding { padding: 24px 20px; }
+            .fix-strip { flex-direction: column; gap: 8px; }
+            .deliverable { padding: 20px; }
+            .deliverable.showstopper { padding: 28px 20px; }
+            .price-trade { font-size: 3.5rem; }
+            .progress-step { font-size: .58rem; padding: 10px 4px; }
+            .step-num { width: 18px; height: 18px; font-size: .55rem; margin-right: 3px; }
+        }
+
+        @media (max-width: 400px) {
+            .stat-grid { grid-template-columns: 1fr; }
+            .stage { padding: 70px 16px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROGRESS BAR
+     ═══════════════════════════════════════════════════════════════ -->
+<nav class="progress-bar" role="navigation" aria-label="Preview stages">
+    <div class="progress-step active" data-stage="1" onclick="goTo(1)">
+        <span class="step-num">1</span> Your Business
+    </div>
+    <div class="progress-step" data-stage="2" onclick="goTo(2)">
+        <span class="step-num">2</span> What We Found
+    </div>
+    <div class="progress-step" data-stage="3" onclick="goTo(3)">
+        <span class="step-num">3</span> What We Built
+    </div>
+    <div class="progress-step" data-stage="4" onclick="goTo(4)">
+        <span class="step-num">4</span> The Offer
+    </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 1 — YOUR BUSINESS
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage active" id="stage-1">
+
+    <div class="stage-hero anim">
+        <h1>We took a look at your business online.<br>Here's what we found.</h1>
+        <p class="sub">A preview prepared specifically for Homecraft Roofing &amp;&nbsp;Property&nbsp;Maintenance.</p>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="stat-grid">
+        <div class="card stat-card card-red anim d1">
+            <div class="stat-label">Facebook Type</div>
+            <div class="stat-value red"><span class="pulse-dot"></span>Personal Profile</div>
+            <div class="stat-detail">Not a business page</div>
+        </div>
+        <div class="card stat-card card-amber anim d2">
+            <div class="stat-label">Business Name</div>
+            <div class="stat-value amber">Misspelled</div>
+            <div class="stat-detail">"Maintainance" not "Maintenance"</div>
+        </div>
+        <div class="card stat-card card-red anim d3">
+            <div class="stat-label">About Section</div>
+            <div class="stat-value red">Empty</div>
+            <div class="stat-detail">No business description</div>
+        </div>
+        <div class="card stat-card card-green anim d4">
+            <div class="stat-label">Work Photos</div>
+            <div class="stat-value green">Strong</div>
+            <div class="stat-detail">9+ quality photos</div>
+        </div>
+        <div class="card stat-card card-red anim d5">
+            <div class="stat-label">Website</div>
+            <div class="stat-value red">None</div>
+            <div class="stat-detail">No web presence</div>
+        </div>
+    </div>
+
+    <!-- Health Score -->
+    <div class="card health-score anim d6">
+        <div class="stat-label">Overall Digital Health Score</div>
+        <div class="health-number">2 <span>/ 10</span></div>
+        <div class="health-bar-track">
+            <div class="health-bar-fill"></div>
+        </div>
+    </div>
+
+    <div class="btn-wrap anim d8">
+        <button class="next-btn" onclick="goTo(2)">See What We Found <span class="arrow">&rarr;</span></button>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 2 — WHAT WE FOUND
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage" id="stage-2">
+
+    <div class="stage-hero anim">
+        <h1>Three things you need to know.</h1>
+        <p class="sub">Two problems. One genuine strength. All actionable.</p>
+    </div>
+
+    <!-- Finding 1 — CRITICAL -->
+    <div class="card finding card-red anim d1">
+        <span class="finding-badge badge-critical">Critical</span>
+        <h3>Facebook is a personal profile, not a business page</h3>
+        <ul>
+            <li>Personal profiles <strong style="color:var(--red)">cannot receive reviews</strong> &mdash; your best marketing tool is locked</li>
+            <li>You <strong style="color:var(--red)">cannot run Facebook ads</strong> from a personal profile</li>
+            <li>Facebook can shut down personal profiles used for business at any time</li>
+            <li>A proper business page unlocks insights, scheduling, and customer messaging</li>
+        </ul>
+        <div class="fix-strip">
+            <div class="fix-item">Impact: <strong>High</strong></div>
+            <div class="fix-item">Fix: <strong>Business page migration</strong></div>
+        </div>
+    </div>
+
+    <!-- Finding 2 — WARNING -->
+    <div class="card finding card-amber anim d3">
+        <span class="finding-badge badge-warning">Warning</span>
+        <h3>Business name is misspelled and missing "&amp;"</h3>
+        <ul>
+            <li>Currently showing as &ldquo;Homecraft Roofing and Property <span class="name-error">Maintainance</span>&rdquo;</li>
+            <li>Should be &ldquo;Homecraft Roofing <strong style="color:var(--text)">&amp;</strong> Property <strong style="color:var(--text)">Maintenance</strong>&rdquo;</li>
+            <li>Misspellings damage trust before a customer ever calls</li>
+            <li>Inconsistent naming hurts search visibility</li>
+        </ul>
+        <div class="fix-strip">
+            <div class="fix-item">Fix time: <strong>5 minutes</strong></div>
+            <div class="fix-item">Cost: <strong>&pound;0</strong></div>
+        </div>
+    </div>
+
+    <!-- Finding 3 — POSITIVE -->
+    <div class="card finding card-green anim d5">
+        <span class="finding-badge badge-positive">Positive</span>
+        <h3>9+ quality work photos showing real roofing jobs</h3>
+        <ul>
+            <li>Before-and-after shots, clean finishes, real job sites &mdash; <strong style="color:var(--green)">excellent raw material</strong></li>
+            <li>Most tradespeople have zero photos &mdash; you're already ahead here</li>
+            <li>These photos are gold for a proper business page, website, and social content</li>
+            <li>With the right platform, these become your best sales tool</li>
+        </ul>
+        <div class="fix-strip">
+            <div class="fix-item">Status: <strong>Ready to leverage</strong></div>
+            <div class="fix-item">Potential: <strong>Huge</strong></div>
+        </div>
+    </div>
+
+    <div class="btn-wrap anim d7">
+        <button class="next-btn" onclick="goTo(3)">See What We Built <span class="arrow">&rarr;</span></button>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 3 — WHAT WE BUILT
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage" id="stage-3">
+
+    <div class="stage-hero anim">
+        <h1>We didn't just find problems.<br>We built solutions.</h1>
+        <p class="sub">5 deliverables. Every one tailored to your business.</p>
+    </div>
+
+    <div class="deliverables-grid">
+
+        <!-- 1 -->
+        <div class="card deliverable anim d1">
+            <div class="del-header">
+                <div class="del-title">Social Media Audit &amp; Strategy</div>
+                <div class="del-price">&pound;400</div>
+            </div>
+            <div class="del-desc">Full Facebook assessment including migration plan from personal profile to business page, content strategy, and ready-to-use post templates.</div>
+            <div class="del-tags">
+                <span class="tag">Assessment</span>
+                <span class="tag">Migration Plan</span>
+                <span class="tag">Content Templates</span>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="card deliverable anim d2">
+            <div class="del-header">
+                <div class="del-title">Brand Audit &amp; Strategy</div>
+                <div class="del-price">&pound;400</div>
+            </div>
+            <div class="del-desc">Name correction, brand consistency review, colour palette, and professional positioning for a roofing &amp; property maintenance business.</div>
+            <div class="del-tags">
+                <span class="tag">Name Fix</span>
+                <span class="tag">Brand Identity</span>
+                <span class="tag">Consistency</span>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card deliverable anim d3">
+            <div class="del-header">
+                <div class="del-title">Digital Footprint Audit &amp; Roadmap</div>
+                <div class="del-price">&pound;500</div>
+            </div>
+            <div class="del-desc">Complete review of your online presence with a prioritised action plan &mdash; what to fix first, what to build next, and how to get found.</div>
+            <div class="del-tags">
+                <span class="tag">Full Audit</span>
+                <span class="tag">Priority Roadmap</span>
+                <span class="tag">SEO Foundations</span>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card deliverable anim d4">
+            <div class="del-header">
+                <div class="del-title">Revenue Opportunities Review</div>
+                <div class="del-price">&pound;500</div>
+            </div>
+            <div class="del-desc">Practical ways to increase revenue from your existing customer base &mdash; repeat business strategies, referral systems, and seasonal campaigns.</div>
+            <div class="del-tags">
+                <span class="tag">Growth Strategy</span>
+                <span class="tag">Referral Systems</span>
+                <span class="tag">Seasonal Campaigns</span>
+            </div>
+        </div>
+
+        <!-- 5 — SHOWSTOPPER -->
+        <div class="card deliverable showstopper anim d5">
+            <span class="showstopper-badge">Star Deliverable</span>
+            <div class="del-header">
+                <div class="del-title">Bespoke Pricing &amp; Booking App</div>
+                <div class="del-price">&pound;1,500</div>
+            </div>
+            <div class="del-desc">Custom mobile app built for YOUR business. Instant quoting, job booking, customer database, and follow-up reminders. Works offline, installs on your phone like a real app.</div>
+            <div class="del-tags">
+                <span class="tag">Custom App</span>
+                <span class="tag">Quoting &amp; Booking</span>
+                <span class="tag">Customer Database</span>
+                <span class="tag">Follow-Up System</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Total -->
+    <div class="card total-bar anim d7">
+        <div class="stat-label">Total Value</div>
+        <div class="total-number">&pound;3,300</div>
+    </div>
+
+    <p class="section-note anim d8">Every deliverable is tailored specifically to Homecraft Roofing &amp; Property Maintenance.</p>
+
+    <div class="btn-wrap anim d9">
+        <button class="next-btn" onclick="goTo(4)">See The Offer <span class="arrow">&rarr;</span></button>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 4 — THE OFFER
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage" id="stage-4">
+
+    <div class="stage-hero anim">
+        <h1>All of this. Trade price: &pound;2,500.</h1>
+    </div>
+
+    <!-- Price Stack -->
+    <div class="card price-stack anim d1">
+        <div class="price-line struck grey">
+            <span class="price-label">Market Value</span>
+            &pound;4,500
+        </div>
+        <div class="price-line struck blue">
+            <span class="price-label">DMT List Price</span>
+            &pound;3,300
+        </div>
+        <div class="price-line" style="margin-top:28px;">
+            <span class="price-label">Trade Price</span>
+            <div class="price-trade">&pound;2,500</div>
+        </div>
+    </div>
+
+    <!-- Explanation -->
+    <div class="card anim d3" style="padding:32px;margin:24px 0;">
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.7;text-align:center;max-width:560px;margin:0 auto;">
+            We trade. You look after our property needs, we look after your digital presence. Fair exchange at trade rates. The full &pound;3,300 package is yours for &pound;2,500 &mdash; mates rates between tradespeople.
+        </p>
+    </div>
+
+    <!-- Trust Points -->
+    <div class="trust-grid">
+        <div class="card trust-point anim d4">
+            <div class="trust-icon ti-blue">&#9878;</div>
+            <h4>Trade arrangement, not charity</h4>
+            <p>Professional services exchanged at professional rates. Same quality as every commercial client.</p>
+        </div>
+        <div class="card trust-point anim d5">
+            <div class="trust-icon ti-amber">&#9881;</div>
+            <h4>Everything tailored to YOUR business</h4>
+            <p>Not templates. Every word, number, and recommendation is built around Homecraft.</p>
+        </div>
+        <div class="card trust-point anim d6">
+            <div class="trust-icon ti-green">&#10003;</div>
+            <h4>No subscriptions, no strings</h4>
+            <p>All deliverables are yours to keep permanently. No ongoing fees. No lock-in.</p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section anim d7">
+        <div class="cta-heading">Interested? Let's have a chat.</div>
+        <div class="contact-links">
+            <a class="contact-link" href="mailto:hello@dmtconsulting.co.uk">hello@dmtconsulting.co.uk</a>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+    <p class="footer-brand">DMT Consulting &nbsp;|&nbsp; March 2026 &nbsp;|&nbsp; Prepared specifically for Homecraft Roofing &amp; Property Maintenance</p>
+    <p class="footer-ai">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCRIPT
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+    'use strict';
+
+    var current = 1;
+    var total = 4;
+
+    function goTo(n) {
+        if (n < 1 || n > total || n === current) return;
+
+        // Hide current stage
+        var prev = document.getElementById('stage-' + current);
+        if (prev) prev.classList.remove('active');
+
+        // Show target stage
+        var next = document.getElementById('stage-' + n);
+        if (next) next.classList.add('active');
+
+        // Update progress indicators
+        var steps = document.querySelectorAll('.progress-step');
+        for (var i = 0; i < steps.length; i++) {
+            var s = parseInt(steps[i].getAttribute('data-stage'), 10);
+            steps[i].classList.remove('active', 'completed');
+            if (s < n) steps[i].classList.add('completed');
+            if (s === n) steps[i].classList.add('active');
+        }
+
+        current = n;
+
+        // Re-trigger entrance animations on the new stage
+        var items = next.querySelectorAll('.anim');
+        for (var j = 0; j < items.length; j++) {
+            items[j].style.animation = 'none';
+            void items[j].offsetHeight;
+            items[j].style.animation = '';
+        }
+
+        // Re-trigger health bar fill (stage 1)
+        var bar = next.querySelector('.health-bar-fill');
+        if (bar) {
+            bar.style.animation = 'none';
+            void bar.offsetHeight;
+            bar.style.animation = '';
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Expose to onclick handlers
+    window.goTo = goTo;
+
+    // Keyboard navigation (arrow keys)
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            goTo(current + 1);
+        }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            goTo(current - 1);
+        }
+    });
+})();
+</script>
+
+</body>
+</html>

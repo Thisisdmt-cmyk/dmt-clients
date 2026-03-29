@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPK &amp; Press Kit | Lovely Assistant | DMT Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0F1A;
+            color: #E2E8F0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        .header {
+            padding: 2rem 0 1.5rem;
+            border-bottom: 1px solid #1E293B;
+            margin-bottom: 0;
+        }
+        .dmt-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: #F59E0B;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .back-link {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #64748B;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #F59E0B; }
+        .header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #FFFFFF;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+        .header h1 span { color: #F59E0B; }
+        .header .doc-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            margin-bottom: 0.25rem;
+        }
+
+        .tab-bar {
+            display: flex;
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 0.35rem;
+            margin: 1.5rem 0 2rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            gap: 0.35rem;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748B;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+        .tab-btn:hover { color: #CBD5E1; background: rgba(255,255,255,0.03); }
+        .tab-btn.active { background: #F59E0B; color: #0A0F1A; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .section { margin-bottom: 2.5rem; }
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: #F59E0B;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+        }
+        .card ul, .card ol { padding-left: 1.25rem; }
+        .card li { margin-bottom: 0.5rem; }
+
+        .highlight {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .highlight p { color: #FCD34D; font-size: 0.95rem; }
+        .highlight strong { color: #F59E0B; }
+
+        .priority {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+        .priority.high { background: rgba(245, 158, 11, 0.2); color: #F59E0B; }
+        .priority.medium { background: rgba(59, 130, 246, 0.2); color: #3B82F6; }
+        .priority.nice { background: rgba(100, 116, 139, 0.2); color: #94A3B8; }
+
+        .copy-block {
+            background: #0D1321;
+            border: 1px solid #1E293B;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        .copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(245, 158, 11, 0.06);
+            border-bottom: 1px solid #1E293B;
+        }
+        .copy-header h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            letter-spacing: 0.02em;
+        }
+        .copy-btn {
+            background: #F59E0B;
+            color: #0A0F1A;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: #D97706; }
+        .copy-btn.copied { background: #10B981; color: #fff; }
+        .copy-body {
+            padding: 1.25rem;
+            font-size: 0.9rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* Credential badges */
+        .cred-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .cred-badge {
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            text-align: center;
+        }
+        .cred-badge .cred-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: #F59E0B;
+            margin-bottom: 0.25rem;
+        }
+        .cred-badge .cred-detail {
+            font-size: 0.8rem;
+            color: #94A3B8;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-top: 1px solid #1E293B;
+            margin-top: 2rem;
+        }
+        .footer p { font-size: 0.8rem; color: #475569; }
+        .footer .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            color: #F59E0B;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { background: #fff; color: #111; }
+            .tab-bar { display: none; }
+            .tab-content { display: block !important; page-break-before: always; }
+            .tab-content:first-of-type { page-break-before: avoid; }
+            .card, .copy-block { border: 1px solid #ddd; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 1.25rem 1rem; }
+            .tab-btn { font-size: 0.75rem; padding: 0.7rem 0.5rem; }
+            .cred-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="header">
+            <a href="00-cover.html" class="back-link">&larr; Back to Overview</a>
+            <div class="dmt-logo">DMT Consulting</div>
+            <div class="doc-number">Document 03 of 04</div>
+            <h1>EPK &amp; <span>Press Kit</span></h1>
+        </header>
+
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('where')">Where You Are</button>
+            <button class="tab-btn" onclick="switchTab('opportunities')">Opportunities</button>
+            <button class="tab-btn" onclick="switchTab('assets')">Ready-Made Assets</button>
+        </div>
+
+        <!-- TAB 1: WHERE YOU ARE -->
+        <div id="tab-where" class="tab-content active">
+
+            <div class="section">
+                <h2 class="section-title">Your Credentials Are Strong</h2>
+
+                <div class="highlight">
+                    <p>Here's the thing: <strong>you already have impressive credentials</strong>. The issue isn't that you lack them &mdash; it's that they might not be packaged in a way that makes it easy for a venue, festival, journalist, or broadcaster to say "yes" quickly.</p>
+                </div>
+
+                <div class="cred-grid">
+                    <div class="cred-badge">
+                        <div class="cred-name">Guy Garvey</div>
+                        <div class="cred-detail">Praised your music</div>
+                    </div>
+                    <div class="cred-badge">
+                        <div class="cred-name">Help Musicians</div>
+                        <div class="cred-detail">Funded "Fuck Love"</div>
+                    </div>
+                    <div class="cred-badge">
+                        <div class="cred-name">J.J. Golden</div>
+                        <div class="cred-detail">Mastered album (California)</div>
+                    </div>
+                    <div class="cred-badge">
+                        <div class="cred-name">Will Thorneycroft</div>
+                        <div class="cred-detail">Produced both albums</div>
+                    </div>
+                    <div class="cred-badge">
+                        <div class="cred-name">Thom Lewis / Blank Studio</div>
+                        <div class="cred-detail">Executive produced tracks</div>
+                    </div>
+                    <div class="cred-badge">
+                        <div class="cred-name">Generator NE</div>
+                        <div class="cred-detail">Support &amp; development</div>
+                    </div>
+                    <div class="cred-badge">
+                        <div class="cred-name">Glasshouse ICM</div>
+                        <div class="cred-detail">Industry support</div>
+                    </div>
+                    <div class="cred-badge">
+                        <div class="cred-name">Chelsea Wood</div>
+                        <div class="cred-detail">Sync representation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">What Venues &amp; Press Need</h2>
+
+                <div class="card">
+                    <h3>When Someone Googles You</h3>
+                    <p>A venue promoter, festival booker, journalist, or playlist curator will typically want all of this within 60 seconds:</p>
+                    <ul>
+                        <li><strong>One-line description</strong> &mdash; what do you sound like?</li>
+                        <li><strong>Short bio</strong> &mdash; who are you, what have you done?</li>
+                        <li><strong>Press photo</strong> &mdash; high-res, downloadable, landscape and portrait options</li>
+                        <li><strong>Music links</strong> &mdash; Spotify, Bandcamp, YouTube</li>
+                        <li><strong>Social links</strong> &mdash; Instagram, Facebook</li>
+                        <li><strong>Press quotes</strong> &mdash; even one meaningful endorsement</li>
+                        <li><strong>Contact details</strong> &mdash; booking email</li>
+                        <li><strong>Tech requirements</strong> &mdash; what do you need to play?</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">If any of this takes more than a minute to find, you lose bookings. It's that simple. An EPK puts it all in one place.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Current State</h2>
+
+                <div class="card">
+                    <h3>What You've Got</h3>
+                    <ul>
+                        <li><strong>Website (lovelyassistantmusic.com)</strong> &mdash; this is your home base and likely where an EPK would live or link from</li>
+                        <li><strong>NARC Magazine interviews (x2)</strong> &mdash; proper press coverage from a respected NE publication</li>
+                        <li><strong>American Pancake review</strong> &mdash; international press attention</li>
+                        <li><strong>Active social media</strong> &mdash; Instagram and Facebook both present and active</li>
+                        <li><strong>Live video content</strong> &mdash; YouTube channel with performance footage</li>
+                        <li><strong>Two albums + singles catalogue</strong> &mdash; substantial discography</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>What Might Be Missing</h3>
+                    <ul>
+                        <li><strong>A single, easy-to-share EPK page or document</strong> &mdash; everything in one place that you can send with a link</li>
+                        <li><strong>Downloadable press photos</strong> &mdash; high-res images a journalist can use without asking</li>
+                        <li><strong>A polished bio at the ready</strong> &mdash; one you can paste into any submission form in seconds</li>
+                        <li><strong>A tech rider</strong> &mdash; saves back-and-forth with every venue</li>
+                        <li><strong>Template emails for pitching</strong> &mdash; so you're not writing from scratch every time</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 2: OPPORTUNITIES -->
+        <div id="tab-opportunities" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Prioritised Opportunities</h2>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>1. Build a One-Page EPK</h3>
+                    <p>This could live on your website or be a standalone page. Everything a booker or journalist needs, on one page:</p>
+                    <ul>
+                        <li>Band photo (downloadable)</li>
+                        <li>Bio (the full text is in the Assets tab, ready to copy)</li>
+                        <li>One-line description</li>
+                        <li>Music embed (Spotify or Bandcamp)</li>
+                        <li>Video embed (YouTube live session)</li>
+                        <li>Press quotes</li>
+                        <li>Links to all platforms</li>
+                        <li>Contact info</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;">If you use WordPress or Squarespace for your website, this is a single page to build. If not, a well-formatted Google Doc that you share via link also works.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>2. Press Release for the Live Album</h3>
+                    <p>When the live album drops, you'll want a press release ready to send to:</p>
+                    <ul>
+                        <li>NARC Magazine (they've covered you twice &mdash; they'll likely cover this)</li>
+                        <li>American Pancake (they've already reviewed you)</li>
+                        <li>BBC Introducing (North East)</li>
+                        <li>Local press: The Journal, ChronicleLive, NE Volume</li>
+                        <li>Music blogs: The Line of Best Fit, Clash, God Is in the TV, For the Rabbits</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;">A template press release is in the Assets tab. Send it 2-3 weeks before release.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>3. BBC Introducing Submission</h3>
+                    <p>If you haven't already submitted to BBC Introducing, this should be near the top of the list. The live album gives you a perfect reason to submit fresh material. BBC Introducing North East is the gateway to BBC 6 Music, Radio 2, and festival bookings. The submission text is ready in the Assets tab.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority medium">Medium Priority</span>
+                    <h3>4. Festival Applications</h3>
+                    <p>With the live album, Guy Garvey's endorsement, Help Musicians support, and your Highlights Rural Touring experience, you're well positioned for festival applications. A template pitch email is in the Assets tab. Target festivals that suit your style:</p>
+                    <ul>
+                        <li>Green Man Festival</li>
+                        <li>End of the Road Festival</li>
+                        <li>Deer Shed Festival</li>
+                        <li>Latitude Festival</li>
+                        <li>Sage Gateshead programming</li>
+                        <li>Last Train Home Festival (already confirmed &mdash; use this as a credential)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority nice">When You're Ready</span>
+                    <h3>5. Sync Opportunities</h3>
+                    <p>You've already got Chelsea Wood handling sync representation &mdash; that's excellent. Make sure your EPK and assets are in good shape for her to use. The better your materials, the easier her job is. Your sound (warm, textured, cinematic at times) is genuinely well-suited for sync placements in TV and film.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 3: READY-MADE ASSETS -->
+        <div id="tab-assets" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Complete EPK Text</h2>
+                <p style="color: #94A3B8; margin-bottom: 1.5rem; font-size: 0.9rem;">Everything you need for a press kit, ready to copy. Edit freely &mdash; you know your story better than we do.</p>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>One-Line Description</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant are a four-piece from Newcastle making warm, genreless music that draws on torch songs, Laurel Canyon, and the adventurous spirit of Prefab Sprout.</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Band Bio (~200 words)</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant are a four-piece from Newcastle and Northumberland — Annie (keys, vocals), Kieran (bass, vocals), Dave (guitar), and Matt (drums). Formed in 2017 and working from a community centre, they make music they describe as "defiantly without genre."
+
+Their sound draws on the torch songs of the 1950s, the warmth of Laurel Canyon, and the restless spirit of artists like Prefab Sprout, Arthur Russell, Angel Olsen, and J.J. Cale. It's been called New Lounge, spartan-jazz, and indie folk. None of those labels quite fit, which is probably the point.
+
+Their second album "Fuck Love" (2025), produced by Will Thorneycroft with select tracks executive produced by Thom Lewis at Blank Studio, was recorded at a remote farmhouse in the Midlands and mastered by J.J. Golden in California. It was funded by Help Musicians.
+
+Their debut "Greetings from the Pre-wave" (2020) was released on limited 12" vinyl, also produced by Thorneycroft. A live album follows in spring 2026.
+
+Praised by Guy Garvey and supported by Generator NE and Glasshouse ICM, Lovely Assistant tour the UK's village halls, arts centres, and independent venues — the kind of places where the music and the room feel like they belong together.
+
+Sync representation: Chelsea Wood
+Booking: lovelyassistantmusic@gmail.com</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Short Bio (~80 words)</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant are a four-piece from Newcastle/Northumberland making music "defiantly without genre" — somewhere between torch songs, Laurel Canyon folk, and spartan-jazz. Praised by Guy Garvey and supported by Help Musicians, their second album "Fuck Love" (2025) was produced by Will Thorneycroft and mastered by J.J. Golden in California. A live album follows in spring 2026. They tour village halls, arts centres, and independent venues across the UK.</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Press Quotes Section (Template)</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">PRESS
+
+"[Quote from Guy Garvey or paraphrase of praise]" — Guy Garvey
+
+"[Quote from NARC Magazine review/interview]" — NARC Magazine
+
+"[Quote from American Pancake review]" — American Pancake
+
+---
+
+Note: Fill these in with the actual quotes from your press coverage. Even a short phrase works — "genuinely compelling" or "one to watch" is enough. If you don't have direct quotes, you can write: "Featured in NARC Magazine (x2), American Pancake" — that still carries weight.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Rider Template</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Tech Rider</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">LOVELY ASSISTANT — TECHNICAL RIDER
+
+Line-up:
+- Annie — Keys (electric piano/synth) + Vocals
+- Kieran — Bass Guitar + Vocals
+- Dave — Electric Guitar
+- Matt — Drums
+
+Stage Requirements:
+- 4 vocal microphones (2 with stands for Annie and Kieran)
+- DI box for keys (stereo if possible, mono is fine)
+- DI box for bass (or bass amp — we can bring our own if needed)
+- Guitar amp (or we can bring our own — please confirm)
+- Drum kit (kick, snare, hi-hat, 2 toms, 2 cymbals) or we can bring our own
+- 4 monitor mixes (minimum 2)
+- Standard stage lighting
+
+Sound Check:
+- We'd appreciate 20-30 minutes if possible
+- Happy to work with your sound engineer
+
+Set Length:
+- Standard set: 45-60 minutes
+- Support set: 30 minutes
+- Happy to adjust to your programme
+
+Contact: lovelyassistantmusic@gmail.com
+
+---
+
+Note: Adapt this to match your actual setup. If Annie plays a specific keyboard model, name it. If you always bring your own amps, say so. The more specific, the fewer emails back and forth.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Booking &amp; Pitch Templates</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Booking Enquiry Response</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Subject: Re: Lovely Assistant — [VENUE/EVENT NAME]
+
+Hi [NAME],
+
+Thanks for getting in touch. We'd love to play [VENUE/EVENT].
+
+We're a four-piece (keys, bass, guitar, drums) from Newcastle. Our most recent album "Fuck Love" was released in 2025, and we have a live album coming spring 2026.
+
+Here are some useful links:
+- Spotify: [SPOTIFY LINK]
+- Bandcamp: lovelyassistant.bandcamp.com
+- YouTube: youtube.com/@lovelyassistant
+- Instagram: instagram.com/lovelyassistantmusic
+
+Our tech rider is attached / linked below. We're flexible on set length — typically 45-60 minutes for a headline, 30 for a support.
+
+Let us know what works for you and we'll get the details sorted.
+
+Best,
+Lovely Assistant
+lovelyassistantmusic@gmail.com</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Venue Pitch Email</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Subject: Lovely Assistant — Gig enquiry for [VENUE NAME]
+
+Hi [NAME],
+
+We're Lovely Assistant, a four-piece from Newcastle/Northumberland. We're writing to see if there's an opportunity to play at [VENUE NAME].
+
+Our sound sits somewhere between torch songs, Laurel Canyon folk, and indie — we describe it as "defiantly without genre." We've been praised by Guy Garvey, supported by Help Musicians, and our second album "Fuck Love" (2025) was mastered by J.J. Golden in California.
+
+We tour regularly across the UK, including village halls through the Highlights Rural Touring Scheme, Cobalt in Newcastle, and Hyde Park Book Club in Leeds. We're also playing Last Train Home Festival in 2026.
+
+Here's a live video to give you a sense of the set: [YOUTUBE LINK]
+Spotify: [SPOTIFY LINK]
+
+We'd be happy to play a headline set (45-60 min) or support (30 min). Our tech rider is available on request.
+
+Would love to hear if there's a date that works.
+
+Best,
+Lovely Assistant
+lovelyassistantmusic@gmail.com</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Festival Application Pitch</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">LOVELY ASSISTANT — Festival Application
+
+One-line: Four-piece from Newcastle making warm, genreless music that draws on torch songs, Laurel Canyon, and the spirit of Prefab Sprout.
+
+Bio: Lovely Assistant are Annie (keys, vocals), Kieran (bass, vocals), Dave (guitar), and Matt (drums), formed in 2017 in Newcastle. Their second album "Fuck Love" (2025) was produced by Will Thorneycroft, mastered by J.J. Golden (California), and funded by Help Musicians. A live album follows spring 2026. Praised by Guy Garvey, supported by Generator NE and Glasshouse ICM. Sync rep: Chelsea Wood.
+
+Previous shows: Highlights Rural Touring Scheme (village hall circuit), Cobalt Newcastle, Hyde Park Book Club Leeds, Last Train Home Festival 2026 (confirmed).
+
+Links:
+- Spotify: [LINK]
+- Bandcamp: lovelyassistant.bandcamp.com
+- YouTube: youtube.com/@lovelyassistant
+- Instagram: instagram.com/lovelyassistantmusic
+- Website: lovelyassistantmusic.com
+
+Set length: Flexible — 30 to 60 minutes
+Contact: lovelyassistantmusic@gmail.com</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Press Release Template</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Live Album Press Release</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">FOR IMMEDIATE RELEASE
+
+LOVELY ASSISTANT ANNOUNCE LIVE ALBUM — [ALBUM TITLE]
+Out [RELEASE DATE] via [DISTRIBUTOR/SELF-RELEASED]
+
+Newcastle four-piece Lovely Assistant announce their live album [ALBUM TITLE], due for release on [DATE]. The album was recorded live [at VENUE/during EVENT] and captures the band — Annie (keys, vocals), Kieran (bass, vocals), Dave (guitar), and Matt (drums) — performing without overdubs or studio enhancement.
+
+[One paragraph about what the album captures, the energy of the live set, and why this release matters to the band. Write this in your own words — something honest about why you wanted to put out a live record.]
+
+The album follows "Fuck Love" (2025), which was produced by Will Thorneycroft, recorded at a remote farmhouse in the Midlands and Blank Studio (executive produced in part by Thom Lewis), and mastered by J.J. Golden in California. It was supported by Help Musicians.
+
+Lovely Assistant have been praised by Guy Garvey and are supported by Generator NE and Glasshouse ICM. They tour village halls across the UK through the Highlights Rural Touring Scheme and play venues including Cobalt Newcastle and Hyde Park Book Club Leeds.
+
+[ALBUM TITLE] is available on [LIST PLATFORMS — Spotify, Bandcamp, Apple Music, etc.]
+
+---
+
+For press enquiries, interviews, and high-res images:
+lovelyassistantmusic@gmail.com
+
+Sync representation: Chelsea Wood (@chelseawood89)
+
+Links:
+- Website: lovelyassistantmusic.com
+- Spotify: [LINK]
+- Bandcamp: lovelyassistant.bandcamp.com
+- Instagram: instagram.com/lovelyassistantmusic
+- YouTube: youtube.com/@lovelyassistant</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">BBC Introducing Submission</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>BBC Introducing Upload Text</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant are a four-piece from Newcastle/Northumberland — Annie (keys, vocals), Kieran (bass, vocals), Dave (guitar), and Matt (drums). We've been making music together since 2017, working from a community centre.
+
+Our sound is "defiantly without genre" — somewhere between torch songs of the 1950s, Laurel Canyon warmth, and the spirit of Prefab Sprout, Arthur Russell, and Angel Olsen.
+
+This track is from our upcoming live album (spring 2026). Our previous album "Fuck Love" (2025) was produced by Will Thorneycroft, mastered by J.J. Golden in California, and funded by Help Musicians.
+
+We've been praised by Guy Garvey, featured in NARC Magazine, and reviewed by American Pancake. We tour village halls through the Highlights Rural Touring Scheme and play venues across the North East and beyond.
+
+lovelyassistantmusic@gmail.com
+instagram.com/lovelyassistantmusic</div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>Made with &#9829; by DMT Consulting &middot; A gift for Lovely Assistant &middot; March 2026</p>
+            <div class="brand">DMT Consulting</div>
+            <p style="font-size: 0.75rem; color: #475569; line-height: 1.5; margin-top: 1.5rem;">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.getElementById('tab-' + tab).classList.add('active');
+            var tabs = { 'where': 0, 'opportunities': 1, 'assets': 2 };
+            document.querySelectorAll('.tab-btn')[tabs[tab]].classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copyText(btn) {
+            var block = btn.closest('.copy-block');
+            var text = block.querySelector('.copy-body').innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

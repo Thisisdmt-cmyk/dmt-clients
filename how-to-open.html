@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Open Your Files | DMT Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0A0F1A;color:#E2E8F0;min-height:100vh;padding:24px;line-height:1.7}
+.page{max-width:600px;margin:0 auto}
+.brand{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.2em;color:#3B82F6;text-align:center;margin-bottom:32px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,5vw,40px);text-align:center;margin-bottom:8px;line-height:1.1}
+h1 span{color:#3B82F6}
+.subtitle{text-align:center;color:#94A3B8;font-size:15px;margin-bottom:40px}
+.step{background:#111827;border:1px solid #1E293B;border-radius:12px;padding:24px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#3B82F6;line-height:1;flex-shrink:0;width:36px}
+.step h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.step p{font-size:14px;color:#94A3B8;line-height:1.6}
+.step .highlight{color:#F59E0B;font-weight:600}
+.device-tabs{display:flex;gap:8px;margin-bottom:24px}
+.device-tab{flex:1;padding:12px;border-radius:8px;text-align:center;font-size:14px;font-weight:700;cursor:pointer;border:1px solid #1E293B;background:#111827;color:#94A3B8;transition:all .2s}
+.device-tab.active{background:#3B82F6;color:#fff;border-color:#3B82F6}
+.device-content{display:none}
+.device-content.active{display:block}
+.tip{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:20px;margin:24px 0;font-size:14px;color:#CBD5E1;line-height:1.6}
+.tip strong{color:#3B82F6}
+.warning{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:20px;margin:24px 0;font-size:14px;color:#CBD5E1}
+.warning strong{color:#F59E0B}
+.footer{text-align:center;margin-top:40px;padding-top:24px;border-top:1px solid #1E293B;font-size:12px;color:#475569}
+@media print{body{background:#fff;color:#111}.step{border:1px solid #ddd}.device-tab{border:1px solid #ddd}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="brand">DMT CONSULTING</div>
+  <h1>HOW TO <span>OPEN</span> YOUR FILES</h1>
+  <p class="subtitle">Quick guide - takes 30 seconds</p>
+
+  <div class="device-tabs">
+    <div class="device-tab active" onclick="showDevice('iphone')">iPhone</div>
+    <div class="device-tab" onclick="showDevice('android')">Android</div>
+    <div class="device-tab" onclick="showDevice('desktop')">Computer</div>
+  </div>
+
+  <!-- iPhone -->
+  <div class="device-content active" id="iphone">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Tap the file in WhatsApp</h3>
+        <p>It might show as a download icon or a file name ending in <span class="highlight">.html</span></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Tap the share button</h3>
+        <p>It's the <span class="highlight">square with an arrow</span> pointing up (bottom of screen)</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>Choose "Open in Safari"</h3>
+        <p>Scroll the row of apps if you don't see it immediately. You might also see <span class="highlight">"Open in Chrome"</span> - that works too</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div>
+        <h3>That's it!</h3>
+        <p>The file will open in your browser. You can tap the tabs, scroll through sections, and use the copy buttons.</p>
+      </div>
+    </div>
+    <div class="warning">
+      <strong>If it opens as code/text:</strong> Don't worry - that just means it opened in the wrong app. Go back to WhatsApp, tap the file again, and use the share button to choose Safari or Chrome instead.
+    </div>
+  </div>
+
+  <!-- Android -->
+  <div class="device-content" id="android">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Tap the file in WhatsApp</h3>
+        <p>It should download automatically. You might see a <span class="highlight">download complete</span> notification.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Open with Chrome</h3>
+        <p>When asked which app to use, choose <span class="highlight">Chrome</span> (or your web browser). If it opens automatically, you're done!</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>If nothing happens</h3>
+        <p>Open Chrome, tap the <span class="highlight">three dots menu (⋮)</span>, tap <span class="highlight">Downloads</span>, and tap the file from there.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div>
+        <h3>That's it!</h3>
+        <p>The file will open in your browser. You can tap the tabs, scroll through sections, and use the copy buttons.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop -->
+  <div class="device-content" id="desktop">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Download the file</h3>
+        <p>From WhatsApp Web or wherever you received it, <span class="highlight">download the file</span> to your computer.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Double-click to open</h3>
+        <p>Find the file in your Downloads folder and <span class="highlight">double-click it</span>. It will open in your web browser automatically.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div>
+        <h3>That's it!</h3>
+        <p>The file opens in your browser just like a website. Click tabs, scroll sections, use copy buttons.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Save to home screen (phone):</strong> Once the file is open in your browser, you can add it to your home screen so it opens like an app. In Safari: tap Share → "Add to Home Screen". In Chrome: tap ⋮ → "Add to Home screen".
+  </div>
+
+  <div class="tip">
+    <strong>No internet needed:</strong> These files work completely offline. Once downloaded, you don't need WiFi or data to view them.
+  </div>
+
+  <div class="footer">
+    <p>DMT Consulting | If you're stuck, just reply to whoever sent you this</p>
+    <p style="margin-top:8px">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+  </div>
+</div>
+
+<script>
+function showDevice(device) {
+  document.querySelectorAll('.device-content').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.device-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(device).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

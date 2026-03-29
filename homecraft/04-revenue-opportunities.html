@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Opportunities — Homecraft Roofing & Property Maintenance | DMT Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dark:#0A0F1A;--card:#111827;--border:#1E293B;--blue:#3B82F6;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--text:#F1F5F9;--dim:#94A3B8;--white:#FFFFFF}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.score-num{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em}
+
+.page{max-width:860px;margin:0 auto;padding:0 24px 80px}
+
+.doc-header{text-align:center;padding:48px 0 32px;position:relative}
+.doc-header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 30%,rgba(59,130,246,0.08) 0%,transparent 60%);pointer-events:none}
+.brand{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.1em;color:var(--blue);margin-bottom:8px;position:relative;z-index:1}
+.doc-badge{display:inline-block;background:var(--blue);color:var(--white);font-size:11px;font-weight:700;padding:5px 16px;border-radius:24px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1}
+.doc-header h1{font-size:clamp(32px,5vw,52px);line-height:1.05;position:relative;z-index:1}
+.doc-header h1 span{color:var(--blue)}
+.doc-client{font-size:16px;color:var(--dim);margin-top:8px;position:relative;z-index:1}
+
+.tab-bar{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:32px;position:sticky;top:0;z-index:100}
+.tab-btn{flex:1;padding:14px 12px;border:none;border-radius:9px;background:transparent;color:var(--dim);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s ease;text-align:center;line-height:1.3}
+.tab-btn:hover{color:var(--text);background:rgba(59,130,246,0.08)}
+.tab-btn.active{background:var(--blue);color:var(--white)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+.so-what{background:linear-gradient(135deg,rgba(59,130,246,0.1) 0%,rgba(59,130,246,0.02) 100%);border:1px solid rgba(59,130,246,0.3);border-radius:16px;padding:36px;margin-bottom:36px;position:relative;overflow:hidden}
+.so-what::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(59,130,246,0.15),transparent 70%);pointer-events:none}
+.so-what-label{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.so-what-label::before{content:'';display:inline-block;width:4px;height:28px;background:var(--blue);border-radius:2px}
+.so-what p{font-size:15px;line-height:1.8;color:var(--text)}
+.so-what p+p{margin-top:10px}
+
+.section-label{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--blue);letter-spacing:2px;margin-bottom:4px;text-transform:uppercase}
+
+/* Insight Cards */
+.insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px;margin-bottom:36px}
+.insight-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.insight-icon{font-size:28px;margin-bottom:8px}
+.insight-card h4{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px}
+.insight-card p{font-size:12px;color:var(--dim);line-height:1.5}
+
+/* Opportunity Cards */
+.opp-grid{display:flex;flex-direction:column;gap:12px}
+.opp-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.opp-header{display:flex;gap:14px;align-items:center;padding:18px 22px;cursor:pointer;user-select:none;transition:background 0.15s}
+.opp-header:hover{background:rgba(59,130,246,0.04)}
+.opp-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--blue);flex-shrink:0;width:32px;text-align:center;line-height:1}
+.opp-summary{flex:1;min-width:0}
+.opp-summary h4{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
+.opp-meta{display:flex;gap:8px;flex-wrap:wrap}
+.opp-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.opp-tag.revenue{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)}
+.opp-tag.effort{background:rgba(59,130,246,0.1);color:var(--blue);border:1px solid rgba(59,130,246,0.2)}
+.opp-tag.quick{background:rgba(245,158,11,0.1);color:var(--amber);border:1px solid rgba(245,158,11,0.2)}
+.opp-tag.free{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)}
+.opp-chevron{color:var(--dim);font-size:18px;transition:transform 0.2s;flex-shrink:0}
+.opp-card.open .opp-chevron{transform:rotate(90deg)}
+.opp-detail{display:none;padding:0 22px 20px 68px;font-size:13px;color:var(--dim);line-height:1.7}
+.opp-card.open .opp-detail{display:block}
+.opp-detail p{margin-bottom:8px}
+.opp-detail ul{margin:4px 0 0 16px}
+.opp-detail li{margin-bottom:4px}
+
+.assets-section{margin-bottom:36px}
+.assets-section h2{font-size:clamp(24px,3.5vw,36px);margin-bottom:6px}
+.assets-section h2 span{color:var(--blue)}
+.assets-intro{font-size:14px;color:var(--dim);margin-bottom:20px}
+
+.asset-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:12px;position:relative}
+.asset-card h4{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;margin-bottom:10px;padding-right:70px}
+.asset-card .asset-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blue);margin-bottom:6px}
+.asset-text{font-size:13px;color:var(--dim);line-height:1.7;white-space:pre-wrap;background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:8px;padding:14px;margin-top:8px}
+
+.copy-btn{position:absolute;top:18px;right:18px;background:var(--blue);color:var(--white);border:none;padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s;letter-spacing:0.5px;text-transform:uppercase}
+.copy-btn:hover{background:#2563EB}
+.copy-btn.copied{background:var(--green)}
+
+/* Bundle Cards */
+.bundle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
+.bundle-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative}
+.bundle-header{padding:24px 20px 16px;text-align:center}
+.bundle-name{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1.1;margin-bottom:4px}
+.bundle-sub{font-size:12px;color:var(--dim);margin-bottom:12px}
+.bundle-price{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green)}
+.bundle-price span{font-size:16px;color:var(--dim);font-family:'Inter',sans-serif}
+.bundle-items{list-style:none;padding:0 20px 20px;margin:0}
+.bundle-items li{padding:8px 0;border-top:1px solid var(--border);font-size:13px;color:var(--dim);display:flex;align-items:center;gap:8px}
+.bundle-items li::before{content:'';display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0}
+.bundle-popular{position:absolute;top:12px;right:12px;background:var(--amber);color:var(--dark);font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px}
+
+/* Calendar */
+.calendar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:16px}
+.cal-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.cal-month{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--blue);margin-bottom:4px}
+.cal-focus{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cal-desc{font-size:12px;color:var(--dim);line-height:1.5}
+
+.doc-footer{text-align:center;padding:40px 0 20px;font-size:12px;color:var(--dim);opacity:0.6;border-top:1px solid var(--border);margin-top:48px}
+
+@media print{
+  body{background:#fff;color:#111}
+  .tab-bar{display:none}
+  .tab-panel{display:block !important}
+  .tab-panel::before{content:attr(data-print-title);display:block;font-family:'Bebas Neue',sans-serif;font-size:28px;margin:32px 0 16px;page-break-before:always}
+  .tab-panel:first-of-type::before{page-break-before:auto}
+  .so-what,.opp-card,.asset-card,.bundle-card,.insight-card,.cal-card{border:1px solid #ddd;background:#f9f9f9}
+  .copy-btn{display:none}
+  .opp-detail{display:block !important}
+}
+
+@media(max-width:600px){
+  .tab-btn{font-size:12px;padding:12px 8px}
+  .opp-detail{padding-left:22px}
+  .bundle-grid{grid-template-columns:1fr}
+  .calendar-grid{grid-template-columns:1fr 1fr}
+  .insight-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-header">
+    <div class="brand">DMT Consulting</div>
+    <div class="doc-badge">Trade Arrangement</div>
+    <h1>Revenue <span>Opportunities</span></h1>
+    <div class="doc-client">Homecraft Roofing &amp; Property Maintenance</div>
+  </header>
+
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-tab="findings">What We Found</button>
+    <button class="tab-btn" data-tab="plan">Your Action Plan</button>
+    <button class="tab-btn" data-tab="assets">Ready-Made Assets</button>
+  </nav>
+
+  <!-- ============================================ -->
+  <!-- TAB 1: WHAT WE FOUND -->
+  <!-- ============================================ -->
+  <div class="tab-panel active" id="tab-findings" data-print-title="What We Found">
+
+    <div class="so-what">
+      <div class="so-what-label">So What?</div>
+      <p><strong>Your current revenue model is entirely reactive.</strong> You wait for the phone to ring, you do the job, you move on. There's nothing wrong with being busy &mdash; but reactive businesses are vulnerable to quiet patches, seasonal dips, and competition from tradespeople who market themselves better.</p>
+      <p>The opportunities below could add significant recurring revenue without requiring you to work harder &mdash; just smarter. Most cost nothing to implement. Several can start generating income this week.</p>
+    </div>
+
+    <div class="section-label">Key Insights</div>
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-icon" style="color:var(--red)">&#9888;</div>
+        <h4>100% Reactive</h4>
+        <p>All your work comes from word of mouth or Bark. No proactive marketing, no recurring contracts, no systematic follow-up.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon" style="color:var(--amber)">&#9734;</div>
+        <h4>Zero Reviews Online</h4>
+        <p>No Google or Facebook reviews. Every happy customer who doesn't leave a review is a missed marketing opportunity that costs nothing.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon" style="color:var(--blue)">&#8635;</div>
+        <h4>No Repeat Revenue</h4>
+        <p>No maintenance contracts, no seasonal service packages, no systematic way to bring past customers back for additional work.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon" style="color:var(--green)">&#9650;</div>
+        <h4>Upsell Potential</h4>
+        <p>You offer a wide range of services but customers typically only know about the one they called about. Every job is a chance to identify additional work.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TAB 2: YOUR ACTION PLAN -->
+  <!-- ============================================ -->
+  <div class="tab-panel" id="tab-plan" data-print-title="Your Action Plan">
+
+    <div class="so-what">
+      <div class="so-what-label">11 Opportunities</div>
+      <p>These are ordered by impact and ease of implementation. The first five can all be started this week at zero cost. Click each one to see the details.</p>
+    </div>
+
+    <div class="opp-grid">
+
+      <!-- 1 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">1</div>
+          <div class="opp-summary">
+            <h4>Review Push Campaign</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">High Revenue Impact</span>
+              <span class="opp-tag free">Free</span>
+              <span class="opp-tag quick">Start This Week</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Reviews are the single most powerful free marketing tool for a trade business. A roofer with 30+ five-star Google reviews will win work over one with zero reviews, every time &mdash; even if they charge more.</p>
+          <ul>
+            <li>Send a WhatsApp message to every customer after every job asking for a Google review</li>
+            <li>We've written the exact templates in the Ready-Made Assets tab</li>
+            <li>Target: 5 reviews in the first fortnight, 20+ within 3 months</li>
+            <li>Reply to every single review &mdash; it shows you're active and professional</li>
+            <li>Once you have 10+ reviews, they become self-sustaining &mdash; new customers see them and leave their own</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">2</div>
+          <div class="opp-summary">
+            <h4>Seasonal Campaigns</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">High Revenue Impact</span>
+              <span class="opp-tag free">Free</span>
+              <span class="opp-tag quick">Start This Week</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Roofing and property maintenance is seasonal, and you should market accordingly. Don't wait for customers to realise they need gutter cleaning in autumn &mdash; tell them in September.</p>
+          <ul>
+            <li>Spring: Roof inspections after winter damage, exterior painting, high pressure cleaning</li>
+            <li>Summer: New roofs and major works (best weather), exterior painting, cladding</li>
+            <li>Autumn: Gutter cleaning, roof checks before winter, pointing and repairs</li>
+            <li>Winter: Emergency repairs, interior painting, chimney work</li>
+            <li>Post a seasonal reminder on Facebook every month &mdash; we've provided the calendar in Ready-Made Assets</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">3</div>
+          <div class="opp-summary">
+            <h4>Referral Programme</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">High Revenue Impact</span>
+              <span class="opp-tag free">Low Cost</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Your best customers already recommend you. A referral programme formalises this and gives them a reason to do it more often.</p>
+          <ul>
+            <li>Offer a reward for every referral that converts into a paid job &mdash; e.g. &pound;25 off their next job, a free gutter clean, or a case of beer</li>
+            <li>Print referral cards to leave with every customer (see Ready-Made Assets)</li>
+            <li>Mention it at the end of every job: "If you know anyone else who needs work doing, we'd appreciate the recommendation &mdash; and we'll sort you out with a thank-you"</li>
+            <li>Track referrals in a simple spreadsheet so you know who to thank</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">4</div>
+          <div class="opp-summary">
+            <h4>Upsell During Jobs</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">High Revenue Impact</span>
+              <span class="opp-tag free">Free</span>
+              <span class="opp-tag quick">Start This Week</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>You're already on the roof. You can see things the customer can't. This is the perfect moment to identify additional work and offer it on the spot.</p>
+          <ul>
+            <li>Before starting any job, do a quick visual check of the whole roof, gutters, pointing, and chimney</li>
+            <li>Take photos of anything that needs attention and show the customer</li>
+            <li>Frame it as helpful, not salesy: "While I was up there I noticed your pointing is starting to go on the left side. Not urgent, but worth keeping an eye on. I can give you a price if you want."</li>
+            <li>We've written a conversation script in the Ready-Made Assets tab</li>
+            <li>Even a 20% upsell rate would significantly increase your average job value</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">5</div>
+          <div class="opp-summary">
+            <h4>Service Bundling</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">Medium&ndash;High Impact</span>
+              <span class="opp-tag free">Free</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Package multiple services together at a slight discount. Customers love perceived value, and it increases your average job size while reducing your per-job overhead (one trip, one setup).</p>
+          <ul>
+            <li><strong>Winter Ready Package:</strong> Gutter cleaning + roof inspection + pointing check</li>
+            <li><strong>Spring Refresh:</strong> High pressure cleaning + gutter clean + exterior touch-ups</li>
+            <li><strong>Property Health Check:</strong> Full roof inspection + gutter check + pointing assessment + written report</li>
+            <li>Price the bundle 10&ndash;15% less than individual services &mdash; you still make more because it's one visit</li>
+            <li>We've designed the bundle cards in Ready-Made Assets</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">6</div>
+          <div class="opp-summary">
+            <h4>Annual Maintenance Contracts</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">Recurring Revenue</span>
+              <span class="opp-tag effort">Medium Effort</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Offer annual maintenance contracts to homeowners: one visit in spring, one in autumn, covering gutter cleaning, roof inspection, and minor repairs. This creates predictable, recurring revenue.</p>
+          <ul>
+            <li>Price at &pound;150&ndash;250/year depending on property size</li>
+            <li>Two visits: Spring (post-winter check) and Autumn (pre-winter prep)</li>
+            <li>Include gutter cleaning, roof inspection, minor pointing repairs, and a written condition report</li>
+            <li>Customers on contracts get priority booking for any additional work</li>
+            <li>Target: 20 contracts in Year 1 = &pound;3,000&ndash;5,000 guaranteed annual revenue</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">7</div>
+          <div class="opp-summary">
+            <h4>Emergency Callout Premium</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">Higher Margins</span>
+              <span class="opp-tag free">Free</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>If you respond to emergency calls (storm damage, leaks), you can charge a premium for out-of-hours or same-day service. Customers expect to pay more for urgent work.</p>
+          <ul>
+            <li>Publish an emergency callout number (can be the same number)</li>
+            <li>Set a minimum callout fee for emergencies (e.g. &pound;75&ndash;100 plus work)</li>
+            <li>Advertise this on your Facebook page and Google Business Profile</li>
+            <li>After storms, post on Facebook: "Storm damage? We're available for emergency roof repairs. Call 07455 544085"</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">8</div>
+          <div class="opp-summary">
+            <h4>Landlord &amp; Letting Agent Partnerships</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">Recurring Revenue</span>
+              <span class="opp-tag effort">Medium Effort</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Landlords and letting agents need reliable tradespeople for ongoing maintenance across multiple properties. One good relationship can generate regular work for years.</p>
+          <ul>
+            <li>Identify local letting agents and landlord Facebook groups in the North East</li>
+            <li>Offer a "landlord rate" &mdash; a small discount in exchange for regular, guaranteed work</li>
+            <li>Offer priority response times for their tenants</li>
+            <li>Drop in to local letting agents with your business card and a brief introduction</li>
+            <li>Target: 3&ndash;5 landlord relationships generating 2&ndash;3 jobs each per quarter</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">9</div>
+          <div class="opp-summary">
+            <h4>Local Business Partnerships</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">Lead Generation</span>
+              <span class="opp-tag free">Free</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Partner with complementary local businesses: electricians, plumbers, plasterers, estate agents. You refer customers to them, they refer customers to you.</p>
+          <ul>
+            <li>Find 3&ndash;5 non-competing tradespeople you trust and set up mutual referral agreements</li>
+            <li>Keep their business cards in your van; ask them to keep yours</li>
+            <li>When a customer asks "do you know a good plumber?", you've got an answer &mdash; and that plumber sends roofing work your way</li>
+            <li>Estate agents are particularly valuable &mdash; they're constantly seeing properties that need roof work</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">10</div>
+          <div class="opp-summary">
+            <h4>Photography Portfolio</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">Supports All Other Opportunities</span>
+              <span class="opp-tag free">Free</span>
+              <span class="opp-tag quick">Start This Week</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>You already take photos of your work &mdash; this is about doing it systematically. Every job should be documented with before, during, and after photos. This content feeds everything else: Facebook posts, Google listings, website, flyers.</p>
+          <ul>
+            <li>Before starting: Take 2&ndash;3 photos of the problem area</li>
+            <li>During: Quick shot of work in progress (shows effort and process)</li>
+            <li>After: 2&ndash;3 shots of the finished result from good angles</li>
+            <li>Store them in a simple phone folder labelled by job type and area</li>
+            <li>Ask permission to use them (use the WhatsApp template from the Social Media Audit)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="opp-card">
+        <div class="opp-header" onclick="toggleOpp(this)">
+          <div class="opp-num">11</div>
+          <div class="opp-summary">
+            <h4>Facebook Marketplace</h4>
+            <div class="opp-meta">
+              <span class="opp-tag revenue">Lead Generation</span>
+              <span class="opp-tag free">Free</span>
+            </div>
+          </div>
+          <span class="opp-chevron">&#9654;</span>
+        </div>
+        <div class="opp-detail">
+          <p>Facebook Marketplace isn't just for selling furniture. You can list your services there and reach people who might never find your business page.</p>
+          <ul>
+            <li>Create a listing for each of your key services (roof repair, gutter cleaning, pointing, etc.)</li>
+            <li>Set the price as "Free Estimate" or a starting-from price</li>
+            <li>Include your best before-and-after photos</li>
+            <li>Renew the listings every few weeks to keep them fresh</li>
+            <li>This works surprisingly well for trades in local areas &mdash; people browse Marketplace daily</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TAB 3: READY-MADE ASSETS -->
+  <!-- ============================================ -->
+  <div class="tab-panel" id="tab-assets" data-print-title="Ready-Made Assets">
+
+    <!-- Review Request Templates -->
+    <div class="assets-section">
+      <h2>Review Request <span>WhatsApp Templates</span></h2>
+      <p class="assets-intro">Send one of these after every completed job. Keep it short and personal.</p>
+
+      <div class="asset-card">
+        <div class="asset-label">WhatsApp &mdash; Standard (Google Review)</div>
+        <h4>After Any Job</h4>
+        <button class="copy-btn" onclick="copyAsset(this)">Copy</button>
+        <div class="asset-text">Hi [Name], hope the [roof/gutters/pointing] is looking good! Just wanted to check you're happy with everything.
+
+If you've got a spare minute, a quick Google review would really help us out. It makes a huge difference for a small business like ours:
+
+[INSERT YOUR GOOGLE REVIEW LINK HERE]
+
+No pressure at all &mdash; thanks again for choosing Homecraft!</div>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-label">WhatsApp &mdash; After a Big Job</div>
+        <h4>New Roof / Major Repair</h4>
+        <button class="copy-btn" onclick="copyAsset(this)">Copy</button>
+        <div class="asset-text">Hi [Name], hope you're settling in under the new roof! Just wanted to say thanks again for trusting us with the job.
+
+If you've got a moment, we'd really appreciate a Google review. It helps other homeowners find us when they need the same kind of work:
+
+[INSERT YOUR GOOGLE REVIEW LINK HERE]
+
+And remember, if you notice anything at all down the line, just give us a bell on 07455 544085. Cheers!</div>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-label">WhatsApp &mdash; Referral Mention</div>
+        <h4>After Any Job (With Referral Ask)</h4>
+        <button class="copy-btn" onclick="copyAsset(this)">Copy</button>
+        <div class="asset-text">Hi [Name], hope the work's looking good! Thanks again for having us.
+
+If you know anyone else who needs any roofing or property maintenance done, we'd really appreciate the recommendation. And if they mention your name, we'll sort you out with [a discount on your next job / a free gutter clean / a thank-you].
+
+Cheers!</div>
+      </div>
+    </div>
+
+    <!-- Seasonal Campaign Calendar -->
+    <div class="assets-section">
+      <h2>Seasonal Campaign <span>Calendar</span></h2>
+      <p class="assets-intro">Post one seasonal message per month on Facebook. Here's what to promote and when.</p>
+
+      <div class="calendar-grid">
+        <div class="cal-card">
+          <div class="cal-month">January</div>
+          <div class="cal-focus">Storm Damage Repairs</div>
+          <div class="cal-desc">Post after bad weather. "Storm damage? We can help. Emergency callouts available."</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">February</div>
+          <div class="cal-focus">Free Roof Inspections</div>
+          <div class="cal-desc">"Winter takes its toll. Book a free roof inspection before spring."</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">March</div>
+          <div class="cal-focus">Spring Refresh Package</div>
+          <div class="cal-desc">Promote the Spring Refresh bundle: pressure washing + gutters + exterior touch-ups.</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">April</div>
+          <div class="cal-focus">Exterior Painting</div>
+          <div class="cal-desc">"Warmer weather = perfect painting weather. Book your exterior painting now."</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">May</div>
+          <div class="cal-focus">New Roofs &amp; Cladding</div>
+          <div class="cal-desc">Showcase a recent new roof or cladding job. Best weather for major works.</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">June</div>
+          <div class="cal-focus">High Pressure Cleaning</div>
+          <div class="cal-desc">Driveways, patios, paths. Before-and-after photos do the selling.</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">July</div>
+          <div class="cal-focus">Windows &amp; Doors</div>
+          <div class="cal-desc">"Is your front door looking tired? We supply and fit double glazed windows and doors."</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">August</div>
+          <div class="cal-focus">Summer Maintenance</div>
+          <div class="cal-desc">"While the weather's good, get those outside jobs done. Book now before autumn."</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">September</div>
+          <div class="cal-focus">Winter Ready Package</div>
+          <div class="cal-desc">Launch the Winter Ready bundle: gutter clean + roof check + pointing inspection.</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">October</div>
+          <div class="cal-focus">Gutter Cleaning</div>
+          <div class="cal-desc">"Leaves are falling &mdash; are your gutters ready? Book your gutter clean today."</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">November</div>
+          <div class="cal-focus">Chimney &amp; Pointing</div>
+          <div class="cal-desc">"Before the worst of winter, get your chimney and pointing checked."</div>
+        </div>
+        <div class="cal-card">
+          <div class="cal-month">December</div>
+          <div class="cal-focus">Interior Painting</div>
+          <div class="cal-desc">"Too cold for outside work? We do interior painting too. Freshen up for Christmas."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Bundle Cards -->
+    <div class="assets-section">
+      <h2>Service Bundle <span>Pricing Cards</span></h2>
+      <p class="assets-intro">Three pre-designed service bundles. Adjust prices to match your actual costs. These are starting-point suggestions.</p>
+
+      <div class="bundle-grid">
+        <div class="bundle-card">
+          <div class="bundle-header">
+            <div class="bundle-name" style="color:var(--blue)">Winter Ready Package</div>
+            <div class="bundle-sub">Prepare your home for winter</div>
+            <div class="bundle-price">From &pound;149 <span>/ visit</span></div>
+          </div>
+          <ul class="bundle-items">
+            <li>Full gutter clean &amp; flush</li>
+            <li>Roof inspection from ladder</li>
+            <li>Pointing condition check</li>
+            <li>Written condition report</li>
+            <li>Photo documentation</li>
+          </ul>
+        </div>
+
+        <div class="bundle-card">
+          <div class="bundle-popular">Most Popular</div>
+          <div class="bundle-header">
+            <div class="bundle-name" style="color:var(--green)">Spring Refresh</div>
+            <div class="bundle-sub">Post-winter clean &amp; tidy</div>
+            <div class="bundle-price">From &pound;199 <span>/ visit</span></div>
+          </div>
+          <ul class="bundle-items">
+            <li>High pressure clean (patio or drive)</li>
+            <li>Full gutter clean &amp; flush</li>
+            <li>Exterior touch-up painting</li>
+            <li>UPVC cleaning (fascias &amp; soffits)</li>
+            <li>Free roof inspection included</li>
+          </ul>
+        </div>
+
+        <div class="bundle-card">
+          <div class="bundle-header">
+            <div class="bundle-name" style="color:var(--amber)">Property Health Check</div>
+            <div class="bundle-sub">Full exterior assessment</div>
+            <div class="bundle-price">From &pound;79 <span>/ inspection</span></div>
+          </div>
+          <ul class="bundle-items">
+            <li>Full roof inspection</li>
+            <li>Gutter condition check</li>
+            <li>Pointing &amp; mortar assessment</li>
+            <li>Chimney visual inspection</li>
+            <li>Written report with photos</li>
+            <li>Priority quote on any work needed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Referral Card Concept -->
+    <div class="assets-section">
+      <h2>Referral Card <span>Concept</span></h2>
+      <p class="assets-intro">Print these on business-card-sized stock and leave one with every customer.</p>
+
+      <div class="asset-card">
+        <div class="asset-label">Front of Card</div>
+        <h4>Referral Card Text</h4>
+        <button class="copy-btn" onclick="copyAsset(this)">Copy</button>
+        <div class="asset-text">KNOW SOMEONE WHO NEEDS WORK DOING?
+
+Recommend Homecraft Roofing & Property Maintenance and we'll thank you with [&pound;25 off your next job / a free gutter clean].
+
+Just ask them to mention your name when they call.
+
+07455 544085</div>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-label">Back of Card</div>
+        <h4>Service List Side</h4>
+        <button class="copy-btn" onclick="copyAsset(this)">Copy</button>
+        <div class="asset-text">HOMECRAFT ROOFING & PROPERTY MAINTENANCE
+
+Roofing | Pointing | Guttering | Cladding
+Painting | Pressure Cleaning | Windows & Doors
+Chimneys | Dry Ridge | UPVC Cleaning
+
+Free Quotes | All Work Guaranteed
+Covering the whole North East
+
+07455 544085</div>
+      </div>
+    </div>
+
+    <!-- Upsell Conversation Script -->
+    <div class="assets-section">
+      <h2>Upsell <span>Conversation Script</span></h2>
+      <p class="assets-intro">Use this natural, non-pushy approach when you spot additional work during a job.</p>
+
+      <div class="asset-card">
+        <div class="asset-label">While On-Site</div>
+        <h4>Identifying Additional Work</h4>
+        <button class="copy-btn" onclick="copyAsset(this)">Copy</button>
+        <div class="asset-text">While I was up there doing the [original job], I had a quick look at the rest of the roof and I noticed [specific issue &mdash; e.g. "your pointing along the ridge is starting to crack" / "a couple of tiles have slipped on the back" / "your gutters are getting pretty full of moss"].
+
+It's not urgent right now, but it's the kind of thing that'll get worse over winter if it's left. I can take a couple of photos to show you if you like?
+
+[Show photos on phone]
+
+I could sort that while I'm here today for [price] &mdash; saves you the cost of a separate callout. Or if you'd rather leave it for now, no worries at all. Just something to keep an eye on.</div>
+      </div>
+
+      <div class="asset-card">
+        <div class="asset-label">End of Job</div>
+        <h4>Full Service Mention</h4>
+        <button class="copy-btn" onclick="copyAsset(this)">Copy</button>
+        <div class="asset-text">That's you all sorted. Just so you know, we don't just do [roofing/gutters/whatever the job was] &mdash; we do the lot: painting, pressure cleaning, windows and doors, cladding, the works. So if you ever need anything doing around the house, just give us a shout and we'll come and have a look.
+
+Here's a card with all our services on. And if you know anyone else who needs work doing, we'd really appreciate the recommendation.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="doc-footer">
+    Prepared by DMT Consulting &nbsp;|&nbsp; Trade Arrangement &nbsp;|&nbsp; March 2026
+    <p style="font-size: 0.75rem; color: #475569; line-height: 1.5; margin-top: 1.5rem;">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+  </footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+function toggleOpp(header) {
+  header.closest('.opp-card').classList.toggle('open');
+}
+
+function copyAsset(btn) {
+  const text = btn.closest('.asset-card').querySelector('.asset-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

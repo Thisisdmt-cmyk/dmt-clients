@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Strategy | Lovely Assistant | DMT Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0F1A;
+            color: #E2E8F0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        /* Header */
+        .header {
+            padding: 2rem 0 1.5rem;
+            border-bottom: 1px solid #1E293B;
+            margin-bottom: 0;
+        }
+        .dmt-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: #F59E0B;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .back-link {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #64748B;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #F59E0B; }
+        .header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #FFFFFF;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+        .header h1 span { color: #F59E0B; }
+        .header .doc-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Tab Bar */
+        .tab-bar {
+            display: flex;
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 0.35rem;
+            margin: 1.5rem 0 2rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            gap: 0.35rem;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748B;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+        .tab-btn:hover { color: #CBD5E1; background: rgba(255,255,255,0.03); }
+        .tab-btn.active {
+            background: #F59E0B;
+            color: #0A0F1A;
+        }
+
+        /* Tab Content */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Cards & Sections */
+        .section { margin-bottom: 2.5rem; }
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: #F59E0B;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+        }
+        .card ul, .card ol { padding-left: 1.25rem; }
+        .card li { margin-bottom: 0.5rem; }
+
+        /* Stat Grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .stat-card .platform {
+            font-size: 0.8rem;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card .number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #F59E0B;
+            line-height: 1;
+        }
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-top: 0.25rem;
+        }
+
+        /* Highlight */
+        .highlight {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .highlight p { color: #FCD34D; font-size: 0.95rem; }
+        .highlight strong { color: #F59E0B; }
+
+        /* Priority Badge */
+        .priority {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+        .priority.high { background: rgba(245, 158, 11, 0.2); color: #F59E0B; }
+        .priority.medium { background: rgba(59, 130, 246, 0.2); color: #3B82F6; }
+        .priority.nice { background: rgba(100, 116, 139, 0.2); color: #94A3B8; }
+
+        /* Copy Block */
+        .copy-block {
+            background: #0D1321;
+            border: 1px solid #1E293B;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        .copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(245, 158, 11, 0.06);
+            border-bottom: 1px solid #1E293B;
+        }
+        .copy-header h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            letter-spacing: 0.02em;
+        }
+        .copy-btn {
+            background: #F59E0B;
+            color: #0A0F1A;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: #D97706; }
+        .copy-btn.copied { background: #10B981; color: #fff; }
+        .copy-body {
+            padding: 1.25rem;
+            font-size: 0.9rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 2rem; margin: 1.5rem 0; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #1E293B;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.65rem;
+            top: 0.4rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #F59E0B;
+        }
+        .timeline-item h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            margin-bottom: 0.25rem;
+        }
+        .timeline-item p { font-size: 0.9rem; color: #94A3B8; }
+
+        /* Table */
+        .cal-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+        .cal-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: rgba(245, 158, 11, 0.08);
+            color: #F59E0B;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #1E293B;
+        }
+        .cal-table td {
+            padding: 0.75rem 1rem;
+            color: #CBD5E1;
+            border-bottom: 1px solid #1E293B;
+            vertical-align: top;
+        }
+        .cal-table tr:last-child td { border-bottom: none; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-top: 1px solid #1E293B;
+            margin-top: 2rem;
+        }
+        .footer p { font-size: 0.8rem; color: #475569; }
+        .footer .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            color: #F59E0B;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { background: #fff; color: #111; }
+            .tab-bar { display: none; }
+            .tab-content { display: block !important; page-break-before: always; }
+            .tab-content:first-of-type { page-break-before: avoid; }
+            .card, .copy-block, .stat-card { border: 1px solid #ddd; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 1.25rem 1rem; }
+            .tab-btn { font-size: 0.75rem; padding: 0.7rem 0.5rem; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .cal-table { font-size: 0.75rem; }
+            .cal-table th, .cal-table td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="header">
+            <a href="00-cover.html" class="back-link">&larr; Back to Overview</a>
+            <div class="dmt-logo">DMT Consulting</div>
+            <div class="doc-number">Document 01 of 04</div>
+            <h1>Social Media <span>Strategy</span></h1>
+        </header>
+
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('where')">Where You Are</button>
+            <button class="tab-btn" onclick="switchTab('opportunities')">Opportunities</button>
+            <button class="tab-btn" onclick="switchTab('assets')">Ready-Made Assets</button>
+        </div>
+
+        <!-- TAB 1: WHERE YOU ARE -->
+        <div id="tab-where" class="tab-content active">
+
+            <div class="section">
+                <h2 class="section-title">Platform Snapshot</h2>
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="platform">Instagram</div>
+                        <div class="number">874</div>
+                        <div class="label">Followers &middot; 175 posts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="platform">Facebook</div>
+                        <div class="number">577</div>
+                        <div class="label">Followers &middot; Proper page</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="platform">Spotify</div>
+                        <div class="number">298</div>
+                        <div class="label">Followers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="platform">Spotify</div>
+                        <div class="number">98</div>
+                        <div class="label">Monthly Listeners</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">What's Working</h2>
+
+                <div class="card">
+                    <h3>Instagram Is Your Biggest Platform</h3>
+                    <p>At 874 followers with 175 posts, Instagram is where your largest audience lives. The artistic visual identity you've built &mdash; illustrated artwork, considered aesthetic &mdash; suits Instagram perfectly. You're following 401 accounts too, which means you're actually part of a community, not just broadcasting into the void. This is a genuine strength.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Active &amp; Consistent Posting</h3>
+                    <p>You're showing up. That matters more than most people realise. 175 posts means you've built a body of content that tells a story. New followers can scroll back and see a real band with a real history.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Proper Facebook Page</h3>
+                    <p>577 followers on a proper Facebook page (not a personal profile) is solid. Facebook still matters for events, local gig promotion, and reaching an audience who'll actually buy tickets and vinyl. Your page at facebook.com/lovelyassistantmusic is set up correctly and active.</p>
+                </div>
+
+                <div class="card">
+                    <h3>YouTube Presence</h3>
+                    <p>You've got music videos up on @lovelyassistant, including live performance videos. Video content is the hardest to create and you're already doing it. That's a real head start.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Smart Bio Setup</h3>
+                    <p>Your Instagram bio already mentions sync representation (@chelseawood89) and support from Help Musicians, Generator NE, and Glasshouse ICM. That signals professionalism to anyone checking you out &mdash; press, promoters, playlist curators. Good instinct.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Honest Picture</h2>
+
+                <div class="highlight">
+                    <p><strong>Instagram is bigger than Facebook</strong> but likely getting less strategic attention. That's your single biggest opportunity right now.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Where the Gaps Are</h3>
+                    <ul>
+                        <li><strong>No TikTok presence</strong> &mdash; not necessarily a problem, but short-form video is where discovery happens now, and your live performances would translate brilliantly to that format</li>
+                        <li><strong>Cross-platform content could be more coordinated</strong> &mdash; different content on different platforms is fine, but big announcements and releases should land everywhere at the same time</li>
+                        <li><strong>Spotify monthly listeners (98) lag behind social following</strong> &mdash; this is common for live-focused acts, and the live album is a chance to close that gap</li>
+                        <li><strong>Link-in-bio could work harder</strong> &mdash; campsite.bio/lovelyassistant is functional, but it could be more strategically ordered with the most important link at the top</li>
+                        <li><strong>X/Twitter (@LuvlyAssistant) is quiet</strong> &mdash; that's probably fine. Focus energy where the audience already is</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Big Moment Ahead</h2>
+                <div class="highlight">
+                    <p>The <strong>live album dropping spring 2026</strong> is a proper content event. The mix is signed off, which means you can start building anticipation <em>now</em>. This is the biggest marketing moment you've had since "Fuck Love" launched in February 2025 &mdash; and this time you can plan the whole rollout in advance.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 2: OPPORTUNITIES -->
+        <div id="tab-opportunities" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Prioritised Opportunities</h2>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>1. Go Instagram-First</h3>
+                    <p>Instagram is your biggest audience. You might want to treat it like your primary platform:</p>
+                    <ul>
+                        <li><strong>Stories daily</strong> &mdash; even just a rehearsal clip, a coffee at the community centre, a lyric scribbled on paper. Stories keep you visible without needing polished content.</li>
+                        <li><strong>Reels 2-3x per week</strong> &mdash; short clips of live performances, behind-the-scenes moments, even 15 seconds of a soundcheck. Reels are how Instagram shows you to new people.</li>
+                        <li><strong>Carousel posts for depth</strong> &mdash; album artwork deep dives, lyric breakdowns, gig photo sets. These get saved and shared more than single images.</li>
+                        <li><strong>Update your bio link order</strong> &mdash; when the live album pre-save goes live, make it the top link in your campsite.bio.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>2. Live Album Launch Campaign</h3>
+                    <p>You've got a genuine event coming. Here's a suggested timeline for rolling it out:</p>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>4-6 Weeks Before Release</h4>
+                            <p>Announce the live album. Share a behind-the-scenes photo from the recording. Post a short audio teaser &mdash; just 15 seconds of a track.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>3-4 Weeks Before</h4>
+                            <p>Reveal the tracklist. Share stories from the recording sessions. Start a pre-save campaign if your distributor supports it.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>2 Weeks Before</h4>
+                            <p>Drop the artwork. Share a full track or lead single. Post countdown content in Stories.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Release Week</h4>
+                            <p>Launch post across all platforms simultaneously. Go live on Instagram. Post daily Stories. Spotlight individual tracks over the week.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>2-4 Weeks After</h4>
+                            <p>Behind-the-scenes video, fan reactions, live clips from the recording. Keep the conversation going &mdash; the album doesn't stop mattering after release day.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>3. Facebook Events for Every Gig</h3>
+                    <p>This is free and takes five minutes. Create a Facebook Event for every single gig &mdash; village hall shows on the Highlights Rural Touring Scheme, Cobalt in Newcastle, Hyde Park Book Club in Leeds, Last Train Home Festival, everything. Events get shared, they show up in local searches, and they give people a reason to engage with the page. Invite your followers to each one.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority medium">Medium Priority</span>
+                    <h3>4. Short-Form Video (TikTok / Reels)</h3>
+                    <p>You don't need to become TikTok creators. But short clips of live performances &mdash; especially those village hall shows &mdash; are gold for discovery. The aesthetic of a proper band playing in a community space is genuinely compelling content that most artists can't replicate.</p>
+                    <ul>
+                        <li>Film 30-60 second clips at gigs (phone on a tripod works fine)</li>
+                        <li>Post to Instagram Reels first, then cross-post to TikTok</li>
+                        <li>Clips from the live album recording sessions would be perfect source material</li>
+                        <li>No editing needed &mdash; raw, honest clips often outperform polished ones</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority medium">Medium Priority</span>
+                    <h3>5. Cross-Platform Coordination</h3>
+                    <p>When you post something important, it's worth posting it everywhere on the same day. The format can change &mdash; a carousel on Instagram, a text post on Facebook, a thread on X &mdash; but the message should land at the same time. For the live album launch especially, coordinated timing makes a difference.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority nice">When You're Ready</span>
+                    <h3>6. Start an Email List</h3>
+                    <p>This might feel old-fashioned, but an email list is the only audience you truly own. A clipboard at the merch table at village hall gigs works. Even 50 genuine email subscribers who'll open every message is worth more than 500 passive followers. Services like Mailchimp are free for small lists. When the live album drops, you'll have a direct line to the people who care most.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 3: READY-MADE ASSETS -->
+        <div id="tab-assets" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Ready-to-Post Content</h2>
+                <p style="color: #94A3B8; margin-bottom: 1.5rem; font-size: 0.95rem;">These are written in a voice that hopefully feels close to yours. Edit them, change them, make them your own &mdash; or use them as-is. Hit the copy button and paste straight into your platform.</p>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Live Album Announcement</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">We made a live album. It's been mixed, it's been mastered, and it's coming this spring.
+
+More details soon. For now, just know it exists and we're very pleased with it.
+
+Lovely Assistant — Live Album, Spring 2026
+
+#lovelyassistant #livealbum #newmusic #newcastlemusic #indiefolk</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Behind-the-Scenes Teaser</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Recording a live album involves a lot of standing very still and trying not to cough.
+
+Here's a glimpse of how it came together. Full thing coming soon.
+
+#lovelyassistant #behindthescenes #liverecording #indiemusic #newcastlemusic</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Throwback — One Year of Fuck Love</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">A year on from Fuck Love. Still can't quite believe we made that record — farmhouse in the Midlands, Will Thorneycroft producing, J.J. Golden mastering it in California, the whole thing funded by @helpmusicians.
+
+If you haven't heard it yet, link's in bio. If you have, thank you. It still means a lot.
+
+#lovelyassistant #fucklove #album #indiefolk #newcastle #helpmusicians</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Fan Engagement Question</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Genuine question: what was the first Lovely Assistant song you heard?
+
+We're always curious how people find us. Let us know below.
+
+#lovelyassistant #quartetofheck #indiemusic #newcastle</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Gig Announcement Template</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">[CITY] — we're playing [VENUE NAME] on [DATE].
+
+[One line about what to expect or why this one's special.]
+
+Tickets: [LINK]
+Doors: [TIME]
+
+See you there.
+
+#lovelyassistant #livegig #livemusic #[city]</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Live Album Launch Calendar</h2>
+                <p style="color: #94A3B8; margin-bottom: 1rem; font-size: 0.9rem;">Fill in your actual dates. This is a template to work from.</p>
+
+                <div class="card" style="overflow-x: auto;">
+                    <table class="cal-table">
+                        <thead>
+                            <tr>
+                                <th>When</th>
+                                <th>What to Post</th>
+                                <th>Where</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>6 weeks out</td>
+                                <td>Announcement post + behind-the-scenes photo</td>
+                                <td>Instagram, Facebook, X</td>
+                            </tr>
+                            <tr>
+                                <td>5 weeks out</td>
+                                <td>15-second audio teaser (Reel or Story)</td>
+                                <td>Instagram Reels</td>
+                            </tr>
+                            <tr>
+                                <td>4 weeks out</td>
+                                <td>Tracklist reveal</td>
+                                <td>All platforms</td>
+                            </tr>
+                            <tr>
+                                <td>3 weeks out</td>
+                                <td>Recording session stories (carousel or Stories)</td>
+                                <td>Instagram</td>
+                            </tr>
+                            <tr>
+                                <td>2 weeks out</td>
+                                <td>Artwork reveal + pre-save link</td>
+                                <td>All platforms</td>
+                            </tr>
+                            <tr>
+                                <td>1 week out</td>
+                                <td>Lead single / track premiere + daily countdown Stories</td>
+                                <td>All platforms</td>
+                            </tr>
+                            <tr>
+                                <td>Release day</td>
+                                <td>Launch post, Instagram Live, links everywhere</td>
+                                <td>All platforms</td>
+                            </tr>
+                            <tr>
+                                <td>Day 2-3</td>
+                                <td>Individual track spotlights</td>
+                                <td>Instagram, Facebook</td>
+                            </tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Fan reactions, press quotes, live clips</td>
+                                <td>All platforms</td>
+                            </tr>
+                            <tr>
+                                <td>Week 3-4</td>
+                                <td>Behind-the-scenes video, "making of" content</td>
+                                <td>YouTube, Instagram</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Hashtag Strategy</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Core Hashtags (Every Post)</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">#lovelyassistant #quartetofheck #newcastlemusic #indiefolk #livemusic</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Genre &amp; Discovery</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">#indiefolk #folkmusic #artfolk #jazzfolk #indieband #newmusic #ukmusic #alternativemusic #chamberpop #lounge #torchsongs #laurelcanyon #songwriting #singersongwriter</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Location &amp; Scene</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">#newcastlemusic #northeastmusic #northumberlandmusic #newcastlegigs #nemusicscene #newcastlebands #villagehallgigs #ruralgigs #ukindiemusic</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Live Album Specific</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">#livealbum #liverecording #livemusic #newalbum #albumrelease #newrelease2026 #vinylcommunity #bandcamp #supportlivemusic</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Platform Bios</h2>
+                <p style="color: #94A3B8; margin-bottom: 1.5rem; font-size: 0.9rem;">Updated bios for each platform, ready to paste. Your current Instagram bio is already good &mdash; these are just options if you fancy a refresh.</p>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Instagram Bio</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Quartet of Heck
+Newcastle / Northumberland
+New album "Fuck Love" — out now
+Live album — spring 2026
+Sync: @chelseawood89</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Facebook About</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant — Quartet of Heck
+
+Four-piece from Newcastle/Northumberland making music defiantly without genre. New Lounge, spartan-jazz, indie folk — whatever you want to call it.
+
+Albums: "Fuck Love" (2025) and "Greetings from the Pre-wave" (2020). Live album coming spring 2026.
+
+Booking: lovelyassistantmusic@gmail.com
+Sync: Chelsea Wood (@chelseawood89)</div>
+                </div>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>X / Twitter Bio</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Quartet of Heck. Newcastle/Northumberland. Defiantly without genre. "Fuck Love" out now. Live album spring 2026. lovelyassistantmusic@gmail.com</div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>Made with &#9829; by DMT Consulting &middot; A gift for Lovely Assistant &middot; March 2026</p>
+            <div class="brand">DMT Consulting</div>
+            <p style="font-size: 0.75rem; color: #475569; line-height: 1.5; margin-top: 1.5rem;">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+
+            document.getElementById('tab-' + tab).classList.add('active');
+
+            var tabs = { 'where': 0, 'opportunities': 1, 'assets': 2 };
+            document.querySelectorAll('.tab-btn')[tabs[tab]].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copyText(btn) {
+            var block = btn.closest('.copy-block');
+            var text = block.querySelector('.copy-body').innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

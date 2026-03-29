@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Optimisation | Lovely Assistant | DMT Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0F1A;
+            color: #E2E8F0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        .header {
+            padding: 2rem 0 1.5rem;
+            border-bottom: 1px solid #1E293B;
+            margin-bottom: 0;
+        }
+        .dmt-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: #F59E0B;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .back-link {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #64748B;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #F59E0B; }
+        .header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #FFFFFF;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+        .header h1 span { color: #F59E0B; }
+        .header .doc-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            margin-bottom: 0.25rem;
+        }
+
+        .tab-bar {
+            display: flex;
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 0.35rem;
+            margin: 1.5rem 0 2rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            gap: 0.35rem;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748B;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+        .tab-btn:hover { color: #CBD5E1; background: rgba(255,255,255,0.03); }
+        .tab-btn.active { background: #F59E0B; color: #0A0F1A; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .section { margin-bottom: 2.5rem; }
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: #F59E0B;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+        }
+        .card ul, .card ol { padding-left: 1.25rem; }
+        .card li { margin-bottom: 0.5rem; }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .stat-card .platform {
+            font-size: 0.8rem;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card .number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #F59E0B;
+            line-height: 1;
+        }
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-top: 0.25rem;
+        }
+
+        .highlight {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .highlight p { color: #FCD34D; font-size: 0.95rem; }
+        .highlight strong { color: #F59E0B; }
+
+        .priority {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+        .priority.high { background: rgba(245, 158, 11, 0.2); color: #F59E0B; }
+        .priority.medium { background: rgba(59, 130, 246, 0.2); color: #3B82F6; }
+        .priority.nice { background: rgba(100, 116, 139, 0.2); color: #94A3B8; }
+
+        .copy-block {
+            background: #0D1321;
+            border: 1px solid #1E293B;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        .copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(245, 158, 11, 0.06);
+            border-bottom: 1px solid #1E293B;
+        }
+        .copy-header h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            letter-spacing: 0.02em;
+        }
+        .copy-btn {
+            background: #F59E0B;
+            color: #0A0F1A;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: #D97706; }
+        .copy-btn.copied { background: #10B981; color: #fff; }
+        .copy-body {
+            padding: 1.25rem;
+            font-size: 0.9rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* Track listing */
+        .track-list {
+            list-style: none;
+            padding: 0;
+        }
+        .track-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #1E293B;
+        }
+        .track-list li:last-child { border-bottom: none; }
+        .track-name { color: #E2E8F0; font-weight: 500; }
+        .track-plays { color: #F59E0B; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; }
+
+        /* Target bar */
+        .target-bar {
+            background: #1E293B;
+            border-radius: 8px;
+            height: 12px;
+            margin: 0.75rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .target-bar .current {
+            background: #F59E0B;
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.5s ease;
+        }
+        .target-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-top: 0.25rem;
+        }
+        .target-labels .now { color: #F59E0B; font-weight: 600; }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-top: 1px solid #1E293B;
+            margin-top: 2rem;
+        }
+        .footer p { font-size: 0.8rem; color: #475569; }
+        .footer .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            color: #F59E0B;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { background: #fff; color: #111; }
+            .tab-bar { display: none; }
+            .tab-content { display: block !important; page-break-before: always; }
+            .tab-content:first-of-type { page-break-before: avoid; }
+            .card, .copy-block, .stat-card { border: 1px solid #ddd; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 1.25rem 1rem; }
+            .tab-btn { font-size: 0.75rem; padding: 0.7rem 0.5rem; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="header">
+            <a href="00-cover.html" class="back-link">&larr; Back to Overview</a>
+            <div class="dmt-logo">DMT Consulting</div>
+            <div class="doc-number">Document 02 of 04</div>
+            <h1>Streaming <span>Optimisation</span></h1>
+        </header>
+
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('where')">Where You Are</button>
+            <button class="tab-btn" onclick="switchTab('opportunities')">Opportunities</button>
+            <button class="tab-btn" onclick="switchTab('assets')">Ready-Made Assets</button>
+        </div>
+
+        <!-- TAB 1: WHERE YOU ARE -->
+        <div id="tab-where" class="tab-content active">
+
+            <div class="section">
+                <h2 class="section-title">Streaming Snapshot</h2>
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="platform">Spotify Listeners</div>
+                        <div class="number">98</div>
+                        <div class="label">Monthly</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="platform">Spotify Followers</div>
+                        <div class="number">298</div>
+                        <div class="label">Total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="platform">Bandcamp</div>
+                        <div class="number">2</div>
+                        <div class="label">Albums listed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="platform">Apple Music</div>
+                        <div class="number">&check;</div>
+                        <div class="label">Listed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Top Tracks on Spotify</h2>
+                <div class="card">
+                    <ul class="track-list">
+                        <li>
+                            <span class="track-name">Passengers Reminded</span>
+                            <span class="track-plays">3,806</span>
+                        </li>
+                        <li>
+                            <span class="track-name">Mother Mary's Superposition</span>
+                            <span class="track-plays">3,688</span>
+                        </li>
+                        <li>
+                            <span class="track-name">Last of the Aircraft Are Leaving</span>
+                            <span class="track-plays">3,542</span>
+                        </li>
+                        <li>
+                            <span class="track-name">Oh Just Go</span>
+                            <span class="track-plays">1,645</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Honest Picture</h2>
+
+                <div class="highlight">
+                    <p>98 monthly listeners is early stage. That's completely fine. <strong>Most independent artists with a strong live following have low streaming numbers</strong> &mdash; it's a different audience reached a different way. Your Spotify followers (298) are triple your monthly listeners, which means people who find you tend to stay. That's the important signal.</p>
+                </div>
+
+                <div class="card">
+                    <h3>What the Numbers Tell Us</h3>
+                    <ul>
+                        <li><strong>Your top 3 tracks are clustered around 3,500-3,800 plays</strong> &mdash; this suggests consistent organic discovery rather than one-off playlist spikes. That's healthy growth.</li>
+                        <li><strong>The follower-to-listener ratio (298:98) is excellent</strong> &mdash; it means about 3x more people have committed to following than are listening in any given month. Your music sticks.</li>
+                        <li><strong>Bandcamp gives you both albums</strong> &mdash; "Greetings from the Pre-wave" and "Fuck Love" are both on lovelyassistant.bandcamp.com. Bandcamp buyers are the highest-value fans in music. Protect this channel.</li>
+                        <li><strong>YouTube has video content</strong> &mdash; @lovelyassistant has music videos and live sessions. YouTube is the world's biggest music discovery platform and you're already present.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>What's Missing</h3>
+                    <ul>
+                        <li><strong>Spotify profile optimisation</strong> &mdash; bio, Artist Pick, Canvas videos, header image could all be working harder</li>
+                        <li><strong>No playlist pitching activity (as far as we can tell)</strong> &mdash; this is the single biggest growth lever on Spotify for an artist at your level</li>
+                        <li><strong>Apple Music bio may be thin or missing</strong> &mdash; Apple Music has a surprisingly large UK audience</li>
+                        <li><strong>YouTube isn't optimised for search</strong> &mdash; titles, descriptions, and tags could be more discoverable</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 2: OPPORTUNITIES -->
+        <div id="tab-opportunities" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Growth Targets</h2>
+
+                <div class="card">
+                    <h3>Spotify Monthly Listeners</h3>
+                    <p>Realistic targets based on the live album as a growth catalyst:</p>
+
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.5rem;"><strong style="color: #F59E0B;">Now:</strong> 98 listeners</p>
+                        <div class="target-bar"><div class="current" style="width: 20%;"></div></div>
+                        <div class="target-labels">
+                            <span class="now">98 now</span>
+                            <span>250 (3 months)</span>
+                            <span>500 (6 months)</span>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem;">These aren't arbitrary numbers. 250 monthly listeners puts you in a much stronger position for editorial playlist consideration. 500 opens up algorithmic recommendations. Both are achievable with a live album release + the strategies below.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Prioritised Opportunities</h2>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>1. Spotify for Artists Optimisation</h3>
+                    <p>If you haven't already claimed and fully set up your Spotify for Artists profile, that's step one. If you have, there's likely more you can do:</p>
+                    <ul>
+                        <li><strong>Bio</strong> &mdash; write a proper one (there's a ready-to-paste version in the Assets tab). This appears on your profile and in search results.</li>
+                        <li><strong>Artist Pick</strong> &mdash; pin your latest single or upcoming live album to the top of your profile. Change this with every release.</li>
+                        <li><strong>Canvas</strong> &mdash; those 8-second looping videos that play behind tracks. A simple clip of a live performance works perfectly. Tracks with Canvas get more saves.</li>
+                        <li><strong>Gallery images</strong> &mdash; upload proper press photos and live shots. This populates your profile and makes it look active.</li>
+                        <li><strong>Header image</strong> &mdash; make sure it's current and high resolution.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>2. Live Album as Growth Catalyst</h3>
+                    <p>The live album is your biggest streaming opportunity in 2026. Here's how to use it:</p>
+                    <ul>
+                        <li><strong>Submit to Spotify editorial playlists via Spotify for Artists</strong> &mdash; you can pitch one unreleased track at least 7 days before release. Write a compelling pitch (template in Assets tab).</li>
+                        <li><strong>Set up a pre-save campaign</strong> &mdash; DistroKid, TuneCore, or your distributor likely supports this. Share the pre-save link everywhere.</li>
+                        <li><strong>Release on a Friday</strong> &mdash; Spotify's editorial playlists refresh on Fridays. Releasing on any other day means missing a full week of potential playlist placement.</li>
+                        <li><strong>Don't release all tracks at once as singles beforehand</strong> &mdash; save at least 60-70% of the album as fresh tracks. Spotify's algorithm favours new content.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>3. Playlist Pitching (Independent Curators)</h3>
+                    <p>Beyond Spotify editorial, there are thousands of independent playlist curators. These are real people who run playlists because they love music:</p>
+                    <ul>
+                        <li><strong>Find playlists your style fits</strong> &mdash; search Spotify for playlists with keywords like "indie folk", "lounge", "chamber pop", "UK indie". Look for playlists with 200-5,000 followers (they're more likely to add emerging artists).</li>
+                        <li><strong>Reach out directly</strong> &mdash; many curators list contact info in the playlist description. A short, genuine email works (template in Assets tab).</li>
+                        <li><strong>SubmitHub</strong> &mdash; a paid platform (~$1-2 per submission) where you pitch to curators directly. Worth it for a live album release.</li>
+                        <li><strong>Pitch your strongest tracks first</strong> &mdash; Passengers Reminded (3,806 plays) is your proven performer.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority medium">Medium Priority</span>
+                    <h3>4. Bandcamp Fridays &amp; Direct Sales</h3>
+                    <p>Bandcamp is where your most dedicated fans live. For the live album:</p>
+                    <ul>
+                        <li><strong>Time the Bandcamp release to a Bandcamp Friday</strong> (first Friday of each month) when Bandcamp waives their revenue share. Fans know about these days.</li>
+                        <li><strong>Offer exclusive formats</strong> &mdash; name-your-price digital, limited edition physical if you can swing it.</li>
+                        <li><strong>Write a proper album description</strong> (template in Assets tab) &mdash; tell the story of the recording.</li>
+                        <li><strong>Update your Bandcamp bio</strong> to mention the live album and link to your other platforms.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority medium">Medium Priority</span>
+                    <h3>5. YouTube Live Sessions</h3>
+                    <p>You've already got live videos on YouTube. You might want to consider making this a regular thing:</p>
+                    <ul>
+                        <li><strong>Film one live session video per single/album release</strong> &mdash; even a phone recording in the community centre with decent audio.</li>
+                        <li><strong>Optimise titles and descriptions for search</strong> &mdash; include the song name, "Lovely Assistant", "live", and genre terms.</li>
+                        <li><strong>Create a playlist on your channel</strong> &mdash; "Live Sessions" or "Live at..." grouping. This keeps people watching.</li>
+                        <li><strong>YouTube Shorts</strong> &mdash; crop the best 30-60 seconds of any live video into a Short. These get algorithmic push.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="priority nice">When You're Ready</span>
+                    <h3>6. Apple Music Optimisation</h3>
+                    <p>Apple Music has a significant UK listener base, particularly among people who buy music (not just stream). Make sure your Apple Music for Artists profile is claimed, bio is filled in (template in Assets tab), and your discography is complete.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 3: READY-MADE ASSETS -->
+        <div id="tab-assets" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Spotify Bio</h2>
+                <p style="color: #94A3B8; margin-bottom: 1rem; font-size: 0.9rem;">Paste this into Spotify for Artists. Around 150 words &mdash; the ideal length for the platform.</p>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Spotify Artist Bio</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant are a four-piece from Newcastle and Northumberland — Annie (keys, vocals), Kieran (bass, vocals), Dave (guitar), and Matt (drums). They've been making music together since 2017, working from a community centre and describing their sound as "defiantly without genre."
+
+That sound sits somewhere between torch songs of the 1950s, Laurel Canyon warmth, and the restless curiosity of artists like Prefab Sprout, Arthur Russell, and Angel Olsen. Call it New Lounge, call it spartan-jazz, call it indie folk — it doesn't matter. It's theirs.
+
+Their second album "Fuck Love" (2025) was produced by Will Thorneycroft, recorded at a remote farmhouse in the Midlands and Blank Studio, and mastered by J.J. Golden in California. It was supported by Help Musicians.
+
+Their debut "Greetings from the Pre-wave" (2020) was released on limited 12" vinyl. A live album is coming spring 2026.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Playlist Pitching Email</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Independent Curator Pitch</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Subject: Track submission for [PLAYLIST NAME] — Lovely Assistant
+
+Hi [NAME],
+
+I'm writing from Lovely Assistant, a four-piece from Newcastle. We found your playlist [PLAYLIST NAME] and it felt like a natural fit for our music.
+
+We'd love to submit our track "[TRACK NAME]" for your consideration. We're an indie folk act drawing on torch songs, Laurel Canyon, and artists like Prefab Sprout and Angel Olsen — though we prefer to call it "defiantly without genre."
+
+Spotify link: [TRACK LINK]
+
+A bit about us: our second album "Fuck Love" was produced by Will Thorneycroft and mastered by J.J. Golden (California), supported by Help Musicians. We've been praised by Guy Garvey and have a live album coming spring 2026.
+
+Completely understand if it's not the right fit. Thanks for the playlist either way — it's a good one.
+
+Best,
+Lovely Assistant
+lovelyassistantmusic@gmail.com</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Bandcamp Release Description</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Live Album — Bandcamp Description</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">[ALBUM TITLE] — Lovely Assistant (Live Album, 2026)
+
+Recorded live by Lovely Assistant — Annie (keys, vocals), Kieran (bass, vocals), Dave (guitar), and Matt (drums).
+
+[One or two sentences about where it was recorded and what it captures.]
+
+This is what we sound like in a room together. No overdubs, no safety net. Just the four of us doing what we've been doing since 2017.
+
+Mixed by [MIXER]. Mastered by [MASTERING ENGINEER].
+
+If you've seen us live, this is that. If you haven't, this is what you're missing.
+
+---
+
+Lovely Assistant are a four-piece from Newcastle/Northumberland. Their studio albums "Fuck Love" (2025) and "Greetings from the Pre-wave" (2020) are also available on Bandcamp.
+
+Booking: lovelyassistantmusic@gmail.com
+Sync: Chelsea Wood</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Pre-Save Announcement</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Pre-Save Social Post</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Our live album drops [DATE]. You can pre-save it now so it lands in your library the moment it's out.
+
+[PRE-SAVE LINK]
+
+This one's special to us. Hope you'll give it a listen.
+
+#lovelyassistant #livealbum #presave #newmusic #indiefolk #newcastlemusic</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Apple Music Bio</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Apple Music Artist Bio</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant are a four-piece from Newcastle and Northumberland, making music that sits somewhere between torch songs, Laurel Canyon folk, and the adventurous spirit of Prefab Sprout and Arthur Russell. Formed in 2017, the band — Annie (keys, vocals), Kieran (bass, vocals), Dave (guitar), and Matt (drums) — work from a community centre and describe their sound as "defiantly without genre."
+
+Their second album "Fuck Love" (2025), produced by Will Thorneycroft and mastered by J.J. Golden in California, was supported by Help Musicians and recorded at a remote farmhouse in the Midlands. Their debut "Greetings from the Pre-wave" (2020) was released on limited 12" vinyl.
+
+Praised by Guy Garvey, supported by Generator NE and Glasshouse ICM, Lovely Assistant are one of the North East's most distinctive and quietly compelling bands.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Spotify Editorial Pitch Template</h2>
+                <p style="color: #94A3B8; margin-bottom: 1rem; font-size: 0.9rem;">This goes in the pitch box on Spotify for Artists when you submit an unreleased track (7+ days before release).</p>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Spotify for Artists Editorial Pitch</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">"[TRACK NAME]" is from our upcoming live album, recorded in front of an audience and mixed with no overdubs. We're a four-piece from Newcastle — keys, bass, guitar, drums — making music we call "defiantly without genre," somewhere between torch songs, Laurel Canyon folk, and spartan-jazz.
+
+Our second studio album "Fuck Love" (2025) was produced by Will Thorneycroft and mastered by J.J. Golden. We've been praised by Guy Garvey and supported by Help Musicians.
+
+This track captures what we sound like live — intimate, warm, and slightly unpredictable. It fits alongside artists like Angel Olsen, Prefab Sprout, Big Thief, and Weyes Blood.
+
+Genre: Indie Folk / Art Pop / Chamber Pop
+Mood: Intimate, warm, reflective
+Location: Newcastle/Northumberland, UK</div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>Made with &#9829; by DMT Consulting &middot; A gift for Lovely Assistant &middot; March 2026</p>
+            <div class="brand">DMT Consulting</div>
+            <p style="font-size: 0.75rem; color: #475569; line-height: 1.5; margin-top: 1.5rem;">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.getElementById('tab-' + tab).classList.add('active');
+            var tabs = { 'where': 0, 'opportunities': 1, 'assets': 2 };
+            document.querySelectorAll('.tab-btn')[tabs[tab]].classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copyText(btn) {
+            var block = btn.closest('.copy-block');
+            var text = block.querySelector('.copy-body').innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

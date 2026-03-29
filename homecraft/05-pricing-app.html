@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#E87722">
+<title>Homecraft - Job Pricer & Tracker</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSG9tZWNyYWZ0IEpvYiBNYW5hZ2VyIiwic2hvcnRfbmFtZSI6IkhvbWVjcmFmdCIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjRTg3NzIyIiwidGhlbWVfY29sb3IiOiIjRTg3NzIyIn0=">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--orange:#E87722;--orange-dark:#C5621A;--orange-light:#FFF3E8;--dark:#2D2D2D;--grey:#6B7280;--light:#F5F5F5;--white:#FFFFFF;--green:#22C55E;--blue:#3B82F6;--red:#EF4444;--yellow:#F59E0B;--radius:12px;--shadow:0 2px 8px rgba(0,0,0,0.08)}
+html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--light);color:var(--dark);overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:none;background:none;font-size:inherit}
+input,select,textarea{font-family:inherit;font-size:16px;border:2px solid #E5E7EB;border-radius:var(--radius);padding:14px 16px;width:100%;background:var(--white);color:var(--dark);transition:border-color .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--orange)}
+textarea{resize:vertical;min-height:80px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+
+/* Layout */
+.app{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto;background:var(--white)}
+.header{background:var(--orange);color:var(--white);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:60px;flex-shrink:0}
+.header h1{font-size:20px;font-weight:700;letter-spacing:-0.3px}
+.header-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.content{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 20px 100px;-webkit-overflow-scrolling:touch}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid #E5E7EB;display:flex;justify-content:center;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nav-inner{display:flex;max-width:480px;width:100%}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;color:var(--grey);font-size:11px;font-weight:600;transition:color .2s}
+.nav-btn.active{color:var(--orange)}
+.nav-btn svg{width:24px;height:24px}
+
+/* Cards */
+.card{background:var(--white);border:1px solid #E5E7EB;border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-title{font-size:16px;font-weight:700}
+
+/* Buttons */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 24px;border-radius:var(--radius);font-size:16px;font-weight:600;transition:all .15s;min-height:52px;width:100%}
+.btn-primary{background:var(--orange);color:var(--white)}
+.btn-primary:active{background:var(--orange-dark);transform:scale(0.98)}
+.btn-secondary{background:var(--light);color:var(--dark);border:2px solid #E5E7EB}
+.btn-secondary:active{background:#E5E7EB}
+.btn-danger{background:var(--red);color:var(--white)}
+.btn-danger:active{background:#DC2626}
+.btn-success{background:var(--green);color:var(--white)}
+.btn-success:active{background:#16A34A}
+.btn-sm{padding:10px 16px;font-size:14px;min-height:40px;width:auto}
+.btn-icon{width:44px;height:44px;min-height:44px;padding:0;border-radius:50%}
+
+/* Form */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--grey);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+.form-row{display:flex;gap:12px}
+.form-row>*{flex:1}
+.form-hint{font-size:12px;color:var(--grey);margin-top:4px}
+
+/* Status badges */
+.badge{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.badge-quoted{background:#FEF3C7;color:#92400E}
+.badge-booked{background:#DBEAFE;color:#1E40AF}
+.badge-progress{background:#FED7AA;color:#9A3412}
+.badge-complete{background:#D1FAE5;color:#065F46}
+.badge-paid{background:#E0E7FF;color:#3730A3}
+
+/* Job card */
+.job-card{border-left:4px solid var(--grey);cursor:pointer}
+.job-card.status-quoted{border-left-color:var(--yellow)}
+.job-card.status-booked{border-left-color:var(--blue)}
+.job-card.status-progress{border-left-color:var(--orange)}
+.job-card.status-complete{border-left-color:var(--green)}
+.job-card.status-paid{border-left-color:#6366F1}
+.job-name{font-size:16px;font-weight:700;margin-bottom:4px}
+.job-service{font-size:14px;color:var(--grey);margin-bottom:8px}
+.job-meta{display:flex;justify-content:space-between;align-items:center}
+.job-amount{font-size:18px;font-weight:700;color:var(--orange)}
+.job-date{font-size:12px;color:var(--grey)}
+.job-actions{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #E5E7EB}
+
+/* Quote preview */
+.quote-preview{background:var(--light);border-radius:var(--radius);padding:20px;margin:16px 0}
+.quote-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #E5E7EB}
+.quote-line:last-child{border-bottom:none}
+.quote-total{font-size:20px;font-weight:700;color:var(--orange);border-top:2px solid var(--dark);margin-top:8px;padding-top:12px;display:flex;justify-content:space-between}
+
+/* Material line */
+.material-line{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #F3F4F6}
+.material-line .name{flex:1;font-size:14px}
+.material-line .qty{width:60px;text-align:center;font-size:14px;padding:8px}
+.material-line .cost{width:80px;text-align:right;font-size:14px;font-weight:600}
+.material-line .remove{color:var(--red);font-size:18px;width:32px;text-align:center}
+
+/* Summary bar */
+.summary-bar{position:sticky;bottom:0;left:0;right:0;background:var(--dark);color:var(--white);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin:-16px -20px;margin-top:16px;border-radius:var(--radius) var(--radius) 0 0}
+.summary-bar .label{font-size:14px;opacity:0.8}
+.summary-bar .amount{font-size:24px;font-weight:700}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+.tab{padding:8px 16px;border-radius:20px;font-size:14px;font-weight:600;white-space:nowrap;background:var(--light);color:var(--grey);transition:all .2s;flex-shrink:0}
+.tab.active{background:var(--orange);color:var(--white)}
+
+/* Filter */
+.filter-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.filter-chip{padding:8px 14px;border-radius:20px;font-size:13px;font-weight:600;white-space:nowrap;background:var(--light);color:var(--grey);border:2px solid transparent;flex-shrink:0}
+.filter-chip.active{background:var(--orange-light);color:var(--orange);border-color:var(--orange)}
+.filter-chip .count{margin-left:4px;font-size:11px}
+
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px;color:var(--grey)}
+.empty-state svg{width:64px;height:64px;margin-bottom:16px;opacity:0.3}
+.empty-state h3{font-size:18px;margin-bottom:8px;color:var(--dark)}
+.empty-state p{font-size:14px;line-height:1.5}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal{background:var(--white);width:100%;max-width:480px;max-height:90vh;border-radius:20px 20px 0 0;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease-out;padding:24px 20px 40px}
+.modal-overlay.active .modal{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:#D1D5DB;border-radius:2px;margin:0 auto 20px}
+.modal-title{font-size:20px;font-weight:700;margin-bottom:20px}
+
+/* Settings list */
+.settings-item{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid #F3F4F6;cursor:pointer}
+.settings-item:last-child{border-bottom:none}
+.settings-item .left{display:flex;align-items:center;gap:12px}
+.settings-item .icon{width:40px;height:40px;border-radius:10px;background:var(--orange-light);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:18px}
+.settings-item .text h4{font-size:15px;font-weight:600}
+.settings-item .text p{font-size:13px;color:var(--grey)}
+.settings-item .arrow{color:var(--grey);font-size:18px}
+
+/* Section */
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--grey);margin:24px 0 12px;padding-left:4px}
+.section-title:first-child{margin-top:0}
+
+/* Toggle */
+.toggle{position:relative;width:52px;height:32px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle .slider{position:absolute;inset:0;background:#D1D5DB;border-radius:16px;transition:.3s;cursor:pointer}
+.toggle .slider:before{content:'';position:absolute;width:26px;height:26px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s}
+.toggle input:checked+.slider{background:var(--orange)}
+.toggle input:checked+.slider:before{transform:translateX(20px)}
+
+/* Animations */
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.animate-in{animation:slideUp .3s ease-out}
+
+/* Divider */
+.divider{height:1px;background:#E5E7EB;margin:16px 0}
+
+/* PWA Install Banner */
+.install-banner{background:var(--dark);color:var(--white);padding:16px 20px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.install-banner .close{margin-left:auto;opacity:0.6;font-size:20px}
+
+/* Editable list */
+.editable-item{display:flex;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #F3F4F6}
+.editable-item input{border:none;padding:8px;font-size:14px;flex:1}
+.editable-item input:focus{border-bottom:2px solid var(--orange)}
+.editable-item .price-input{width:80px;text-align:right}
+.editable-item .delete-btn{color:var(--red);padding:8px}
+
+/* Search */
+.search-bar{position:relative;margin-bottom:16px}
+.search-bar input{padding-left:44px}
+.search-bar svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--grey)}
+
+/* Toast */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--dark);color:var(--white);padding:14px 24px;border-radius:var(--radius);font-size:14px;font-weight:600;z-index:300;transition:transform .3s;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* Confirm dialog */
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:250;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.confirm-overlay.active{opacity:1;pointer-events:all}
+.confirm-box{background:var(--white);border-radius:var(--radius);padding:24px;max-width:320px;width:100%;text-align:center}
+.confirm-box h3{font-size:18px;margin-bottom:8px}
+.confirm-box p{font-size:14px;color:var(--grey);margin-bottom:20px;line-height:1.5}
+.confirm-box .btns{display:flex;gap:12px}
+.confirm-box .btns button{flex:1}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <!-- Header -->
+  <div class="header">
+    <h1 id="headerTitle">Price a Job</h1>
+    <div class="header-icon" id="headerAction"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="content"></div>
+
+  <!-- Bottom Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" data-tab="price" onclick="switchTab('price')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Price
+      </button>
+      <button class="nav-btn" data-tab="jobs" onclick="switchTab('jobs')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Jobs
+      </button>
+      <button class="nav-btn" data-tab="settings" onclick="switchTab('settings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Settings
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box" id="confirmBox"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// DATA STORE
+// ============================================================
+const STORAGE_KEY = 'homecraft_data';
+
+const DEFAULT_SERVICES = [
+  'Pointing','New Roofs','Roof Repairs','Rubber & Torch on Felt','Ridge Tiles',
+  'Cladding','Chimneys','Interior Painting','Exterior Painting','Guttering',
+  'Dry Ridge & Dry Verge Systems','Double Glazed Windows & Doors',
+  'High Pressure Cleaning','Gutter & UPVC Cleaning','Outside Taps'
+];
+
+const DEFAULT_MATERIALS = [
+  {name:'Roof Tiles (per tile)',unit:'tile',cost:1.20},
+  {name:'Ridge Tiles (each)',unit:'each',cost:4.50},
+  {name:'Roofing Felt (per m)',unit:'m',cost:3.80},
+  {name:'Torch-On Felt (per m)',unit:'m',cost:8.50},
+  {name:'Lead Flashing (per m)',unit:'m',cost:15.00},
+  {name:'Pointing Mortar (25kg bag)',unit:'bag',cost:6.50},
+  {name:'Silicone Sealant (tube)',unit:'tube',cost:5.00},
+  {name:'Guttering - PVC (per 4m)',unit:'length',cost:8.00},
+  {name:'Downpipe - PVC (per 4m)',unit:'length',cost:7.50},
+  {name:'Gutter Brackets (each)',unit:'each',cost:1.50},
+  {name:'Fascia Board (per 5m)',unit:'length',cost:18.00},
+  {name:'Soffit Board (per 5m)',unit:'length',cost:16.00},
+  {name:'Cladding Panel (per m2)',unit:'m2',cost:22.00},
+  {name:'Roof Batten (per 4m)',unit:'length',cost:3.00},
+  {name:'Roofing Nails (box)',unit:'box',cost:4.50},
+  {name:'Dry Verge Units (each)',unit:'each',cost:7.00},
+  {name:'Dry Ridge Kit (6m)',unit:'kit',cost:65.00},
+  {name:'Exterior Paint (5L)',unit:'tin',cost:28.00},
+  {name:'Interior Paint (5L)',unit:'tin',cost:22.00},
+  {name:'Masonry Paint (10L)',unit:'tin',cost:35.00},
+  {name:'Scaffold Hire (per week)',unit:'week',cost:250.00},
+  {name:'Skip Hire',unit:'skip',cost:220.00},
+  {name:'Plywood Sheet (8x4)',unit:'sheet',cost:24.00},
+  {name:'Cement (25kg bag)',unit:'bag',cost:5.50},
+  {name:'Sand (bulk bag)',unit:'bag',cost:45.00},
+  {name:'UPVC Cleaner (5L)',unit:'bottle',cost:12.00}
+];
+
+const DEFAULT_SETTINGS = {
+  labourRate: 35,
+  markupPercent: 20,
+  businessName: 'Homecraft Roofing & Property Maintenance',
+  businessPhone: '07455 544085',
+  vatRegistered: false,
+  vatRate: 20
+};
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return {
+    services: [...DEFAULT_SERVICES],
+    materials: DEFAULT_MATERIALS.map(m => ({...m})),
+    settings: {...DEFAULT_SETTINGS},
+    jobs: [],
+    currentQuote: null
+  };
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+let data = loadData();
+let currentTab = 'price';
+let jobFilter = 'all';
+let editingJobId = null;
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  render();
+}
+
+function render() {
+  const c = document.getElementById('content');
+  const h = document.getElementById('headerTitle');
+  const ha = document.getElementById('headerAction');
+
+  switch(currentTab) {
+    case 'price': h.textContent = 'Price a Job'; ha.innerHTML = ''; renderPricer(c); break;
+    case 'jobs': h.textContent = 'My Jobs'; ha.innerHTML = '<button onclick="showAddJob()" style="color:white;font-size:28px;font-weight:300">+</button>'; renderJobs(c); break;
+    case 'settings': h.textContent = 'Settings'; ha.innerHTML = ''; renderSettings(c); break;
+  }
+}
+
+// ============================================================
+// PRICER TAB
+// ============================================================
+function initQuote() {
+  if (!data.currentQuote) {
+    data.currentQuote = {
+      service: '',
+      items: [],
+      labourHours: 0,
+      labourRate: data.settings.labourRate,
+      markupPercent: data.settings.markupPercent,
+      notes: '',
+      customerName: '',
+      customerPhone: '',
+      customerAddress: ''
+    };
+  }
+}
+
+function renderPricer(container) {
+  initQuote();
+  const q = data.currentQuote;
+  const materialsCost = q.items.reduce((sum, i) => sum + (i.qty * i.cost), 0);
+  const labourCost = q.labourHours * q.labourRate;
+  const subtotal = materialsCost + labourCost;
+  const markup = subtotal * (q.markupPercent / 100);
+  const total = subtotal + markup;
+  const vat = data.settings.vatRegistered ? total * (data.settings.vatRate / 100) : 0;
+  const grandTotal = total + vat;
+
+  container.innerHTML = `
+    <div class="animate-in">
+      <!-- Service Selection -->
+      <div class="form-group">
+        <label class="form-label">Service Type</label>
+        <select id="serviceSelect" onchange="data.currentQuote.service=this.value;saveData()">
+          <option value="">Select a service...</option>
+          ${data.services.map(s => `<option value="${s}" ${q.service===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+
+      <!-- Customer (collapsible) -->
+      <details class="card" ${q.customerName?'open':''}>
+        <summary style="font-weight:700;font-size:15px;cursor:pointer;padding:4px 0">Customer Details (optional)</summary>
+        <div style="margin-top:12px">
+          <div class="form-group">
+            <input type="text" placeholder="Customer name" value="${esc(q.customerName)}" onchange="data.currentQuote.customerName=this.value;saveData()">
+          </div>
+          <div class="form-group">
+            <input type="tel" placeholder="Phone number" value="${esc(q.customerPhone)}" onchange="data.currentQuote.customerPhone=this.value;saveData()">
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Address" onchange="data.currentQuote.customerAddress=this.value;saveData()">${esc(q.customerAddress)}</textarea>
+          </div>
+        </div>
+      </details>
+
+      <!-- Materials -->
+      <div class="section-title">Materials</div>
+      <div class="card">
+        ${q.items.length === 0 ? '<p style="color:var(--grey);font-size:14px;text-align:center;padding:8px 0">No materials added yet</p>' :
+          q.items.map((item, i) => `
+            <div class="material-line">
+              <span class="name">${esc(item.name)}</span>
+              <input type="number" class="qty" value="${item.qty}" min="0" step="0.5"
+                onchange="updateItemQty(${i},this.value)" inputmode="decimal">
+              <span class="cost">&pound;${(item.qty * item.cost).toFixed(2)}</span>
+              <button class="remove" onclick="removeItem(${i})">&times;</button>
+            </div>
+          `).join('')
+        }
+        <button class="btn btn-secondary" style="margin-top:12px" onclick="showAddMaterial()">
+          + Add Material
+        </button>
+      </div>
+
+      <!-- Labour -->
+      <div class="section-title">Labour</div>
+      <div class="card">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Hours</label>
+            <input type="number" id="labourHours" value="${q.labourHours}" min="0" step="0.5"
+              onchange="data.currentQuote.labourHours=parseFloat(this.value)||0;saveData();render()"
+              inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rate/hr</label>
+            <div style="position:relative">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--grey)">&pound;</span>
+              <input type="number" style="padding-left:28px" value="${q.labourRate}" min="0" step="1"
+                onchange="data.currentQuote.labourRate=parseFloat(this.value)||0;saveData();render()"
+                inputmode="decimal">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Markup -->
+      <div class="section-title">Markup</div>
+      <div class="card">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Markup %</label>
+          <input type="number" value="${q.markupPercent}" min="0" max="100" step="5"
+            onchange="data.currentQuote.markupPercent=parseFloat(this.value)||0;saveData();render()"
+            inputmode="decimal">
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="form-group" style="margin-top:16px">
+        <label class="form-label">Quote Notes</label>
+        <textarea placeholder="Any additional notes for this quote..."
+          onchange="data.currentQuote.notes=this.value;saveData()">${esc(q.notes)}</textarea>
+      </div>
+
+      <!-- Quote Summary -->
+      <div class="quote-preview">
+        <div style="font-weight:700;font-size:16px;margin-bottom:12px">Quote Summary</div>
+        <div class="quote-line"><span>Materials</span><span>&pound;${materialsCost.toFixed(2)}</span></div>
+        <div class="quote-line"><span>Labour (${q.labourHours}hrs @ &pound;${q.labourRate}/hr)</span><span>&pound;${labourCost.toFixed(2)}</span></div>
+        <div class="quote-line"><span>Markup (${q.markupPercent}%)</span><span>&pound;${markup.toFixed(2)}</span></div>
+        ${data.settings.vatRegistered ? `<div class="quote-line"><span>VAT (${data.settings.vatRate}%)</span><span>&pound;${vat.toFixed(2)}</span></div>` : ''}
+        <div class="quote-total"><span>Total</span><span>&pound;${grandTotal.toFixed(2)}</span></div>
+      </div>
+
+      <!-- Actions -->
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+        <button class="btn btn-primary" onclick="shareQuote()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share Quote
+        </button>
+        <div class="form-row">
+          <button class="btn btn-success" onclick="saveQuoteAsJob()">Save as Job</button>
+          <button class="btn btn-secondary" onclick="confirmClearQuote()">Clear</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function showAddMaterial() {
+  const html = `
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add Material</div>
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="materialSearch" placeholder="Search materials..." oninput="filterMaterials(this.value)" autofocus>
+    </div>
+    <div id="materialList">
+      ${renderMaterialList('')}
+    </div>
+    <div class="divider"></div>
+    <div style="padding-top:8px">
+      <div style="font-weight:700;font-size:15px;margin-bottom:12px">Custom Material</div>
+      <div class="form-group">
+        <input type="text" id="customMatName" placeholder="Material name">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="number" id="customMatCost" placeholder="Cost (&pound;)" inputmode="decimal">
+        </div>
+        <div class="form-group">
+          <input type="number" id="customMatQty" placeholder="Qty" value="1" inputmode="decimal">
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="addCustomMaterial()">Add Custom</button>
+    </div>
+  `;
+  openModal(html);
+}
+
+function renderMaterialList(search) {
+  const filtered = data.materials.filter(m =>
+    !search || m.name.toLowerCase().includes(search.toLowerCase())
+  );
+  if (filtered.length === 0) return '<p style="color:var(--grey);text-align:center;padding:16px">No materials found</p>';
+  return filtered.map((m, idx) => {
+    const realIdx = data.materials.indexOf(m);
+    return `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F3F4F6;cursor:pointer"
+        onclick="addMaterialToQuote(${realIdx})">
+        <div>
+          <div style="font-size:15px;font-weight:500">${esc(m.name)}</div>
+          <div style="font-size:13px;color:var(--grey)">&pound;${m.cost.toFixed(2)} per ${m.unit}</div>
+        </div>
+        <div style="color:var(--orange);font-size:22px;font-weight:300">+</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterMaterials(search) {
+  document.getElementById('materialList').innerHTML = renderMaterialList(search);
+}
+
+function addMaterialToQuote(materialIndex) {
+  const m = data.materials[materialIndex];
+  const existing = data.currentQuote.items.findIndex(i => i.name === m.name);
+  if (existing >= 0) {
+    data.currentQuote.items[existing].qty += 1;
+  } else {
+    data.currentQuote.items.push({name: m.name, unit: m.unit, cost: m.cost, qty: 1});
+  }
+  saveData();
+  showToast(`Added ${m.name}`);
+  closeModal();
+  render();
+}
+
+function addCustomMaterial() {
+  const name = document.getElementById('customMatName').value.trim();
+  const cost = parseFloat(document.getElementById('customMatCost').value) || 0;
+  const qty = parseFloat(document.getElementById('customMatQty').value) || 1;
+  if (!name) { showToast('Enter a material name'); return; }
+  data.currentQuote.items.push({name, unit: 'each', cost, qty});
+  saveData();
+  showToast(`Added ${name}`);
+  closeModal();
+  render();
+}
+
+function updateItemQty(index, value) {
+  data.currentQuote.items[index].qty = parseFloat(value) || 0;
+  saveData();
+  render();
+}
+
+function removeItem(index) {
+  data.currentQuote.items.splice(index, 1);
+  saveData();
+  render();
+}
+
+function confirmClearQuote() {
+  showConfirm('Clear Quote?', 'This will remove all materials and reset the quote.', () => {
+    data.currentQuote = null;
+    saveData();
+    render();
+  });
+}
+
+function calcQuoteTotals() {
+  const q = data.currentQuote;
+  if (!q) return {materials:0,labour:0,markup:0,vat:0,total:0};
+  const materials = q.items.reduce((s,i) => s + i.qty * i.cost, 0);
+  const labour = q.labourHours * q.labourRate;
+  const subtotal = materials + labour;
+  const markup = subtotal * (q.markupPercent / 100);
+  const beforeVat = subtotal + markup;
+  const vat = data.settings.vatRegistered ? beforeVat * (data.settings.vatRate / 100) : 0;
+  return {materials, labour, markup, vat, total: beforeVat + vat, subtotal: beforeVat};
+}
+
+function shareQuote() {
+  const q = data.currentQuote;
+  const t = calcQuoteTotals();
+  const lines = [
+    `${data.settings.businessName}`,
+    `Tel: ${data.settings.businessPhone}`,
+    '',
+    q.customerName ? `Customer: ${q.customerName}` : '',
+    q.customerAddress ? `Address: ${q.customerAddress}` : '',
+    '',
+    `--- QUOTE ---`,
+    q.service ? `Service: ${q.service}` : '',
+    '',
+    'Materials:',
+    ...q.items.map(i => `  ${i.name} x${i.qty} = \u00A3${(i.qty*i.cost).toFixed(2)}`),
+    `Materials Total: \u00A3${t.materials.toFixed(2)}`,
+    '',
+    `Labour: ${q.labourHours}hrs @ \u00A3${q.labourRate}/hr = \u00A3${t.labour.toFixed(2)}`,
+    '',
+  ];
+  if (data.settings.vatRegistered) {
+    lines.push(`Subtotal: \u00A3${t.subtotal.toFixed(2)}`);
+    lines.push(`VAT (${data.settings.vatRate}%): \u00A3${t.vat.toFixed(2)}`);
+  }
+  lines.push(`TOTAL: \u00A3${t.total.toFixed(2)}`);
+  if (q.notes) { lines.push('', `Notes: ${q.notes}`); }
+  lines.push('', `Date: ${new Date().toLocaleDateString('en-GB')}`);
+
+  const text = lines.filter(l => l !== undefined).join('\n');
+
+  if (navigator.share) {
+    navigator.share({title: 'Quote from ' + data.settings.businessName, text}).catch(()=>{});
+  } else {
+    // Fallback: copy to clipboard
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Quote copied to clipboard');
+    }).catch(() => {
+      // Final fallback: show in modal
+      openModal(`<div class="modal-handle"></div><div class="modal-title">Quote</div><pre style="white-space:pre-wrap;font-size:13px;background:var(--light);padding:16px;border-radius:8px;max-height:60vh;overflow:auto">${esc(text)}</pre><button class="btn btn-primary" style="margin-top:16px" onclick="closeModal()">Done</button>`);
+    });
+  }
+}
+
+function saveQuoteAsJob() {
+  const q = data.currentQuote;
+  const t = calcQuoteTotals();
+  if (!q.service && !q.customerName) {
+    showToast('Add a service or customer name first');
+    return;
+  }
+  const job = {
+    id: Date.now(),
+    customerName: q.customerName || 'No name',
+    customerPhone: q.customerPhone,
+    customerAddress: q.customerAddress,
+    service: q.service || 'General',
+    amount: t.total,
+    items: [...q.items],
+    labourHours: q.labourHours,
+    labourRate: q.labourRate,
+    markupPercent: q.markupPercent,
+    notes: q.notes,
+    status: 'quoted',
+    createdDate: new Date().toISOString(),
+    updatedDate: new Date().toISOString()
+  };
+  data.jobs.unshift(job);
+  data.currentQuote = null;
+  saveData();
+  showToast('Job saved!');
+  switchTab('jobs');
+}
+
+// ============================================================
+// JOBS TAB
+// ============================================================
+const STATUS_ORDER = ['quoted','booked','progress','complete','paid'];
+const STATUS_LABELS = {quoted:'Quoted',booked:'Booked',progress:'In Progress',complete:'Complete',paid:'Paid'};
+const STATUS_NEXT = {quoted:'booked',booked:'progress',progress:'complete',complete:'paid'};
+
+function renderJobs(container) {
+  const counts = {all: data.jobs.length};
+  STATUS_ORDER.forEach(s => counts[s] = data.jobs.filter(j => j.status === s).length);
+
+  const filtered = jobFilter === 'all' ? data.jobs : data.jobs.filter(j => j.status === jobFilter);
+
+  container.innerHTML = `
+    <div class="animate-in">
+      <div class="filter-row">
+        ${['all',...STATUS_ORDER].map(f => `
+          <button class="filter-chip ${jobFilter===f?'active':''}" onclick="jobFilter='${f}';render()">
+            ${f==='all'?'All':STATUS_LABELS[f]}<span class="count">${counts[f]||0}</span>
+          </button>
+        `).join('')}
+      </div>
+      ${filtered.length === 0 ? `
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <h3>No jobs ${jobFilter!=='all'?'with this status':''} yet</h3>
+          <p>${jobFilter==='all'?'Price a job and save it, or tap + to add one manually':'Try a different filter or add a new job'}</p>
+        </div>
+      ` : filtered.map(j => `
+        <div class="card job-card status-${j.status}" onclick="showJobDetail('${j.id}')">
+          <div class="job-name">${esc(j.customerName)}</div>
+          <div class="job-service">${esc(j.service)}</div>
+          <div class="job-meta">
+            <span class="job-amount">&pound;${j.amount.toFixed(2)}</span>
+            <span class="badge badge-${j.status}">${STATUS_LABELS[j.status]}</span>
+          </div>
+          <div class="job-date">${formatDate(j.createdDate)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function showAddJob() {
+  editingJobId = null;
+  const html = `
+    <div class="modal-handle"></div>
+    <div class="modal-title">New Job</div>
+    <div class="form-group">
+      <label class="form-label">Customer Name</label>
+      <input type="text" id="jName" placeholder="e.g. Mr Smith">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone</label>
+      <input type="tel" id="jPhone" placeholder="07...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Address</label>
+      <textarea id="jAddress" placeholder="Full address"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Service</label>
+      <select id="jService">
+        <option value="">Select...</option>
+        ${data.services.map(s => `<option value="${s}">${s}</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Quote Amount (&pound;)</label>
+      <input type="number" id="jAmount" placeholder="0.00" inputmode="decimal">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notes</label>
+      <textarea id="jNotes" placeholder="Access details, special requirements..."></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="saveNewJob()">Save Job</button>
+  `;
+  openModal(html);
+}
+
+function saveNewJob() {
+  const name = document.getElementById('jName').value.trim();
+  if (!name) { showToast('Enter a customer name'); return; }
+  const job = {
+    id: Date.now(),
+    customerName: name,
+    customerPhone: document.getElementById('jPhone').value.trim(),
+    customerAddress: document.getElementById('jAddress').value.trim(),
+    service: document.getElementById('jService').value,
+    amount: parseFloat(document.getElementById('jAmount').value) || 0,
+    items: [],
+    labourHours: 0,
+    labourRate: data.settings.labourRate,
+    markupPercent: data.settings.markupPercent,
+    notes: document.getElementById('jNotes').value.trim(),
+    status: 'quoted',
+    createdDate: new Date().toISOString(),
+    updatedDate: new Date().toISOString()
+  };
+  data.jobs.unshift(job);
+  saveData();
+  closeModal();
+  showToast('Job added!');
+  render();
+}
+
+function showJobDetail(id) {
+  const j = data.jobs.find(j => j.id === parseInt(id));
+  if (!j) return;
+  const nextStatus = STATUS_NEXT[j.status];
+
+  const html = `
+    <div class="modal-handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:16px">
+      <div>
+        <div style="font-size:22px;font-weight:700">${esc(j.customerName)}</div>
+        <div style="font-size:14px;color:var(--grey);margin-top:4px">${esc(j.service)}</div>
+      </div>
+      <span class="badge badge-${j.status}">${STATUS_LABELS[j.status]}</span>
+    </div>
+
+    <div style="font-size:28px;font-weight:700;color:var(--orange);margin-bottom:16px">&pound;${j.amount.toFixed(2)}</div>
+
+    ${j.customerPhone ? `
+      <a href="tel:${j.customerPhone}" class="btn btn-secondary" style="margin-bottom:12px;text-decoration:none;color:var(--dark)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        Call ${esc(j.customerPhone)}
+      </a>
+    ` : ''}
+
+    ${j.customerAddress ? `
+      <div class="card" style="margin-bottom:12px">
+        <div class="form-label">Address</div>
+        <div style="font-size:14px;line-height:1.5">${esc(j.customerAddress)}</div>
+      </div>
+    ` : ''}
+
+    ${j.notes ? `
+      <div class="card" style="margin-bottom:12px">
+        <div class="form-label">Notes</div>
+        <div style="font-size:14px;line-height:1.5">${esc(j.notes)}</div>
+      </div>
+    ` : ''}
+
+    ${j.items.length > 0 ? `
+      <details class="card" style="margin-bottom:12px">
+        <summary style="font-weight:700;font-size:14px;cursor:pointer">Quote Breakdown</summary>
+        <div style="margin-top:8px">
+          ${j.items.map(i => `<div class="quote-line"><span>${esc(i.name)} x${i.qty}</span><span>&pound;${(i.qty*i.cost).toFixed(2)}</span></div>`).join('')}
+          <div class="quote-line"><span>Labour ${j.labourHours}hrs</span><span>&pound;${(j.labourHours*j.labourRate).toFixed(2)}</span></div>
+        </div>
+      </details>
+    ` : ''}
+
+    <div style="font-size:12px;color:var(--grey);margin-bottom:20px">
+      Created: ${formatDate(j.createdDate)}${j.updatedDate !== j.createdDate ? ` | Updated: ${formatDate(j.updatedDate)}` : ''}
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      ${nextStatus ? `
+        <button class="btn btn-primary" onclick="updateJobStatus('${j.id}','${nextStatus}')">
+          Move to ${STATUS_LABELS[nextStatus]}
+        </button>
+      ` : ''}
+      <button class="btn btn-secondary" onclick="editJob('${j.id}')">Edit Job</button>
+      <button class="btn btn-danger" onclick="confirmDeleteJob('${j.id}')">Delete Job</button>
+    </div>
+  `;
+  openModal(html);
+}
+
+function updateJobStatus(id, status) {
+  const j = data.jobs.find(j => j.id === parseInt(id));
+  if (j) {
+    j.status = status;
+    j.updatedDate = new Date().toISOString();
+    saveData();
+    closeModal();
+    showToast(`Job moved to ${STATUS_LABELS[status]}`);
+    render();
+  }
+}
+
+function editJob(id) {
+  const j = data.jobs.find(j => j.id === parseInt(id));
+  if (!j) return;
+  closeModal();
+  setTimeout(() => {
+    const html = `
+      <div class="modal-handle"></div>
+      <div class="modal-title">Edit Job</div>
+      <div class="form-group">
+        <label class="form-label">Customer Name</label>
+        <input type="text" id="eName" value="${esc(j.customerName)}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input type="tel" id="ePhone" value="${esc(j.customerPhone)}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Address</label>
+        <textarea id="eAddress">${esc(j.customerAddress)}</textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service</label>
+        <select id="eService">
+          <option value="">Select...</option>
+          ${data.services.map(s => `<option value="${s}" ${j.service===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Quote Amount (&pound;)</label>
+        <input type="number" id="eAmount" value="${j.amount}" inputmode="decimal">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select id="eStatus">
+          ${STATUS_ORDER.map(s => `<option value="${s}" ${j.status===s?'selected':''}>${STATUS_LABELS[s]}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="eNotes">${esc(j.notes)}</textarea>
+      </div>
+      <button class="btn btn-primary" onclick="saveEditJob('${j.id}')">Save Changes</button>
+    `;
+    openModal(html);
+  }, 350);
+}
+
+function saveEditJob(id) {
+  const j = data.jobs.find(j => j.id === parseInt(id));
+  if (!j) return;
+  j.customerName = document.getElementById('eName').value.trim() || j.customerName;
+  j.customerPhone = document.getElementById('ePhone').value.trim();
+  j.customerAddress = document.getElementById('eAddress').value.trim();
+  j.service = document.getElementById('eService').value;
+  j.amount = parseFloat(document.getElementById('eAmount').value) || j.amount;
+  j.status = document.getElementById('eStatus').value;
+  j.notes = document.getElementById('eNotes').value.trim();
+  j.updatedDate = new Date().toISOString();
+  saveData();
+  closeModal();
+  showToast('Job updated!');
+  render();
+}
+
+function confirmDeleteJob(id) {
+  closeModal();
+  setTimeout(() => {
+    showConfirm('Delete Job?', 'This cannot be undone.', () => {
+      data.jobs = data.jobs.filter(j => j.id !== parseInt(id));
+      saveData();
+      showToast('Job deleted');
+      render();
+    });
+  }, 350);
+}
+
+// ============================================================
+// SETTINGS TAB
+// ============================================================
+function renderSettings(container) {
+  const jobCount = data.jobs.length;
+  const totalValue = data.jobs.reduce((s,j) => s + j.amount, 0);
+  const outstanding = data.jobs.filter(j => j.status !== 'paid').reduce((s,j) => s + j.amount, 0);
+
+  container.innerHTML = `
+    <div class="animate-in">
+      <!-- Quick Stats -->
+      <div class="card" style="background:var(--orange);color:white;border:none">
+        <div style="display:flex;justify-content:space-around;text-align:center">
+          <div>
+            <div style="font-size:24px;font-weight:700">${jobCount}</div>
+            <div style="font-size:12px;opacity:0.8">Total Jobs</div>
+          </div>
+          <div>
+            <div style="font-size:24px;font-weight:700">&pound;${totalValue.toFixed(0)}</div>
+            <div style="font-size:12px;opacity:0.8">Total Value</div>
+          </div>
+          <div>
+            <div style="font-size:24px;font-weight:700">&pound;${outstanding.toFixed(0)}</div>
+            <div style="font-size:12px;opacity:0.8">Outstanding</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Business</div>
+      <div class="card" style="padding:0 16px">
+        <div class="settings-item" onclick="editBusinessSettings()">
+          <div class="left">
+            <div class="icon">&#127968;</div>
+            <div class="text"><h4>Business Details</h4><p>Name, phone, VAT</p></div>
+          </div>
+          <div class="arrow">&#8250;</div>
+        </div>
+      </div>
+
+      <div class="section-title">Pricing</div>
+      <div class="card" style="padding:0 16px">
+        <div class="settings-item" onclick="editDefaultRates()">
+          <div class="left">
+            <div class="icon">&#163;</div>
+            <div class="text"><h4>Default Rates</h4><p>Labour &pound;${data.settings.labourRate}/hr, ${data.settings.markupPercent}% markup</p></div>
+          </div>
+          <div class="arrow">&#8250;</div>
+        </div>
+        <div class="settings-item" onclick="editServices()">
+          <div class="left">
+            <div class="icon">&#128736;</div>
+            <div class="text"><h4>Services</h4><p>${data.services.length} services</p></div>
+          </div>
+          <div class="arrow">&#8250;</div>
+        </div>
+        <div class="settings-item" onclick="editMaterials()">
+          <div class="left">
+            <div class="icon">&#129521;</div>
+            <div class="text"><h4>Materials & Costs</h4><p>${data.materials.length} materials</p></div>
+          </div>
+          <div class="arrow">&#8250;</div>
+        </div>
+      </div>
+
+      <div class="section-title">Data</div>
+      <div class="card" style="padding:0 16px">
+        <div class="settings-item" onclick="exportData()">
+          <div class="left">
+            <div class="icon">&#128190;</div>
+            <div class="text"><h4>Backup Data</h4><p>Download all jobs & settings</p></div>
+          </div>
+          <div class="arrow">&#8250;</div>
+        </div>
+        <div class="settings-item" onclick="document.getElementById('importFile').click()">
+          <div class="left">
+            <div class="icon">&#128194;</div>
+            <div class="text"><h4>Restore Data</h4><p>Import from backup file</p></div>
+          </div>
+          <div class="arrow">&#8250;</div>
+        </div>
+        <div class="settings-item" onclick="confirmResetAll()">
+          <div class="left">
+            <div class="icon" style="background:#FEE2E2;color:var(--red)">&#9888;</div>
+            <div class="text"><h4 style="color:var(--red)">Reset Everything</h4><p>Delete all data and start fresh</p></div>
+          </div>
+          <div class="arrow">&#8250;</div>
+        </div>
+      </div>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+
+      <div style="text-align:center;padding:24px 0;color:var(--grey);font-size:12px">
+        Homecraft Job Manager v1.0<br>
+        All data stored on this device only
+      </div>
+    </div>
+  `;
+}
+
+function editBusinessSettings() {
+  const s = data.settings;
+  openModal(`
+    <div class="modal-handle"></div>
+    <div class="modal-title">Business Details</div>
+    <div class="form-group">
+      <label class="form-label">Business Name</label>
+      <input type="text" id="bsName" value="${esc(s.businessName)}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Phone Number</label>
+      <input type="tel" id="bsPhone" value="${esc(s.businessPhone)}">
+    </div>
+    <div class="form-group" style="display:flex;align-items:center;justify-content:space-between">
+      <span style="font-weight:600">VAT Registered</span>
+      <label class="toggle">
+        <input type="checkbox" id="bsVat" ${s.vatRegistered?'checked':''}>
+        <span class="slider"></span>
+      </label>
+    </div>
+    <button class="btn btn-primary" onclick="saveBusinessSettings()">Save</button>
+  `);
+}
+
+function saveBusinessSettings() {
+  data.settings.businessName = document.getElementById('bsName').value.trim();
+  data.settings.businessPhone = document.getElementById('bsPhone').value.trim();
+  data.settings.vatRegistered = document.getElementById('bsVat').checked;
+  saveData();
+  closeModal();
+  showToast('Saved!');
+  render();
+}
+
+function editDefaultRates() {
+  openModal(`
+    <div class="modal-handle"></div>
+    <div class="modal-title">Default Rates</div>
+    <div class="form-group">
+      <label class="form-label">Labour Rate (&pound;/hr)</label>
+      <input type="number" id="drLabour" value="${data.settings.labourRate}" inputmode="decimal">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Default Markup (%)</label>
+      <input type="number" id="drMarkup" value="${data.settings.markupPercent}" inputmode="decimal">
+    </div>
+    <p class="form-hint">These defaults apply to new quotes. Existing quotes keep their original rates.</p>
+    <button class="btn btn-primary" style="margin-top:16px" onclick="saveDefaultRates()">Save</button>
+  `);
+}
+
+function saveDefaultRates() {
+  data.settings.labourRate = parseFloat(document.getElementById('drLabour').value) || 35;
+  data.settings.markupPercent = parseFloat(document.getElementById('drMarkup').value) || 20;
+  saveData();
+  closeModal();
+  showToast('Rates updated!');
+  render();
+}
+
+function editServices() {
+  openModal(`
+    <div class="modal-handle"></div>
+    <div class="modal-title">Services</div>
+    <div id="servicesList">
+      ${data.services.map((s, i) => `
+        <div class="editable-item">
+          <input type="text" value="${esc(s)}" onchange="data.services[${i}]=this.value;saveData()">
+          <button class="delete-btn" onclick="data.services.splice(${i},1);saveData();editServices()">&#10005;</button>
+        </div>
+      `).join('')}
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <input type="text" id="newService" placeholder="New service name">
+      <button class="btn btn-primary btn-sm" onclick="addService()">Add</button>
+    </div>
+    <button class="btn btn-secondary" style="margin-top:16px" onclick="closeModal();render()">Done</button>
+  `);
+}
+
+function addService() {
+  const name = document.getElementById('newService').value.trim();
+  if (!name) return;
+  data.services.push(name);
+  saveData();
+  editServices();
+}
+
+function editMaterials() {
+  openModal(`
+    <div class="modal-handle"></div>
+    <div class="modal-title">Materials & Costs</div>
+    <p class="form-hint" style="margin-bottom:16px">Edit costs to match your current supplier prices. These are used when pricing jobs.</p>
+    <div id="matsList" style="max-height:50vh;overflow-y:auto">
+      ${data.materials.map((m, i) => `
+        <div class="editable-item">
+          <input type="text" value="${esc(m.name)}" style="flex:2" onchange="data.materials[${i}].name=this.value;saveData()">
+          <div style="position:relative;width:90px;flex-shrink:0">
+            <span style="position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--grey);font-size:13px">&pound;</span>
+            <input type="number" class="price-input" style="padding-left:24px" value="${m.cost}" step="0.10"
+              onchange="data.materials[${i}].cost=parseFloat(this.value)||0;saveData()" inputmode="decimal">
+          </div>
+          <button class="delete-btn" onclick="data.materials.splice(${i},1);saveData();editMaterials()">&#10005;</button>
+        </div>
+      `).join('')}
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px;align-items:end">
+      <div style="flex:2"><input type="text" id="newMatName" placeholder="Material name"></div>
+      <div style="width:80px"><input type="number" id="newMatCost" placeholder="&pound;" inputmode="decimal"></div>
+      <button class="btn btn-primary btn-sm" onclick="addMaterial()">Add</button>
+    </div>
+    <button class="btn btn-secondary" style="margin-top:16px" onclick="closeModal();render()">Done</button>
+  `);
+}
+
+function addMaterial() {
+  const name = document.getElementById('newMatName').value.trim();
+  const cost = parseFloat(document.getElementById('newMatCost').value) || 0;
+  if (!name) return;
+  data.materials.push({name, unit: 'each', cost});
+  saveData();
+  editMaterials();
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `homecraft-backup-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Backup downloaded!');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (imported.jobs && imported.settings) {
+        showConfirm('Restore Backup?', `This will replace all current data with ${imported.jobs.length} jobs from the backup.`, () => {
+          data = imported;
+          saveData();
+          showToast('Data restored!');
+          render();
+        });
+      } else {
+        showToast('Invalid backup file');
+      }
+    } catch(e) {
+      showToast('Could not read file');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function confirmResetAll() {
+  showConfirm('Reset Everything?', 'This will delete ALL jobs, quotes, and settings. This cannot be undone.', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    data = loadData();
+    saveData();
+    showToast('All data reset');
+    render();
+  });
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function openModal(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function showConfirm(title, message, onConfirm) {
+  const overlay = document.getElementById('confirmOverlay');
+  document.getElementById('confirmBox').innerHTML = `
+    <h3>${title}</h3>
+    <p>${message}</p>
+    <div class="btns">
+      <button class="btn btn-secondary btn-sm" onclick="document.getElementById('confirmOverlay').classList.remove('active')">Cancel</button>
+      <button class="btn btn-danger btn-sm" id="confirmBtn">Confirm</button>
+    </div>
+  `;
+  overlay.classList.add('active');
+  document.getElementById('confirmBtn').onclick = () => {
+    overlay.classList.remove('active');
+    onConfirm();
+  };
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+}
+
+// ============================================================
+// INIT
+// ============================================================
+render();
+
+// Handle back gesture closing modals
+window.addEventListener('popstate', () => {
+  if (document.getElementById('modalOverlay').classList.contains('active')) {
+    closeModal();
+  }
+});
+</script>
+</body>
+</html>

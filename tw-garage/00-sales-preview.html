@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyne & Wear Garage and Recovery — Digital Preview | DMT Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ══════════════════════════════════════════════════════
+           RESET & FOUNDATION
+           ══════════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #0A0F1A;
+            --card:      #111827;
+            --border:    #1E293B;
+            --text:      #E2E8F0;
+            --muted:     #94A3B8;
+            --dim:       #475569;
+            --blue:      #3B82F6;
+            --green:     #10B981;
+            --amber:     #F59E0B;
+            --red:       #EF4444;
+            --blue-bg:   rgba(59,130,246,.08);
+            --green-bg:  rgba(16,185,129,.08);
+            --amber-bg:  rgba(245,158,11,.08);
+            --red-bg:    rgba(239,68,68,.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           PROGRESS NAV
+           ══════════════════════════════════════════════════════ */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex;
+            background: rgba(6,9,17,.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .progress-step {
+            flex: 1;
+            padding: 14px 8px;
+            text-align: center;
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--dim);
+            cursor: pointer;
+            transition: all .4s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .progress-step::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--border);
+            transition: background .4s ease;
+        }
+
+        .progress-step.active { color: var(--blue); }
+        .progress-step.active::after { background: var(--blue); }
+        .progress-step.completed { color: var(--green); }
+        .progress-step.completed::after { background: var(--green); }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            border: 2px solid var(--dim);
+            font-size: .65rem;
+            margin-right: 6px;
+            transition: all .4s ease;
+            vertical-align: middle;
+        }
+
+        .progress-step.active .step-num { border-color: var(--blue); color: var(--blue); }
+        .progress-step.completed .step-num { border-color: var(--green); background: var(--green); color: var(--bg); }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE PANELS
+           ══════════════════════════════════════════════════════ */
+        .stage {
+            display: none;
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stage.active { display: block; }
+
+        /* ══════════════════════════════════════════════════════
+           KEYFRAMES
+           ══════════════════════════════════════════════════════ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: .35; }
+        }
+        @keyframes fillBar {
+            from { width: 0; }
+        }
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(16,185,129,.12), 0 0 60px rgba(16,185,129,.06); }
+            50%      { box-shadow: 0 0 30px rgba(16,185,129,.25), 0 0 80px rgba(16,185,129,.1); }
+        }
+        @keyframes subtleDrift {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-3px); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .anim {
+            opacity: 0;
+            animation: fadeUp .7s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        .d1  { animation-delay: .1s; }
+        .d2  { animation-delay: .2s; }
+        .d3  { animation-delay: .3s; }
+        .d4  { animation-delay: .4s; }
+        .d5  { animation-delay: .5s; }
+        .d6  { animation-delay: .6s; }
+        .d7  { animation-delay: .7s; }
+        .d8  { animation-delay: .85s; }
+        .d9  { animation-delay: 1s; }
+        .d10 { animation-delay: 1.15s; }
+        .d11 { animation-delay: 1.3s; }
+
+        /* ══════════════════════════════════════════════════════
+           CARDS
+           ══════════════════════════════════════════════════════ */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-green  { border-top: 3px solid var(--green); }
+        .card-amber  { border-top: 3px solid var(--amber); }
+        .card-red    { border-top: 3px solid var(--red); }
+        .card-blue   { border-top: 3px solid var(--blue); }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 1 — STAT DASHBOARD (2x2 grid)
+           ══════════════════════════════════════════════════════ */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .stat-card { text-align: center; padding: 28px 20px; }
+
+        .stat-label {
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-detail { font-size: .8rem; color: var(--dim); }
+        .stat-sub { font-size: .72rem; color: var(--dim); margin-top: 6px; font-style: italic; }
+
+        .stat-value.green  { color: var(--green); }
+        .stat-value.amber  { color: var(--amber); }
+        .stat-value.red    { color: var(--red); }
+
+        .stars { color: var(--amber); font-size: 1rem; letter-spacing: 2px; }
+
+        .pulse-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+            animation: pulse 1.4s ease-in-out infinite;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        /* Health Score */
+        .health-score { text-align: center; padding: 36px 24px; margin: 24px 0; }
+
+        .health-bar-track {
+            width: 100%;
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 16px 0 8px;
+        }
+
+        .health-bar-fill {
+            height: 100%;
+            width: 25%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--red), var(--amber));
+            animation: fillBar 1.6s cubic-bezier(.16,1,.3,1) forwards;
+            animation-delay: .9s;
+        }
+
+        .health-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--red);
+            line-height: 1;
+        }
+
+        .health-number span { font-size: .35em; color: var(--dim); }
+
+        /* Competitor callout */
+        .competitor-callout {
+            text-align: center;
+            padding: 32px 24px;
+            margin: 24px 0;
+            border-left: 4px solid var(--amber);
+        }
+
+        .competitor-callout .big-stat {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            color: var(--amber);
+            line-height: 1.1;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 2 — FINDINGS
+           ══════════════════════════════════════════════════════ */
+        .finding { padding: 32px 28px; margin-bottom: 24px; }
+
+        .finding-badge {
+            display: inline-block;
+            font-size: .63rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .badge-critical { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239,68,68,.2); }
+        .badge-warning  { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245,158,11,.2); }
+        .badge-strategic { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(59,130,246,.2); }
+
+        .finding h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .finding ul { list-style: none; }
+
+        .finding ul li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .finding ul li::before {
+            content: '\2192';
+            position: absolute;
+            left: 0;
+            color: var(--dim);
+        }
+
+        .name-error {
+            color: var(--amber);
+            text-decoration: underline wavy var(--amber);
+            text-underline-offset: 3px;
+        }
+
+        /* Comparison Table */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: .84rem;
+        }
+
+        .comp-table th {
+            text-align: left;
+            font-size: .63rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--dim);
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comp-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(30,41,59,.4);
+            color: var(--muted);
+        }
+
+        .comp-table tr.you td {
+            color: var(--text);
+            background: rgba(59,130,246,.04);
+        }
+
+        .comp-yes { color: var(--green); font-weight: 600; }
+        .comp-no  { color: var(--red); font-weight: 600; }
+
+        .finding-quote {
+            text-align: center;
+            font-size: .88rem;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 12px;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 3 — DELIVERABLES
+           ══════════════════════════════════════════════════════ */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .deliverable {
+            padding: 28px;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .deliverable:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,.3);
+        }
+
+        .del-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .del-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .del-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--blue);
+            white-space: nowrap;
+        }
+
+        .del-desc {
+            font-size: .85rem;
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .del-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .tag {
+            font-size: .63rem;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: var(--blue-bg);
+            color: var(--blue);
+            border: 1px solid rgba(59,130,246,.15);
+        }
+
+        /* Showstopper — full width */
+        .deliverable.showstopper {
+            grid-column: 1 / -1;
+            border: 2px solid var(--blue);
+            background: linear-gradient(160deg, var(--card) 0%, rgba(59,130,246,.06) 100%);
+            padding: 36px 28px;
+        }
+
+        .showstopper-badge {
+            position: absolute;
+            top: -1px; right: 24px;
+            background: var(--blue);
+            color: var(--bg);
+            font-size: .58rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .showstopper .del-title { font-size: 1.45rem; }
+        .showstopper .del-price { font-size: 1.3rem; }
+
+        /* Bundled deliverable */
+        .deliverable.bundled {
+            grid-column: 1 / -1;
+            border: 1px dashed var(--dim);
+            background: rgba(17,24,39,.6);
+        }
+
+        .bundled-label {
+            font-size: .63rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        /* Total bar */
+        .total-bar {
+            text-align: center;
+            padding: 24px;
+            margin: 24px 0;
+            border: 1px solid var(--blue);
+            background: var(--blue-bg);
+        }
+
+        .total-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--blue);
+        }
+
+        .section-note {
+            text-align: center;
+            font-size: .85rem;
+            color: var(--muted);
+            margin: 16px 0;
+            font-style: italic;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE 4 — THE OFFER
+           ══════════════════════════════════════════════════════ */
+        .price-stack { text-align: center; padding: 48px 24px; }
+
+        .price-line { margin: 14px 0; }
+
+        .price-line.struck {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            text-decoration: line-through;
+            opacity: .5;
+        }
+
+        .price-line.struck.grey { color: var(--dim); }
+        .price-line.struck.blue { color: var(--blue); }
+
+        .price-label {
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--dim);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .price-free {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: var(--green);
+            line-height: 1;
+            display: inline-block;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .trust-point { text-align: center; padding: 24px 16px; }
+
+        .trust-icon {
+            width: 48px; height: 48px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .trust-icon.ti-blue   { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(59,130,246,.15); }
+        .trust-icon.ti-green  { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,.15); }
+        .trust-icon.ti-amber  { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245,158,11,.15); }
+
+        .trust-point h4 { font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
+        .trust-point p  { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+        /* CTA */
+        .cta-section { text-align: center; margin: 48px 0; }
+
+        .cta-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--green);
+            margin-bottom: 24px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .contact-link {
+            color: var(--blue);
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 500;
+            transition: color .3s ease;
+        }
+
+        .contact-link:hover { color: var(--text); }
+
+        /* ══════════════════════════════════════════════════════
+           BUTTONS
+           ══════════════════════════════════════════════════════ */
+        .next-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            background: var(--blue);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: .88rem;
+            font-weight: 600;
+            letter-spacing: .02em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all .3s ease;
+            margin-top: 36px;
+        }
+
+        .next-btn:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 28px rgba(59,130,246,.25);
+        }
+
+        .next-btn .arrow { transition: transform .3s ease; }
+        .next-btn:hover .arrow { transform: translateX(4px); }
+
+        .btn-wrap { text-align: center; }
+
+        /* ══════════════════════════════════════════════════════
+           WELCOME STAGE
+           ══════════════════════════════════════════════════════ */
+        .welcome-stage {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .welcome-inner { max-width: 560px; }
+
+        .welcome-rule {
+            width: 48px;
+            height: 2px;
+            background: var(--blue);
+            margin: 0 auto 32px;
+            opacity: .6;
+        }
+
+        .welcome-who {
+            font-size: .82rem;
+            color: var(--dim);
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+
+        .welcome-reading-time {
+            margin-top: 24px;
+            font-size: .75rem;
+            color: var(--dim);
+            opacity: .5;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           STAGE HERO (shared)
+           ══════════════════════════════════════════════════════ */
+        .stage-hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stage-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .stage-hero .sub {
+            font-size: .9rem;
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           FOOTER
+           ══════════════════════════════════════════════════════ */
+        .footer {
+            text-align: center;
+            padding: 48px 20px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            font-size: .73rem;
+            color: var(--dim);
+            margin-bottom: 14px;
+            letter-spacing: .02em;
+        }
+
+        .footer-ai {
+            font-size: .68rem;
+            color: var(--dim);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           PRINT
+           ══════════════════════════════════════════════════════ */
+        @media print {
+            .progress-bar { display: none !important; }
+            .next-btn { display: none !important; }
+            .stage {
+                display: block !important;
+                min-height: auto;
+                padding: 32px 0;
+                page-break-inside: avoid;
+                page-break-after: always;
+            }
+            .welcome-stage { min-height: auto; }
+            body { background: #fff; color: #111; }
+            .card { border-color: #ddd; background: #f8f9fa; }
+            .stage-hero h1 { color: #111; }
+            .health-number { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .stat-value { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .price-free { animation: none; box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        /* ══════════════════════════════════════════════════════
+           RESPONSIVE
+           ══════════════════════════════════════════════════════ */
+        @media (max-width: 600px) {
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+            .deliverables-grid { grid-template-columns: 1fr; }
+            .deliverable.showstopper,
+            .deliverable.bundled { grid-column: auto; }
+            .trust-grid { grid-template-columns: 1fr; }
+            .finding { padding: 24px 20px; }
+            .comp-table { font-size: .75rem; }
+            .comp-table th, .comp-table td { padding: 8px 6px; }
+            .deliverable { padding: 20px; }
+            .deliverable.showstopper { padding: 28px 20px; }
+            .price-free { font-size: 3.5rem; }
+            .progress-step { font-size: .58rem; padding: 10px 4px; }
+            .step-num { width: 18px; height: 18px; font-size: .55rem; margin-right: 3px; }
+        }
+
+        @media (max-width: 400px) {
+            .stat-grid { grid-template-columns: 1fr; }
+            .stage { padding: 70px 16px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PROGRESS BAR (5 stages: Welcome + 4 content stages)
+     ═══════════════════════════════════════════════════════════════ -->
+<nav class="progress-bar" role="navigation" aria-label="Preview stages" style="display:none" id="progressBar">
+    <div class="progress-step" data-stage="0" onclick="goTo(0)">
+        <span class="step-num">0</span> Welcome
+    </div>
+    <div class="progress-step" data-stage="1" onclick="goTo(1)">
+        <span class="step-num">1</span> Your Business
+    </div>
+    <div class="progress-step" data-stage="2" onclick="goTo(2)">
+        <span class="step-num">2</span> What We Found
+    </div>
+    <div class="progress-step" data-stage="3" onclick="goTo(3)">
+        <span class="step-num">3</span> What We Built
+    </div>
+    <div class="progress-step" data-stage="4" onclick="goTo(4)">
+        <span class="step-num">4</span> The Offer
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 0 — WELCOME
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage active welcome-stage" id="stage-0">
+    <div class="welcome-inner">
+        <p class="anim" style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:12px">Prepared for</p>
+        <h1 class="anim d1" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4.5vw,2.6rem);line-height:1.1;margin-bottom:28px">Tyne &amp; Wear Garage<br>&amp; Recovery</h1>
+        <div class="welcome-rule anim d2"></div>
+        <p class="welcome-who anim d3">DMT Consulting helps small businesses get found, get chosen, and get paid.<br>We spent some time looking at your business online.</p>
+        <p class="anim d4" style="font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:12px">What follows is what we found, what we've already built for you, and what it could mean for your garage.</p>
+        <p class="anim d5" style="font-size:.88rem;color:var(--text);line-height:1.8;margin-bottom:40px;opacity:.7">No obligation. No catch. Just a clear picture.</p>
+        <button class="next-btn anim d6" onclick="startPreview()" style="margin:0 auto">See What We Found <span class="arrow">&rarr;</span></button>
+        <p class="welcome-reading-time anim d7">Takes about 2 minutes</p>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 1 — YOUR BUSINESS
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage" id="stage-1">
+
+    <div class="stage-hero anim">
+        <h1>Your business at a glance.</h1>
+        <p class="sub" style="margin-top:12px">Here's what we found when we looked you up.</p>
+    </div>
+
+    <!-- Dashboard Cards — 2x2 -->
+    <div class="stat-grid">
+        <div class="card stat-card card-green anim d1">
+            <div class="stat-label">Google Rating</div>
+            <div class="stat-value green">4.8</div>
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="stat-detail">17 reviews</div>
+            <div class="stat-sub">Last review: 4+ years ago</div>
+        </div>
+        <div class="card stat-card card-red anim d2">
+            <div class="stat-label">Google Profile</div>
+            <div class="stat-value red"><span class="pulse-dot"></span>Unclaimed</div>
+            <div class="stat-detail">Critical risk</div>
+        </div>
+        <div class="card stat-card card-amber anim d3">
+            <div class="stat-label">Facebook Name</div>
+            <div class="stat-value amber">Wrong</div>
+            <div class="stat-detail">Name mismatch</div>
+        </div>
+        <div class="card stat-card card-red anim d4">
+            <div class="stat-label">Website</div>
+            <div class="stat-value red">None</div>
+            <div class="stat-detail">Invisible online</div>
+        </div>
+    </div>
+
+    <!-- Health Score -->
+    <div class="card health-score anim d5">
+        <div class="stat-label">Overall Digital Health Score</div>
+        <div class="health-number">2.5 <span>/ 10</span></div>
+        <div class="health-bar-track">
+            <div class="health-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- Competitor callout -->
+    <div class="card competitor-callout anim d6">
+        <p style="color:var(--muted);font-size:.85rem;margin-bottom:8px;">Your closest competitor has</p>
+        <div class="big-stat">40 reviews at 5.0 &#9733;</div>
+    </div>
+
+    <div class="btn-wrap anim d7">
+        <button class="next-btn" onclick="goTo(2)">See What We Found <span class="arrow">&rarr;</span></button>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 2 — WHAT WE FOUND
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage" id="stage-2">
+
+    <div class="stage-hero anim">
+        <h1>Three things holding your business back.</h1>
+        <p class="sub">Every one of these is costing you customers right now.</p>
+    </div>
+
+    <!-- Finding 1 — CRITICAL -->
+    <div class="card finding card-red anim d1">
+        <span class="finding-badge badge-critical">Critical</span>
+        <h3>Your Google listing isn't yours</h3>
+        <ul>
+            <li>Your Google Business Profile is <strong style="color:var(--red)">UNCLAIMED</strong></li>
+            <li>You can't respond to reviews, update photos, or control your information</li>
+            <li>Someone else could claim it and change everything</li>
+            <li>Every day this stays unclaimed, you're losing visibility to competitors who have theirs</li>
+        </ul>
+    </div>
+
+    <!-- Finding 2 — WARNING -->
+    <div class="card finding card-amber anim d3">
+        <span class="finding-badge badge-warning">Warning</span>
+        <h3>Your business has three different names</h3>
+        <ul>
+            <li><strong style="color:var(--text)">Google:</strong> &ldquo;Tyne &amp; Wear Garage and Recovery&rdquo;</li>
+            <li><strong style="color:var(--text)">Facebook:</strong> &ldquo;Tyne and Wear Garage &amp; <span class="name-error">tyre service's</span>&rdquo;</li>
+            <li>Inconsistent naming confuses customers AND damages search rankings</li>
+            <li>Google penalises businesses with mismatched information across platforms</li>
+        </ul>
+    </div>
+
+    <!-- Finding 3 — STRATEGIC -->
+    <div class="card finding card-blue anim d5">
+        <span class="finding-badge badge-strategic">Strategic</span>
+        <h3>Your competitors are pulling ahead</h3>
+        <table class="comp-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Rating</th>
+                    <th>Reviews</th>
+                    <th>Last Review</th>
+                    <th>Claimed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="you">
+                    <td><strong>Tyne &amp; Wear</strong></td>
+                    <td>4.8</td>
+                    <td>17</td>
+                    <td>4+ yrs ago</td>
+                    <td class="comp-no">NO</td>
+                </tr>
+                <tr>
+                    <td>NE Vehicle Repairs</td>
+                    <td>5.0</td>
+                    <td>40</td>
+                    <td>Recent</td>
+                    <td class="comp-yes">YES</td>
+                </tr>
+                <tr>
+                    <td>Tyne View Garage</td>
+                    <td>4.6</td>
+                    <td>38</td>
+                    <td>Recent</td>
+                    <td class="comp-yes">YES</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="finding-quote">"Your work quality is excellent. You're just not telling anyone about it."</p>
+    </div>
+
+    <div class="btn-wrap anim d7">
+        <button class="next-btn" onclick="goTo(3)">See What We Built <span class="arrow">&rarr;</span></button>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 3 — WHAT WE BUILT
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage" id="stage-3">
+
+    <div class="stage-hero anim">
+        <h1>We didn't just find problems.<br>We built solutions.</h1>
+        <p class="sub">6 deliverables. Every one tailored to your business.</p>
+    </div>
+
+    <div class="deliverables-grid">
+
+        <!-- 1 -->
+        <div class="card deliverable anim d1">
+            <div class="del-header">
+                <div class="del-title">Social Media Audit &amp; Strategy</div>
+                <div class="del-price">&pound;400</div>
+            </div>
+            <div class="del-desc">Full Facebook assessment with actionable strategy, content calendar, and ready-to-post material.</div>
+            <div class="del-tags">
+                <span class="tag">Assessment</span>
+                <span class="tag">Action Plan</span>
+                <span class="tag">Ready-Made Posts</span>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="card deliverable anim d2">
+            <div class="del-header">
+                <div class="del-title">Google Business Profile Guide</div>
+                <div class="del-price">&pound;200</div>
+            </div>
+            <div class="del-desc">Step-by-step claiming walkthrough with your business description, services, and review templates pre-written.</div>
+            <div class="del-tags">
+                <span class="tag">Claiming Guide</span>
+                <span class="tag">Templates</span>
+                <span class="tag">Review Strategy</span>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card deliverable anim d3">
+            <div class="del-header">
+                <div class="del-title">Brand Audit &amp; Strategy</div>
+                <div class="del-price">&pound;400</div>
+            </div>
+            <div class="del-desc">Name consistency fix, colour palette, competitor positioning, and brand guidelines you can actually use.</div>
+            <div class="del-tags">
+                <span class="tag">Assessment</span>
+                <span class="tag">Colour Palette</span>
+                <span class="tag">Guidelines</span>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card deliverable anim d4">
+            <div class="del-header">
+                <div class="del-title">Revenue Opportunities Review</div>
+                <div class="del-price">&pound;500</div>
+            </div>
+            <div class="del-desc">Growth opportunities, MOT reminder templates, Care Plan pricing card, and fleet pitch letter.</div>
+            <div class="del-tags">
+                <span class="tag">Quick Wins</span>
+                <span class="tag">Templates</span>
+                <span class="tag">Pricing Tools</span>
+            </div>
+        </div>
+
+        <!-- 5 — SHOWSTOPPER -->
+        <div class="card deliverable showstopper anim d5">
+            <span class="showstopper-badge">Star Deliverable</span>
+            <div class="del-header">
+                <div class="del-title">Bespoke Garage Management App</div>
+                <div class="del-price">&pound;1,500</div>
+            </div>
+            <div class="del-desc">Custom mobile app for managing customers, MOT reminders, reviews, and jobs &mdash; built specifically for your garage, your workflow, your data.</div>
+            <div class="del-tags">
+                <span class="tag">Custom App</span>
+                <span class="tag">MOT Reminders</span>
+                <span class="tag">Review Tracking</span>
+                <span class="tag">Job Management</span>
+            </div>
+        </div>
+
+        <!-- 6 — BUNDLED -->
+        <div class="card deliverable bundled anim d6">
+            <div class="bundled-label">Included with App</div>
+            <div class="del-header">
+                <div class="del-title">App Training Guide &amp; Data Security</div>
+                <div class="del-price" style="color:var(--green)">&pound;0 extra</div>
+            </div>
+            <div class="del-desc">Full onboarding walkthrough, training documentation, and data security policy &mdash; bundled with your app at no additional cost.</div>
+            <div class="del-tags">
+                <span class="tag">Onboarding</span>
+                <span class="tag">Training</span>
+                <span class="tag">Data Security</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Total -->
+    <div class="card total-bar anim d8">
+        <div class="stat-label">Total Value</div>
+        <div class="total-number">&pound;3,000</div>
+    </div>
+
+    <p class="section-note anim d9">Every deliverable includes ready-made assets &mdash; copy, paste, and go.</p>
+
+    <div class="btn-wrap anim d10">
+        <button class="next-btn" onclick="goTo(4)">See The Offer <span class="arrow">&rarr;</span></button>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STAGE 4 — THE OFFER
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="stage" id="stage-4">
+
+    <div class="stage-hero anim">
+        <h1>This is yours. For free.</h1>
+    </div>
+
+    <!-- Price Stack -->
+    <div class="card price-stack anim d1">
+        <div class="price-line struck grey">
+            <span class="price-label">Market Value</span>
+            &pound;4,500
+        </div>
+        <div class="price-line struck blue">
+            <span class="price-label">DMT List Price</span>
+            &pound;3,000
+        </div>
+        <div class="price-line" style="margin-top:28px;">
+            <span class="price-label">Pilot Programme Price</span>
+            <div class="price-free">&pound;0</div>
+        </div>
+    </div>
+
+    <!-- Explanation -->
+    <div class="card anim d3" style="padding:32px;margin:24px 0;">
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.7;text-align:center;max-width:560px;margin:0 auto;">
+            DMT Consulting is building something new &mdash; and we'd like you to be part of it. As a pilot partner, you receive the full &pound;3,000 deliverables pack completely free. In return, we ask for an honest testimonial and permission to use this as a case study. That's it.
+        </p>
+    </div>
+
+    <!-- Trust Points -->
+    <div class="trust-grid">
+        <div class="card trust-point anim d4">
+            <div class="trust-icon ti-blue">&#9878;</div>
+            <h4>&pound;3,000 of work. Yours free.</h4>
+            <p>No shortcuts. Every deliverable is the full commercial product.</p>
+        </div>
+        <div class="card trust-point anim d5">
+            <div class="trust-icon ti-amber">&#9881;</div>
+            <h4>Everything tailored to YOUR business</h4>
+            <p>Not templates. Every word, number, and recommendation is built around your garage.</p>
+        </div>
+        <div class="card trust-point anim d6">
+            <div class="trust-icon ti-green">&#10003;</div>
+            <h4>All deliverables yours to keep</h4>
+            <p>Permanently. No subscriptions, no strings, no follow-up fees.</p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section anim d7">
+        <div class="cta-heading">Interested? Let's have a chat.</div>
+        <div class="contact-links">
+            <a class="contact-link" href="mailto:hello@dmtconsulting.co.uk">hello@dmtconsulting.co.uk</a>
+            <a class="contact-link" href="tel:+447000000000">07XXX XXX XXX</a>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+    <p class="footer-brand">Prepared by DMT Consulting &nbsp;|&nbsp; Pilot Programme &nbsp;|&nbsp; March 2026</p>
+    <p class="footer-ai">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCRIPT
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+    'use strict';
+
+    var current = 0;
+    var total = 4;
+
+    window.startPreview = function() {
+        document.getElementById('progressBar').style.display = 'flex';
+        goTo(1);
+    };
+
+    function goTo(n) {
+        if (n < 0 || n > total || n === current) return;
+
+        // Hide current stage
+        var prev = document.getElementById('stage-' + current);
+        if (prev) prev.classList.remove('active');
+
+        // Show target stage
+        var next = document.getElementById('stage-' + n);
+        if (next) next.classList.add('active');
+
+        // Update progress indicators
+        var steps = document.querySelectorAll('.progress-step');
+        for (var i = 0; i < steps.length; i++) {
+            var s = parseInt(steps[i].getAttribute('data-stage'), 10);
+            steps[i].classList.remove('active', 'completed');
+            if (s < n) steps[i].classList.add('completed');
+            if (s === n) steps[i].classList.add('active');
+        }
+
+        current = n;
+
+        // Re-trigger entrance animations on the new stage
+        var items = next.querySelectorAll('.anim');
+        for (var j = 0; j < items.length; j++) {
+            items[j].style.animation = 'none';
+            void items[j].offsetHeight; // force reflow
+            items[j].style.animation = '';
+        }
+
+        // Re-trigger health bar fill (stage 1)
+        var bar = next.querySelector('.health-bar-fill');
+        if (bar) {
+            bar.style.animation = 'none';
+            void bar.offsetHeight;
+            bar.style.animation = '';
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Expose to onclick handlers
+    window.goTo = goTo;
+
+    // Keyboard navigation (arrow keys)
+    document.addEventListener('keydown', function (e) {
+        if (current === 0 && (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'Enter')) {
+            e.preventDefault();
+            startPreview();
+            return;
+        }
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            goTo(current + 1);
+        }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (current === 1) {
+                // Go back to welcome
+                var prev = document.getElementById('stage-' + current);
+                if (prev) prev.classList.remove('active');
+                var welcome = document.getElementById('stage-0');
+                welcome.classList.add('active');
+                document.getElementById('progressBar').style.display = 'none';
+                current = 0;
+                // Re-trigger animations
+                var items = welcome.querySelectorAll('.anim');
+                for (var j = 0; j < items.length; j++) {
+                    items[j].style.animation = 'none';
+                    void items[j].offsetHeight;
+                    items[j].style.animation = '';
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                goTo(current - 1);
+            }
+        }
+    });
+})();
+</script>
+
+</body>
+</html>

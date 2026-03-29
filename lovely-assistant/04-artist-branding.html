@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Branding | Lovely Assistant | DMT Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0F1A;
+            color: #E2E8F0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        .header {
+            padding: 2rem 0 1.5rem;
+            border-bottom: 1px solid #1E293B;
+            margin-bottom: 0;
+        }
+        .dmt-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: #F59E0B;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .back-link {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #64748B;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #F59E0B; }
+        .header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #FFFFFF;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+        .header h1 span { color: #F59E0B; }
+        .header .doc-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            margin-bottom: 0.25rem;
+        }
+
+        .tab-bar {
+            display: flex;
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 0.35rem;
+            margin: 1.5rem 0 2rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            gap: 0.35rem;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748B;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+        .tab-btn:hover { color: #CBD5E1; background: rgba(255,255,255,0.03); }
+        .tab-btn.active { background: #F59E0B; color: #0A0F1A; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .section { margin-bottom: 2.5rem; }
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1E293B;
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: #F59E0B;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+        }
+        .card ul, .card ol { padding-left: 1.25rem; }
+        .card li { margin-bottom: 0.5rem; }
+
+        .highlight {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .highlight p { color: #FCD34D; font-size: 0.95rem; }
+        .highlight strong { color: #F59E0B; }
+
+        .priority {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+        .priority.high { background: rgba(245, 158, 11, 0.2); color: #F59E0B; }
+        .priority.medium { background: rgba(59, 130, 246, 0.2); color: #3B82F6; }
+        .priority.nice { background: rgba(100, 116, 139, 0.2); color: #94A3B8; }
+
+        .copy-block {
+            background: #0D1321;
+            border: 1px solid #1E293B;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        .copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(245, 158, 11, 0.06);
+            border-bottom: 1px solid #1E293B;
+        }
+        .copy-header h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: #F59E0B;
+            letter-spacing: 0.02em;
+        }
+        .copy-btn {
+            background: #F59E0B;
+            color: #0A0F1A;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: #D97706; }
+        .copy-btn.copied { background: #10B981; color: #fff; }
+        .copy-body {
+            padding: 1.25rem;
+            font-size: 0.9rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* Colour palette swatches */
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .swatch {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #1E293B;
+        }
+        .swatch-color {
+            height: 80px;
+            width: 100%;
+        }
+        .swatch-info {
+            background: #111827;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .swatch-name {
+            font-size: 0.8rem;
+            color: #E2E8F0;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .swatch-hex {
+            font-size: 0.75rem;
+            color: #94A3B8;
+            font-family: monospace;
+            cursor: pointer;
+        }
+        .swatch-hex:hover { color: #F59E0B; }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #1E293B;
+            font-size: 0.95rem;
+            color: #CBD5E1;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .checklist input[type="checkbox"] {
+            margin-top: 0.3rem;
+            width: 18px;
+            height: 18px;
+            accent-color: #F59E0B;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checklist label {
+            cursor: pointer;
+            flex: 1;
+        }
+        .checklist .checked {
+            text-decoration: line-through;
+            color: #64748B;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-top: 1px solid #1E293B;
+            margin-top: 2rem;
+        }
+        .footer p { font-size: 0.8rem; color: #475569; }
+        .footer .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            color: #F59E0B;
+            margin-top: 0.5rem;
+        }
+
+        @media print {
+            body { background: #fff; color: #111; }
+            .tab-bar { display: none; }
+            .tab-content { display: block !important; page-break-before: always; }
+            .tab-content:first-of-type { page-break-before: avoid; }
+            .card, .copy-block, .swatch { border: 1px solid #ddd; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 1.25rem 1rem; }
+            .tab-btn { font-size: 0.75rem; padding: 0.7rem 0.5rem; }
+            .palette-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="header">
+            <a href="00-cover.html" class="back-link">&larr; Back to Overview</a>
+            <div class="dmt-logo">DMT Consulting</div>
+            <div class="doc-number">Document 04 of 04</div>
+            <h1>Artist <span>Branding</span></h1>
+        </header>
+
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('where')">Where You Are</button>
+            <button class="tab-btn" onclick="switchTab('opportunities')">Opportunities</button>
+            <button class="tab-btn" onclick="switchTab('assets')">Ready-Made Assets</button>
+        </div>
+
+        <!-- TAB 1: WHERE YOU ARE -->
+        <div id="tab-where" class="tab-content active">
+
+            <div class="section">
+                <h2 class="section-title">Visual Identity Audit</h2>
+
+                <div class="highlight">
+                    <p>Good news first: <strong>you already have a distinctive visual identity</strong>. The illustrated artwork style, the name "Lovely Assistant," the tagline "Quartet of Heck" &mdash; these are strong foundations that many bands never develop. This isn't about starting from scratch. It's about tightening what's already there.</p>
+                </div>
+
+                <div class="card">
+                    <h3>What's Working</h3>
+                    <ul>
+                        <li><strong>The name</strong> &mdash; "Lovely Assistant" is distinctive, memorable, and searchable. It doesn't sound like anyone else. That's more valuable than people realise.</li>
+                        <li><strong>"Quartet of Heck"</strong> &mdash; this tagline is perfect. It's funny, warm, self-aware, and it immediately tells you something about the band's personality. Use it everywhere.</li>
+                        <li><strong>Illustrated artwork style</strong> &mdash; your album and single artwork uses illustration rather than photography. This gives you a signature visual language that's immediately recognisable in a feed or playlist.</li>
+                        <li><strong>Tone of voice</strong> &mdash; your social media posts, bio text, and interviews all share a consistent tone: dry, warm, self-deprecating, genuine. This is your voice and it's distinctive.</li>
+                        <li><strong>Instagram grid</strong> &mdash; 175 posts means your grid tells a visual story. The mix of artwork, live shots, and behind-the-scenes content feels authentic.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>What Varies</h3>
+                    <ul>
+                        <li><strong>Photography quality</strong> &mdash; some images are strong, considered shots; others are quick phone photos. Both are fine, but the ratio matters. Your press/promo shots should be the strongest images you have.</li>
+                        <li><strong>Platform-to-platform consistency</strong> &mdash; the feel on Instagram vs Facebook vs Bandcamp vs the website may not be quite aligned. Different bios, different photos, slightly different tones.</li>
+                        <li><strong>Colour palette isn't formalised</strong> &mdash; your artwork uses warm, earthy tones that feel right for the music, but there's no defined set of colours that says "this is Lovely Assistant."</li>
+                        <li><strong>Typography</strong> &mdash; album artwork and social graphics may use different fonts. A consistent type choice (even just one or two fonts) would tie everything together.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Brand Strengths</h2>
+                <div class="card">
+                    <h3>Things You Don't Need to Change</h3>
+                    <p>Some things are already working well and should stay exactly as they are:</p>
+                    <ul>
+                        <li><strong>The name</strong> &mdash; perfect. Don't change it.</li>
+                        <li><strong>"Quartet of Heck"</strong> &mdash; keep using this. It's sticky.</li>
+                        <li><strong>"Defiantly without genre"</strong> &mdash; this is a strong positioning statement. It tells people what to expect (the unexpected) and it's honest.</li>
+                        <li><strong>The illustrated artwork approach</strong> &mdash; this is your visual signature. Keep it.</li>
+                        <li><strong>The community centre / village hall identity</strong> &mdash; this is genuine and distinctive. Don't polish it away.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 2: OPPORTUNITIES -->
+        <div id="tab-opportunities" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Prioritised Opportunities</h2>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>1. Formalise a Colour Palette</h3>
+                    <p>You might want to pull a set of 5-6 colours from your existing artwork and use them consistently across everything &mdash; social media posts, flyers, the website, merch. This doesn't mean every post needs to match, but having a defined palette means everything feels connected.</p>
+                    <p style="margin-top: 0.75rem;">A suggested palette based on your aesthetic is in the Assets tab. Use it as-is or adjust to your taste.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority high">High Priority</span>
+                    <h3>2. Press Photo Consistency</h3>
+                    <p>For the live album release, it would be worth having one strong set of press photos taken &mdash; all four of you, consistent lighting and setting. These become the photos that go everywhere: Spotify, Apple Music, your website, press features, festival programmes. One good session lasts 1-2 years.</p>
+                    <p style="margin-top: 0.75rem;">A brief for the shoot is in the Assets tab.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority medium">Medium Priority</span>
+                    <h3>3. Platform Consistency</h3>
+                    <p>A quick pass across all platforms to align bios, profile photos, and header images makes a bigger difference than you'd think. When a journalist or curator checks you out on multiple platforms, consistency signals professionalism. It doesn't take long:</p>
+                    <ul>
+                        <li>Same profile photo everywhere (or at least same session/style)</li>
+                        <li>Bios that tell the same story (adapted for platform length)</li>
+                        <li>Consistent header/banner images where applicable</li>
+                        <li>Same contact info and links on every platform</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;">The consistency checklist is in the Assets tab.</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority medium">Medium Priority</span>
+                    <h3>4. Live Album Artwork Direction</h3>
+                    <p>The live album is a chance to extend your visual identity. Some options to consider:</p>
+                    <ul>
+                        <li><strong>Continue the illustration style</strong> &mdash; maintain visual continuity with your previous releases</li>
+                        <li><strong>Use a live photograph</strong> &mdash; a strong shot from a gig, treated with your colour palette. This signals "live album" immediately.</li>
+                        <li><strong>Hybrid approach</strong> &mdash; an illustration that incorporates live elements (the venue, the audience, the band performing)</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;">Whichever direction you go, keep it connected to the visual world you've already built. The cover should feel like it belongs alongside "Fuck Love" and "Greetings from the Pre-wave."</p>
+                </div>
+
+                <div class="card">
+                    <span class="priority nice">When You're Ready</span>
+                    <h3>5. Merch Direction</h3>
+                    <p>Your audience &mdash; village hall gig-goers, vinyl buyers, Bandcamp supporters &mdash; is exactly the kind of audience that buys merch. And with a live album on the way, there's a natural launch moment. Some thoughts on what would work for Lovely Assistant specifically are in the Assets tab.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 3: READY-MADE ASSETS -->
+        <div id="tab-assets" class="tab-content">
+
+            <div class="section">
+                <h2 class="section-title">Suggested Colour Palette</h2>
+                <p style="color: #94A3B8; margin-bottom: 1rem; font-size: 0.9rem;">Earthy, warm tones inspired by your existing visual identity. Click any hex code to copy it.</p>
+
+                <div class="palette-grid">
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #C8553D;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Burnt Sienna</div>
+                            <div class="swatch-hex" onclick="copyHex(this)">#C8553D</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #D4956A;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Warm Sand</div>
+                            <div class="swatch-hex" onclick="copyHex(this)">#D4956A</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #F2E8CF;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Cream</div>
+                            <div class="swatch-hex" onclick="copyHex(this)">#F2E8CF</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #5B7065;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Sage Green</div>
+                            <div class="swatch-hex" onclick="copyHex(this)">#5B7065</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #2D3047;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Deep Navy</div>
+                            <div class="swatch-hex" onclick="copyHex(this)">#2D3047</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #8B6F47;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Tobacco</div>
+                            <div class="swatch-hex" onclick="copyHex(this)">#8B6F47</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>How to Use This Palette</h3>
+                    <ul>
+                        <li><strong>Burnt Sienna + Cream</strong> &mdash; your primary combination for text-heavy graphics, flyers, social posts</li>
+                        <li><strong>Deep Navy</strong> &mdash; background colour for digital content, dark mode alternative</li>
+                        <li><strong>Sage Green</strong> &mdash; secondary accent, good for highlighting text or borders</li>
+                        <li><strong>Warm Sand + Tobacco</strong> &mdash; warm midtones for photographic overlays, gradients, merch</li>
+                        <li>You don't need to use all six in everything. Pick 2-3 for any given piece and keep it simple.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Unified Platform Bio</h2>
+
+                <div class="copy-block">
+                    <div class="copy-header">
+                        <h4>Universal Bio (All Platforms)</h4>
+                        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+                    </div>
+                    <div class="copy-body">Lovely Assistant — Quartet of Heck
+
+Four-piece from Newcastle/Northumberland making music defiantly without genre. Torch songs, Laurel Canyon warmth, spartan-jazz — whatever you want to call it.
+
+Albums: "Fuck Love" (2025) | "Greetings from the Pre-wave" (2020) | Live album — spring 2026
+
+Praised by Guy Garvey. Supported by Help Musicians.
+Sync: Chelsea Wood (@chelseawood89)
+Booking: lovelyassistantmusic@gmail.com</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Press Photo Brief</h2>
+
+                <div class="card">
+                    <h3>Photo Session Guide</h3>
+                    <p>If you're planning a photo session for the live album release, here's a brief you can share with a photographer:</p>
+
+                    <p style="margin-top: 1rem;"><strong style="color: #F59E0B;">Location ideas:</strong></p>
+                    <ul>
+                        <li>The community centre where you rehearse (authentic, distinctive, tells your story)</li>
+                        <li>A village hall (connects to your touring circuit)</li>
+                        <li>Industrial/urban Northumberland or Newcastle (your home territory)</li>
+                        <li>A rural setting &mdash; fields, stone walls, farmland (connects to the Midlands recording of "Fuck Love")</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;"><strong style="color: #F59E0B;">Mood &amp; tone:</strong></p>
+                    <ul>
+                        <li>Natural light preferred (golden hour is ideal)</li>
+                        <li>Warm colour temperature &mdash; lean into the earthy tones of your palette</li>
+                        <li>Relaxed, not posed. You're a band who work from a community centre, not a boy band. Capture that.</li>
+                        <li>Some candid shots alongside the formal group shots</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;"><strong style="color: #F59E0B;">Deliverables to ask for:</strong></p>
+                    <ul>
+                        <li>1 landscape group shot (for headers, press features, festival programmes)</li>
+                        <li>1 portrait/square group shot (for social media, Spotify profile)</li>
+                        <li>Individual portraits of each member (for press articles, festival bios)</li>
+                        <li>5-10 candid/behind-the-scenes shots (for social media content)</li>
+                        <li>All at high resolution (minimum 300dpi for print, 2000px+ for web)</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;"><strong style="color: #F59E0B;">Wardrobe:</strong></p>
+                    <ul>
+                        <li>Wear what you'd wear to a gig. Don't overthink it.</li>
+                        <li>Avoid loud patterns or prominent logos (they date quickly and distract)</li>
+                        <li>Earthy, muted tones look great in natural light and suit your palette</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Merch Ideas</h2>
+
+                <div class="card">
+                    <h3>Merch That Suits Your Audience</h3>
+                    <p>Your audience skews towards people who go to village hall gigs, buy vinyl on Bandcamp, and appreciate craft. The merch should reflect that. Here are some ideas that would work specifically for Lovely Assistant:</p>
+                    <ul>
+                        <li><strong>Tote bags</strong> &mdash; with an illustrated design or "Quartet of Heck" text. Practical, affordable to produce, and your audience will actually use them. Perfect for village hall gigs where people are walking in with a bottle of wine.</li>
+                        <li><strong>Enamel pins</strong> &mdash; small, collectible, cheap to produce in small runs. A "Quartet of Heck" pin or a small illustrated design from your artwork.</li>
+                        <li><strong>T-shirts</strong> &mdash; keep the design understated. Your illustrated artwork style on a plain tee (heather grey, cream, or navy) would be strong. Avoid the "band t-shirt with dates on the back" approach unless it genuinely suits you.</li>
+                        <li><strong>Limited prints</strong> &mdash; your album artwork is illustration-based. Sell signed prints of the artwork. Cheap to produce, high perceived value, and your audience appreciates art.</li>
+                        <li><strong>Live album on physical format</strong> &mdash; given "Greetings from the Pre-wave" was released on limited 12" vinyl, your audience already buys physical. A limited vinyl run or even a limited CD run of the live album would sell at gigs.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Platform Consistency Checklist</h2>
+                <p style="color: #94A3B8; margin-bottom: 1rem; font-size: 0.9rem;">Work through this list to get all your platforms aligned. Tick each one off as you go.</p>
+
+                <div class="card">
+                    <h3>Profile Basics</h3>
+                    <ul class="checklist">
+                        <li><input type="checkbox" id="c1" onchange="toggleChecked(this)"><label for="c1">Same profile photo on Instagram, Facebook, Spotify, YouTube, X, and Bandcamp</label></li>
+                        <li><input type="checkbox" id="c2" onchange="toggleChecked(this)"><label for="c2">Bio updated on all platforms to mention live album (spring 2026)</label></li>
+                        <li><input type="checkbox" id="c3" onchange="toggleChecked(this)"><label for="c3">Contact email (lovelyassistantmusic@gmail.com) listed on every platform that supports it</label></li>
+                        <li><input type="checkbox" id="c4" onchange="toggleChecked(this)"><label for="c4">Website link (lovelyassistantmusic.com) linked from all platforms</label></li>
+                        <li><input type="checkbox" id="c5" onchange="toggleChecked(this)"><label for="c5">Link-in-bio (campsite.bio/lovelyassistant) up to date with latest links</label></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Spotify</h3>
+                    <ul class="checklist">
+                        <li><input type="checkbox" id="c6" onchange="toggleChecked(this)"><label for="c6">Spotify for Artists profile claimed and verified</label></li>
+                        <li><input type="checkbox" id="c7" onchange="toggleChecked(this)"><label for="c7">Artist bio filled in (use the one from the Streaming doc)</label></li>
+                        <li><input type="checkbox" id="c8" onchange="toggleChecked(this)"><label for="c8">Artist Pick set (pin latest release or upcoming live album)</label></li>
+                        <li><input type="checkbox" id="c9" onchange="toggleChecked(this)"><label for="c9">Header image uploaded (current, high-res press photo)</label></li>
+                        <li><input type="checkbox" id="c10" onchange="toggleChecked(this)"><label for="c10">Gallery images added (3-5 photos: press shots, live photos, artwork)</label></li>
+                        <li><input type="checkbox" id="c11" onchange="toggleChecked(this)"><label for="c11">Canvas videos added to at least your top tracks</label></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Instagram</h3>
+                    <ul class="checklist">
+                        <li><input type="checkbox" id="c12" onchange="toggleChecked(this)"><label for="c12">Bio mentions live album (spring 2026)</label></li>
+                        <li><input type="checkbox" id="c13" onchange="toggleChecked(this)"><label for="c13">Link-in-bio is set and working</label></li>
+                        <li><input type="checkbox" id="c14" onchange="toggleChecked(this)"><label for="c14">Story Highlights organised (e.g., "Live", "Albums", "Press", "Gigs")</label></li>
+                        <li><input type="checkbox" id="c15" onchange="toggleChecked(this)"><label for="c15">Profile photo matches other platforms</label></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Other Platforms</h3>
+                    <ul class="checklist">
+                        <li><input type="checkbox" id="c16" onchange="toggleChecked(this)"><label for="c16">Facebook page About section updated with current bio</label></li>
+                        <li><input type="checkbox" id="c17" onchange="toggleChecked(this)"><label for="c17">Bandcamp bio updated to mention live album</label></li>
+                        <li><input type="checkbox" id="c18" onchange="toggleChecked(this)"><label for="c18">YouTube channel description updated</label></li>
+                        <li><input type="checkbox" id="c19" onchange="toggleChecked(this)"><label for="c19">Apple Music for Artists claimed (if not already)</label></li>
+                        <li><input type="checkbox" id="c20" onchange="toggleChecked(this)"><label for="c20">Apple Music bio filled in</label></li>
+                        <li><input type="checkbox" id="c21" onchange="toggleChecked(this)"><label for="c21">Website updated with live album info and current press photos</label></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>Made with &#9829; by DMT Consulting &middot; A gift for Lovely Assistant &middot; March 2026</p>
+            <div class="brand">DMT Consulting</div>
+            <p style="font-size: 0.75rem; color: #475569; line-height: 1.5; margin-top: 1.5rem;">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.getElementById('tab-' + tab).classList.add('active');
+            var tabs = { 'where': 0, 'opportunities': 1, 'assets': 2 };
+            document.querySelectorAll('.tab-btn')[tabs[tab]].classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copyText(btn) {
+            var block = btn.closest('.copy-block');
+            var text = block.querySelector('.copy-body').innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function copyHex(el) {
+            var hex = el.textContent;
+            navigator.clipboard.writeText(hex).then(function() {
+                var original = el.textContent;
+                el.textContent = 'Copied!';
+                el.style.color = '#F59E0B';
+                setTimeout(function() {
+                    el.textContent = original;
+                    el.style.color = '';
+                }, 1500);
+            });
+        }
+
+        function toggleChecked(checkbox) {
+            var label = checkbox.parentElement.querySelector('label');
+            if (checkbox.checked) {
+                label.classList.add('checked');
+            } else {
+                label.classList.remove('checked');
+            }
+        }
+    </script>
+</body>
+</html>

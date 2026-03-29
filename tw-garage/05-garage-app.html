@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1E40AF">
+<meta name="mobile-web-app-capable" content="yes">
+<title>T&W Garage Manager</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVCZXIEdhcmFnZSBNYW5hZ2VyIiwic2hvcnRfbmFtZSI6IlQmVyBHYXJhZ2UiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzFFNDBBRiIsInRoZW1lX2NvbG9yIjoiIzFFNDBBRiJ9">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--blue:#1E40AF;--blue-dark:#1E3A8A;--blue-light:#DBEAFE;--amber:#F59E0B;--amber-dark:#D97706;--amber-light:#FEF3C7;--dark:#1F2937;--grey:#6B7280;--light:#F3F4F6;--white:#FFFFFF;--green:#22C55E;--green-light:#D1FAE5;--red:#EF4444;--red-light:#FEE2E2;--radius:12px;--shadow:0 2px 8px rgba(0,0,0,0.08)}
+html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--light);color:var(--dark);overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:none;background:none;font-size:inherit}
+input,select,textarea{font-family:inherit;font-size:16px;border:2px solid #E5E7EB;border-radius:var(--radius);padding:14px 16px;width:100%;background:var(--white);color:var(--dark);transition:border-color .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue)}
+textarea{resize:vertical;min-height:80px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+
+.app{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto;background:var(--white)}
+.header{background:var(--dark);color:var(--white);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:60px;flex-shrink:0}
+.header-left{display:flex;align-items:center;gap:10px}
+.header-brand{font-size:14px;font-weight:700;color:var(--amber);letter-spacing:0.5px}
+.header h1{font-size:18px;font-weight:600}
+.header-action{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--white);font-weight:300;border-radius:50%;min-height:44px}
+.header-action:active{background:rgba(255,255,255,0.1)}
+.content{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 20px 100px;-webkit-overflow-scrolling:touch}
+
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid #E5E7EB;display:flex;justify-content:center;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nav-inner{display:flex;max-width:480px;width:100%}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 0 6px;gap:3px;color:var(--grey);font-size:10px;font-weight:600;transition:color .2s;position:relative}
+.nav-btn.active{color:var(--blue)}
+.nav-btn svg{width:22px;height:22px}
+.nav-badge{position:absolute;top:4px;right:50%;transform:translateX(14px);background:var(--red);color:white;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+.card{background:var(--white);border:1px solid #E5E7EB;border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow);cursor:pointer;transition:transform .1s}
+.card:active{transform:scale(0.98)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card-title{font-size:16px;font-weight:700}
+.card-subtitle{font-size:13px;color:var(--grey)}
+.card-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 24px;border-radius:var(--radius);font-size:16px;font-weight:600;transition:all .15s;min-height:52px;width:100%}
+.btn-primary{background:var(--blue);color:var(--white)}
+.btn-primary:active{background:var(--blue-dark);transform:scale(0.98)}
+.btn-secondary{background:var(--light);color:var(--dark);border:2px solid #E5E7EB}
+.btn-secondary:active{background:#E5E7EB}
+.btn-danger{background:var(--red);color:var(--white)}
+.btn-danger:active{background:#DC2626}
+.btn-success{background:var(--green);color:var(--white)}
+.btn-success:active{background:#16A34A}
+.btn-amber{background:var(--amber);color:var(--white)}
+.btn-amber:active{background:var(--amber-dark)}
+.btn-whatsapp{background:#25D366;color:var(--white)}
+.btn-whatsapp:active{background:#128C7E}
+.btn-sm{padding:10px 16px;font-size:14px;min-height:40px;width:auto}
+.btn-xs{padding:6px 12px;font-size:12px;min-height:32px;width:auto;border-radius:8px}
+.btn-icon{width:44px;height:44px;min-height:44px;padding:0;border-radius:50%}
+.btn-outline{background:transparent;border:2px solid var(--blue);color:var(--blue)}
+
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--grey);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+.form-row{display:flex;gap:12px}
+.form-row>*{flex:1}
+.form-hint{font-size:12px;color:var(--grey);margin-top:4px}
+
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.badge-green{background:var(--green-light);color:#065F46}
+.badge-amber{background:var(--amber-light);color:#92400E}
+.badge-red{background:var(--red-light);color:#991B1B}
+.badge-blue{background:var(--blue-light);color:var(--blue)}
+.badge-grey{background:var(--light);color:var(--grey)}
+
+.mot-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
+.mot-green{background:var(--green)}
+.mot-amber{background:var(--amber)}
+.mot-red{background:var(--red)}
+
+.summary-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:8px;margin-bottom:16px}
+.summary-item{background:var(--white);border:1px solid #E5E7EB;border-radius:var(--radius);padding:12px;text-align:center;box-shadow:var(--shadow)}
+.summary-item .num{font-size:22px;font-weight:800;color:var(--blue)}
+.summary-item .num.red{color:var(--red)}
+.summary-item .num.amber{color:var(--amber)}
+.summary-item .num.green{color:var(--green)}
+.summary-item .label{font-size:10px;font-weight:600;color:var(--grey);text-transform:uppercase;letter-spacing:0.3px;margin-top:2px}
+
+.filter-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.filter-chip{padding:8px 14px;border-radius:20px;font-size:13px;font-weight:600;white-space:nowrap;background:var(--light);color:var(--grey);border:2px solid transparent;flex-shrink:0}
+.filter-chip.active{background:var(--blue-light);color:var(--blue);border-color:var(--blue)}
+
+.search-bar{position:relative;margin-bottom:16px}
+.search-bar input{padding-left:44px}
+.search-bar svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--grey)}
+
+.empty-state{text-align:center;padding:60px 20px;color:var(--grey)}
+.empty-state svg{width:64px;height:64px;margin-bottom:16px;opacity:0.3}
+.empty-state h3{font-size:18px;margin-bottom:8px;color:var(--dark)}
+.empty-state p{font-size:14px;line-height:1.5}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal{background:var(--white);width:100%;max-width:480px;max-height:90vh;border-radius:20px 20px 0 0;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease-out;padding:24px 20px 40px}
+.modal-overlay.active .modal{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:#D1D5DB;border-radius:2px;margin:0 auto 20px}
+.modal-title{font-size:20px;font-weight:700;margin-bottom:20px}
+
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:250;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.confirm-overlay.active{opacity:1;pointer-events:all}
+.confirm-box{background:var(--white);border-radius:var(--radius);padding:24px;max-width:320px;width:100%;text-align:center}
+.confirm-box h3{font-size:18px;margin-bottom:8px}
+.confirm-box p{font-size:14px;color:var(--grey);margin-bottom:20px;line-height:1.5}
+.confirm-box .btns{display:flex;gap:12px}
+.confirm-box .btns button{flex:1}
+
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--dark);color:var(--white);padding:14px 24px;border-radius:var(--radius);font-size:14px;font-weight:600;z-index:300;transition:transform .3s;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--grey);margin:24px 0 12px;padding-left:4px}
+.section-title:first-child{margin-top:0}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.toggle-row .label{font-size:14px;font-weight:600}
+.toggle{position:relative;width:52px;height:32px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle .slider{position:absolute;inset:0;background:#D1D5DB;border-radius:16px;transition:.3s;cursor:pointer}
+.toggle .slider:before{content:'';position:absolute;width:26px;height:26px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s}
+.toggle input:checked+.slider{background:var(--blue)}
+.toggle input:checked+.slider:before{transform:translateX(20px)}
+
+.contact-btns{display:flex;gap:8px;margin-top:8px}
+.contact-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;min-height:44px;flex:1}
+.contact-btn.phone{background:#DBEAFE;color:#1E40AF}
+.contact-btn.whatsapp{background:#D1FAE5;color:#065F46}
+
+.settings-item{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid #F3F4F6;cursor:pointer}
+.settings-item:last-child{border-bottom:none}
+.settings-item .left{display:flex;align-items:center;gap:12px}
+.settings-item .icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.settings-item .text h4{font-size:15px;font-weight:600}
+.settings-item .text p{font-size:13px;color:var(--grey)}
+
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.stat-card{background:var(--white);border:1px solid #E5E7EB;border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow)}
+.stat-card .num{font-size:28px;font-weight:800;color:var(--blue)}
+.stat-card .label{font-size:12px;color:var(--grey);font-weight:600;text-transform:uppercase;margin-top:4px}
+
+.progress-bar{width:100%;height:8px;background:var(--light);border-radius:4px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;background:var(--blue);border-radius:4px;transition:width .3s}
+
+.divider{height:1px;background:#E5E7EB;margin:16px 0}
+
+.job-card{border-left:4px solid var(--grey)}
+.job-card.status-progress{border-left-color:var(--amber)}
+.job-card.status-complete{border-left-color:var(--green)}
+.job-card.status-paid{border-left-color:var(--blue)}
+
+.service-tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;background:var(--blue-light);color:var(--blue)}
+
+.footer-text{text-align:center;padding:30px 20px 10px;font-size:11px;color:var(--grey);line-height:1.8}
+
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.animate-in{animation:slideUp .3s ease-out}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <div class="header">
+    <div class="header-left">
+      <span class="header-brand">T&W Garage</span>
+      <h1 id="headerTitle">Customers</h1>
+    </div>
+    <div id="headerAction"></div>
+  </div>
+  <div class="content" id="content"></div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" data-tab="customers" onclick="switchTab('customers')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Customers
+      </button>
+      <button class="nav-btn" data-tab="mot" onclick="switchTab('mot')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="motBadgeNav"></span>
+        MOT
+      </button>
+      <button class="nav-btn" data-tab="reviews" onclick="switchTab('reviews')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Reviews
+      </button>
+      <button class="nav-btn" data-tab="jobs" onclick="switchTab('jobs')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        Jobs
+      </button>
+      <button class="nav-btn" data-tab="settings" onclick="switchTab('settings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Settings
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box" id="confirmBox"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// DATA STORE
+// ============================================================
+const STORAGE_KEY = 'twg_data';
+
+const DEFAULT_SERVICES = [
+  'MOT Testing','Full Service','Interim Service','Brake Pads & Discs','Clutch Replacement',
+  'Exhaust Repair','Tyre Fitting','Battery Replacement','Engine Diagnostics','AC Recharge',
+  'Suspension Repair','Wheel Alignment','Vehicle Recovery','General Repair'
+];
+
+const DEFAULT_MOT_MESSAGE = 'Hi {name}, your MOT for your {car} ({reg}) is due on {date}. Book now - call us on {phone} or reply to this message. {business}, South Shields.';
+const DEFAULT_REVIEW_MESSAGE = 'Hi {name}, thanks for choosing {business}. If you\'re happy, a quick Google review would really help: {link}. Thanks!';
+
+const DEFAULT_SETTINGS = {
+  businessName: 'Tyne & Wear Garage and Recovery',
+  businessPhone: '07487 738527',
+  googleReviewLink: '',
+  motMessage: DEFAULT_MOT_MESSAGE,
+  reviewMessage: DEFAULT_REVIEW_MESSAGE,
+  serviceTypes: [...DEFAULT_SERVICES]
+};
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const d = JSON.parse(raw);
+      if (!d.settings) d.settings = {...DEFAULT_SETTINGS};
+      if (!d.settings.serviceTypes) d.settings.serviceTypes = [...DEFAULT_SERVICES];
+      if (!d.settings.motMessage) d.settings.motMessage = DEFAULT_MOT_MESSAGE;
+      if (!d.settings.reviewMessage) d.settings.reviewMessage = DEFAULT_REVIEW_MESSAGE;
+      if (!d.customers) d.customers = [];
+      if (!d.jobs) d.jobs = [];
+      return d;
+    }
+  } catch(e) {}
+  return {
+    settings: {...DEFAULT_SETTINGS},
+    customers: [],
+    jobs: []
+  };
+}
+
+function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+let data = loadData();
+let currentTab = 'customers';
+let searchQuery = '';
+let jobFilter = 'all';
+
+// ============================================================
+// HELPERS
+// ============================================================
+function genId() { return Date.now().toString(36) + Math.random().toString(36).substr(2, 5); }
+
+function today() { return new Date().toISOString().split('T')[0]; }
+
+function formatDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function daysUntil(dateStr) {
+  if (!dateStr) return null;
+  const target = new Date(dateStr + 'T00:00:00');
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+}
+
+function motStatus(dateStr) {
+  const days = daysUntil(dateStr);
+  if (days === null) return { class: 'grey', text: 'No date', badge: 'badge-grey' };
+  if (days < 0) return { class: 'red', text: `${Math.abs(days)}d overdue`, badge: 'badge-red', dot: 'mot-red' };
+  if (days <= 7) return { class: 'red', text: `${days}d left`, badge: 'badge-red', dot: 'mot-red' };
+  if (days <= 30) return { class: 'amber', text: `${days}d left`, badge: 'badge-amber', dot: 'mot-amber' };
+  return { class: 'green', text: `${days}d left`, badge: 'badge-green', dot: 'mot-green' };
+}
+
+function phoneToWhatsApp(phone) {
+  const digits = phone.replace(/\s+/g, '').replace(/[^0-9]/g, '');
+  if (digits.startsWith('0')) return '44' + digits.substring(1);
+  if (digits.startsWith('44')) return digits;
+  return '44' + digits;
+}
+
+function whatsappLink(phone, message) {
+  return `https://wa.me/${phoneToWhatsApp(phone)}?text=${encodeURIComponent(message)}`;
+}
+
+function telLink(phone) { return `tel:${phone.replace(/\s+/g, '')}`; }
+
+function getCustomer(id) { return data.customers.find(c => c.id === id); }
+
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============================================================
+// TOAST / CONFIRM / MODAL
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function showConfirm(title, msg, onYes, yesText='Delete', yesClass='btn-danger') {
+  const o = document.getElementById('confirmOverlay');
+  document.getElementById('confirmBox').innerHTML = `
+    <h3>${title}</h3>
+    <p>${msg}</p>
+    <div class="btns">
+      <button class="btn btn-sm btn-secondary" onclick="document.getElementById('confirmOverlay').classList.remove('active')">Cancel</button>
+      <button class="btn btn-sm ${yesClass}" id="confirmYes">${yesText}</button>
+    </div>`;
+  o.classList.add('active');
+  document.getElementById('confirmYes').onclick = () => { o.classList.remove('active'); onYes(); };
+}
+
+function openModal(html) {
+  document.getElementById('modalContent').innerHTML = '<div class="modal-handle"></div>' + html;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function switchTab(tab) {
+  currentTab = tab;
+  searchQuery = '';
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  updateMotBadge();
+  render();
+}
+
+function updateMotBadge() {
+  const overdue = data.customers.filter(c => c.motDue && daysUntil(c.motDue) < 0).length;
+  const el = document.getElementById('motBadgeNav');
+  if (el) el.innerHTML = overdue > 0 ? `<span class="nav-badge">${overdue}</span>` : '';
+}
+
+function render() {
+  const c = document.getElementById('content');
+  const h = document.getElementById('headerTitle');
+  const ha = document.getElementById('headerAction');
+
+  switch(currentTab) {
+    case 'customers':
+      h.textContent = 'Customers';
+      ha.innerHTML = '<button class="header-action" onclick="showCustomerForm()">+</button>';
+      renderCustomers(c); break;
+    case 'mot':
+      h.textContent = 'MOT Reminders';
+      ha.innerHTML = '';
+      renderMOT(c); break;
+    case 'reviews':
+      h.textContent = 'Reviews';
+      ha.innerHTML = '';
+      renderReviews(c); break;
+    case 'jobs':
+      h.textContent = 'Jobs';
+      ha.innerHTML = '<button class="header-action" onclick="showJobForm()">+</button>';
+      renderJobs(c); break;
+    case 'settings':
+      h.textContent = 'Settings';
+      ha.innerHTML = '';
+      renderSettings(c); break;
+  }
+}
+
+// ============================================================
+// TAB 1: CUSTOMERS
+// ============================================================
+function renderCustomers(container) {
+  let customers = [...data.customers].sort((a,b) => a.name.localeCompare(b.name));
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    customers = customers.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      (c.reg && c.reg.toLowerCase().includes(q)) ||
+      (c.phone && c.phone.includes(q)) ||
+      (c.carMake && c.carMake.toLowerCase().includes(q))
+    );
+  }
+
+  let html = `
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search customers, reg, phone..." value="${escHtml(searchQuery)}" oninput="searchQuery=this.value;render()">
+    </div>`;
+
+  if (customers.length === 0 && !searchQuery) {
+    html += `<div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <h3>No customers yet</h3>
+      <p>Tap + to add your first.</p>
+    </div>`;
+  } else if (customers.length === 0) {
+    html += `<div class="empty-state"><h3>No results</h3><p>Try a different search term.</p></div>`;
+  } else {
+    customers.forEach(c => {
+      const ms = c.motDue ? motStatus(c.motDue) : null;
+      html += `<div class="card" onclick="viewCustomer('${c.id}')">
+        <div class="card-header">
+          <div>
+            <div class="card-title">${escHtml(c.name)}</div>
+            <div class="card-subtitle">${escHtml(c.carMake || '')} ${c.reg ? '&middot; ' + escHtml(c.reg) : ''}</div>
+          </div>
+          ${ms ? `<span class="mot-dot ${ms.dot || ''}"></span>` : ''}
+        </div>
+        <div class="card-row">
+          <span style="font-size:13px;color:var(--grey)">${c.phone || 'No phone'}</span>
+          ${ms ? `<span class="badge ${ms.badge}">MOT: ${ms.text}</span>` : ''}
+        </div>
+      </div>`;
+    });
+  }
+  container.innerHTML = html;
+}
+
+function showCustomerForm(id) {
+  const c = id ? getCustomer(id) : null;
+  const title = c ? 'Edit Customer' : 'Add Customer';
+  openModal(`
+    <div class="modal-title">${title}</div>
+    <div class="form-group"><label class="form-label">Name *</label><input type="text" id="cf_name" value="${escHtml(c?.name||'')}" placeholder="Full name"></div>
+    <div class="form-group"><label class="form-label">Phone</label><input type="tel" id="cf_phone" value="${escHtml(c?.phone||'')}" placeholder="07xxx xxxxxx"></div>
+    <div class="form-group"><label class="form-label">Car Make / Model</label><input type="text" id="cf_car" value="${escHtml(c?.carMake||'')}" placeholder="e.g. Ford Fiesta 2019"></div>
+    <div class="form-group"><label class="form-label">Registration</label><input type="text" id="cf_reg" value="${escHtml(c?.reg||'')}" placeholder="e.g. AB12 CDE" style="text-transform:uppercase"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">MOT Due</label><input type="date" id="cf_mot" value="${c?.motDue||''}"></div>
+      <div class="form-group"><label class="form-label">Last Service</label><input type="date" id="cf_service" value="${c?.lastService||''}"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea id="cf_notes" placeholder="Any notes...">${escHtml(c?.notes||'')}</textarea></div>
+    <button class="btn btn-primary" onclick="saveCustomer('${id||''}')">${c ? 'Update' : 'Add'} Customer</button>
+    ${c ? `<button class="btn btn-danger" style="margin-top:12px" onclick="deleteCustomer('${id}')">Delete Customer</button>` : ''}
+  `);
+}
+
+function saveCustomer(id) {
+  const name = document.getElementById('cf_name').value.trim();
+  if (!name) { showToast('Name is required'); return; }
+  const obj = {
+    id: id || genId(),
+    name,
+    phone: document.getElementById('cf_phone').value.trim(),
+    carMake: document.getElementById('cf_car').value.trim(),
+    reg: document.getElementById('cf_reg').value.trim().toUpperCase(),
+    motDue: document.getElementById('cf_mot').value,
+    lastService: document.getElementById('cf_service').value,
+    notes: document.getElementById('cf_notes').value.trim(),
+    reviewStatus: id ? (getCustomer(id)?.reviewStatus || 'none') : 'none',
+    reviewAskedDate: id ? (getCustomer(id)?.reviewAskedDate || '') : '',
+    motContacted: id ? (getCustomer(id)?.motContacted || false) : false,
+    motBooked: id ? (getCustomer(id)?.motBooked || false) : false
+  };
+  if (id) {
+    const idx = data.customers.findIndex(c => c.id === id);
+    if (idx >= 0) data.customers[idx] = obj;
+  } else {
+    data.customers.push(obj);
+  }
+  saveData();
+  closeModal();
+  showToast(id ? 'Customer updated' : 'Customer added');
+  render();
+}
+
+function deleteCustomer(id) {
+  closeModal();
+  showConfirm('Delete Customer', 'This will also remove all their jobs. Are you sure?', () => {
+    data.customers = data.customers.filter(c => c.id !== id);
+    data.jobs = data.jobs.filter(j => j.customerId !== id);
+    saveData();
+    showToast('Customer deleted');
+    render();
+  });
+}
+
+function viewCustomer(id) {
+  const c = getCustomer(id);
+  if (!c) return;
+  const ms = c.motDue ? motStatus(c.motDue) : null;
+  const jobs = data.jobs.filter(j => j.customerId === id).sort((a,b) => b.date.localeCompare(a.date));
+
+  let html = `<div class="modal-title">${escHtml(c.name)}</div>`;
+
+  if (c.phone) {
+    html += `<div class="contact-btns">
+      <a href="${telLink(c.phone)}" class="contact-btn phone" style="text-decoration:none">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call
+      </a>
+      <a href="${whatsappLink(c.phone, '')}" target="_blank" class="contact-btn whatsapp" style="text-decoration:none">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.319 0-4.476-.67-6.309-1.826l-.452-.277-2.651.889.889-2.651-.277-.452A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+        WhatsApp
+      </a>
+    </div>`;
+  }
+
+  html += `<div class="divider"></div>`;
+  html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">`;
+  html += `<div><strong style="color:var(--grey)">Car</strong><br>${escHtml(c.carMake || '—')}</div>`;
+  html += `<div><strong style="color:var(--grey)">Reg</strong><br>${escHtml(c.reg || '—')}</div>`;
+  html += `<div><strong style="color:var(--grey)">MOT Due</strong><br>${c.motDue ? formatDate(c.motDue) : '—'} ${ms ? `<span class="badge ${ms.badge}" style="font-size:10px">${ms.text}</span>` : ''}</div>`;
+  html += `<div><strong style="color:var(--grey)">Last Service</strong><br>${c.lastService ? formatDate(c.lastService) : '—'}</div>`;
+  html += `</div>`;
+
+  if (c.notes) {
+    html += `<div class="divider"></div><div style="font-size:13px;color:var(--grey)"><strong>Notes</strong><br>${escHtml(c.notes)}</div>`;
+  }
+
+  if (jobs.length > 0) {
+    html += `<div class="section-title">Job History (${jobs.length})</div>`;
+    jobs.slice(0, 5).forEach(j => {
+      html += `<div style="padding:8px 0;border-bottom:1px solid #F3F4F6;font-size:13px">
+        <div style="display:flex;justify-content:space-between"><strong>${escHtml(j.serviceType)}</strong><span>&pound;${j.cost ? Number(j.cost).toFixed(2) : '0.00'}</span></div>
+        <div style="color:var(--grey)">${formatDate(j.date)} &middot; ${j.status}</div>
+      </div>`;
+    });
+  }
+
+  html += `<div style="margin-top:20px">
+    <button class="btn btn-primary" onclick="closeModal();showCustomerForm('${c.id}')">Edit Customer</button>
+  </div>`;
+
+  openModal(html);
+}
+
+// ============================================================
+// TAB 2: MOT REMINDERS
+// ============================================================
+function renderMOT(container) {
+  const withMOT = data.customers.filter(c => c.motDue).sort((a,b) => {
+    const da = daysUntil(a.motDue), db = daysUntil(b.motDue);
+    return da - db;
+  });
+
+  const overdue = withMOT.filter(c => daysUntil(c.motDue) < 0).length;
+  const dueMonth = withMOT.filter(c => { const d = daysUntil(c.motDue); return d >= 0 && d <= 30; }).length;
+  const contacted = withMOT.filter(c => c.motContacted).length;
+  const booked = withMOT.filter(c => c.motBooked).length;
+
+  let html = `<div class="summary-bar">
+    <div class="summary-item"><div class="num red">${overdue}</div><div class="label">Overdue</div></div>
+    <div class="summary-item"><div class="num amber">${dueMonth}</div><div class="label">This Month</div></div>
+    <div class="summary-item"><div class="num">${contacted}</div><div class="label">Contacted</div></div>
+    <div class="summary-item"><div class="num green">${booked}</div><div class="label">Booked</div></div>
+  </div>`;
+
+  if (withMOT.length === 0) {
+    html += `<div class="empty-state"><h3>No MOT dates set</h3><p>Add MOT due dates to your customers to see reminders here.</p></div>`;
+  } else {
+    withMOT.forEach(c => {
+      const ms = motStatus(c.motDue);
+      const days = daysUntil(c.motDue);
+      const msgTemplate = data.settings.motMessage || DEFAULT_MOT_MESSAGE;
+      const msg = msgTemplate
+        .replace('{name}', c.name.split(' ')[0])
+        .replace('{car}', c.carMake || 'vehicle')
+        .replace('{reg}', c.reg || '')
+        .replace('{date}', formatDate(c.motDue))
+        .replace('{phone}', data.settings.businessPhone)
+        .replace('{business}', data.settings.businessName);
+
+      html += `<div class="card" style="border-left:4px solid var(--${ms.class === 'amber' ? 'amber' : ms.class})">
+        <div class="card-header">
+          <div>
+            <div class="card-title">${escHtml(c.name)}</div>
+            <div class="card-subtitle">${escHtml(c.carMake || '')} &middot; ${escHtml(c.reg || '')}</div>
+          </div>
+          <span class="badge ${ms.badge}">${ms.text}</span>
+        </div>
+        <div style="font-size:13px;color:var(--grey);margin-bottom:10px">MOT due: ${formatDate(c.motDue)}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${c.phone ? `<a href="${whatsappLink(c.phone, msg)}" target="_blank" class="btn btn-whatsapp btn-xs" style="text-decoration:none" onclick="event.stopPropagation()">
+            Send Reminder
+          </a>` : ''}
+          <button class="btn btn-xs ${c.motContacted ? 'btn-primary' : 'btn-secondary'}" onclick="event.stopPropagation();toggleMotFlag('${c.id}','motContacted')">
+            ${c.motContacted ? '&#10003; Contacted' : 'Mark Contacted'}
+          </button>
+          <button class="btn btn-xs ${c.motBooked ? 'btn-success' : 'btn-secondary'}" onclick="event.stopPropagation();toggleMotFlag('${c.id}','motBooked')">
+            ${c.motBooked ? '&#10003; Booked' : 'Mark Booked'}
+          </button>
+        </div>
+      </div>`;
+    });
+  }
+  container.innerHTML = html;
+}
+
+function toggleMotFlag(id, flag) {
+  const c = getCustomer(id);
+  if (!c) return;
+  c[flag] = !c[flag];
+  saveData();
+  render();
+}
+
+// ============================================================
+// TAB 3: REVIEWS
+// ============================================================
+function renderReviews(container) {
+  const total = data.customers.length;
+  const asked = data.customers.filter(c => c.reviewStatus === 'asked' || c.reviewStatus === 'left').length;
+  const left = data.customers.filter(c => c.reviewStatus === 'left').length;
+  const askedPct = total > 0 ? Math.round((asked / total) * 100) : 0;
+
+  const now = new Date();
+  const monthKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const askedThisMonth = data.customers.filter(c => c.reviewAskedDate && c.reviewAskedDate.startsWith(monthKey)).length;
+  const target = 3;
+  const progress = Math.min(100, Math.round((askedThisMonth / target) * 100));
+
+  let html = `
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">${total}</div><div class="label">Customers</div></div>
+      <div class="stat-card"><div class="num">${askedPct}%</div><div class="label">Asked</div></div>
+      <div class="stat-card"><div class="num">${left}</div><div class="label">Reviews</div></div>
+      <div class="stat-card"><div class="num">${askedThisMonth}/${target}</div><div class="label">This Month</div></div>
+    </div>
+    <div class="card">
+      <div style="font-size:14px;font-weight:600;margin-bottom:4px">Monthly Progress</div>
+      <div style="font-size:12px;color:var(--grey)">${askedThisMonth} of ${target} review requests sent</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+    </div>
+    <div class="section-title">All Customers</div>`;
+
+  const sorted = [...data.customers].sort((a,b) => {
+    const order = { none: 0, asked: 1, left: 2 };
+    return (order[a.reviewStatus] || 0) - (order[b.reviewStatus] || 0);
+  });
+
+  if (sorted.length === 0) {
+    html += `<div class="empty-state"><p>Add customers first to track reviews.</p></div>`;
+  }
+
+  sorted.forEach(c => {
+    const status = c.reviewStatus || 'none';
+    let statusBadge = '';
+    if (status === 'none') statusBadge = '<span class="badge badge-grey">Not Asked</span>';
+    else if (status === 'asked') statusBadge = '<span class="badge badge-amber">Asked</span>';
+    else if (status === 'left') statusBadge = '<span class="badge badge-green">Left Review</span>';
+
+    const reviewMsg = (data.settings.reviewMessage || DEFAULT_REVIEW_MESSAGE)
+      .replace('{name}', c.name.split(' ')[0])
+      .replace('{business}', data.settings.businessName)
+      .replace('{link}', data.settings.googleReviewLink || '[set review link in settings]');
+
+    html += `<div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title" style="font-size:15px">${escHtml(c.name)}</div>
+          ${c.reviewAskedDate ? `<div class="card-subtitle">Asked ${formatDate(c.reviewAskedDate)}</div>` : ''}
+        </div>
+        ${statusBadge}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${status === 'none' && c.phone ? `<a href="${whatsappLink(c.phone, reviewMsg)}" target="_blank" class="btn btn-whatsapp btn-xs" style="text-decoration:none" onclick="event.stopPropagation();markReviewAsked('${c.id}')">
+          Ask for Review
+        </a>` : ''}
+        ${status === 'none' && !c.phone ? `<span style="font-size:12px;color:var(--grey)">No phone number</span>` : ''}
+        ${status === 'asked' ? `<button class="btn btn-success btn-xs" onclick="markReviewLeft('${c.id}')">Mark Review Left</button>` : ''}
+        ${status !== 'none' ? `<button class="btn btn-secondary btn-xs" onclick="resetReview('${c.id}')">Reset</button>` : ''}
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function markReviewAsked(id) {
+  const c = getCustomer(id);
+  if (!c) return;
+  c.reviewStatus = 'asked';
+  c.reviewAskedDate = today();
+  saveData();
+  showToast('Marked as asked');
+  setTimeout(() => render(), 300);
+}
+
+function markReviewLeft(id) {
+  const c = getCustomer(id);
+  if (!c) return;
+  c.reviewStatus = 'left';
+  saveData();
+  showToast('Review recorded!');
+  render();
+}
+
+function resetReview(id) {
+  const c = getCustomer(id);
+  if (!c) return;
+  c.reviewStatus = 'none';
+  c.reviewAskedDate = '';
+  saveData();
+  render();
+}
+
+// ============================================================
+// TAB 4: JOBS
+// ============================================================
+function renderJobs(container) {
+  const now = new Date();
+  const weekAgo = new Date(now);
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  const weekStr = weekAgo.toISOString().split('T')[0];
+  const monthStr = monthStart.toISOString().split('T')[0];
+
+  const jobsThisWeek = data.jobs.filter(j => j.date >= weekStr).length;
+  const jobsThisMonth = data.jobs.filter(j => j.date >= monthStr).length;
+  const revenueMonth = data.jobs.filter(j => j.date >= monthStr && j.cost).reduce((s,j) => s + Number(j.cost), 0);
+  const outstanding = data.jobs.filter(j => j.status === 'Complete').reduce((s,j) => s + Number(j.cost || 0), 0);
+
+  let filtered = [...data.jobs].sort((a,b) => b.date.localeCompare(a.date));
+  if (jobFilter === 'active') filtered = filtered.filter(j => j.status === 'In Progress');
+  else if (jobFilter === 'complete') filtered = filtered.filter(j => j.status === 'Complete');
+  else if (jobFilter === 'paid') filtered = filtered.filter(j => j.status === 'Paid');
+
+  const counts = {
+    all: data.jobs.length,
+    active: data.jobs.filter(j => j.status === 'In Progress').length,
+    complete: data.jobs.filter(j => j.status === 'Complete').length,
+    paid: data.jobs.filter(j => j.status === 'Paid').length
+  };
+
+  let html = `
+    <div class="summary-bar">
+      <div class="summary-item"><div class="num">${jobsThisWeek}</div><div class="label">This Week</div></div>
+      <div class="summary-item"><div class="num">${jobsThisMonth}</div><div class="label">This Month</div></div>
+      <div class="summary-item"><div class="num">&pound;${revenueMonth.toFixed(0)}</div><div class="label">Revenue</div></div>
+      <div class="summary-item"><div class="num amber">&pound;${outstanding.toFixed(0)}</div><div class="label">Owed</div></div>
+    </div>
+    <div class="filter-row">
+      <button class="filter-chip ${jobFilter==='all'?'active':''}" onclick="jobFilter='all';render()">All <span class="count">${counts.all}</span></button>
+      <button class="filter-chip ${jobFilter==='active'?'active':''}" onclick="jobFilter='active';render()">Active <span class="count">${counts.active}</span></button>
+      <button class="filter-chip ${jobFilter==='complete'?'active':''}" onclick="jobFilter='complete';render()">Complete <span class="count">${counts.complete}</span></button>
+      <button class="filter-chip ${jobFilter==='paid'?'active':''}" onclick="jobFilter='paid';render()">Paid <span class="count">${counts.paid}</span></button>
+    </div>`;
+
+  if (filtered.length === 0) {
+    html += `<div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      <h3>No jobs${jobFilter !== 'all' ? ' with this status' : ' yet'}</h3>
+      <p>Tap + to add a job.</p>
+    </div>`;
+  }
+
+  filtered.forEach(j => {
+    const cust = getCustomer(j.customerId);
+    const statusClass = j.status === 'In Progress' ? 'status-progress' : j.status === 'Complete' ? 'status-complete' : 'status-paid';
+    const statusBadge = j.status === 'In Progress' ? 'badge-amber' : j.status === 'Complete' ? 'badge-green' : 'badge-blue';
+    html += `<div class="card job-card ${statusClass}" onclick="viewJob('${j.id}')">
+      <div class="card-header">
+        <div>
+          <div class="card-title" style="font-size:15px">${escHtml(cust?.name || 'Unknown')}</div>
+          <div class="card-subtitle">${escHtml(j.serviceType)} ${cust?.reg ? '&middot; ' + escHtml(cust.reg) : ''}</div>
+        </div>
+        <span class="badge ${statusBadge}">${j.status}</span>
+      </div>
+      <div class="card-row">
+        <span style="font-size:13px;color:var(--grey)">${formatDate(j.date)}</span>
+        <span style="font-size:18px;font-weight:700;color:var(--blue)">&pound;${j.cost ? Number(j.cost).toFixed(2) : '0.00'}</span>
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function showJobForm(id) {
+  const j = id ? data.jobs.find(x => x.id === id) : null;
+  const title = j ? 'Edit Job' : 'Add Job';
+
+  let custOptions = '<option value="">Select customer...</option>';
+  [...data.customers].sort((a,b) => a.name.localeCompare(b.name)).forEach(c => {
+    custOptions += `<option value="${c.id}" ${j && j.customerId === c.id ? 'selected' : ''}>${escHtml(c.name)}${c.reg ? ' (' + escHtml(c.reg) + ')' : ''}</option>`;
+  });
+
+  let serviceOptions = '<option value="">Select service...</option>';
+  (data.settings.serviceTypes || DEFAULT_SERVICES).forEach(s => {
+    serviceOptions += `<option value="${escHtml(s)}" ${j && j.serviceType === s ? 'selected' : ''}>${escHtml(s)}</option>`;
+  });
+
+  const statuses = ['In Progress', 'Complete', 'Paid'];
+  let statusOptions = '';
+  statuses.forEach(s => {
+    statusOptions += `<option value="${s}" ${j && j.status === s ? 'selected' : ''}>${s}</option>`;
+  });
+
+  openModal(`
+    <div class="modal-title">${title}</div>
+    <div class="form-group"><label class="form-label">Customer *</label><select id="jf_cust">${custOptions}</select></div>
+    <div style="margin-bottom:16px"><button class="btn btn-secondary btn-sm" onclick="closeModal();showCustomerForm();setTimeout(()=>{},100)">+ Add New Customer</button></div>
+    <div class="form-group"><label class="form-label">Service Type *</label><select id="jf_service">${serviceOptions}</select></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Date</label><input type="date" id="jf_date" value="${j?.date || today()}"></div>
+      <div class="form-group"><label class="form-label">Cost (&pound;)</label><input type="number" id="jf_cost" value="${j?.cost || ''}" placeholder="0.00" step="0.01"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Status</label><select id="jf_status">${statusOptions}</select></div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea id="jf_notes" placeholder="Job notes...">${escHtml(j?.notes||'')}</textarea></div>
+    <button class="btn btn-primary" onclick="saveJob('${id||''}')">${j ? 'Update' : 'Add'} Job</button>
+    ${j ? `<button class="btn btn-danger" style="margin-top:12px" onclick="deleteJob('${id}')">Delete Job</button>` : ''}
+  `);
+}
+
+function saveJob(id) {
+  const custId = document.getElementById('jf_cust').value;
+  const serviceType = document.getElementById('jf_service').value;
+  if (!custId) { showToast('Select a customer'); return; }
+  if (!serviceType) { showToast('Select a service type'); return; }
+
+  const obj = {
+    id: id || genId(),
+    customerId: custId,
+    serviceType,
+    date: document.getElementById('jf_date').value || today(),
+    cost: document.getElementById('jf_cost').value,
+    status: document.getElementById('jf_status').value || 'In Progress',
+    notes: document.getElementById('jf_notes').value.trim()
+  };
+
+  if (id) {
+    const idx = data.jobs.findIndex(j => j.id === id);
+    if (idx >= 0) data.jobs[idx] = obj;
+  } else {
+    data.jobs.push(obj);
+  }
+  saveData();
+  closeModal();
+  showToast(id ? 'Job updated' : 'Job added');
+  render();
+}
+
+function deleteJob(id) {
+  closeModal();
+  showConfirm('Delete Job', 'This cannot be undone. Are you sure?', () => {
+    data.jobs = data.jobs.filter(j => j.id !== id);
+    saveData();
+    showToast('Job deleted');
+    render();
+  });
+}
+
+function viewJob(id) {
+  const j = data.jobs.find(x => x.id === id);
+  if (!j) return;
+  const cust = getCustomer(j.customerId);
+
+  let html = `<div class="modal-title">${escHtml(j.serviceType)}</div>`;
+  html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;margin-bottom:16px">
+    <div><strong style="color:var(--grey)">Customer</strong><br>${escHtml(cust?.name || 'Unknown')}</div>
+    <div><strong style="color:var(--grey)">Vehicle</strong><br>${escHtml(cust?.carMake || '—')} ${cust?.reg ? '(' + escHtml(cust.reg) + ')' : ''}</div>
+    <div><strong style="color:var(--grey)">Date</strong><br>${formatDate(j.date)}</div>
+    <div><strong style="color:var(--grey)">Cost</strong><br style="font-size:18px;font-weight:700">&pound;${j.cost ? Number(j.cost).toFixed(2) : '0.00'}</div>
+    <div><strong style="color:var(--grey)">Status</strong><br><span class="badge ${j.status === 'In Progress' ? 'badge-amber' : j.status === 'Complete' ? 'badge-green' : 'badge-blue'}">${j.status}</span></div>
+  </div>`;
+
+  if (j.notes) html += `<div style="font-size:13px;color:var(--grey);margin-bottom:16px"><strong>Notes</strong><br>${escHtml(j.notes)}</div>`;
+
+  html += `<div class="section-title">Update Status</div>`;
+  html += `<div style="display:flex;gap:8px;margin-bottom:20px">`;
+  ['In Progress','Complete','Paid'].forEach(s => {
+    const active = j.status === s;
+    const cls = s === 'In Progress' ? 'btn-amber' : s === 'Complete' ? 'btn-success' : 'btn-primary';
+    html += `<button class="btn btn-sm ${active ? cls : 'btn-secondary'}" onclick="updateJobStatus('${id}','${s}')">${s}</button>`;
+  });
+  html += `</div>`;
+
+  html += `<button class="btn btn-primary" onclick="closeModal();showJobForm('${id}')">Edit Job</button>`;
+  openModal(html);
+}
+
+function updateJobStatus(id, status) {
+  const j = data.jobs.find(x => x.id === id);
+  if (!j) return;
+  j.status = status;
+  saveData();
+  closeModal();
+  showToast('Status updated to ' + status);
+  render();
+}
+
+// ============================================================
+// TAB 5: SETTINGS
+// ============================================================
+function renderSettings(container) {
+  const s = data.settings;
+  const totalCust = data.customers.length;
+  const totalJobs = data.jobs.length;
+  const totalRevenue = data.jobs.reduce((sum, j) => sum + Number(j.cost || 0), 0);
+  const reviewCount = data.customers.filter(c => c.reviewStatus === 'left').length;
+
+  let html = `
+    <div class="section-title" style="margin-top:0">Business Details</div>
+    <div class="card" onclick="editBusinessDetails()">
+      <div style="font-size:15px;font-weight:600">${escHtml(s.businessName)}</div>
+      <div style="font-size:13px;color:var(--grey);margin-top:4px">${escHtml(s.businessPhone)}</div>
+      <div style="font-size:12px;color:var(--blue);margin-top:4px">Tap to edit</div>
+    </div>
+
+    <div class="section-title">Google Reviews</div>
+    <div class="card" onclick="editReviewLink()">
+      <div style="font-size:14px;font-weight:600">Review Link</div>
+      <div style="font-size:13px;color:var(--grey);margin-top:4px;word-break:break-all">${s.googleReviewLink ? escHtml(s.googleReviewLink) : 'Not set — tap to add'}</div>
+    </div>
+
+    <div class="section-title">Message Templates</div>
+    <div class="card" onclick="editTemplate('mot')">
+      <div style="font-size:14px;font-weight:600">MOT Reminder Message</div>
+      <div style="font-size:12px;color:var(--grey);margin-top:4px">${escHtml((s.motMessage || DEFAULT_MOT_MESSAGE).substring(0, 80))}...</div>
+    </div>
+    <div class="card" onclick="editTemplate('review')">
+      <div style="font-size:14px;font-weight:600">Review Request Message</div>
+      <div style="font-size:12px;color:var(--grey);margin-top:4px">${escHtml((s.reviewMessage || DEFAULT_REVIEW_MESSAGE).substring(0, 80))}...</div>
+    </div>
+
+    <div class="section-title">Service Types</div>
+    <div class="card" onclick="editServiceTypes()">
+      <div style="font-size:14px;font-weight:600">${(s.serviceTypes || []).length} services configured</div>
+      <div style="font-size:12px;color:var(--grey);margin-top:4px">${(s.serviceTypes || []).slice(0, 3).join(', ')}...</div>
+      <div style="font-size:12px;color:var(--blue);margin-top:4px">Tap to manage</div>
+    </div>
+
+    <div class="section-title">Dashboard</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">${totalCust}</div><div class="label">Customers</div></div>
+      <div class="stat-card"><div class="num">${totalJobs}</div><div class="label">Jobs</div></div>
+      <div class="stat-card"><div class="num">&pound;${totalRevenue.toFixed(0)}</div><div class="label">Revenue</div></div>
+      <div class="stat-card"><div class="num">${reviewCount}</div><div class="label">Reviews</div></div>
+    </div>
+
+    <div class="section-title">Data</div>
+    <button class="btn btn-primary" style="margin-bottom:12px" onclick="backupData()">Download Backup (JSON)</button>
+    <button class="btn btn-secondary" style="margin-bottom:12px" onclick="document.getElementById('restoreInput').click()">Restore from Backup</button>
+    <input type="file" id="restoreInput" accept=".json" style="display:none" onchange="restoreData(event)">
+    <button class="btn btn-danger" onclick="resetAllData()">Reset All Data</button>
+
+    <div class="footer-text">
+      T&W Garage Manager v1.0 | All data stored on this device | Made by DMT Consulting<br>
+      This app was made partially with Claude AI. Please verify any calculations or recommendations.
+    </div>`;
+
+  container.innerHTML = html;
+}
+
+function editBusinessDetails() {
+  const s = data.settings;
+  openModal(`
+    <div class="modal-title">Business Details</div>
+    <div class="form-group"><label class="form-label">Business Name</label><input type="text" id="set_name" value="${escHtml(s.businessName)}"></div>
+    <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="set_phone" value="${escHtml(s.businessPhone)}"></div>
+    <button class="btn btn-primary" onclick="saveBusiness()">Save</button>
+  `);
+}
+
+function saveBusiness() {
+  data.settings.businessName = document.getElementById('set_name').value.trim();
+  data.settings.businessPhone = document.getElementById('set_phone').value.trim();
+  saveData(); closeModal(); showToast('Business details saved'); render();
+}
+
+function editReviewLink() {
+  openModal(`
+    <div class="modal-title">Google Review Link</div>
+    <div class="form-group">
+      <label class="form-label">Review URL</label>
+      <input type="url" id="set_review" value="${escHtml(data.settings.googleReviewLink)}" placeholder="https://g.page/r/...">
+      <div class="form-hint">Paste your Google Business review link here. This is used when asking customers for reviews via WhatsApp.</div>
+    </div>
+    <button class="btn btn-primary" onclick="saveReviewLink()">Save</button>
+  `);
+}
+
+function saveReviewLink() {
+  data.settings.googleReviewLink = document.getElementById('set_review').value.trim();
+  saveData(); closeModal(); showToast('Review link saved'); render();
+}
+
+function editTemplate(type) {
+  const isMot = type === 'mot';
+  const current = isMot ? (data.settings.motMessage || DEFAULT_MOT_MESSAGE) : (data.settings.reviewMessage || DEFAULT_REVIEW_MESSAGE);
+  const vars = isMot ? '{name}, {car}, {reg}, {date}, {phone}, {business}' : '{name}, {business}, {link}';
+
+  openModal(`
+    <div class="modal-title">${isMot ? 'MOT Reminder' : 'Review Request'} Message</div>
+    <div class="form-group">
+      <label class="form-label">Message Template</label>
+      <textarea id="set_tmpl" style="min-height:150px">${escHtml(current)}</textarea>
+      <div class="form-hint">Available variables: ${vars}</div>
+    </div>
+    <button class="btn btn-primary" onclick="saveTemplate('${type}')">Save</button>
+    <button class="btn btn-secondary" style="margin-top:12px" onclick="resetTemplate('${type}')">Reset to Default</button>
+  `);
+}
+
+function saveTemplate(type) {
+  if (type === 'mot') data.settings.motMessage = document.getElementById('set_tmpl').value;
+  else data.settings.reviewMessage = document.getElementById('set_tmpl').value;
+  saveData(); closeModal(); showToast('Message template saved'); render();
+}
+
+function resetTemplate(type) {
+  if (type === 'mot') data.settings.motMessage = DEFAULT_MOT_MESSAGE;
+  else data.settings.reviewMessage = DEFAULT_REVIEW_MESSAGE;
+  saveData(); closeModal(); showToast('Template reset to default'); render();
+}
+
+function editServiceTypes() {
+  const services = data.settings.serviceTypes || [...DEFAULT_SERVICES];
+  let html = `<div class="modal-title">Service Types</div>
+    <div id="serviceList">`;
+  services.forEach((s, i) => {
+    html += `<div style="display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #F3F4F6">
+      <input type="text" class="svc-input" value="${escHtml(s)}" style="border:none;padding:8px;flex:1">
+      <button style="color:var(--red);padding:8px;font-size:18px" onclick="this.parentElement.remove()">&times;</button>
+    </div>`;
+  });
+  html += `</div>
+    <button class="btn btn-secondary btn-sm" style="margin:12px 0" onclick="addServiceRow()">+ Add Service</button>
+    <button class="btn btn-primary" onclick="saveServices()">Save Services</button>`;
+  openModal(html);
+}
+
+function addServiceRow() {
+  const list = document.getElementById('serviceList');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #F3F4F6';
+  div.innerHTML = `<input type="text" class="svc-input" value="" placeholder="New service..." style="border:none;padding:8px;flex:1">
+    <button style="color:var(--red);padding:8px;font-size:18px" onclick="this.parentElement.remove()">&times;</button>`;
+  list.appendChild(div);
+  div.querySelector('input').focus();
+}
+
+function saveServices() {
+  const inputs = document.querySelectorAll('.svc-input');
+  const services = [];
+  inputs.forEach(inp => { const v = inp.value.trim(); if (v) services.push(v); });
+  data.settings.serviceTypes = services;
+  saveData(); closeModal(); showToast('Services saved'); render();
+}
+
+function backupData() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `twg-backup-${today()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Backup downloaded');
+}
+
+function restoreData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!imported.customers && !imported.jobs) {
+        showToast('Invalid backup file');
+        return;
+      }
+      showConfirm('Restore Data', 'This will replace all current data. Are you sure?', () => {
+        data = imported;
+        saveData();
+        showToast('Data restored!');
+        render();
+      }, 'Restore', 'btn-primary');
+    } catch (err) {
+      showToast('Invalid file format');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function resetAllData() {
+  showConfirm('Reset All Data', 'This will permanently delete all customers, jobs, and settings. This cannot be undone!', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    data = loadData();
+    saveData();
+    showToast('All data reset');
+    render();
+  });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+updateMotBadge();
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Audit — Tyne & Wear Garage and Recovery | DMT Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dark:#0A0F1A;--card:#111827;--border:#1E293B;--blue:#3B82F6;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--text:#F1F5F9;--dim:#94A3B8;--white:#FFFFFF}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.score-big,.tab-btn,.section-number,.phase-label{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em}
+.page{max-width:880px;margin:0 auto;padding:0 24px}
+
+/* Header */
+.header{text-align:center;padding:60px 0 32px;position:relative}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 30%,rgba(59,130,246,0.08) 0%,transparent 60%);pointer-events:none}
+.brand{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.1em;color:var(--blue);margin-bottom:8px}
+.doc-badge{display:inline-block;background:var(--blue);color:var(--white);font-size:11px;font-weight:700;padding:5px 16px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px}
+.header h1{font-size:clamp(36px,6vw,52px);line-height:1.05;margin-bottom:8px}
+.header h1 span{color:var(--blue)}
+.client-name{font-size:20px;color:var(--dim);margin-bottom:4px}
+.client-detail{font-size:13px;color:var(--dim)}
+
+/* Tab Bar */
+.tab-bar{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:2px solid var(--border);padding:0;margin:0 0 40px;display:flex;gap:0}
+.tab-btn{flex:1;padding:18px 16px;text-align:center;font-size:20px;letter-spacing:1px;cursor:pointer;border:none;background:transparent;color:var(--dim);transition:all 0.25s ease;border-bottom:3px solid transparent;position:relative}
+.tab-btn:hover{color:var(--text);background:rgba(59,130,246,0.04)}
+.tab-btn.active{color:var(--white);border-bottom-color:var(--blue);background:rgba(59,130,246,0.06)}
+.tab-btn .tab-num{display:inline-block;width:28px;height:28px;line-height:28px;border-radius:50%;font-size:14px;font-family:'Inter',sans-serif;font-weight:700;margin-right:8px;background:var(--border);color:var(--dim);text-align:center;vertical-align:middle;transition:all 0.25s ease}
+.tab-btn.active .tab-num{background:var(--blue);color:var(--white)}
+
+/* Tab Content */
+.tab-content{display:none;animation:fadeIn 0.3s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Summary Box */
+.summary-box{background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(239,68,68,0.02));border:1px solid rgba(239,68,68,0.25);border-radius:16px;padding:32px 36px;margin:0 0 40px;display:flex;align-items:center;gap:32px}
+.summary-score{text-align:center;flex-shrink:0}
+.summary-score .score-big{font-size:64px;color:var(--red);line-height:1}
+.summary-score .score-out{font-size:14px;color:var(--dim)}
+.summary-text h2{font-size:28px;margin-bottom:6px;line-height:1.1}
+.summary-text h2 span{color:var(--red)}
+.summary-text p{font-size:15px;color:var(--dim);line-height:1.6}
+
+/* Assessment Cards */
+.assess-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:48px}
+.assess-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;display:grid;grid-template-columns:52px 1fr auto;gap:18px;align-items:center}
+.assess-icon{width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px}
+.assess-icon.red{background:rgba(239,68,68,0.1);color:var(--red);border:1px solid rgba(239,68,68,0.25)}
+.assess-icon.amber{background:rgba(245,158,11,0.1);color:var(--amber);border:1px solid rgba(245,158,11,0.25)}
+.assess-icon.green{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.25)}
+.assess-body h3{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.assess-body p{font-size:13px;color:var(--dim);line-height:1.5}
+.assess-score{font-family:'Bebas Neue',sans-serif;font-size:30px;white-space:nowrap}
+.assess-score.red{color:var(--red)}
+.assess-score.amber{color:var(--amber)}
+.assess-score.green{color:var(--green)}
+
+/* Competitor Table */
+.section-title{font-size:32px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.section-title .section-number{font-size:48px;color:var(--blue);opacity:0.3}
+.comp-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px}
+.comp-table thead{background:rgba(59,130,246,0.08)}
+.comp-table th{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.5px;padding:14px 16px;text-align:left;color:var(--blue);border-bottom:1px solid var(--border)}
+.comp-table td{padding:14px 16px;font-size:14px;color:var(--dim);border-bottom:1px solid var(--border);vertical-align:top}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table .you{background:rgba(59,130,246,0.04)}
+.comp-table .you td{color:var(--text);font-weight:500}
+.comp-stars{color:var(--amber);font-weight:700}
+.comp-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.comp-tag.good{background:rgba(16,185,129,0.12);color:var(--green)}
+.comp-tag.ok{background:rgba(245,158,11,0.12);color:var(--amber)}
+.comp-tag.weak{background:rgba(239,68,68,0.12);color:var(--red)}
+
+/* Recommendations */
+.rec-list{display:flex;flex-direction:column;gap:14px;margin-bottom:48px}
+.rec-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.rec-header{padding:20px 24px;display:grid;grid-template-columns:40px 1fr auto auto;gap:16px;align-items:center;cursor:pointer;user-select:none;transition:background 0.2s}
+.rec-header:hover{background:rgba(59,130,246,0.03)}
+.rec-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--blue);opacity:0.4;line-height:1}
+.rec-title{font-family:'Inter',sans-serif;font-weight:700;font-size:15px}
+.rec-title small{display:block;font-weight:400;font-size:12px;color:var(--dim);margin-top:2px}
+.rec-meta{display:flex;gap:10px;align-items:center}
+.rec-impact{font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.rec-impact.high{background:rgba(239,68,68,0.12);color:var(--red)}
+.rec-impact.med{background:rgba(245,158,11,0.12);color:var(--amber)}
+.rec-impact.low{background:rgba(16,185,129,0.12);color:var(--green)}
+.rec-cost{font-size:12px;color:var(--dim);font-weight:600}
+.rec-stars{color:var(--amber);font-size:14px;letter-spacing:1px}
+.rec-chevron{transition:transform 0.3s;color:var(--dim);font-size:18px}
+.rec-card.open .rec-chevron{transform:rotate(180deg)}
+.rec-detail{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.rec-card.open .rec-detail{max-height:500px}
+.rec-detail-inner{padding:0 24px 24px 80px;font-size:14px;color:var(--dim);line-height:1.7}
+.rec-detail-inner ul{list-style:none;padding:0}
+.rec-detail-inner ul li{padding:4px 0;padding-left:16px;position:relative}
+.rec-detail-inner ul li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--blue);opacity:0.4}
+
+/* Priority Matrix */
+.matrix-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;margin-bottom:40px}
+.matrix-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:24px;margin-bottom:20px;color:var(--text)}
+.matrix{display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0;position:relative;height:320px}
+.matrix-ylabel{grid-column:1;grid-row:2/4;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--dim);letter-spacing:1px;display:flex;align-items:center;justify-content:center;padding-right:12px}
+.matrix-xlabel{grid-column:2/4;grid-row:1;font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--dim);letter-spacing:1px;text-align:center;padding-bottom:8px}
+.matrix-cell{border:1px solid var(--border);padding:16px;display:flex;flex-wrap:wrap;gap:8px;align-content:start}
+.matrix-cell.tl{grid-column:2;grid-row:2;background:rgba(16,185,129,0.04);border-radius:12px 0 0 0}
+.matrix-cell.tr{grid-column:3;grid-row:2;background:rgba(59,130,246,0.04);border-radius:0 12px 0 0}
+.matrix-cell.bl{grid-column:2;grid-row:3;background:rgba(148,163,184,0.04);border-radius:0 0 0 12px}
+.matrix-cell.br{grid-column:3;grid-row:3;background:rgba(245,158,11,0.04);border-radius:0 0 12px 0}
+.matrix-cell .cell-label{width:100%;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);opacity:0.6;margin-bottom:4px}
+.matrix-dot{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:13px;font-weight:700;font-family:'Inter',sans-serif}
+.matrix-dot.high{background:rgba(239,68,68,0.2);color:var(--red)}
+.matrix-dot.med{background:rgba(245,158,11,0.2);color:var(--amber)}
+.matrix-dot.low{background:rgba(59,130,246,0.2);color:var(--blue)}
+
+/* Investment Table */
+.invest-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px}
+.invest-table th{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.5px;padding:14px 16px;text-align:left;color:var(--blue);background:rgba(59,130,246,0.08);border-bottom:1px solid var(--border)}
+.invest-table td{padding:14px 16px;font-size:14px;color:var(--dim);border-bottom:1px solid var(--border)}
+.invest-table tr:last-child td{border-bottom:none}
+.invest-table .phase-label{font-size:13px;color:var(--blue);letter-spacing:0.5px}
+.invest-table .total-row td{font-weight:700;color:var(--text);background:rgba(59,130,246,0.04)}
+
+/* Assets Tab */
+.asset-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 28px;margin-bottom:24px}
+.asset-block h3{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:6px;color:var(--text)}
+.asset-block .asset-sub{font-size:13px;color:var(--dim);margin-bottom:16px;line-height:1.5}
+
+/* Name Declaration */
+.name-card{background:linear-gradient(135deg,rgba(59,130,246,0.06),rgba(59,130,246,0.02));border:2px solid rgba(59,130,246,0.3);border-radius:12px;padding:28px 32px;text-align:center}
+.name-card .official-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--blue);margin-bottom:12px}
+.name-card .official-name{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--white);line-height:1.15;margin-bottom:14px}
+.name-card .official-rule{font-size:13px;color:var(--dim);line-height:1.6;max-width:480px;margin:0 auto}
+.name-card .official-rule strong{color:var(--amber)}
+
+/* Colour Palette */
+.palette-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.swatch{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.swatch-color{height:80px}
+.swatch-info{padding:10px 12px;background:var(--card)}
+.swatch-info .swatch-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.swatch-info .swatch-hex{font-size:12px;color:var(--dim);font-family:monospace}
+
+/* Checklist */
+.checklist{list-style:none;padding:0}
+.checklist li{padding:12px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;font-size:14px;color:var(--dim)}
+.checklist li:last-child{border-bottom:none}
+.checklist input[type="checkbox"]{width:20px;height:20px;accent-color:var(--blue);cursor:pointer;flex-shrink:0}
+.checklist label{cursor:pointer;flex:1}
+
+/* About Text */
+.about-box{background:rgba(59,130,246,0.04);border:1px solid rgba(59,130,246,0.15);border-radius:10px;padding:24px;font-size:14px;line-height:1.8;color:var(--text)}
+.copy-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--blue);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.copy-btn:hover{background:rgba(59,130,246,0.1);border-color:var(--blue)}
+
+/* Competitor Card */
+.comp-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.comp-col{background:rgba(148,163,184,0.04);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center}
+.comp-col.you-col{background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.25)}
+.comp-col .comp-col-name{font-family:'Bebas Neue',sans-serif;font-size:16px;margin-bottom:6px;color:var(--text)}
+.comp-col .comp-col-star{font-size:22px;font-family:'Bebas Neue',sans-serif;color:var(--amber);margin-bottom:2px}
+.comp-col .comp-col-reviews{font-size:12px;color:var(--dim)}
+.comp-col .comp-col-tag{margin-top:8px}
+
+/* Footer */
+.footer{text-align:center;padding:48px 0 32px;border-top:1px solid var(--border);margin-top:48px}
+.footer p{font-size:12px;color:var(--dim);letter-spacing:0.5px}
+.footer .dmt{color:var(--blue);font-weight:600}
+
+/* Responsive */
+@media(max-width:700px){
+  .tab-btn{font-size:15px;padding:14px 8px}
+  .tab-btn .tab-num{width:22px;height:22px;line-height:22px;font-size:11px;margin-right:4px}
+  .summary-box{flex-direction:column;text-align:center;gap:16px;padding:24px}
+  .summary-score .score-big{font-size:48px}
+  .assess-card{grid-template-columns:44px 1fr;gap:12px}
+  .assess-score{grid-column:2;justify-self:start}
+  .rec-header{grid-template-columns:32px 1fr auto;gap:10px}
+  .rec-meta{display:none}
+  .rec-detail-inner{padding-left:56px}
+  .palette-grid{grid-template-columns:repeat(2,1fr)}
+  .comp-summary{grid-template-columns:1fr}
+  .matrix{height:280px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page">
+  <div class="header">
+    <div class="brand">DMT Consulting</div>
+    <div class="doc-badge">Brand Audit</div>
+    <h1>Brand <span>Assessment</span></h1>
+    <div class="client-name">Tyne &amp; Wear Garage and Recovery</div>
+    <div class="client-detail">6 Laygate, South Shields NE33 1SH &bull; 07487 738527</div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('findings')">
+      <span class="tab-num">1</span>What We Found
+    </button>
+    <button class="tab-btn" onclick="switchTab('actions')">
+      <span class="tab-num">2</span>Your Action Plan
+    </button>
+    <button class="tab-btn" onclick="switchTab('assets')">
+      <span class="tab-num">3</span>Ready-Made Assets
+    </button>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TAB 1: WHAT WE FOUND                         -->
+  <!-- ============================================ -->
+  <div id="tab-findings" class="tab-content active">
+
+    <!-- Summary Box -->
+    <div class="summary-box">
+      <div class="summary-score">
+        <div class="score-big">4</div>
+        <div class="score-out">/10</div>
+      </div>
+      <div class="summary-text">
+        <h2>Brand <span>Fragmentation</span> Is the Core Issue</h2>
+        <p>Your business is trading under three different names across platforms. Customers searching for you online are finding inconsistent information &mdash; or nothing at all. The good news: your Google reviews are strong and the fixes are straightforward.</p>
+      </div>
+    </div>
+
+    <!-- Assessment Cards -->
+    <div class="assess-grid">
+
+      <div class="assess-card">
+        <div class="assess-icon red">N</div>
+        <div class="assess-body">
+          <h3>Name Consistency</h3>
+          <p>Three different names in use: "Tyne and Wear Garage &amp; tyre service's" on Facebook, a different variation on Google, and the real trading name elsewhere. This dilutes search visibility and confuses customers.</p>
+        </div>
+        <div class="assess-score red">2/10</div>
+      </div>
+
+      <div class="assess-card">
+        <div class="assess-icon amber">V</div>
+        <div class="assess-body">
+          <h3>Visual Identity</h3>
+          <p>No formal logo, brand guidelines, or consistent visual system. Without a recognisable mark, every touchpoint is a missed branding opportunity.</p>
+        </div>
+        <div class="assess-score amber">4/10</div>
+      </div>
+
+      <div class="assess-card">
+        <div class="assess-icon amber">S</div>
+        <div class="assess-body">
+          <h3>Shopfront</h3>
+          <p>The blue building is functional and visible on Laygate. It communicates "garage" but lacks branded signage, opening hours, or service information for passing traffic.</p>
+        </div>
+        <div class="assess-score amber">5/10</div>
+      </div>
+
+      <div class="assess-card">
+        <div class="assess-icon red">O</div>
+        <div class="assess-body">
+          <h3>Online Presence</h3>
+          <p>No website. Google listing is unclaimed (4.8 stars, 17 reviews going unmanaged). Facebook name doesn't match the business. Customers can't find consistent info.</p>
+        </div>
+        <div class="assess-score red">2/10</div>
+      </div>
+
+      <div class="assess-card">
+        <div class="assess-icon red">M</div>
+        <div class="assess-body">
+          <h3>Marketing Materials</h3>
+          <p>No evidence of business cards, flyers, or printed materials carrying a consistent brand. Word-of-mouth is doing the heavy lifting, but it has limits.</p>
+        </div>
+        <div class="assess-score red">2/10</div>
+      </div>
+
+      <div class="assess-card">
+        <div class="assess-icon amber">R</div>
+        <div class="assess-body">
+          <h3>Vehicle Branding</h3>
+          <p>Recovery vehicles are mobile billboards seen across the region daily. Currently they're not carrying consistent branding &mdash; a significant missed opportunity.</p>
+        </div>
+        <div class="assess-score amber">4/10</div>
+      </div>
+
+    </div>
+
+    <!-- Competitor Comparison -->
+    <h2 class="section-title">Competitor Comparison</h2>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Business</th>
+          <th>Google Rating</th>
+          <th>Reviews</th>
+          <th>Website</th>
+          <th>Brand Consistency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="you">
+          <td><strong>Tyne &amp; Wear Garage</strong></td>
+          <td><span class="comp-stars">4.8 &#9733;</span></td>
+          <td>17</td>
+          <td>None</td>
+          <td><span class="comp-tag weak">Weak</span></td>
+        </tr>
+        <tr>
+          <td>North East Vehicle Repairs</td>
+          <td><span class="comp-stars">5.0 &#9733;</span></td>
+          <td>40</td>
+          <td>Yes</td>
+          <td><span class="comp-tag good">Strong</span></td>
+        </tr>
+        <tr>
+          <td>Tyne View Garage</td>
+          <td><span class="comp-stars">4.6 &#9733;</span></td>
+          <td>38</td>
+          <td>Yes</td>
+          <td><span class="comp-tag ok">Moderate</span></td>
+        </tr>
+        <tr>
+          <td>Kwik Fit (South Shields)</td>
+          <td><span class="comp-stars">4.0 &#9733;</span></td>
+          <td>200+</td>
+          <td>Yes (National)</td>
+          <td><span class="comp-tag good">Strong</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TAB 2: YOUR ACTION PLAN                      -->
+  <!-- ============================================ -->
+  <div id="tab-actions" class="tab-content">
+
+    <div class="rec-list">
+
+      <!-- Rec 1 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">01</div>
+          <div class="rec-title">Claim &amp; Optimise Your Google Business Profile<small>Get found by every local search</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact high">High Impact</span>
+            <span class="rec-cost">Free</span>
+          </div>
+          <div class="rec-stars">&#9733;&#9733;&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Claim your listing at business.google.com using the business phone number</li>
+              <li>Set the name to exactly: <strong>Tyne &amp; Wear Garage and Recovery</strong></li>
+              <li>Add all services: repairs, MOT, tyres, recovery</li>
+              <li>Upload 10+ photos of the shopfront, workshop, and recovery vehicles</li>
+              <li>Respond to every existing review within 48 hours</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rec 2 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">02</div>
+          <div class="rec-title">Fix Your Business Name Everywhere<small>One name. Every platform. No variations.</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact high">High Impact</span>
+            <span class="rec-cost">Free</span>
+          </div>
+          <div class="rec-stars">&#9733;&#9733;&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Update Facebook page name to: <strong>Tyne &amp; Wear Garage and Recovery</strong></li>
+              <li>Ensure Google listing matches exactly</li>
+              <li>Update any directory listings (Yell, Thomson, etc.)</li>
+              <li>Brief all staff on the correct business name</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rec 3 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">03</div>
+          <div class="rec-title">Design a Professional Logo<small>Give your brand a recognisable face</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact high">High Impact</span>
+            <span class="rec-cost">&pound;150&ndash;&pound;400</span>
+          </div>
+          <div class="rec-stars">&#9733;&#9733;&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Commission a logo using the suggested brand colours (blue, white, amber)</li>
+              <li>Ensure it works at small sizes (social media icons) and large (signage)</li>
+              <li>Get files in SVG, PNG, and PDF formats</li>
+              <li>Use across every touchpoint: signage, vehicles, social media, documents</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rec 4 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">04</div>
+          <div class="rec-title">Brand Your Recovery Vehicles<small>Turn every callout into a moving advert</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact high">High Impact</span>
+            <span class="rec-cost">&pound;300&ndash;&pound;800 per vehicle</span>
+          </div>
+          <div class="rec-stars">&#9733;&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Apply vinyl wrap or magnetic signs with logo, phone number, and services</li>
+              <li>Include "24/7 Recovery" messaging if applicable</li>
+              <li>Use brand colours for maximum recognition</li>
+              <li>These vehicles cover hundreds of miles &mdash; every journey is free advertising</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rec 5 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">05</div>
+          <div class="rec-title">Upgrade Shopfront Signage<small>Make a strong first impression on Laygate</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact med">Medium Impact</span>
+            <span class="rec-cost">&pound;200&ndash;&pound;600</span>
+          </div>
+          <div class="rec-stars">&#9733;&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Install professional branded signage with the new logo</li>
+              <li>Display services offered, opening hours, and phone number</li>
+              <li>Consider an A-board for pavement-level visibility</li>
+              <li>The blue building is a great canvas &mdash; use it</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rec 6 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">06</div>
+          <div class="rec-title">Launch a Simple Website<small>Your 24/7 digital shopfront</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact med">Medium Impact</span>
+            <span class="rec-cost">&pound;0&ndash;&pound;500</span>
+          </div>
+          <div class="rec-stars">&#9733;&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Even a single-page site with services, location, hours, and contact details</li>
+              <li>Free options: Google Sites or a simple WordPress build</li>
+              <li>Include Google reviews and a clear call-to-action (phone number)</li>
+              <li>Connects to your Google Business Profile for better search ranking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rec 7 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">07</div>
+          <div class="rec-title">Build a Google Review Strategy<small>Turn 17 reviews into 50+</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact med">Medium Impact</span>
+            <span class="rec-cost">Free</span>
+          </div>
+          <div class="rec-stars">&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Create a short link to your Google review page</li>
+              <li>Ask every satisfied customer to leave a review before they leave</li>
+              <li>Print a small card with a QR code linking to the review page</li>
+              <li>Respond to every review &mdash; positive and negative &mdash; within 24 hours</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rec 8 -->
+      <div class="rec-card" onclick="toggleRec(this)">
+        <div class="rec-header">
+          <div class="rec-num">08</div>
+          <div class="rec-title">Print Professional Business Cards<small>Leave a lasting impression at every job</small></div>
+          <div class="rec-meta">
+            <span class="rec-impact low">Lower Impact</span>
+            <span class="rec-cost">&pound;30&ndash;&pound;60</span>
+          </div>
+          <div class="rec-stars">&#9733;</div>
+          <div class="rec-chevron">&#9662;</div>
+        </div>
+        <div class="rec-detail">
+          <div class="rec-detail-inner">
+            <ul>
+              <li>Use the new logo and brand colours</li>
+              <li>Include: name, phone, address, services, Google review QR code</li>
+              <li>Hand to every customer after a job &mdash; they become referral cards</li>
+              <li>Services like Vistaprint can deliver 500 cards for under &pound;40</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Priority Matrix -->
+    <div class="matrix-wrap">
+      <h3>Priority Matrix: Impact vs Cost</h3>
+      <div class="matrix">
+        <div class="matrix-xlabel">COST &rarr; Low &mdash;&mdash;&mdash;&mdash;&mdash; High</div>
+        <div class="matrix-ylabel">IMPACT &uarr;</div>
+        <div class="matrix-cell tl">
+          <div class="cell-label">Quick Wins (Do First)</div>
+          <span class="matrix-dot high" title="Claim Google Profile">1</span>
+          <span class="matrix-dot high" title="Fix Name Everywhere">2</span>
+          <span class="matrix-dot med" title="Review Strategy">7</span>
+        </div>
+        <div class="matrix-cell tr">
+          <div class="cell-label">Strategic Investments</div>
+          <span class="matrix-dot high" title="Logo Design">3</span>
+          <span class="matrix-dot high" title="Vehicle Branding">4</span>
+          <span class="matrix-dot med" title="Shopfront Signage">5</span>
+        </div>
+        <div class="matrix-cell bl">
+          <div class="cell-label">Easy Extras</div>
+          <span class="matrix-dot low" title="Business Cards">8</span>
+        </div>
+        <div class="matrix-cell br">
+          <div class="cell-label">Plan Ahead</div>
+          <span class="matrix-dot med" title="Website">6</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investment Summary -->
+    <h2 class="section-title">Phased Investment Summary</h2>
+    <table class="invest-table">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Actions</th>
+          <th>Timeline</th>
+          <th>Est. Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="phase-label">Phase 1: Foundations</span></td>
+          <td>Claim Google, fix name everywhere, review strategy</td>
+          <td>Week 1&ndash;2</td>
+          <td>Free</td>
+        </tr>
+        <tr>
+          <td><span class="phase-label">Phase 2: Identity</span></td>
+          <td>Logo design, business cards, about text</td>
+          <td>Week 3&ndash;4</td>
+          <td>&pound;180&ndash;&pound;460</td>
+        </tr>
+        <tr>
+          <td><span class="phase-label">Phase 3: Visibility</span></td>
+          <td>Shopfront signage, vehicle branding</td>
+          <td>Month 2&ndash;3</td>
+          <td>&pound;500&ndash;&pound;1,400</td>
+        </tr>
+        <tr>
+          <td><span class="phase-label">Phase 4: Digital</span></td>
+          <td>Website launch</td>
+          <td>Month 3&ndash;4</td>
+          <td>&pound;0&ndash;&pound;500</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3"><strong>Total Estimated Investment</strong></td>
+          <td><strong>&pound;680&ndash;&pound;2,360</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TAB 3: READY-MADE ASSETS                     -->
+  <!-- ============================================ -->
+  <div id="tab-assets" class="tab-content">
+
+    <!-- a) Official Business Name -->
+    <div class="asset-block">
+      <h3>Official Business Name Declaration</h3>
+      <p class="asset-sub">Use this exact name on every platform, document, and piece of signage. No variations.</p>
+      <div class="name-card">
+        <div class="official-label">YOUR OFFICIAL BUSINESS NAME</div>
+        <div class="official-name">Tyne &amp; Wear Garage<br>and Recovery</div>
+        <div class="official-rule">Use this <strong>exact name</strong> on every platform, document, and piece of signage. Not "Tyne and Wear Garage &amp; tyre service's". Not "T&amp;W Garage". Not any other variation. <strong>One name. Everywhere.</strong></div>
+      </div>
+    </div>
+
+    <!-- b) Colour Palette -->
+    <div class="asset-block">
+      <h3>Suggested Colour Palette</h3>
+      <p class="asset-sub">Based on your existing blue building and automotive industry best practice. Share these hex codes with any designer or printer.</p>
+      <div class="palette-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#1E40AF"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Primary Blue</div>
+            <div class="swatch-hex">#1E40AF</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#FFFFFF;border-bottom:1px solid #1E293B"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Clean White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#F59E0B"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Accent Amber</div>
+            <div class="swatch-hex">#F59E0B</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#111827"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Dark Text</div>
+            <div class="swatch-hex">#111827</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- c) Brand Consistency Checklist -->
+    <div class="asset-block">
+      <h3>Brand Consistency Checklist</h3>
+      <p class="asset-sub">Work through each item. Tick them off as you go. Every tick moves you closer to a consistent, professional brand.</p>
+      <ul class="checklist">
+        <li><input type="checkbox" id="chk1"><label for="chk1">Facebook page name updated to <strong>Tyne &amp; Wear Garage and Recovery</strong></label></li>
+        <li><input type="checkbox" id="chk2"><label for="chk2">Google Business listing name matches exactly</label></li>
+        <li><input type="checkbox" id="chk3"><label for="chk3">Google Business listing claimed and verified</label></li>
+        <li><input type="checkbox" id="chk4"><label for="chk4">Shopfront signage uses the correct business name</label></li>
+        <li><input type="checkbox" id="chk5"><label for="chk5">Business cards printed with correct name and branding</label></li>
+        <li><input type="checkbox" id="chk6"><label for="chk6">All invoices and documents use the correct name</label></li>
+        <li><input type="checkbox" id="chk7"><label for="chk7">Recovery vehicle livery uses correct name and branding</label></li>
+        <li><input type="checkbox" id="chk8"><label for="chk8">All directory listings (Yell, Thomson, etc.) updated</label></li>
+        <li><input type="checkbox" id="chk9"><label for="chk9">Staff briefed on the correct business name to use</label></li>
+        <li><input type="checkbox" id="chk10"><label for="chk10">Google review response process in place</label></li>
+      </ul>
+    </div>
+
+    <!-- d) About Us Text -->
+    <div class="asset-block">
+      <h3>About Us Text</h3>
+      <p class="asset-sub">Ready to copy and paste onto any platform &mdash; Facebook, Google, a future website, or printed materials.</p>
+      <div class="about-box" id="about-text">
+        Tyne &amp; Wear Garage and Recovery is a trusted, independent garage based at 6 Laygate, South Shields. We provide a full range of vehicle services including mechanical repairs, MOT preparation, tyre fitting, and 24/7 vehicle recovery across the North East. With a 4.8-star Google rating, our customers trust us for honest, reliable work at fair prices. Whether you need a routine service, an emergency recovery, or expert advice, we are here to help. Call us on 07487 738527.
+      </div>
+      <button class="copy-btn" onclick="copyAbout()">&#128203; Copy to Clipboard</button>
+    </div>
+
+    <!-- e) Competitor Comparison Card -->
+    <div class="asset-block">
+      <h3>Competitor Comparison Card</h3>
+      <p class="asset-sub">A quick snapshot of where you stand against local competitors. Your rating is strong &mdash; your brand just needs to catch up.</p>
+      <div class="comp-summary">
+        <div class="comp-col you-col">
+          <div class="comp-col-name">You</div>
+          <div class="comp-col-star">4.8 &#9733;</div>
+          <div class="comp-col-reviews">17 reviews</div>
+          <div class="comp-col-tag"><span class="comp-tag weak">Brand: Weak</span></div>
+        </div>
+        <div class="comp-col">
+          <div class="comp-col-name">NE Vehicle Repairs</div>
+          <div class="comp-col-star">5.0 &#9733;</div>
+          <div class="comp-col-reviews">40 reviews</div>
+          <div class="comp-col-tag"><span class="comp-tag good">Brand: Strong</span></div>
+        </div>
+        <div class="comp-col">
+          <div class="comp-col-name">Tyne View Garage</div>
+          <div class="comp-col-star">4.6 &#9733;</div>
+          <div class="comp-col-reviews">38 reviews</div>
+          <div class="comp-col-tag"><span class="comp-tag ok">Brand: Moderate</span></div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--dim);text-align:center;margin-top:8px;">Your service quality is competitive. Closing the brand gap is the fastest way to win more customers.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Prepared by <span class="dmt">DMT Consulting</span> &bull; Pilot Programme &bull; March 2026</p>
+    <p style="font-size: 0.75rem; color: #475569; line-height: 1.5; margin-top: 1.5rem;">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+  </div>
+
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  const tabs = ['findings', 'actions', 'assets'];
+  const idx = tabs.indexOf(tab);
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleRec(card) {
+  card.classList.toggle('open');
+}
+
+function copyAbout() {
+  const text = document.getElementById('about-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied!';
+    btn.style.color = '#10B981';
+    setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
