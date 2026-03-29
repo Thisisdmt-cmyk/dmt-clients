@@ -248,6 +248,18 @@ body{background:#fff;color:#000;padding:0;margin:0}
 .share-actions{display:none!important}
 }
 
+/* BACKUP REMINDER BANNER */
+.backup-banner{position:fixed;top:60px;left:0;right:0;z-index:90;background:rgba(245,158,11,.15);border-bottom:1px solid var(--warning);padding:10px 44px 10px 16px;font-size:13px;color:var(--text);cursor:pointer;animation:slideDown .3s ease;line-height:1.4}
+.backup-banner a{color:var(--warning);text-decoration:underline;font-weight:600}
+.backup-banner .banner-dismiss{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 8px;line-height:1}
+
+/* RESTORE MODAL */
+.restore-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
+.restore-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:360px;width:100%;text-align:center}
+.restore-box h3{margin-bottom:12px;font-size:18px}
+.restore-box p{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.restore-actions{display:flex;gap:12px;justify-content:center}
+
 /* WELCOME MODAL */
 .welcome-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
 .welcome-modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px 24px;max-width:400px;width:100%}
@@ -427,6 +439,12 @@ a.whatsapp-link{color:var(--success);text-decoration:none}
 <!-- TOAST -->
 <div id="toast-container"></div>
 
+<!-- BACKUP REMINDER BANNER -->
+<div class="backup-banner" id="backup-banner" style="display:none">
+<span id="backup-banner-text">It's been a week since your last backup. <a onclick="emailBackup();event.stopPropagation()">Tap here to save a copy.</a></span>
+<button class="banner-dismiss" onclick="dismissBackupBanner(event)">&times;</button>
+</div>
+
 <script>
 /* ========================================
    WHITBURN COASTAL FLOORING BUSINESS MANAGER v2
@@ -583,7 +601,10 @@ function loadData() {
 
 function saveData() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(APP));
+    const json = JSON.stringify(APP);
+    localStorage.setItem(STORAGE_KEY, json);
+    // Auto-backup: always keep a latest backup copy
+    try { localStorage.setItem('wcf_backup_latest', json); } catch(ignored) {}
   } catch (e) {
     showToast('Error saving data', 'error');
   }
@@ -2259,7 +2280,9 @@ function renderPrivacySettings() {
     '<button class="btn btn-primary btn-block" onclick="exportAllData()">Export All Data</button>' +
     '<div class="form-hint" style="margin:8px 0;color:var(--warning)">This file contains customer personal data. Store it securely.</div>' +
     '<button class="btn btn-secondary btn-block" style="margin-top:8px" onclick="document.getElementById(\'import-file\').click()">Import Data</button>' +
-    '<input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)"></div>';
+    '<input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)">' +
+    '<button class="btn btn-sand btn-block" style="margin-top:8px" onclick="emailBackup()">Email Backup to Myself</button>' +
+    '<div class="form-hint" style="margin-top:4px">Sends backup data to ' + esc(APP.settings.email || 'your business email') + '. If data is too large, it will be copied to your clipboard instead.</div></div>';
 
   html += '<div class="card" style="margin-top:16px">' +
     '<h3 style="font-size:16px;margin-bottom:12px;font-family:Inter,sans-serif">Data Retention</h3>' +
@@ -2317,6 +2340,9 @@ function exportAllData() {
   a.download = 'wcf_backup_' + new Date().toISOString().split('T')[0] + '.json';
   a.click();
   URL.revokeObjectURL(url);
+  // Track manual backup timestamp
+  localStorage.setItem('wcf_last_manual_backup', String(Date.now()));
+  dismissBackupBanner();
   showToast('Backup downloaded', 'success');
 }
 
@@ -2406,11 +2432,176 @@ function dismissWelcome() {
   if (overlay) overlay.remove();
 }
 
+// ===== BACKUP SYSTEM =====
+let backupBannerDismissed = false;
+
+// Rolling daily snapshots: save today's snapshot if not already saved, keep last 7 days
+function checkDailySnapshot() {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const snapshotKey = 'wcf_backup_' + today;
+    if (!localStorage.getItem(snapshotKey)) {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) {
+        localStorage.setItem(snapshotKey, data);
+      }
+    }
+    // Clean up old snapshots (keep last 7 days)
+    const keysToCheck = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('wcf_backup_') && key !== 'wcf_backup_latest') {
+        keysToCheck.push(key);
+      }
+    }
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 7);
+    const cutoffStr = cutoff.toISOString().split('T')[0];
+    keysToCheck.forEach(key => {
+      const dateStr = key.replace('wcf_backup_', '');
+      if (dateStr < cutoffStr) {
+        localStorage.removeItem(key);
+      }
+    });
+  } catch(e) {
+    console.error('Snapshot error:', e);
+  }
+}
+
+// Weekly backup reminder: check if manual backup is overdue
+function checkBackupReminder() {
+  if (backupBannerDismissed) return;
+  try {
+    const lastBackup = localStorage.getItem('wcf_last_manual_backup');
+    const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+    if (!lastBackup || parseInt(lastBackup) < sevenDaysAgo) {
+      const banner = document.getElementById('backup-banner');
+      if (banner) banner.style.display = 'block';
+    }
+  } catch(e) {}
+}
+
+function dismissBackupBanner(e) {
+  if (e) e.stopPropagation();
+  backupBannerDismissed = true;
+  const banner = document.getElementById('backup-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+// Email backup: create mailto link or copy to clipboard
+function emailBackup() {
+  try {
+    const data = JSON.stringify(APP, null, 2);
+    const email = APP.settings.email || '';
+    const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const subject = 'WCF Business Manager Backup - ' + date;
+    if (data.length <= 2000) {
+      const mailto = 'mailto:' + encodeURIComponent(email) +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(data);
+      window.location.href = mailto;
+      localStorage.setItem('wcf_last_manual_backup', String(Date.now()));
+      dismissBackupBanner();
+      showToast('Email draft opened with backup data', 'success');
+    } else {
+      navigator.clipboard.writeText(data).then(() => {
+        localStorage.setItem('wcf_last_manual_backup', String(Date.now()));
+        dismissBackupBanner();
+        showToast('Data copied to clipboard — paste it into an email to yourself', 'warning');
+      }).catch(() => {
+        showToast('Failed to copy data', 'error');
+      });
+    }
+  } catch(e) {
+    showToast('Backup error: ' + e.message, 'error');
+  }
+}
+
+// Auto-restore on data loss: check if wcf_data is missing but backup exists
+function checkAutoRestore() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    let needsRestore = false;
+    if (!raw) {
+      needsRestore = true;
+    } else {
+      try {
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== 'object') needsRestore = true;
+      } catch(e) {
+        needsRestore = true;
+      }
+    }
+    if (needsRestore) {
+      const backup = localStorage.getItem('wcf_backup_latest');
+      if (backup) {
+        try {
+          const parsed = JSON.parse(backup);
+          if (parsed && typeof parsed === 'object') {
+            showRestoreModal(backup);
+            return true; // signal that restore modal is shown
+          }
+        } catch(e) {}
+      }
+    }
+  } catch(e) {}
+  return false;
+}
+
+function showRestoreModal(backupJson) {
+  const overlay = document.createElement('div');
+  overlay.className = 'restore-overlay';
+  overlay.id = 'restore-overlay';
+  overlay.innerHTML = '<div class="restore-box">' +
+    '<h3 style="font-family:Playfair Display,serif">Data Recovery</h3>' +
+    '<p>Your data appears to be missing. We found a recent backup. Would you like to restore it?</p>' +
+    '<div class="restore-actions">' +
+    '<button class="btn btn-ghost btn-sm" onclick="skipRestore()">Skip</button>' +
+    '<button class="btn btn-primary btn-sm" onclick="performRestore()">Restore</button>' +
+    '</div></div>';
+  overlay._backupJson = backupJson;
+  document.body.appendChild(overlay);
+}
+
+function performRestore() {
+  const overlay = document.getElementById('restore-overlay');
+  if (!overlay) return;
+  try {
+    const backupJson = overlay._backupJson;
+    localStorage.setItem(STORAGE_KEY, backupJson);
+    APP = JSON.parse(backupJson);
+    ensureDefaults();
+    overlay.remove();
+    renderCurrentTab();
+    showToast('Data restored from backup', 'success');
+  } catch(e) {
+    showToast('Restore failed: ' + e.message, 'error');
+    overlay.remove();
+  }
+}
+
+function skipRestore() {
+  const overlay = document.getElementById('restore-overlay');
+  if (overlay) overlay.remove();
+}
+
 // ===== INIT =====
 function init() {
-  loadData();
+  // Check for data loss before loading — offer restore if backup exists
+  const needsRestore = checkAutoRestore();
+  if (needsRestore) {
+    // Restore modal is shown; load default data temporarily
+    // (performRestore will replace it if user clicks Restore)
+    APP = getDefaultData();
+  } else {
+    loadData();
+  }
   checkFirstLaunch();
   renderCurrentTab();
+  // Rolling daily snapshots
+  checkDailySnapshot();
+  // Weekly backup reminder
+  checkBackupReminder();
   // Check for temp quote from quick-add customer flow
   if (window._tempQuote) {
     const tq = window._tempQuote;

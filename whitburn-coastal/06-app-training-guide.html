@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Training Guide | Whitburn Coastal Flooring</title>
-    <meta name="description" content="Interactive training guide for the Flooring Business Manager app — Whitburn Coastal Flooring">
+    <title>App Training Guide v2 | Whitburn Coastal Flooring</title>
+    <meta name="description" content="Interactive training guide for the Flooring Business Manager v2 app — Whitburn Coastal Flooring">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -151,7 +151,7 @@
             line-height: 1.6;
         }
 
-        /* Overview Cards (5-column grid) */
+        /* Overview Cards */
         .overview-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -223,7 +223,7 @@
             overflow: hidden;
             transition: max-height 0.35s ease;
         }
-        .collapsible.open .collapsible-body { max-height: 2000px; }
+        .collapsible.open .collapsible-body { max-height: 5000px; }
         .collapsible-inner {
             padding: 0 1rem 1rem;
             font-size: 0.84rem;
@@ -489,6 +489,30 @@
             text-align: right;
         }
 
+        /* Calc Table */
+        .calc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.5rem 0;
+            font-size: 0.82rem;
+        }
+        .calc-table td {
+            padding: 0.35rem 0.5rem;
+            color: var(--muted);
+            border-bottom: 1px solid rgba(30,58,95,0.3);
+        }
+        .calc-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .calc-table tr.total td {
+            border-top: 2px solid var(--accent);
+            color: var(--accent-light);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
         /* Divider */
         .divider {
             border: none;
@@ -561,6 +585,9 @@
             .footer-ai, .footer-brand { color: #666; }
             .privacy-text { background: #f9f9f9; border-color: #ddd; color: #333; }
             .warning-box { background: #fef2f2; color: #991B1B; border-color: #EF4444; }
+            .calc-table td { color: #333; }
+            .calc-table td:last-child { color: #111; }
+            .calc-table tr.total td { color: #2E8B8B; }
         }
     </style>
 </head>
@@ -568,9 +595,9 @@
 
 <!-- Header -->
 <div class="header">
-    <div class="header-badge">Training Guide</div>
+    <div class="header-badge">Training Guide v2</div>
     <h1>Flooring Business Manager</h1>
-    <p>Your complete guide to using the app — tap a tab to begin</p>
+    <p>Your complete guide to using the app &mdash; tap a tab to begin</p>
 </div>
 
 <!-- Tab Bar -->
@@ -580,6 +607,7 @@
     <button class="tab-btn" data-tab="quotes"><span class="tab-icon">&#128196;</span>Quotes</button>
     <button class="tab-btn" data-tab="jobs"><span class="tab-icon">&#128295;</span>Jobs</button>
     <button class="tab-btn" data-tab="reviews"><span class="tab-icon">&#11088;</span>Reviews</button>
+    <button class="tab-btn" data-tab="analytics"><span class="tab-icon">&#128202;</span>Analytics</button>
     <button class="tab-btn" data-tab="settings"><span class="tab-icon">&#9881;</span>Settings</button>
     <button class="tab-btn" data-tab="data-privacy"><span class="tab-icon">&#128274;</span>Data &amp; Privacy</button>
 </nav>
@@ -588,11 +616,18 @@
 <div class="tab-content active" id="getting-started" data-print-title="1. Getting Started">
 
     <h2 class="section-title">Welcome to Your App</h2>
-    <p class="section-subtitle">The Flooring Business Manager is a bespoke app built specifically for Whitburn Coastal Flooring. It handles your customers, quotes, jobs, reviews, and business settings &mdash; all from your phone. No login. No subscription. It's yours.</p>
+    <p class="section-subtitle">The Flooring Business Manager v2 is a bespoke app built specifically for Whitburn Coastal Flooring. It handles your customers, quotes, jobs, reviews, analytics, and business settings &mdash; all from your phone. No login. No subscription. No monthly fees. It's yours.</p>
 
     <div class="note-box">
         <span class="note-icon">&#9989;</span>
-        <span>Your app is pre-loaded with your business details &mdash; your name, phone number, address, and default pricing are already set up and ready to use.</span>
+        <span>Your app is pre-loaded with your business details, 5 flooring brands with 22 product ranges, labour rates, sundry prices, and message templates &mdash; all ready to use out of the box.</span>
+    </div>
+
+    <!-- First Launch Security Modal -->
+    <div class="card" style="border-left:3px solid var(--accent);">
+        <div class="card-title">First Launch: Security Notice</div>
+        <p>The first time you open the app, a security modal will appear. This is your GDPR notice &mdash; it explains that customer data is stored locally on your device, that you are the data controller, and that no data leaves your phone unless you choose to share it.</p>
+        <p style="margin-top:0.5rem;">Tick the checkbox to confirm you understand, then tap <strong>"I Understand &mdash; Continue"</strong>. This only appears once. It exists because storing customer names, phone numbers, and addresses makes you a data controller under UK law &mdash; the modal ensures you know that from day one.</p>
     </div>
 
     <!-- Install Instructions -->
@@ -634,7 +669,7 @@
 
     <hr class="divider">
 
-    <!-- 5 Overview Cards -->
+    <!-- 6 Overview Cards -->
     <h3 class="card-title" style="margin-bottom:0.75rem;">What's Inside the App</h3>
     <div class="overview-grid">
         <div class="overview-card">
@@ -645,37 +680,44 @@
         <div class="overview-card">
             <span class="oc-icon">&#128196;</span>
             <div class="oc-name">Quotes</div>
-            <div class="oc-desc">Build room-by-room quotes and share via WhatsApp</div>
+            <div class="oc-desc">Build room-by-room quotes from your product catalogue and share via WhatsApp</div>
         </div>
         <div class="overview-card">
             <span class="oc-icon">&#128295;</span>
             <div class="oc-name">Jobs</div>
-            <div class="oc-desc">Track jobs from booking to payment</div>
+            <div class="oc-desc">Track jobs from booking to payment with revenue dashboard</div>
         </div>
         <div class="overview-card">
             <span class="oc-icon">&#11088;</span>
             <div class="oc-name">Reviews</div>
-            <div class="oc-desc">Request Google reviews with one tap</div>
+            <div class="oc-desc">Request Google reviews with one tap via WhatsApp</div>
+        </div>
+        <div class="overview-card">
+            <span class="oc-icon">&#128202;</span>
+            <div class="oc-name">Analytics</div>
+            <div class="oc-desc">Revenue charts, conversion rates, and top products at a glance</div>
         </div>
         <div class="overview-card">
             <span class="oc-icon">&#9881;</span>
             <div class="oc-name">Settings</div>
-            <div class="oc-desc">Your pricing, templates, and business details</div>
+            <div class="oc-desc">Product catalogue, labour rates, sundries, templates, and privacy controls</div>
         </div>
     </div>
 
     <hr class="divider">
 
-    <!-- 5-Minute Setup Checklist -->
+    <!-- Setup Checklist -->
     <h3 class="card-title">5-Minute Setup Checklist</h3>
     <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.5rem;">Tap each item as you complete it. Most of these are already done for you.</p>
-    <div class="progress-label" id="setupProgress">0 of 5 complete</div>
+    <div class="progress-label" id="setupProgress">0 of 7 complete</div>
     <div class="progress-bar-wrap"><div class="progress-bar-fill" id="setupBar"></div></div>
     <ul class="checklist" id="setupChecklist">
         <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Add the app to your home screen (see instructions above)</li>
-        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Open Settings and check your business name, phone, and address</li>
-        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Review your default pricing per m&sup2; for each flooring type</li>
-        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Paste your Google Review link into Settings (we'll show you how in the Settings tab)</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Open the app and accept the first-launch security notice</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Go to Settings &gt; Business and check your name, phone, and address</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Go to Settings &gt; Catalogue and review the 5 brands and their trade prices</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Go to Settings &gt; Labour and check your fitting rates per m&sup2;</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Paste your Google Review link into Settings &gt; Business</li>
         <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Add your first customer &mdash; try yourself as a test</li>
     </ul>
 
@@ -685,15 +727,15 @@
 <div class="tab-content" id="customers" data-print-title="2. Customers">
 
     <h2 class="section-title">Managing Customers</h2>
-    <p class="section-subtitle">Every person who walks into your showroom, calls for a quote, or messages on Facebook is a potential customer. The app keeps them all in one place.</p>
+    <p class="section-subtitle">Every person who walks into your showroom, calls for a quote, or messages on Facebook is a potential customer. The app keeps them all in one place with one-tap calling and WhatsApp.</p>
 
     <div class="card">
         <div class="card-title">Adding a Customer</div>
         <ol class="step-list">
             <li>Tap the <strong>Customers</strong> tab at the bottom of the app</li>
-            <li>Tap the <strong>"+ Add Customer"</strong> button</li>
+            <li>Tap the <strong>+</strong> button (bottom-right corner)</li>
             <li>Fill in the details (see field guide below)</li>
-            <li>Tap <strong>"Save Customer"</strong></li>
+            <li>Tap <strong>"Add Customer"</strong></li>
         </ol>
     </div>
 
@@ -701,26 +743,32 @@
         <div class="card-title">Field-by-Field Guide</div>
         <table class="field-table">
             <tr><th>Field</th><th>What to enter</th></tr>
-            <tr><td>Name</td><td>Customer's full name. First and last, e.g. "Sarah Johnson"</td></tr>
-            <tr><td>Phone</td><td>Their mobile number. This powers the one-tap Call and WhatsApp buttons</td></tr>
-            <tr><td>Address</td><td>Full address including postcode. Useful for planning home visits and fitting schedules</td></tr>
+            <tr><td>Name *</td><td>Customer's full name. First and last, e.g. "Sarah Johnson"</td></tr>
+            <tr><td>Phone *</td><td>Their mobile number. This powers the one-tap Call and WhatsApp buttons</td></tr>
             <tr><td>Email</td><td>Optional but useful for follow-ups. If they don't offer one, leave it blank</td></tr>
-            <tr><td>Property Type</td><td>House, flat, bungalow, or commercial. Helps you remember the property when quoting</td></tr>
+            <tr><td>Address</td><td>Full address for planning home visits and fitting schedules</td></tr>
+            <tr><td>Postcode</td><td>Separate field for quick search and route planning. Auto-capitalises when saved</td></tr>
+            <tr><td>Property Type</td><td>House, Flat, Commercial, or Landlord. Helps you remember the property when quoting</td></tr>
+            <tr><td>Source</td><td>Where they found you: Walk-in, Facebook, Instagram, Referral, Google, or Other. Useful for tracking which marketing is working</td></tr>
             <tr><td>Notes</td><td>Anything useful &mdash; "Referred by Mrs Thompson", "Has a large dog", "Prefers carpet samples brought to home"</td></tr>
         </table>
+        <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);">* Required fields</p>
     </div>
 
     <div class="card">
         <div class="card-title">Search, Edit, Call &amp; WhatsApp</div>
-        <p><strong>Search:</strong> Use the search bar at the top of the Customers list. Search by name, phone number, or address.</p>
-        <p style="margin-top:0.5rem;"><strong>Edit:</strong> Tap any customer to open their details, then tap <strong>"Edit"</strong> to update any field.</p>
-        <p style="margin-top:0.5rem;"><strong>Call:</strong> Tap the phone icon next to any customer &mdash; your phone dials them instantly.</p>
-        <p style="margin-top:0.5rem;"><strong>WhatsApp:</strong> Tap the WhatsApp icon to open a chat with that customer. The app uses their phone number to open WhatsApp directly.</p>
+        <p><strong>Search:</strong> Use the search bar at the top of the Customers list. Search by name, phone number, address, or postcode.</p>
+        <p style="margin-top:0.5rem;"><strong>View:</strong> Tap any customer to see their full profile, including all their linked quotes, jobs, and review status.</p>
+        <p style="margin-top:0.5rem;"><strong>Edit:</strong> From the customer profile, tap <strong>"Edit"</strong> to update any field.</p>
+        <p style="margin-top:0.5rem;"><strong>Call:</strong> Tap the <strong>Call</strong> button &mdash; your phone dials them instantly.</p>
+        <p style="margin-top:0.5rem;"><strong>WhatsApp:</strong> Tap the <strong>WhatsApp</strong> button to open a chat with that customer directly.</p>
+        <p style="margin-top:0.5rem;"><strong>Export Data:</strong> From the customer profile, tap <strong>"Export Data"</strong> to copy all their data (including quotes and jobs) to your clipboard. This is how you fulfil a GDPR data access request.</p>
+        <p style="margin-top:0.5rem;"><strong>Delete:</strong> Tap <strong>"Delete"</strong> to permanently remove the customer and all their data. A confirmation dialog will appear first.</p>
     </div>
 
     <div class="pro-tip">
         <div class="pro-tip-label">Pro Tip</div>
-        <p>Add every customer &mdash; even enquiries that don't convert. They might come back in 6 months when they're ready. Having their details means you can follow up.</p>
+        <p>Add every customer &mdash; even enquiries that don't convert. They might come back in 6 months when they're ready. Use the Source field to track where they came from so you know what's driving your business.</p>
     </div>
 
 </div>
@@ -729,52 +777,183 @@
 <div class="tab-content" id="quotes" data-print-title="3. Quotes">
 
     <h2 class="section-title">Creating Quotes</h2>
-    <p class="section-subtitle">This is the heart of the app. Build professional, room-by-room quotes with automatic calculations, then share them via WhatsApp in seconds.</p>
+    <p class="section-subtitle">This is the heart of the app. Build professional, room-by-room quotes using your full product catalogue with automatic pricing, then share branded quotes via WhatsApp in seconds. Each quote gets a unique number (e.g. WCF-001) and includes payment terms, T&amp;Cs, and validity dates.</p>
 
+    <!-- Full Quote Walkthrough -->
     <div class="card">
         <div class="card-title">Full Quote Walkthrough</div>
         <ol class="step-list">
-            <li><strong>Select a customer</strong> &mdash; go to the Quotes tab and tap "+ New Quote". Choose an existing customer or add a new one</li>
-            <li><strong>Add a room</strong> &mdash; tap "+ Add Room" and select the room name (Kitchen, Hallway, Bedroom 1, etc.)</li>
-            <li><strong>Enter dimensions</strong> &mdash; type the room length and width in metres. The app calculates the area automatically (with 10% wastage built in)</li>
-            <li><strong>Select flooring type and brand</strong> &mdash; choose from Carpet, LVT, Laminate, Vinyl, or Hardwood, then select the brand (Karndean, iSENSE, etc.)</li>
-            <li><strong>Check price per m&sup2;</strong> &mdash; the app auto-fills from your default pricing in Settings. You can override it for this quote if needed</li>
-            <li><strong>Add extras</strong> &mdash; tick any that apply: underlay, door bars, furniture moving, uplift of old flooring, subfloor prep, skirting removal, stair rods</li>
-            <li><strong>Add more rooms</strong> &mdash; tap "+ Add Room" again to quote for additional rooms on the same job</li>
-            <li><strong>Review the total</strong> &mdash; the app shows materials, fitting, extras, subtotal, VAT, and grand total</li>
-            <li><strong>Share via WhatsApp</strong> &mdash; tap "Share Quote" to send a clean, branded summary to the customer via WhatsApp</li>
+            <li><strong>Select a customer</strong> &mdash; go to the Quotes tab and tap the + button. Choose an existing customer from the dropdown, or tap "+ Add New Customer" to create one on the fly</li>
+            <li><strong>Set quote date and validity</strong> &mdash; the date defaults to today. Validity defaults to 30 days (configurable in Settings)</li>
+            <li><strong>Add a room</strong> &mdash; tap "+ Add Room" and select the room name (Kitchen, Living Room, Hallway, Bedroom 1, etc.)</li>
+            <li><strong>Enter dimensions</strong> &mdash; type the room length and width in metres. The app calculates the area automatically. For non-rectangular rooms, you can use the L-shape option or enter a manual m&sup2; override</li>
+            <li><strong>Choose Brand</strong> &mdash; select from the dropdown: Karndean, Alternative Flooring, iSENSE, Invictus, or Associated Weavers. Or type a custom product name for one-off items</li>
+            <li><strong>Choose Range</strong> &mdash; once you select a brand, the Range dropdown auto-populates with that brand's products. Each range shows its flooring type (LVT, Carpet) and fitting method (gluedown, click, stretch, herringbone)</li>
+            <li><strong>Price auto-fills</strong> &mdash; the trade price per m&sup2; fills in from your catalogue. You can override it for this specific quote if the customer needs a different price</li>
+            <li><strong>Labour rate auto-fills</strong> &mdash; based on the fitting method. E.g., carpet stretch-fit fills in your carpet rate, Karndean gluedown fills in your LVT gluedown rate. Editable per room</li>
+            <li><strong>Wastage auto-adjusts</strong> &mdash; standard rooms get 10% wastage. If you select a herringbone product, it automatically bumps to 15% (herringbone needs more material for pattern cuts)</li>
+            <li><strong>Add sundries</strong> &mdash; tick the relevant items: underlay, LVT underlay, gripper rods, door bars, furniture moving, old flooring uplift, subfloor prep, skirting refit, adhesive, scotia beading, or stair rods. Each has a default price and unit (per m&sup2;, per room, each, per linear metre) that you can adjust</li>
+            <li><strong>Add more rooms</strong> &mdash; tap "+ Add Room" again to quote for additional rooms on the same job. Each room can have a different brand and product</li>
+            <li><strong>Review totals</strong> &mdash; the bottom of the quote shows: subtotal (materials + labour + sundries for all rooms), VAT (if enabled in Settings), and grand total. If you've set a margin percentage in Settings, that's applied too &mdash; but it's hidden from the customer view</li>
+            <li><strong>Save the quote</strong> &mdash; tap "Save Quote". The app assigns the next quote number (WCF-001, WCF-002, etc.)</li>
+            <li><strong>Share via WhatsApp</strong> &mdash; tap "Share Quote" to see a clean, white, professionally branded quote view. Tap "Send via WhatsApp" to share it with the customer</li>
         </ol>
     </div>
 
-    <!-- Example Scenario -->
-    <div class="example-box">
-        <div class="example-label">Worked Example</div>
-        <p><strong>Mrs Johnson wants Karndean Knight Tile in her kitchen (4m &times; 5m) and hallway (3m &times; 1.2m).</strong></p>
-        <p style="margin-top:0.75rem;"><strong>Room 1 &mdash; Kitchen:</strong></p>
-        <ul style="margin:0.35rem 0 0.5rem 1.2rem;list-style:disc;">
-            <li>Area: 4 &times; 5 = 20m&sup2;</li>
-            <li>With 10% wastage: 22m&sup2;</li>
-            <li>Karndean Knight Tile at &pound;35/m&sup2; = &pound;770 materials</li>
-            <li>Fitting at &pound;15/m&sup2; = &pound;330 fitting</li>
-            <li>Underlay: &pound;80 | Door bars: &pound;25</li>
-            <li><strong>Kitchen total: &pound;1,205</strong></li>
-        </ul>
-        <p><strong>Room 2 &mdash; Hallway:</strong></p>
-        <ul style="margin:0.35rem 0 0.5rem 1.2rem;list-style:disc;">
-            <li>Area: 3 &times; 1.2 = 3.6m&sup2;</li>
-            <li>With 10% wastage: 3.96m&sup2; (rounded to 4m&sup2;)</li>
-            <li>Karndean Knight Tile at &pound;35/m&sup2; = &pound;140 materials</li>
-            <li>Fitting at &pound;15/m&sup2; = &pound;60 fitting</li>
-            <li>Door bars: &pound;25</li>
-            <li><strong>Hallway total: &pound;225</strong></li>
-        </ul>
-        <p style="margin-top:0.5rem;font-weight:600;color:var(--text);"><strong>Quote Total: &pound;1,430 + VAT = &pound;1,716</strong></p>
-        <p style="margin-top:0.35rem;">The app does all of this automatically. You just type in the room sizes.</p>
+    <hr class="divider">
+
+    <!-- Brand & Range Reference -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128218; Brand &amp; Range Quick Reference</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p style="margin-bottom:0.75rem;">The app comes pre-loaded with 5 brands and 22 product ranges. Here's a summary:</p>
+
+                <p><strong style="color:var(--text)">Karndean</strong> (7 ranges) &mdash; LVT specialist</p>
+                <ul style="margin:0.25rem 0 0.75rem 1.2rem;list-style:disc;">
+                    <li>Knight Tile, Opus, Da Vinci, Van Gogh (Straight), Van Gogh (Herringbone), Korlok, Art Select</li>
+                    <li>Fitting methods: gluedown, herringbone, or click (Korlok)</li>
+                    <li>Trade prices range from &pound;22/m&sup2; (Knight Tile) to &pound;70/m&sup2; (Art Select)</li>
+                </ul>
+
+                <p><strong style="color:var(--text)">Alternative Flooring</strong> (2 ranges) &mdash; premium wool carpet</p>
+                <ul style="margin:0.25rem 0 0.75rem 1.2rem;list-style:disc;">
+                    <li>Margo Selby Stripe, Margo Selby Quirky</li>
+                    <li>100% wool, stretch-fit. Trade prices &pound;65&ndash;&pound;75/m&sup2;</li>
+                </ul>
+
+                <p><strong style="color:var(--text)">iSENSE</strong> (8 ranges) &mdash; main carpet supplier</p>
+                <ul style="margin:0.25rem 0 0.75rem 1.2rem;list-style:disc;">
+                    <li>Splendour, Subtlety, Surprise, Obsession, Hermes, Discretion, Serenity, Suspense</li>
+                    <li>All stretch-fit. Trade prices from &pound;22/m&sup2; (Splendour) to &pound;34/m&sup2; (Suspense)</li>
+                </ul>
+
+                <p><strong style="color:var(--text)">Invictus</strong> (3 ranges) &mdash; LVT alternative</p>
+                <ul style="margin:0.25rem 0 0.75rem 1.2rem;list-style:disc;">
+                    <li>Primus (click), Maximus (gluedown), Maximus Click</li>
+                    <li>Trade prices &pound;20&ndash;&pound;35/m&sup2;</li>
+                </ul>
+
+                <p><strong style="color:var(--text)">Associated Weavers</strong> (2 ranges) &mdash; budget to premium carpet</p>
+                <ul style="margin:0.25rem 0 0.5rem 1.2rem;list-style:disc;">
+                    <li>Standard (&pound;20/m&sup2;), Premium (&pound;35/m&sup2;)</li>
+                </ul>
+
+                <p>You can edit any price, add new ranges, or add entirely new brands in Settings &gt; Catalogue.</p>
+            </div>
+        </div>
     </div>
 
+    <hr class="divider">
+
+    <!-- Worked Example -->
+    <div class="example-box">
+        <div class="example-label">Worked Example</div>
+        <p><strong>Mrs Johnson wants Karndean Knight Tile in her kitchen (4m &times; 5m) and iSENSE Serenity carpet in the living room (5m &times; 4.5m).</strong></p>
+
+        <p style="margin-top:0.85rem;font-weight:600;color:var(--text);">Room 1 &mdash; Kitchen (Karndean Knight Tile)</p>
+        <ol class="step-list" style="margin:0.5rem 0 0.75rem;">
+            <li>Tap "+ Add Room", select <strong>Kitchen</strong></li>
+            <li>Enter length: <strong>4</strong>, width: <strong>5</strong>. Area shows: 20m&sup2;</li>
+            <li>Brand dropdown: select <strong>Karndean</strong></li>
+            <li>Range dropdown auto-populates &mdash; select <strong>Knight Tile</strong></li>
+            <li>Price auto-fills: <strong>&pound;22/m&sup2;</strong> (from catalogue). Fitting method shows: <strong>gluedown</strong></li>
+            <li>Labour auto-fills: <strong>&pound;18/m&sup2;</strong> (your LVT gluedown rate). Wastage: <strong>10%</strong></li>
+            <li>Add sundries: tick <strong>LVT underlay</strong> (&pound;3/m&sup2;), tick <strong>adhesive</strong> (&pound;3/m&sup2;), tick <strong>1 door bar</strong> (&pound;8)</li>
+        </ol>
+        <table class="calc-table">
+            <tr><td>Area with 10% wastage</td><td>22m&sup2;</td></tr>
+            <tr><td>Materials: 22m&sup2; &times; &pound;22</td><td>&pound;484.00</td></tr>
+            <tr><td>Labour: 22m&sup2; &times; &pound;18</td><td>&pound;396.00</td></tr>
+            <tr><td>LVT underlay: 22m&sup2; &times; &pound;3</td><td>&pound;66.00</td></tr>
+            <tr><td>Adhesive: 22m&sup2; &times; &pound;3</td><td>&pound;66.00</td></tr>
+            <tr><td>Door bar &times; 1</td><td>&pound;8.00</td></tr>
+            <tr class="total"><td>Kitchen Total</td><td>&pound;1,020.00</td></tr>
+        </table>
+
+        <p style="margin-top:1rem;font-weight:600;color:var(--text);">Room 2 &mdash; Living Room (iSENSE Serenity)</p>
+        <ol class="step-list" style="margin:0.5rem 0 0.75rem;">
+            <li>Tap "+ Add Room", select <strong>Living Room</strong></li>
+            <li>Enter length: <strong>5</strong>, width: <strong>4.5</strong>. Area shows: 22.5m&sup2;</li>
+            <li>Brand dropdown: select <strong>iSENSE</strong></li>
+            <li>Range dropdown auto-populates &mdash; select <strong>Serenity</strong></li>
+            <li>Price auto-fills: <strong>&pound;32/m&sup2;</strong> (from catalogue). Fitting method shows: <strong>stretch</strong></li>
+            <li>Labour auto-fills: <strong>&pound;8/m&sup2;</strong> (your carpet stretch-fit rate). Wastage: <strong>10%</strong></li>
+            <li>Add sundries: tick <strong>underlay</strong> (&pound;5/m&sup2;), tick <strong>gripper rods</strong> (&pound;3/lm &mdash; enter approx 19lm for room perimeter), tick <strong>1 door bar</strong> (&pound;8)</li>
+        </ol>
+        <table class="calc-table">
+            <tr><td>Area with 10% wastage</td><td>24.75m&sup2;</td></tr>
+            <tr><td>Materials: 24.75m&sup2; &times; &pound;32</td><td>&pound;792.00</td></tr>
+            <tr><td>Labour: 24.75m&sup2; &times; &pound;8</td><td>&pound;198.00</td></tr>
+            <tr><td>Underlay: 24.75m&sup2; &times; &pound;5</td><td>&pound;123.75</td></tr>
+            <tr><td>Gripper rods: 19lm &times; &pound;3</td><td>&pound;57.00</td></tr>
+            <tr><td>Door bar &times; 1</td><td>&pound;8.00</td></tr>
+            <tr class="total"><td>Living Room Total</td><td>&pound;1,178.75</td></tr>
+        </table>
+
+        <div style="margin-top:1rem;padding:0.75rem;background:rgba(46,139,139,0.12);border-radius:8px;">
+            <p style="font-weight:700;color:var(--accent-light);font-size:0.95rem;">Quote Grand Total: &pound;2,198.75</p>
+            <p style="margin-top:0.25rem;font-size:0.82rem;color:var(--muted);">The app calculates all of this automatically. You just enter the room sizes and select the products.</p>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- L-Shape Rooms -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128208; L-Shape Rooms</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>For L-shaped rooms, you have two options:</p>
+                <p style="margin-top:0.5rem;"><strong>Option 1: Manual m&sup2; override</strong> &mdash; Switch the measure mode to "Manual" and enter the total area yourself. Useful if you've already calculated the area on-site or from architectural plans.</p>
+                <p style="margin-top:0.5rem;"><strong>Option 2: Split into two rooms</strong> &mdash; Add the L-shape as two separate rooms (e.g., "Kitchen Main" and "Kitchen Extension") with standard rectangular dimensions for each. The quote totals combine them automatically.</p>
+                <p style="margin-top:0.5rem;">The manual override is usually the cleanest approach &mdash; one room entry with the correct total area. Wastage still applies on top of whatever figure you enter.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Staircase Pricing -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128702; Staircase Pricing</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>Staircases are priced per step rather than per m&sup2;. Your default rate is <strong>&pound;20 per step</strong> (editable in Settings &gt; Labour).</p>
+                <p style="margin-top:0.5rem;">When adding a staircase room, enter the number of steps. The app multiplies steps by your per-step rate to calculate the labour cost. Material cost is still based on the m&sup2; area you enter.</p>
+                <p style="margin-top:0.5rem;">A typical UK staircase has 13 steps, so at &pound;20/step that's &pound;260 for labour. Add this on top of materials and sundries (underlay, gripper rods, stair rods if applicable).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Margin / Markup -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128176; Margin &amp; Markup</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>In Settings &gt; Business, there's a <strong>Margin (%)</strong> field. This adds your profit margin on top of the quoted costs.</p>
+                <p style="margin-top:0.5rem;">For example, if your quote totals &pound;2,000 and you set a 10% margin, the customer sees &pound;2,200. The margin is applied automatically and <strong>the customer never sees it broken out</strong> &mdash; it's rolled into the line item prices on the shared quote.</p>
+                <p style="margin-top:0.5rem;">Set it to 0% if you don't want to use this feature. You can change it at any time and it only affects new quotes.</p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Quote Status -->
     <div class="card">
-        <div class="card-title">Quote Status Tracking</div>
-        <p>Every quote has a status. Tap the status badge on any quote to move it forward:</p>
+        <div class="card-title">Quote Status Flow</div>
+        <p>Every quote has a status. When editing a quote, use the Status dropdown to move it forward through these stages:</p>
         <div class="status-flow">
             <span class="status-pill">Draft</span><span class="status-arrow">&#8594;</span>
             <span class="status-pill">Sent</span><span class="status-arrow">&#8594;</span>
@@ -783,12 +962,45 @@
             <span class="status-pill">Complete</span><span class="status-arrow">&#8594;</span>
             <span class="status-pill">Paid</span>
         </div>
-        <p style="margin-top:0.5rem;">This lets you see at a glance where every quote stands &mdash; how many are waiting for a response, how many are booked in, and what's been paid.</p>
+        <table class="field-table" style="margin-top:0.75rem;">
+            <tr><th>Status</th><th>What it means</th></tr>
+            <tr><td>Draft</td><td>Quote created but not yet sent to the customer</td></tr>
+            <tr><td>Sent</td><td>Shared via WhatsApp, waiting for customer response</td></tr>
+            <tr><td>Accepted</td><td>Customer has agreed &mdash; ready to book a fitting date</td></tr>
+            <tr><td>Booked</td><td>Fitting date confirmed. You can convert this to a Job</td></tr>
+            <tr><td>Complete</td><td>Work is finished, awaiting final payment</td></tr>
+            <tr><td>Paid</td><td>Payment received in full. Job done</td></tr>
+        </table>
+    </div>
+
+    <!-- Professional Sharing -->
+    <div class="card">
+        <div class="card-title">Professional Quote Sharing</div>
+        <p>When you tap "Share Quote", the app generates a clean, white, professionally branded quote that includes:</p>
+        <ul style="margin:0.5rem 0 0.5rem 1.2rem;list-style:disc;">
+            <li>Your business name, address, and phone number at the top</li>
+            <li>Quote number (e.g. WCF-001) and date</li>
+            <li>Customer name and property address</li>
+            <li>Room-by-room breakdown with materials and labour</li>
+            <li>Sundries listed separately</li>
+            <li>Subtotal, VAT (if applicable), and grand total</li>
+            <li>Payment terms and T&amp;Cs at the bottom</li>
+            <li>Quote validity date</li>
+        </ul>
+        <p style="margin-top:0.5rem;">The customer sees a polished, professional document. Your margin is hidden &mdash; it's built into the line prices. Tap "Send via WhatsApp" to share directly, or "Copy Link" to share however you prefer.</p>
+    </div>
+
+    <!-- Other Actions -->
+    <div class="card">
+        <div class="card-title">Other Quote Actions</div>
+        <p><strong>Duplicate:</strong> Tap "Duplicate Quote" to create a copy. Useful when a customer wants a second option with different products.</p>
+        <p style="margin-top:0.5rem;"><strong>Convert to Job:</strong> When a quote status is Accepted or Booked, a "Convert to Job" button appears. This creates a job entry linked to the quote so you can track fitting progress.</p>
+        <p style="margin-top:0.5rem;"><strong>Delete:</strong> Permanently removes the quote. A confirmation dialog appears first.</p>
     </div>
 
     <div class="pro-tip">
         <div class="pro-tip-label">Pro Tip</div>
-        <p>Always share the quote within an hour of the home visit. Speed wins. The longer you wait, the more likely the customer gets a price from someone else first.</p>
+        <p>Always share the quote within an hour of the home visit. Speed wins. The longer you wait, the more likely the customer gets a price from someone else first. The quote number makes you look professional and organised.</p>
     </div>
 
 </div>
@@ -797,11 +1009,12 @@
 <div class="tab-content" id="jobs" data-print-title="4. Jobs">
 
     <h2 class="section-title">Tracking Jobs</h2>
-    <p class="section-subtitle">Once a quote is accepted and booked, it becomes a job. The Jobs tab tracks everything from scheduling through to payment.</p>
+    <p class="section-subtitle">Once a quote is accepted and booked, it becomes a job. The Jobs tab tracks everything from scheduling through to payment, with a built-in revenue dashboard.</p>
 
     <div class="card">
         <div class="card-title">How Jobs Link to Quotes</div>
-        <p>When you update a quote status to <strong>"Booked"</strong>, the app automatically creates a job entry. The job inherits all the details from the quote &mdash; customer, rooms, flooring types, and pricing. You don't need to re-enter anything.</p>
+        <p>When you open a quote with status "Accepted" or "Booked", a <strong>"Convert to Job"</strong> button appears. Tapping it creates a job entry that inherits all the details from the quote &mdash; customer, rooms, flooring types, and pricing. You don't need to re-enter anything.</p>
+        <p style="margin-top:0.5rem;">You can also create standalone jobs from the Jobs tab using the + button, for work that wasn't formally quoted through the app.</p>
     </div>
 
     <div class="card">
@@ -814,20 +1027,24 @@
             <span class="status-pill">Complete</span><span class="status-arrow">&#8594;</span>
             <span class="status-pill">Paid</span>
         </div>
-        <p style="margin-top:0.65rem;"><strong>Scheduled</strong> &mdash; fitting date is booked in<br>
-        <strong>In Progress</strong> &mdash; you're on-site, work is underway<br>
-        <strong>Snagging</strong> &mdash; main work done, minor finishing touches needed<br>
-        <strong>Complete</strong> &mdash; all work finished, customer happy<br>
-        <strong>Paid</strong> &mdash; payment received in full</p>
+        <table class="field-table" style="margin-top:0.75rem;">
+            <tr><th>Status</th><th>What it means</th></tr>
+            <tr><td>Scheduled</td><td>Fitting date is booked in</td></tr>
+            <tr><td>In Progress</td><td>You're on-site, work is underway</td></tr>
+            <tr><td>Snagging</td><td>Main work done, minor finishing touches needed</td></tr>
+            <tr><td>Complete</td><td>All work finished, customer happy</td></tr>
+            <tr><td>Paid</td><td>Payment received in full</td></tr>
+        </table>
     </div>
 
     <div class="card">
-        <div class="card-title">Revenue Tracking</div>
-        <p>The Jobs tab shows your revenue dashboard:</p>
+        <div class="card-title">Revenue Dashboard</div>
+        <p>At the top of the Jobs tab, four stat cards show your business performance at a glance:</p>
         <ul style="margin:0.5rem 0 0 1.2rem;list-style:disc;">
-            <li><strong>This week</strong> &mdash; total value of jobs completed this week</li>
-            <li><strong>This month</strong> &mdash; running monthly revenue total</li>
-            <li><strong>Outstanding</strong> &mdash; jobs marked Complete but not yet Paid</li>
+            <li><strong>This Week</strong> &mdash; total value of jobs completed or paid this week</li>
+            <li><strong>This Month</strong> &mdash; running monthly revenue total</li>
+            <li><strong>Outstanding</strong> &mdash; total value of jobs marked Complete but not yet Paid</li>
+            <li><strong>Total</strong> &mdash; lifetime revenue from all paid jobs</li>
         </ul>
         <p style="margin-top:0.5rem;">This gives you a real picture of your business performance without needing a spreadsheet.</p>
     </div>
@@ -840,7 +1057,7 @@
 
     <div class="pro-tip">
         <div class="pro-tip-label">Pro Tip</div>
-        <p>Log every job &mdash; even small ones. The revenue dashboard shows your real monthly performance. A &pound;300 hallway fitting is still &pound;300 towards your monthly total.</p>
+        <p>Log every job &mdash; even small ones. A &pound;300 hallway fitting is still &pound;300 towards your monthly total. The revenue dashboard only works if you track consistently.</p>
     </div>
 
 </div>
@@ -849,27 +1066,39 @@
 <div class="tab-content" id="reviews" data-print-title="5. Reviews">
 
     <h2 class="section-title">Getting Google Reviews</h2>
-    <p class="section-subtitle">Reviews are the single most powerful trust signal for a local business. This is where you close the gap.</p>
+    <p class="section-subtitle">Reviews are the single most powerful trust signal for a local business. This is where you close the gap on your competitors.</p>
 
     <div class="warning-box">
         <span class="note-icon">&#9888;</span>
-        <span>New Image Carpets has 46 Google reviews at 4.9 stars. You currently have 0. This is the single biggest gap in your online presence &mdash; and the easiest one to fix.</span>
+        <span>New Image Carpets has 46 Google reviews at 4.9 stars. This is the benchmark to beat. The review request system in the app makes it effortless &mdash; use it after every job.</span>
     </div>
 
     <div class="card">
         <div class="card-title">How to Request a Review</div>
         <ol class="step-list">
             <li>Go to the <strong>Reviews</strong> tab in the app</li>
-            <li>Tap <strong>"Request Review"</strong> next to the customer's name</li>
+            <li>Find the customer and tap <strong>"Request Review"</strong></li>
             <li>The app opens WhatsApp with a <strong>pre-written message</strong> and your <strong>Google review link</strong> already included</li>
             <li>Tap <strong>Send</strong> in WhatsApp &mdash; that's it</li>
         </ol>
-        <p style="margin-top:0.5rem;color:var(--muted);font-size:0.84rem;">The message is friendly, personal, and makes it easy for the customer. They just tap the link and leave a review.</p>
+        <p style="margin-top:0.5rem;color:var(--muted);font-size:0.84rem;">The message is friendly, personal, and makes it easy for the customer. They just tap the link and leave a review. You can also send a reminder if they haven't responded.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Review Status Tracking</div>
+        <p>The app tracks each customer's review status with filter pills at the top:</p>
+        <div class="status-flow" style="margin-top:0.5rem;">
+            <span class="status-pill">Not Asked</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Asked</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Reminded</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Left Review</span>
+        </div>
+        <p style="margin-top:0.5rem;">This lets you see at a glance who you haven't asked yet, who needs a follow-up reminder, and who has already left a review.</p>
     </div>
 
     <div class="card">
         <div class="card-title">When to Ask</div>
-        <p>The best moment to ask for a review is right after the customer says something like <strong>"I love it"</strong> or <strong>"It looks amazing"</strong>. That's the peak of their happiness with the work.</p>
+        <p>The best moment to ask for a review is right after the customer says something positive about the work. That's the peak of their happiness.</p>
         <p style="margin-top:0.5rem;">Don't wait until the next day. Don't wait until you send the invoice. Ask in the moment, then send the WhatsApp link while you're still standing in their hallway.</p>
     </div>
 
@@ -877,7 +1106,7 @@
         <div class="card-title">Monthly Target</div>
         <div class="info-highlight">
             <strong>Target: 4 reviews per month</strong><br>
-            The app shows a progress bar for each month so you can see how you're tracking.
+            The app shows a monthly progress bar so you can track how many reviews you've received.
         </div>
         <p style="margin-top:0.5rem;">Not every customer will leave one. If you ask 6 customers a month, you'll likely get 4 reviews. Some months more, some less &mdash; the key is asking consistently.</p>
     </div>
@@ -889,30 +1118,242 @@
 
 </div>
 
-<!-- ===================== TAB 6: SETTINGS ===================== -->
-<div class="tab-content" id="settings" data-print-title="6. Settings">
+<!-- ===================== TAB 6: ANALYTICS ===================== -->
+<div class="tab-content" id="analytics" data-print-title="6. Analytics">
 
-    <h2 class="section-title">App Settings</h2>
-    <p class="section-subtitle">Settings is where you control your business details, pricing, message templates, and backup. Most of this is already set up for you.</p>
+    <h2 class="section-title">Business Analytics</h2>
+    <p class="section-subtitle">The Analytics tab turns your raw data into actionable business insights. No spreadsheets needed &mdash; everything updates automatically as you use the app.</p>
 
-    <div class="card">
-        <div class="card-title">Business Details</div>
-        <p>Your business name, phone number, email, and address are pre-filled. If anything changes (new phone number, updated hours), edit it here. These details appear on your shared quotes.</p>
+    <div class="note-box">
+        <span class="note-icon">&#9989;</span>
+        <span>Analytics data builds up over time. The more quotes and jobs you log, the more useful this tab becomes. It's empty when you start &mdash; that's normal.</span>
     </div>
 
     <div class="card">
-        <div class="card-title">Default Pricing (Price per m&sup2;)</div>
-        <p>The app uses <strong>price per square metre</strong> to calculate quote totals. This means:</p>
-        <ul style="margin:0.5rem 0 0.5rem 1.2rem;list-style:disc;">
-            <li><strong>Material cost</strong> &mdash; what you charge per m&sup2; for each flooring type (e.g., &pound;35/m&sup2; for Karndean Knight Tile)</li>
-            <li><strong>Fitting cost</strong> &mdash; your fitting rate per m&sup2; (e.g., &pound;15/m&sup2;)</li>
-            <li><strong>Extras</strong> &mdash; fixed prices for underlay, door bars, furniture moving, etc.</li>
-        </ul>
-        <p style="margin-top:0.5rem;">Set your standard rates here and they auto-fill every new quote. You can always override them on individual quotes for specific brands or products.</p>
+        <div class="card-title">Monthly Revenue Chart</div>
+        <p>A bar chart showing your paid revenue for each of the last 6 months. Each bar represents the total value of jobs marked as "Paid" in that month.</p>
+        <p style="margin-top:0.5rem;"><strong>What to look for:</strong> Is the trend going up, down, or flat? Are there seasonal dips? Which months are your strongest?</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Key Metrics</div>
+        <table class="field-table">
+            <tr><th>Metric</th><th>What it tells you</th></tr>
+            <tr><td>Quote Conversion</td><td>The percentage of sent quotes that become accepted jobs. Shows how many of your quotes convert to paying work. A healthy conversion rate for flooring is 40&ndash;60%</td></tr>
+            <tr><td>Avg Job Value</td><td>The average total value across all accepted/booked/completed/paid quotes. Helps you understand your typical job size and whether you're moving upmarket over time</td></tr>
+            <tr><td>Outstanding</td><td>Total value of completed jobs that haven't been paid yet. Chase these &mdash; it's money you've earned but haven't received</td></tr>
+            <tr><td>Total Revenue</td><td>Lifetime revenue from all paid jobs. Your business scorecard</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Top Products by Revenue</div>
+        <p>A horizontal bar chart showing which products (by brand and range) are generating the most revenue. This tells you what your customers actually want to buy.</p>
+        <p style="margin-top:0.5rem;"><strong>How to use it:</strong> If Karndean Knight Tile is your top seller, make sure you always have samples ready. If a product never appears, consider whether it's worth stocking. This data helps you make smarter buying decisions.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">New Customers Chart</div>
+        <p>Shows how many new customers you've added each month for the last 6 months. This is your pipeline indicator &mdash; if new customer numbers drop, your future revenue will follow.</p>
+    </div>
+
+    <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Check this tab weekly. It takes 30 seconds and tells you what's working. If your conversion rate drops, look at your quoting speed. If a product dominates your sales, consider negotiating better trade terms on it.</p>
+    </div>
+
+</div>
+
+<!-- ===================== TAB 7: SETTINGS ===================== -->
+<div class="tab-content" id="settings" data-print-title="7. Settings">
+
+    <h2 class="section-title">App Settings</h2>
+    <p class="section-subtitle">Settings has 7 sub-tabs that control every aspect of your app. Most of this is already set up for you &mdash; you only need to adjust things when your prices change or your business details update.</p>
+
+    <div class="info-highlight">
+        <strong>How to navigate:</strong> Open the Settings tab in the app. You'll see 7 pill-shaped sub-tabs at the top: Business, Catalogue, Labour, Sundries, Messages, Privacy, and About. Tap any one to switch between them.
+    </div>
+
+    <hr class="divider">
+
+    <!-- Sub-tab 1: Business -->
+    <div class="collapsible open">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#127970; Business Details</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>Your core business information. These details appear on shared quotes and define how the app behaves.</p>
+                <table class="field-table" style="margin-top:0.75rem;">
+                    <tr><th>Field</th><th>What it does</th></tr>
+                    <tr><td>Business Name</td><td>Appears on all shared quotes</td></tr>
+                    <tr><td>Phone</td><td>Shown on quotes and used for WhatsApp links</td></tr>
+                    <tr><td>Email</td><td>Shown on shared quotes</td></tr>
+                    <tr><td>Address</td><td>Your business address on quotes</td></tr>
+                    <tr><td>Google Review Link</td><td>The link sent with every review request</td></tr>
+                    <tr><td>Quote Prefix</td><td>Default "WCF". Your quotes are numbered WCF-001, WCF-002, etc.</td></tr>
+                    <tr><td>Quote Validity</td><td>Number of days a quote is valid for (default 30). Shown on shared quotes</td></tr>
+                    <tr><td>VAT Rate</td><td>Default 20%. Only applied if "Apply VAT" is set to Yes</td></tr>
+                    <tr><td>Apply VAT</td><td>Yes/No toggle. Set to No if you're not VAT registered</td></tr>
+                    <tr><td>Margin (%)</td><td>Your profit margin, applied on top of costs. Hidden from customer quotes. Set to 0 to disable</td></tr>
+                    <tr><td>Payment Terms</td><td>Default: "50% deposit on acceptance, balance on completion." Shown on shared quotes</td></tr>
+                    <tr><td>Terms &amp; Conditions</td><td>Your standard T&amp;Cs. Shown at the bottom of shared quotes</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-tab 2: Catalogue -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128218; Product Catalogue</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>Your product catalogue is the backbone of the quoting system. It comes pre-loaded with 5 brands and 22 ranges, all with real UK trade prices.</p>
+                <p style="margin-top:0.5rem;"><strong>Viewing:</strong> Each brand is an expandable accordion. Tap a brand name to see all its ranges. Each range shows: name, flooring type, fitting method, trade price per m&sup2;, and retail guide price range.</p>
+                <p style="margin-top:0.5rem;"><strong>Search:</strong> Use the search bar at the top to find a specific product or brand quickly.</p>
+                <p style="margin-top:0.5rem;"><strong>Editing prices:</strong> Tap "Edit" on any range to update the trade price, guide prices, or notes. If a supplier changes their pricing, update it here and all new quotes will use the new price.</p>
+                <p style="margin-top:0.5rem;"><strong>Adding a range:</strong> Tap "+ Add Range" within any brand to add a new product. You'll set the name, flooring type, fitting method, trade price, and guide prices.</p>
+                <p style="margin-top:0.5rem;"><strong>Adding a brand:</strong> Tap "+ Add New Brand" at the top to add an entirely new supplier. Then add ranges to it.</p>
+                <p style="margin-top:0.5rem;"><strong>Deleting:</strong> You can delete individual ranges or entire brands. Be careful &mdash; this doesn't affect existing quotes (they store prices at the time they were created), but the product won't be available for new quotes.</p>
+                <div class="pro-tip" style="margin-top:0.75rem;">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>When suppliers send new price lists, update them here immediately. It takes 2 minutes and means every future quote is accurate without you having to remember anything.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-tab 3: Labour -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128736; Labour Rates</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>Your fitting rates per m&sup2; (or per step for staircases). These auto-fill on quotes based on the product's fitting method.</p>
+                <table class="field-table" style="margin-top:0.75rem;">
+                    <tr><th>Rate</th><th>Default</th><th>When it applies</th></tr>
+                    <tr><td>Carpet</td><td>&pound;8/m&sup2;</td><td>All stretch-fit carpet (iSENSE, Alternative Flooring, Associated Weavers)</td></tr>
+                    <tr><td>LVT Gluedown</td><td>&pound;18/m&sup2;</td><td>Gluedown LVT (Karndean Knight Tile, Opus, Da Vinci, Van Gogh, Art Select, Invictus Maximus)</td></tr>
+                    <tr><td>LVT Click</td><td>&pound;12/m&sup2;</td><td>Click-fit LVT (Karndean Korlok, Invictus Primus, Invictus Maximus Click)</td></tr>
+                    <tr><td>Laminate</td><td>&pound;10/m&sup2;</td><td>Laminate flooring (if you add laminate products)</td></tr>
+                    <tr><td>Vinyl Sheet</td><td>&pound;8/m&sup2;</td><td>Sheet vinyl fitting</td></tr>
+                    <tr><td>Hardwood</td><td>&pound;20/m&sup2;</td><td>Real hardwood flooring fitting</td></tr>
+                    <tr><td>Herringbone</td><td>&pound;40/m&sup2;</td><td>Herringbone pattern fitting (e.g. Karndean Van Gogh Herringbone). Premium rate due to pattern complexity</td></tr>
+                    <tr><td>Staircase</td><td>&pound;20/step</td><td>Per-step rate for staircase fitting</td></tr>
+                </table>
+                <p style="margin-top:0.75rem;">Adjust these rates whenever your fitting costs change. The rates auto-fill on new quotes &mdash; you can always override on individual quotes if a specific job needs a different price.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-tab 4: Sundries -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128230; Sundries</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>Sundries are the additional items beyond materials and labour. The app has 12 pre-configured sundries:</p>
+                <table class="field-table" style="margin-top:0.75rem;">
+                    <tr><th>Sundry</th><th>Default Price</th><th>Unit</th></tr>
+                    <tr><td>Carpet Underlay</td><td>&pound;5</td><td>per m&sup2;</td></tr>
+                    <tr><td>LVT Underlay</td><td>&pound;3</td><td>per m&sup2;</td></tr>
+                    <tr><td>Gripper Rods</td><td>&pound;3</td><td>per linear metre</td></tr>
+                    <tr><td>Door Bar (Standard)</td><td>&pound;8</td><td>each</td></tr>
+                    <tr><td>Door Bar (T-bar)</td><td>&pound;12</td><td>each</td></tr>
+                    <tr><td>Furniture Moving</td><td>&pound;50</td><td>per room</td></tr>
+                    <tr><td>Old Flooring Uplift</td><td>&pound;5</td><td>per m&sup2;</td></tr>
+                    <tr><td>Subfloor Prep</td><td>&pound;8</td><td>per m&sup2;</td></tr>
+                    <tr><td>Skirting Removal/Refit</td><td>&pound;4</td><td>per linear metre</td></tr>
+                    <tr><td>Adhesive (Gluedown)</td><td>&pound;3</td><td>per m&sup2;</td></tr>
+                    <tr><td>Scotia/Beading</td><td>&pound;3</td><td>per linear metre</td></tr>
+                    <tr><td>Stair Rods</td><td>&pound;12</td><td>each</td></tr>
+                </table>
+                <p style="margin-top:0.75rem;">Each sundry has a default price and unit type. When creating a quote, you tick the sundries that apply and enter the quantity. The prices here are your defaults &mdash; you can always override them on individual quotes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-tab 5: Messages -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128172; Message Templates</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>The app uses templates for WhatsApp messages. You can edit these to match your style. Templates support variable placeholders that are replaced with real data when the message is sent:</p>
+                <table class="field-table" style="margin-top:0.75rem;">
+                    <tr><th>Placeholder</th><th>Gets replaced with</th></tr>
+                    <tr><td>{{customer_name}}</td><td>The customer's name (e.g. "Sarah")</td></tr>
+                    <tr><td>{{quote_number}}</td><td>The quote reference (e.g. "WCF-003")</td></tr>
+                    <tr><td>{{flooring_summary}}</td><td>A summary of the flooring in the quote</td></tr>
+                    <tr><td>{{review_link}}</td><td>Your Google review link from Business settings</td></tr>
+                </table>
+                <p style="margin-top:0.75rem;">There are 3 templates you can customise:</p>
+                <ul style="margin:0.35rem 0 0.5rem 1.2rem;list-style:disc;">
+                    <li><strong>Quote message</strong> &mdash; sent when you share a quote via WhatsApp</li>
+                    <li><strong>Review request</strong> &mdash; sent when you ask for a Google review</li>
+                    <li><strong>Review reminder</strong> &mdash; a follow-up for customers who haven't left a review</li>
+                </ul>
+                <div class="example-box" style="margin-top:0.5rem;">
+                    <div class="example-label">Template Example</div>
+                    <p>"Hi {{customer_name}}, thanks for choosing Whitburn Coastal Flooring! If you're happy with the work, we'd really appreciate a quick Google review: {{review_link}}"</p>
+                    <p style="margin-top:0.35rem;">Becomes: "Hi Sarah, thanks for choosing Whitburn Coastal Flooring! If you're happy with the work, we'd really appreciate a quick Google review: https://g.page/r/..."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-tab 6: Privacy -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128274; Privacy</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>The Privacy sub-tab handles data management and GDPR compliance tools:</p>
+                <p style="margin-top:0.5rem;"><strong>Backup Data:</strong> Creates a complete backup of all your app data (customers, quotes, jobs, settings). Save this file somewhere safe &mdash; email it to yourself or store it in cloud storage. <strong>Do this weekly.</strong></p>
+                <p style="margin-top:0.5rem;"><strong>Restore Data:</strong> If you ever need to restore from a backup, use this option and select your backup file.</p>
+                <p style="margin-top:0.5rem;"><strong>ICO Registration:</strong> A reminder to register with the Information Commissioner's Office and a field to store your registration number.</p>
+                <p style="margin-top:0.5rem;"><strong>Data Export:</strong> You can export individual customer data from their profile page (see the Customers tab section). This fulfils GDPR data access requests.</p>
+                <p style="margin-top:0.5rem;"><strong>Data Retention:</strong> The app's default data retention period is 6 years (in line with HMRC record-keeping requirements).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-tab 7: About -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#9432; About</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>The About sub-tab shows:</p>
+                <ul style="margin:0.35rem 0 0.5rem 1.2rem;list-style:disc;">
+                    <li><strong>App version</strong> &mdash; the current version of the Flooring Business Manager</li>
+                    <li><strong>Reset option</strong> &mdash; a full factory reset that clears all data and restores defaults. Only use this if something goes seriously wrong and you have a backup to restore from</li>
+                </ul>
+                <div class="warning-box" style="margin-top:0.5rem;">
+                    <span class="note-icon">&#9888;</span>
+                    <span>The reset option permanently deletes all your data. Always backup first. This cannot be undone.</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Google Review Link -->
-    <div class="collapsible open">
+    <hr class="divider">
+    <div class="collapsible">
         <div class="collapsible-header" onclick="toggleCollapsible(this)">
             <h3>&#127279; How to Find Your Google Review Link</h3>
             <span class="collapsible-arrow">&#9660;</span>
@@ -926,41 +1367,17 @@
                     <li>If you can't find it, you may need to <strong>claim your profile</strong> first at <strong>business.google.com</strong></li>
                     <li>Once you're managing your profile, go to <strong>Home &gt; "Get more reviews"</strong></li>
                     <li>Google gives you a <strong>short link</strong> &mdash; copy it</li>
-                    <li>Open your app, go to <strong>Settings</strong>, and paste it into the <strong>"Google Review Link"</strong> field</li>
-                    <li>Save &mdash; now every review request will include this link automatically</li>
+                    <li>Open your app, go to <strong>Settings &gt; Business</strong>, and paste it into the <strong>"Google Review Link"</strong> field</li>
+                    <li>It saves automatically &mdash; now every review request includes this link</li>
                 </ol>
-                <p style="margin-top:0.75rem;">If you're having trouble, the Google Business Profile &amp; Website Strategy document (02) has a full step-by-step guide with screenshots.</p>
             </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">Message Templates</div>
-        <p>The app uses templates for WhatsApp messages (review requests, quote sharing). You can edit these in Settings.</p>
-        <p style="margin-top:0.5rem;">Templates support the <strong>{{customer_name}}</strong> variable &mdash; wherever you put this in the message, the app replaces it with the actual customer's name when sending.</p>
-        <div class="example-box" style="margin-top:0.75rem;">
-            <div class="example-label">Template Example</div>
-            <p>"Hi {{customer_name}}, thanks for choosing Whitburn Coastal Flooring! If you're happy with the work, we'd really appreciate a quick Google review &mdash; it helps us a lot."</p>
-            <p style="margin-top:0.35rem;">Becomes: "Hi Sarah, thanks for choosing Whitburn Coastal Flooring! If you're happy with the work, we'd really appreciate a quick Google review &mdash; it helps us a lot."</p>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-title">Backup &amp; Restore</div>
-        <p>All your data is stored on your phone. If you lose your phone or clear your browser data, the data is gone. That's why backup matters.</p>
-        <ol class="step-list">
-            <li><strong>Backup:</strong> Go to Settings, tap <strong>"Backup Data"</strong>. This saves a file to your phone that contains all your customers, quotes, jobs, and settings</li>
-            <li><strong>Restore:</strong> If you ever need to restore, tap <strong>"Restore Data"</strong> and select your backup file</li>
-        </ol>
-        <div class="info-highlight" style="margin-top:0.75rem;">
-            <strong>Do this weekly.</strong> One tap. Peace of mind. Set a reminder on your phone for every Friday afternoon.
         </div>
     </div>
 
 </div>
 
-<!-- ===================== TAB 7: DATA & PRIVACY ===================== -->
-<div class="tab-content" id="data-privacy" data-print-title="7. Data & Privacy">
+<!-- ===================== TAB 8: DATA & PRIVACY ===================== -->
+<div class="tab-content" id="data-privacy" data-print-title="8. Data & Privacy">
 
     <h2 class="section-title">Data &amp; Privacy</h2>
     <p class="section-subtitle">A plain-English guide to keeping customer data safe and staying on the right side of UK law. This is simpler than you think.</p>
@@ -968,10 +1385,23 @@
     <div class="card">
         <div class="card-title">What This Means for You</div>
         <p>You're storing customer names, phone numbers, and addresses in this app. Under UK law (UK GDPR and the Data Protection Act 2018), that makes you a <strong>data controller</strong>.</p>
-        <p style="margin-top:0.5rem;">That sounds more serious than it is. It simply means you have a legal responsibility to look after that information properly. Here are the 4 things you need to do:</p>
+        <p style="margin-top:0.5rem;">That sounds more serious than it is. It simply means you have a legal responsibility to look after that information properly. The app has built-in tools to help you do this. Here are the key things you need to know and do:</p>
     </div>
 
-    <!-- 4 Things -->
+    <!-- First Launch Modal -->
+    <div class="card" style="border-left:3px solid var(--accent);">
+        <div class="card-title">First-Launch Security Modal</div>
+        <p>When you first open the app, a security modal appears explaining:</p>
+        <ul style="margin:0.5rem 0 0.5rem 1.2rem;list-style:disc;">
+            <li>Customer data is stored locally on your device only</li>
+            <li>No data is sent to any server or third party</li>
+            <li>You are the data controller under UK GDPR</li>
+            <li>You should register with the ICO (see below)</li>
+        </ul>
+        <p style="margin-top:0.5rem;">You must tick the acknowledgement checkbox and tap "I Understand &mdash; Continue" to use the app. This only appears once.</p>
+    </div>
+
+    <!-- ICO Registration -->
     <div class="card" style="border-left:3px solid var(--accent);">
         <div class="card-title">1. Register with the ICO (&pound;40/year)</div>
         <p>The Information Commissioner's Office (ICO) is the UK's data privacy regulator. Almost every business that holds customer data needs to register. It costs <strong>&pound;40 per year</strong> and takes about <strong>10 minutes</strong> online.</p>
@@ -980,38 +1410,90 @@
             <li>Click <strong>"Register as a data controller"</strong></li>
             <li>Answer the questions about your business (sole trader, number of staff, what data you hold)</li>
             <li>Pay &pound;40 by card</li>
-            <li>You'll get a <strong>registration number</strong> &mdash; keep this somewhere safe</li>
+            <li>You'll get a <strong>registration number</strong> &mdash; save this in Settings &gt; Privacy in the app</li>
         </ol>
         <p style="margin-top:0.5rem;font-size:0.82rem;">Link: <strong>https://ico.org.uk/for-organisations/sme-web-hub/</strong></p>
     </div>
 
+    <!-- Privacy Notice -->
     <div class="card" style="border-left:3px solid var(--accent);">
         <div class="card-title">2. Tell Customers You Store Their Data</div>
         <p>When you take a customer's details, let them know you'll store their name, phone number, and address to manage their quote and fitting. You don't need a printed form for this &mdash; <strong>verbal is fine for now</strong>.</p>
         <p style="margin-top:0.5rem;">Something like: "I'll save your details in our system so I can manage your quote and stay in touch. We don't share your information with anyone."</p>
+        <p style="margin-top:0.5rem;">The app includes a full written privacy notice you can use for your showroom or future website (see below).</p>
     </div>
 
+    <!-- Keep Phone Locked -->
     <div class="card" style="border-left:3px solid var(--accent);">
         <div class="card-title">3. Keep Your Phone Locked</div>
-        <p>Your customer data lives on your phone. A passcode or fingerprint lock is the single most important security measure you can take. If your phone is unlocked and it gets lost, anyone could access your customer details.</p>
+        <p>Your customer data lives on your phone. A passcode or fingerprint lock is the single most important security measure you can take. If your phone is unlocked and gets lost, anyone could access your customer details.</p>
     </div>
 
+    <!-- Backups -->
     <div class="card" style="border-left:3px solid var(--accent);">
         <div class="card-title">4. Back Up Your Data Regularly</div>
-        <p>If your phone breaks, gets stolen, or the data gets wiped, you need a backup. Use the app's Backup feature weekly (see the Settings tab). Store the backup file in a safe place &mdash; email it to yourself or save it to cloud storage.</p>
+        <p>If your phone breaks, gets stolen, or the data gets wiped, you need a backup. Go to Settings &gt; Privacy and use the Backup feature weekly. Store the backup file in a safe place &mdash; email it to yourself or save it to cloud storage.</p>
+        <div class="info-highlight" style="margin-top:0.75rem;">
+            <strong>Do this weekly.</strong> One tap. Peace of mind. Set a reminder on your phone for every Friday afternoon.
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Per-Customer Data Export -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128196; Per-Customer Data Export (GDPR Access Request)</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>If a customer asks "What data do you hold on me?" &mdash; this is a Subject Access Request under GDPR. The app makes it easy to respond:</p>
+                <ol class="step-list" style="margin-top:0.5rem;">
+                    <li>Go to the <strong>Customers</strong> tab and find the customer</li>
+                    <li>Tap their name to open their profile</li>
+                    <li>Tap <strong>"Export Data"</strong></li>
+                    <li>The app copies all their data to your clipboard &mdash; their contact details plus all linked quotes, jobs, and review records</li>
+                    <li>Paste it into an email or message and send it to them</li>
+                </ol>
+                <p style="margin-top:0.5rem;">You must respond to a data access request within 30 days. With this feature, you can do it in 30 seconds.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Deletion -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#128465; Data Deletion (Right to Erasure)</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p>If a customer asks you to delete their data, you can do so from their profile:</p>
+                <ol class="step-list" style="margin-top:0.5rem;">
+                    <li>Go to the <strong>Customers</strong> tab and find the customer</li>
+                    <li>Tap their name to open their profile</li>
+                    <li>Tap <strong>"Delete"</strong></li>
+                    <li>Confirm the deletion in the dialog that appears</li>
+                </ol>
+                <p style="margin-top:0.5rem;">This permanently removes the customer record. Note: you may need to keep financial records (quotes, invoices) for up to 6 years for HMRC purposes. If someone requests deletion but you've done paid work for them, you can delete their personal details while retaining anonymised financial records.</p>
+            </div>
+        </div>
     </div>
 
     <hr class="divider">
 
     <!-- Security Checklist -->
     <h3 class="card-title">Security Checklist</h3>
-    <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.5rem;">Tap each item once you've done it. Aim for all 8.</p>
-    <div class="progress-label" id="securityProgress">0 of 8 complete</div>
+    <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.5rem;">Tap each item once you've done it. Aim for all 10.</p>
+    <div class="progress-label" id="securityProgress">0 of 10 complete</div>
     <div class="progress-bar-wrap"><div class="progress-bar-fill" id="securityBar"></div></div>
     <ul class="checklist" id="securityChecklist">
         <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Phone has a passcode or fingerprint/face lock enabled</li>
         <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Phone auto-locks after 1&ndash;2 minutes of inactivity</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> First-launch security modal acknowledged in the app</li>
         <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Registered with the ICO (or registration in progress)</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> ICO registration number saved in Settings &gt; Privacy</li>
         <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> App data backed up at least once</li>
         <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Backup file stored somewhere safe (email or cloud)</li>
         <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Weekly backup reminder set on phone</li>
@@ -1032,7 +1514,7 @@ We collect your name, phone number, email address, and property address to provi
 We do not share your personal information with any third parties. Your data is stored securely on our business devices and is only accessed by Whitburn Coastal Flooring staff.<br><br>
 You can ask us to update or delete your information at any time by calling us on 0191 529 5905 or emailing whitburncoastalflooring@outlook.com.<br><br>
 We are registered with the Information Commissioner's Office (ICO) as a data controller.<br><br>
-Whitburn Coastal Flooring, 1 East Street / 4 North Guards, Whitburn Village, Sunderland, SR6
+Whitburn Coastal Flooring, 4 North Guards, Whitburn Village, Sunderland, SR6 7BU
     </div>
 
 </div>
@@ -1055,9 +1537,7 @@ Whitburn Coastal Flooring, 1 East Street / 4 North Guards, Whitburn Village, Sun
             tabContents.forEach(c => c.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById(target).classList.add('active');
-            // Scroll tab into view
             btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            // Scroll content to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
@@ -1099,7 +1579,6 @@ Whitburn Coastal Flooring, 1 East Street / 4 North Guards, Whitburn Village, Sun
     // Copy Privacy Notice
     function copyPrivacy() {
         const el = document.getElementById('privacyNotice');
-        // Get text without the button text
         const clone = el.cloneNode(true);
         const btn = clone.querySelector('.copy-btn');
         if (btn) btn.remove();
@@ -1114,7 +1593,6 @@ Whitburn Coastal Flooring, 1 East Street / 4 North Guards, Whitburn Village, Sun
                 copyBtn.innerHTML = '&#128203; Copy';
             }, 2000);
         }).catch(() => {
-            // Fallback
             const ta = document.createElement('textarea');
             ta.value = text;
             document.body.appendChild(ta);
