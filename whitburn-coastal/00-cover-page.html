@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Agreement — Whitburn Coastal Flooring | DMT Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0A1628;
+            --card: #111D2E;
+            --border: #1E3A5F;
+            --teal: #2E8B8B;
+            --sand: #C4956A;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --critical: #EF4444;
+            --text: #E8EDF3;
+            --muted: #8BA4C4;
+            --teal-glow: rgba(46, 139, 139, 0.15);
+            --sand-glow: rgba(196, 149, 106, 0.1);
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 3rem;
+        }
+
+        /* ── Header ── */
+        .doc-header {
+            text-align: center;
+            padding: 3rem 1.5rem 2.5rem;
+            border-bottom: 2px solid var(--teal);
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        .doc-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--sand);
+            border-radius: 2px;
+        }
+        .doc-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--teal);
+            border: 1px solid var(--teal);
+            padding: 0.3rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+        }
+        .doc-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        .doc-header h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            font-weight: 400;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+        }
+        .doc-date {
+            margin-top: 1.25rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        /* ── Sections ── */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-title .num {
+            color: var(--teal);
+            margin-right: 0.4rem;
+        }
+
+        /* ── Intro card ── */
+        .intro-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .intro-card p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+        .intro-card p + p { margin-top: 0.75rem; }
+        .intro-card strong { color: var(--text); font-weight: 600; }
+
+        /* ── Package cards ── */
+        .package-card {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .package-card.premium {
+            border: 2px solid var(--teal);
+            box-shadow: 0 0 30px var(--teal-glow), inset 0 1px 0 rgba(46,139,139,0.1);
+        }
+        .package-card.partial {
+            border: 1px solid var(--border);
+            opacity: 0.88;
+        }
+        .package-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.35rem 0.9rem;
+            border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+        .premium .package-label {
+            background: var(--teal-glow);
+            color: var(--teal);
+            border: 1px solid var(--teal);
+        }
+        .partial .package-label {
+            background: rgba(139,164,196,0.08);
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+        .package-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .premium h3 { color: var(--text); }
+        .partial h3 { color: var(--muted); }
+
+        .package-subtitle {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Provides / Receives blocks */
+        .exchange-block {
+            background: rgba(10, 22, 40, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.15rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .exchange-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .premium .exchange-label { color: var(--sand); }
+        .partial .exchange-label { color: var(--muted); }
+
+        .exchange-block p {
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.5;
+        }
+        .partial .exchange-block p { color: var(--muted); }
+
+        .value-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+        }
+        .premium .value-badge {
+            background: var(--teal-glow);
+            color: var(--teal);
+        }
+        .partial .value-badge {
+            background: rgba(139,164,196,0.08);
+            color: var(--muted);
+        }
+
+        /* Deliverables table */
+        .deliverables-heading {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 1.5rem 0 0.75rem;
+        }
+        .deliverable-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(30, 58, 95, 0.5);
+            gap: 0.75rem;
+        }
+        .deliverable-row:last-child { border-bottom: none; }
+        .deliverable-row .icon {
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .deliverable-row .name {
+            flex: 1;
+            font-size: 0.88rem;
+        }
+        .deliverable-row .val {
+            flex-shrink: 0;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-align: right;
+        }
+        .premium .deliverable-row .icon { color: var(--success); }
+        .premium .deliverable-row .name { color: var(--text); }
+        .premium .deliverable-row .val { color: var(--teal); }
+
+        .partial .included .icon { color: var(--success); }
+        .partial .included .name { color: var(--text); }
+        .partial .included .val { color: var(--muted); }
+
+        .partial .excluded .icon { color: var(--critical); opacity: 0.5; }
+        .partial .excluded .name { color: var(--muted); opacity: 0.45; text-decoration: line-through; }
+        .partial .excluded .val { color: var(--muted); opacity: 0.35; text-decoration: line-through; }
+
+        /* Star deliverable */
+        .star-row {
+            background: var(--teal-glow);
+            border: 1px solid rgba(46,139,139,0.3);
+            border-radius: 10px;
+            padding: 0.85rem 1rem !important;
+            margin: 0.35rem 0;
+        }
+        .star-row .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .star-row .val {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--teal) !important;
+        }
+        .star-badge {
+            display: inline-block;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: var(--teal);
+            color: var(--bg);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        /* Total line */
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0 0.5rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--border);
+        }
+        .total-row .label {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .total-row .amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .premium .total-row .label { color: var(--text); }
+        .premium .total-row .amount { color: var(--teal); }
+        .partial .total-row .label { color: var(--muted); }
+        .partial .total-row .amount { color: var(--muted); }
+
+        .package-tagline {
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+        .premium .package-tagline {
+            color: var(--teal);
+            background: var(--teal-glow);
+        }
+        .partial .package-tagline {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        /* ── Obligations ── */
+        .obligations-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 600px) {
+            .obligations-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .obligation-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+        .obligation-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .obligation-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .obligation-card li {
+            font-size: 0.85rem;
+            color: var(--muted);
+            padding: 0.35rem 0;
+            padding-left: 1.4rem;
+            position: relative;
+            line-height: 1.5;
+        }
+        .obligation-card li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        /* ── Terms ── */
+        .terms-list {
+            list-style: none;
+            padding: 0;
+        }
+        .terms-list li {
+            font-size: 0.85rem;
+            color: var(--muted);
+            padding: 0.5rem 0;
+            padding-left: 1.6rem;
+            position: relative;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(30,58,95,0.3);
+        }
+        .terms-list li:last-child { border-bottom: none; }
+        .terms-list li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-weight: 600;
+            font-size: 0.82rem;
+        }
+
+        /* ── Package Selection ── */
+        .selection-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .selection-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.15rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .radio-option:hover {
+            border-color: rgba(46,139,139,0.5);
+            background: rgba(46,139,139,0.03);
+        }
+        .radio-option.selected {
+            border-color: var(--teal);
+            background: var(--teal-glow);
+        }
+        .radio-circle {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            margin-top: 2px;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+        .radio-option.selected .radio-circle {
+            border-color: var(--teal);
+        }
+        .radio-option.selected .radio-circle::after {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px;
+            width: 10px; height: 10px;
+            background: var(--teal);
+            border-radius: 50%;
+        }
+        .radio-text strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+        .radio-text span {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        /* ── Signatures ── */
+        .sig-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        @media (min-width: 600px) {
+            .sig-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .sig-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        .sig-block h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 1.25rem;
+        }
+        .sig-line {
+            border-bottom: 1px solid var(--muted);
+            margin-bottom: 0.35rem;
+            height: 2.5rem;
+        }
+        .sig-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ── Footer ── */
+        .doc-footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .doc-footer p {
+            font-size: 0.75rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .doc-footer .ai-note {
+            margin-top: 0.75rem;
+            font-size: 0.68rem;
+            font-style: italic;
+            color: rgba(139,164,196,0.6);
+        }
+
+        /* ── Recommended tag ── */
+        .rec-tag {
+            position: absolute;
+            top: 0; right: 0;
+            background: var(--teal);
+            color: var(--bg);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.4rem 1.1rem;
+            border-radius: 0 12px 0 10px;
+        }
+
+        /* ── Print styles ── */
+        @media print {
+            :root {
+                --bg: #FFFFFF;
+                --card: #F8F9FB;
+                --border: #D1D9E6;
+                --text: #1A1A2E;
+                --muted: #5A6B82;
+                --teal-glow: rgba(46,139,139,0.06);
+            }
+            body {
+                background: #fff;
+                color: #1A1A2E;
+                font-size: 11pt;
+            }
+            .container { padding: 0; max-width: 100%; }
+            .doc-header { padding: 1.5rem 1rem; }
+            .package-card { break-inside: avoid; page-break-inside: avoid; }
+            .package-card.partial { opacity: 1; }
+            .sig-block { break-inside: avoid; }
+            .section { break-inside: avoid; }
+            .radio-option { cursor: default; }
+            .radio-option:hover { border-color: var(--border); background: transparent; }
+            .star-row { background: rgba(46,139,139,0.06); }
+            .doc-badge { border-color: var(--teal); }
+            .rec-tag { background: var(--teal); color: #fff; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ══════════ HEADER ══════════ -->
+    <header class="doc-header">
+        <div class="doc-badge">Trade Agreement</div>
+        <h1>Whitburn Coastal Flooring</h1>
+        <h2>Digital Uplift Package &mdash; Trade Agreement</h2>
+        <p class="doc-date">March 2026 &nbsp;|&nbsp; Prepared for the owner/operator of Whitburn Coastal Flooring</p>
+    </header>
+
+    <!-- ══════════ INTRODUCTION ══════════ -->
+    <div class="intro-card">
+        <p>This document sets out the terms of a <strong>professional trade arrangement</strong> between DMT Consulting and Whitburn Coastal Flooring. Two professionals, each experts in their field, exchanging expertise at full commercial value.</p>
+        <p>DMT Consulting provides a comprehensive digital consultancy and tooling package. Whitburn Coastal Flooring provides professional flooring services. No money changes hands between the parties &mdash; only skill for skill, trade for trade.</p>
+        <p>Two packages are offered below. The client selects one.</p>
+    </div>
+
+    <!-- ══════════ PACKAGE A ══════════ -->
+    <section class="section">
+        <h2 class="section-title"><span class="num">1.</span> Package Options</h2>
+
+        <div class="package-card premium">
+            <span class="rec-tag">Recommended</span>
+            <div class="package-label">&#9670; Package A</div>
+            <h3>Premium Trade</h3>
+            <p class="package-subtitle">Full package &mdash; the complete digital transformation</p>
+
+            <div class="exchange-block">
+                <div class="exchange-label">What You Provide</div>
+                <p>Kitchen and sitting room flooring &mdash; supply, fit, underlay, and finishing &mdash; complete. Zero cost to DMT Consulting.</p>
+            </div>
+
+            <div class="exchange-block">
+                <div class="exchange-label">What You Receive</div>
+                <p>The full Digital Uplift Package at commercial quality, as detailed below.</p>
+                <div class="value-badge">Market Value: &pound;7,000+</div>
+            </div>
+
+            <div class="deliverables-heading">Deliverables Included</div>
+
+            <div class="deliverable-row">
+                <span class="icon">&#10003;</span>
+                <span class="name">Social Media Audit &amp; Strategy</span>
+                <span class="val">&pound;600</span>
+            </div>
+            <div class="deliverable-row">
+                <span class="icon">&#10003;</span>
+                <span class="name">Google Business Profile &amp; Website Strategy</span>
+                <span class="val">&pound;400</span>
+            </div>
+            <div class="deliverable-row">
+                <span class="icon">&#10003;</span>
+                <span class="name">Brand Audit &amp; Strategy</span>
+                <span class="val">&pound;500</span>
+            </div>
+            <div class="deliverable-row">
+                <span class="icon">&#10003;</span>
+                <span class="name">Revenue Opportunities Review</span>
+                <span class="val">&pound;600</span>
+            </div>
+
+            <div class="deliverable-row star-row">
+                <span class="icon">&#9733;</span>
+                <span class="name">Bespoke Flooring Business Manager App <span class="star-badge">Star Deliverable</span></span>
+                <span class="val">&pound;2,000</span>
+            </div>
+
+            <div class="deliverable-row">
+                <span class="icon">&#10003;</span>
+                <span class="name">App Training Guide &amp; Data Security</span>
+                <span class="val">Included</span>
+            </div>
+            <div class="deliverable-row">
+                <span class="icon">&#10003;</span>
+                <span class="name">All ready-made assets, templates &amp; copy-paste content</span>
+                <span class="val">Included</span>
+            </div>
+
+            <div class="total-row">
+                <span class="label">Total Market Value</span>
+                <span class="amount">&pound;7,000+</span>
+            </div>
+
+            <div class="package-tagline">Full commercial quality. Zero cost to you.</div>
+        </div>
+
+        <!-- ══════════ PACKAGE B ══════════ -->
+        <div class="package-card partial">
+            <div class="package-label">&#9671; Package B</div>
+            <h3>Partial Trade</h3>
+            <p class="package-subtitle">Core audits only &mdash; a solid foundation</p>
+
+            <div class="exchange-block">
+                <div class="exchange-label">What You Provide</div>
+                <p>Flooring materials at trade cost only. DMT Consulting pays for materials; Whitburn Coastal Flooring supplies only &mdash; no fitting labour required.</p>
+            </div>
+
+            <div class="exchange-block">
+                <div class="exchange-label">What You Receive</div>
+                <p>The core audit package as detailed below.</p>
+                <div class="value-badge">Market Value: &pound;1,500</div>
+            </div>
+
+            <div class="deliverables-heading">Deliverables</div>
+
+            <div class="deliverable-row included">
+                <span class="icon">&#10003;</span>
+                <span class="name">Social Media Audit &amp; Strategy</span>
+                <span class="val">&pound;600</span>
+            </div>
+            <div class="deliverable-row included">
+                <span class="icon">&#10003;</span>
+                <span class="name">Google Business Profile &amp; Website Strategy</span>
+                <span class="val">&pound;400</span>
+            </div>
+            <div class="deliverable-row included">
+                <span class="icon">&#10003;</span>
+                <span class="name">Brand Audit &amp; Strategy</span>
+                <span class="val">&pound;500</span>
+            </div>
+
+            <div class="deliverable-row excluded">
+                <span class="icon">&#10007;</span>
+                <span class="name">Revenue Opportunities Review</span>
+                <span class="val">&pound;600</span>
+            </div>
+            <div class="deliverable-row excluded">
+                <span class="icon">&#10007;</span>
+                <span class="name">Bespoke Flooring Business Manager App</span>
+                <span class="val">&pound;2,000</span>
+            </div>
+            <div class="deliverable-row excluded">
+                <span class="icon">&#10007;</span>
+                <span class="name">App Training Guide &amp; Data Security</span>
+                <span class="val">N/A</span>
+            </div>
+            <div class="deliverable-row excluded">
+                <span class="icon">&#10007;</span>
+                <span class="name">Ready-made assets, templates &amp; copy-paste content</span>
+                <span class="val">N/A</span>
+            </div>
+
+            <div class="total-row">
+                <span class="label">Total Market Value</span>
+                <span class="amount">&pound;1,500</span>
+            </div>
+
+            <div class="package-tagline">Good foundation. But the tools that transform your business are not included.</div>
+        </div>
+    </section>
+
+    <!-- ══════════ MUTUAL OBLIGATIONS ══════════ -->
+    <section class="section">
+        <h2 class="section-title"><span class="num">2.</span> Mutual Obligations</h2>
+
+        <div class="obligations-grid">
+            <div class="obligation-card">
+                <h4>DMT Consulting Delivers</h4>
+                <ul>
+                    <li>All specified deliverables for the selected package, built to full commercial quality</li>
+                    <li>Each deliverable as a self-contained, mobile-responsive HTML document viewable on any device</li>
+                    <li>Bespoke Progressive Web App (Package A only) with offline capability and full training guide</li>
+                    <li>All ready-made assets, templates, and copy-paste content included within each deliverable</li>
+                    <li>Reasonable post-delivery support for questions about the package contents</li>
+                </ul>
+            </div>
+
+            <div class="obligation-card">
+                <h4>Client Provides (Package A)</h4>
+                <ul>
+                    <li>Kitchen and sitting room flooring &mdash; supply, fit, underlay, finishing strips, and all associated materials</li>
+                    <li>Professional standard installation completed to an agreed timeline</li>
+                    <li>Permission for DMT Consulting to use the engagement as a testimonial and anonymised case study</li>
+                </ul>
+            </div>
+
+            <div class="obligation-card">
+                <h4>Client Provides (Package B)</h4>
+                <ul>
+                    <li>Flooring materials supplied at trade cost &mdash; DMT Consulting pays for all materials</li>
+                    <li>No fitting labour is required from the client under this package</li>
+                    <li>Permission for DMT Consulting to use the engagement as a testimonial</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ TERMS ══════════ -->
+    <section class="section">
+        <h2 class="section-title"><span class="num">3.</span> Terms</h2>
+        <ol class="terms-list">
+            <li data-num="1.">This is a <strong>trade arrangement</strong> between two professionals &mdash; not a subscription, retainer, or ongoing service contract.</li>
+            <li data-num="2.">There are <strong>no ongoing costs</strong> to either party beyond the obligations stated above.</li>
+            <li data-num="3.">All deliverables become the <strong>permanent property</strong> of Whitburn Coastal Flooring upon delivery. No licence fees, no expiry, no recurring charges.</li>
+            <li data-num="4.">The bespoke app (Package A) stores all data locally on the client's device. DMT Consulting has no access to business data entered into the app.</li>
+            <li data-num="5.">Both parties agree to complete their respective obligations within a <strong>mutually agreed timeframe</strong>, to be confirmed at the point of signing.</li>
+            <li data-num="6.">Either party may withdraw from the arrangement prior to commencement of work by the other party, with written notice.</li>
+            <li data-num="7.">This agreement is specific to Whitburn Coastal Flooring and is based on an assessment conducted in March 2026.</li>
+        </ol>
+    </section>
+
+    <!-- ══════════ PACKAGE SELECTION ══════════ -->
+    <section class="section">
+        <div class="selection-section">
+            <h3>Select Your Package</h3>
+
+            <div class="radio-option" onclick="selectPackage(this, 'A')" role="button" tabindex="0" aria-label="Select Package A - Premium Trade">
+                <div class="radio-circle"></div>
+                <div class="radio-text">
+                    <strong>Package A &mdash; Premium Trade</strong>
+                    <span>Full Digital Uplift Package (value &pound;7,000+) in exchange for kitchen &amp; sitting room flooring, supply and fit complete</span>
+                </div>
+            </div>
+
+            <div class="radio-option" onclick="selectPackage(this, 'B')" role="button" tabindex="0" aria-label="Select Package B - Partial Trade">
+                <div class="radio-circle"></div>
+                <div class="radio-text">
+                    <strong>Package B &mdash; Partial Trade</strong>
+                    <span>Core audit package (value &pound;1,500) in exchange for materials supplied at trade cost</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ SIGNATURES ══════════ -->
+    <section class="section">
+        <h2 class="section-title"><span class="num">4.</span> Signatures</h2>
+
+        <div class="sig-grid">
+            <div class="sig-block">
+                <h4>On Behalf of DMT Consulting</h4>
+                <div class="sig-line"></div>
+                <p class="sig-label">Signature</p>
+                <div class="sig-line"></div>
+                <p class="sig-label">Print Name</p>
+                <div class="sig-line"></div>
+                <p class="sig-label">Date</p>
+            </div>
+
+            <div class="sig-block">
+                <h4>On Behalf of Whitburn Coastal Flooring</h4>
+                <div class="sig-line"></div>
+                <p class="sig-label">Signature</p>
+                <div class="sig-line"></div>
+                <p class="sig-label">Print Name</p>
+                <div class="sig-line"></div>
+                <p class="sig-label">Date</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ FINANCIAL & LEGAL ══════════ -->
+    <section class="section" style="margin-top: 3rem;">
+        <h2 class="section-title">How This Works — Financial & Legal</h2>
+        <p style="color: var(--muted); margin-bottom: 1.5rem;">This is a straightforward trade between two professionals. Here's how both parties handle it cleanly.</p>
+
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--teal); margin-bottom: 1rem;">The Trade Structure</h3>
+            <div style="display: grid; gap: 0.75rem;">
+                <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                    <span style="color: var(--teal); font-weight: 600; min-width: 20px;">1.</span>
+                    <p style="font-size: 0.9rem;">Both parties invoice each other at the <strong>agreed trade value</strong> — which is the cost of materials at trade price. Each party absorbs their own labour costs as their contribution to the arrangement.</p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                    <span style="color: var(--teal); font-weight: 600; min-width: 20px;">2.</span>
+                    <p style="font-size: 0.9rem;">Invoices are set at <strong>matching values</strong> and contra each other. No cash changes hands.</p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                    <span style="color: var(--teal); font-weight: 600; min-width: 20px;">3.</span>
+                    <p style="font-size: 0.9rem;">Both parties declare the trade income on their respective tax returns and claim the contra invoice as a business expense.</p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                    <span style="color: var(--teal); font-weight: 600; min-width: 20px;">4.</span>
+                    <p style="font-size: 0.9rem;">Both parties retain invoices and this agreement for <strong>6 years</strong> as required by HMRC.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--sand); margin-bottom: 0.75rem;">VAT Status Declaration</h4>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--teal);">
+                        <span>DMT Consulting is <strong>not</strong> VAT-registered</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--teal);">
+                        <span>Whitburn Coastal Flooring is / is not VAT-registered <em>(confirm)</em></span>
+                    </label>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--muted); margin-top: 0.75rem;">If either party is VAT-registered, VAT must be charged on their invoice. The agreed trade value should be set inclusive of any VAT to ensure no additional cash is required.</p>
+            </div>
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--sand); margin-bottom: 0.75rem;">Tax Reporting</h4>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem;">
+                    <p><strong>DMT:</strong> Declares trade income on Self Assessment (SA103). Claims flooring invoice as business expense.</p>
+                    <p><strong>Whitburn Coastal:</strong> Declares trade income in business accounts. Claims DMT invoice as marketing/consultancy expense.</p>
+                    <p style="color: var(--muted); font-size: 0.8rem; margin-top: 0.25rem;">Each party is solely responsible for their own tax affairs. Neither party provides tax advice to the other.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: var(--card); border: 1px solid var(--teal); border-radius: 12px; padding: 1.25rem;">
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--teal); margin-bottom: 0.5rem;">Important Notes</h4>
+            <ul style="font-size: 0.85rem; color: var(--muted); list-style: none; display: flex; flex-direction: column; gap: 0.4rem;">
+                <li>→ This is a barter/trade arrangement as recognised by HMRC. Both supplies are taxable trading income.</li>
+                <li>→ The agreed trade value represents materials at trade price. Both parties contribute their professional labour at no additional charge.</li>
+                <li>→ We recommend both parties consult their own accountant before signing to confirm the arrangement suits their individual tax position.</li>
+                <li>→ This agreement does not constitute financial or tax advice.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ══════════ FOOTER ══════════ -->
+    <footer class="doc-footer">
+        <p>Prepared by DMT Consulting &nbsp;|&nbsp; Trade Arrangement &nbsp;|&nbsp; March 2026</p>
+        <p class="ai-note">This document was made partially with Claude AI. While we have reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+    </footer>
+
+</div>
+
+<script>
+function selectPackage(el, pkg) {
+    document.querySelectorAll('.radio-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+    });
+    el.classList.add('selected');
+}
+
+// Keyboard support for radio options
+document.querySelectorAll('.radio-option').forEach(function(opt) {
+    opt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            opt.click();
+        }
+    });
+});
+</script>
+
+</body>
+</html>

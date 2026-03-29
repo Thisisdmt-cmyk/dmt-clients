@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Training Guide | Whitburn Coastal Flooring</title>
+    <meta name="description" content="Interactive training guide for the Flooring Business Manager app — Whitburn Coastal Flooring">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0A1628;
+            --card: #111D2E;
+            --border: #1E3A5F;
+            --accent: #2E8B8B;
+            --accent-light: #3AA8A8;
+            --sandy: #C4956A;
+            --sandy-light: #D4A87A;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --critical: #EF4444;
+            --text: #E8EDF3;
+            --muted: #8BA4C4;
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0D1F35 0%, #132A45 50%, #0A1628 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 1rem 1rem;
+            text-align: center;
+        }
+        .header-badge {
+            display: inline-block;
+            background: rgba(46,139,139,0.15);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            padding: 0.25rem 0.85rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .header h1 {
+            font-family: var(--font-heading);
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+        .header p {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        /* Tab Bar */
+        .tab-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            display: flex;
+        }
+        .tab-bar::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            flex: 0 0 auto;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.7rem 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            min-width: 70px;
+        }
+        .tab-btn .tab-icon { font-size: 1.1rem; }
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active {
+            color: var(--accent-light);
+            border-bottom-color: var(--accent);
+            background: rgba(46,139,139,0.08);
+        }
+
+        /* Tab Content */
+        .tab-content { display: none; padding: 1.25rem 1rem 5rem; max-width: 680px; margin: 0 auto; }
+        .tab-content.active { display: block; }
+
+        /* Section Headings */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            color: var(--muted);
+            font-size: 0.88rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.15rem;
+            margin-bottom: 1rem;
+        }
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .card p, .card li {
+            color: var(--muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Overview Cards (5-column grid) */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .overview-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 0.75rem;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .overview-card:hover { border-color: var(--accent); }
+        .overview-card .oc-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+        .overview-card .oc-name {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+        .overview-card .oc-desc {
+            font-size: 0.72rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        /* Collapsible */
+        .collapsible {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 1rem;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .collapsible-header:hover { background: rgba(46,139,139,0.06); }
+        .collapsible-header h3 {
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .collapsible-arrow {
+            color: var(--muted);
+            font-size: 0.75rem;
+            transition: transform 0.25s;
+        }
+        .collapsible.open .collapsible-arrow { transform: rotate(180deg); }
+        .collapsible-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .collapsible.open .collapsible-body { max-height: 2000px; }
+        .collapsible-inner {
+            padding: 0 1rem 1rem;
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* Checklist */
+        .checklist { list-style: none; }
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(30,58,95,0.5);
+            font-size: 0.85rem;
+            color: var(--muted);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .checklist li .check-box {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            transition: all 0.2s;
+            margin-top: 1px;
+        }
+        .checklist li.checked .check-box {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .checklist li.checked { color: var(--accent-light); text-decoration: line-through; opacity: 0.7; }
+
+        /* Pro Tips */
+        .pro-tip {
+            background: rgba(196,149,106,0.08);
+            border-left: 3px solid var(--sandy);
+            border-radius: 0 10px 10px 0;
+            padding: 0.9rem 1rem;
+            margin: 1rem 0;
+        }
+        .pro-tip-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--sandy);
+            margin-bottom: 0.3rem;
+        }
+        .pro-tip p {
+            font-size: 0.84rem;
+            color: var(--sandy-light);
+            line-height: 1.55;
+            font-style: italic;
+        }
+
+        /* Step List */
+        .step-list { list-style: none; counter-reset: steps; }
+        .step-list li {
+            counter-increment: steps;
+            padding: 0.75rem 0 0.75rem 2.5rem;
+            position: relative;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(30,58,95,0.3);
+        }
+        .step-list li:last-child { border-bottom: none; }
+        .step-list li::before {
+            content: counter(steps);
+            position: absolute;
+            left: 0;
+            top: 0.7rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .step-list li strong { color: var(--text); }
+
+        /* Status Flow */
+        .status-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            align-items: center;
+            margin: 0.75rem 0;
+        }
+        .status-pill {
+            background: rgba(46,139,139,0.15);
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            white-space: nowrap;
+        }
+        .status-arrow { color: var(--muted); font-size: 0.75rem; }
+
+        /* Example Box */
+        .example-box {
+            background: rgba(46,139,139,0.06);
+            border: 1px solid rgba(46,139,139,0.25);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .example-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-light);
+            margin-bottom: 0.4rem;
+        }
+        .example-box p, .example-box li {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* Note Box */
+        .note-box {
+            background: rgba(16,185,129,0.06);
+            border: 1px solid rgba(16,185,129,0.25);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.84rem;
+            color: var(--success);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .note-box .note-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(239,68,68,0.06);
+            border: 1px solid rgba(239,68,68,0.25);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.84rem;
+            color: #F87171;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .warning-box .note-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+        /* Info highlight */
+        .info-highlight {
+            background: rgba(46,139,139,0.1);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+            font-size: 0.84rem;
+            color: var(--accent-light);
+        }
+
+        /* Field Explainer */
+        .field-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.75rem 0;
+        }
+        .field-table th {
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.5rem 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .field-table td {
+            font-size: 0.82rem;
+            color: var(--muted);
+            padding: 0.55rem 0.5rem;
+            border-bottom: 1px solid rgba(30,58,95,0.3);
+            vertical-align: top;
+        }
+        .field-table td:first-child {
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            width: 30%;
+        }
+
+        /* Copy Button */
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(46,139,139,0.15);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            padding: 0.4rem 0.85rem;
+            color: var(--accent-light);
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: rgba(46,139,139,0.25); }
+        .copy-btn.copied { background: var(--success); border-color: var(--success); color: #fff; }
+
+        /* Privacy Notice Box */
+        .privacy-text {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin: 0.75rem 0;
+            position: relative;
+        }
+        .privacy-text .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+
+        /* Checklist Progress */
+        .progress-bar-wrap {
+            background: rgba(30,58,95,0.5);
+            border-radius: 8px;
+            height: 8px;
+            margin: 0.5rem 0 1rem;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            border-radius: 8px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        .progress-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 1.5rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1.5rem 1rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .footer-ai {
+            font-size: 0.72rem;
+            color: var(--muted);
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer-brand {
+            font-size: 0.75rem;
+            color: var(--muted);
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            .header h1 { font-size: 1.85rem; }
+            .tab-btn { padding: 0.8rem 1.1rem; font-size: 0.78rem; min-width: 85px; }
+            .tab-content { padding: 1.5rem 1.5rem 5rem; }
+        }
+
+        /* Print */
+        @media print {
+            body { background: #fff; color: #111; }
+            .tab-bar { display: none; }
+            .tab-content { display: block !important; padding: 1rem 0; page-break-inside: avoid; }
+            .tab-content::before {
+                content: attr(data-print-title);
+                display: block;
+                font-family: var(--font-heading);
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: #111;
+                border-bottom: 2px solid #2E8B8B;
+                padding-bottom: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            .header { background: none; border-bottom: 2px solid #2E8B8B; }
+            .header h1 { color: #111; }
+            .header-badge { color: #2E8B8B; border-color: #2E8B8B; }
+            .card, .collapsible { background: #f9f9f9; border-color: #ddd; }
+            .card-title, .collapsible-header h3 { color: #111; }
+            .card p, .card li, .collapsible-inner, .field-table td { color: #333; }
+            .field-table td:first-child { color: #111; }
+            .pro-tip { background: #fef9f3; border-left-color: #C4956A; }
+            .pro-tip p, .pro-tip-label { color: #8B6B3D; }
+            .note-box { background: #f0fdf4; border-color: #10B981; color: #065F46; }
+            .example-box { background: #f0fdfb; border-color: #2E8B8B; }
+            .example-label, .example-box p { color: #1a5a5a; }
+            .status-pill { background: #e8f5f5; color: #1a5a5a; }
+            .collapsible-body { max-height: none !important; }
+            .section-title { color: #111; }
+            .section-subtitle, .progress-label { color: #555; }
+            .footer { border-top-color: #ddd; }
+            .footer-ai, .footer-brand { color: #666; }
+            .privacy-text { background: #f9f9f9; border-color: #ddd; color: #333; }
+            .warning-box { background: #fef2f2; color: #991B1B; border-color: #EF4444; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-badge">Training Guide</div>
+    <h1>Flooring Business Manager</h1>
+    <p>Your complete guide to using the app — tap a tab to begin</p>
+</div>
+
+<!-- Tab Bar -->
+<nav class="tab-bar" id="tabBar">
+    <button class="tab-btn active" data-tab="getting-started"><span class="tab-icon">&#127968;</span>Getting Started</button>
+    <button class="tab-btn" data-tab="customers"><span class="tab-icon">&#128101;</span>Customers</button>
+    <button class="tab-btn" data-tab="quotes"><span class="tab-icon">&#128196;</span>Quotes</button>
+    <button class="tab-btn" data-tab="jobs"><span class="tab-icon">&#128295;</span>Jobs</button>
+    <button class="tab-btn" data-tab="reviews"><span class="tab-icon">&#11088;</span>Reviews</button>
+    <button class="tab-btn" data-tab="settings"><span class="tab-icon">&#9881;</span>Settings</button>
+    <button class="tab-btn" data-tab="data-privacy"><span class="tab-icon">&#128274;</span>Data &amp; Privacy</button>
+</nav>
+
+<!-- ===================== TAB 1: GETTING STARTED ===================== -->
+<div class="tab-content active" id="getting-started" data-print-title="1. Getting Started">
+
+    <h2 class="section-title">Welcome to Your App</h2>
+    <p class="section-subtitle">The Flooring Business Manager is a bespoke app built specifically for Whitburn Coastal Flooring. It handles your customers, quotes, jobs, reviews, and business settings &mdash; all from your phone. No login. No subscription. It's yours.</p>
+
+    <div class="note-box">
+        <span class="note-icon">&#9989;</span>
+        <span>Your app is pre-loaded with your business details &mdash; your name, phone number, address, and default pricing are already set up and ready to use.</span>
+    </div>
+
+    <!-- Install Instructions -->
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#127822; Install on iPhone (Safari)</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <ol class="step-list">
+                    <li>Open the app link in <strong>Safari</strong> (not Chrome or another browser)</li>
+                    <li>Tap the <strong>Share</strong> button at the bottom of the screen (the square with an arrow pointing up)</li>
+                    <li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
+                    <li>Tap <strong>"Add"</strong> in the top-right corner</li>
+                    <li>The app icon now appears on your home screen &mdash; tap it to open like any other app</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#129302; Install on Android (Chrome)</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <ol class="step-list">
+                    <li>Open the app link in <strong>Chrome</strong></li>
+                    <li>Tap the <strong>three dots</strong> menu in the top-right corner</li>
+                    <li>Tap <strong>"Add to Home screen"</strong> (or <strong>"Install app"</strong> if shown)</li>
+                    <li>Tap <strong>"Add"</strong> to confirm</li>
+                    <li>The app icon now appears on your home screen &mdash; tap it to open</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 5 Overview Cards -->
+    <h3 class="card-title" style="margin-bottom:0.75rem;">What's Inside the App</h3>
+    <div class="overview-grid">
+        <div class="overview-card">
+            <span class="oc-icon">&#128101;</span>
+            <div class="oc-name">Customers</div>
+            <div class="oc-desc">Store every contact, call or WhatsApp with one tap</div>
+        </div>
+        <div class="overview-card">
+            <span class="oc-icon">&#128196;</span>
+            <div class="oc-name">Quotes</div>
+            <div class="oc-desc">Build room-by-room quotes and share via WhatsApp</div>
+        </div>
+        <div class="overview-card">
+            <span class="oc-icon">&#128295;</span>
+            <div class="oc-name">Jobs</div>
+            <div class="oc-desc">Track jobs from booking to payment</div>
+        </div>
+        <div class="overview-card">
+            <span class="oc-icon">&#11088;</span>
+            <div class="oc-name">Reviews</div>
+            <div class="oc-desc">Request Google reviews with one tap</div>
+        </div>
+        <div class="overview-card">
+            <span class="oc-icon">&#9881;</span>
+            <div class="oc-name">Settings</div>
+            <div class="oc-desc">Your pricing, templates, and business details</div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 5-Minute Setup Checklist -->
+    <h3 class="card-title">5-Minute Setup Checklist</h3>
+    <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.5rem;">Tap each item as you complete it. Most of these are already done for you.</p>
+    <div class="progress-label" id="setupProgress">0 of 5 complete</div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="setupBar"></div></div>
+    <ul class="checklist" id="setupChecklist">
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Add the app to your home screen (see instructions above)</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Open Settings and check your business name, phone, and address</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Review your default pricing per m&sup2; for each flooring type</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Paste your Google Review link into Settings (we'll show you how in the Settings tab)</li>
+        <li onclick="toggleCheck(this, 'setupChecklist')"><span class="check-box"></span> Add your first customer &mdash; try yourself as a test</li>
+    </ul>
+
+</div>
+
+<!-- ===================== TAB 2: CUSTOMERS ===================== -->
+<div class="tab-content" id="customers" data-print-title="2. Customers">
+
+    <h2 class="section-title">Managing Customers</h2>
+    <p class="section-subtitle">Every person who walks into your showroom, calls for a quote, or messages on Facebook is a potential customer. The app keeps them all in one place.</p>
+
+    <div class="card">
+        <div class="card-title">Adding a Customer</div>
+        <ol class="step-list">
+            <li>Tap the <strong>Customers</strong> tab at the bottom of the app</li>
+            <li>Tap the <strong>"+ Add Customer"</strong> button</li>
+            <li>Fill in the details (see field guide below)</li>
+            <li>Tap <strong>"Save Customer"</strong></li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Field-by-Field Guide</div>
+        <table class="field-table">
+            <tr><th>Field</th><th>What to enter</th></tr>
+            <tr><td>Name</td><td>Customer's full name. First and last, e.g. "Sarah Johnson"</td></tr>
+            <tr><td>Phone</td><td>Their mobile number. This powers the one-tap Call and WhatsApp buttons</td></tr>
+            <tr><td>Address</td><td>Full address including postcode. Useful for planning home visits and fitting schedules</td></tr>
+            <tr><td>Email</td><td>Optional but useful for follow-ups. If they don't offer one, leave it blank</td></tr>
+            <tr><td>Property Type</td><td>House, flat, bungalow, or commercial. Helps you remember the property when quoting</td></tr>
+            <tr><td>Notes</td><td>Anything useful &mdash; "Referred by Mrs Thompson", "Has a large dog", "Prefers carpet samples brought to home"</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Search, Edit, Call &amp; WhatsApp</div>
+        <p><strong>Search:</strong> Use the search bar at the top of the Customers list. Search by name, phone number, or address.</p>
+        <p style="margin-top:0.5rem;"><strong>Edit:</strong> Tap any customer to open their details, then tap <strong>"Edit"</strong> to update any field.</p>
+        <p style="margin-top:0.5rem;"><strong>Call:</strong> Tap the phone icon next to any customer &mdash; your phone dials them instantly.</p>
+        <p style="margin-top:0.5rem;"><strong>WhatsApp:</strong> Tap the WhatsApp icon to open a chat with that customer. The app uses their phone number to open WhatsApp directly.</p>
+    </div>
+
+    <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Add every customer &mdash; even enquiries that don't convert. They might come back in 6 months when they're ready. Having their details means you can follow up.</p>
+    </div>
+
+</div>
+
+<!-- ===================== TAB 3: QUOTES ===================== -->
+<div class="tab-content" id="quotes" data-print-title="3. Quotes">
+
+    <h2 class="section-title">Creating Quotes</h2>
+    <p class="section-subtitle">This is the heart of the app. Build professional, room-by-room quotes with automatic calculations, then share them via WhatsApp in seconds.</p>
+
+    <div class="card">
+        <div class="card-title">Full Quote Walkthrough</div>
+        <ol class="step-list">
+            <li><strong>Select a customer</strong> &mdash; go to the Quotes tab and tap "+ New Quote". Choose an existing customer or add a new one</li>
+            <li><strong>Add a room</strong> &mdash; tap "+ Add Room" and select the room name (Kitchen, Hallway, Bedroom 1, etc.)</li>
+            <li><strong>Enter dimensions</strong> &mdash; type the room length and width in metres. The app calculates the area automatically (with 10% wastage built in)</li>
+            <li><strong>Select flooring type and brand</strong> &mdash; choose from Carpet, LVT, Laminate, Vinyl, or Hardwood, then select the brand (Karndean, iSENSE, etc.)</li>
+            <li><strong>Check price per m&sup2;</strong> &mdash; the app auto-fills from your default pricing in Settings. You can override it for this quote if needed</li>
+            <li><strong>Add extras</strong> &mdash; tick any that apply: underlay, door bars, furniture moving, uplift of old flooring, subfloor prep, skirting removal, stair rods</li>
+            <li><strong>Add more rooms</strong> &mdash; tap "+ Add Room" again to quote for additional rooms on the same job</li>
+            <li><strong>Review the total</strong> &mdash; the app shows materials, fitting, extras, subtotal, VAT, and grand total</li>
+            <li><strong>Share via WhatsApp</strong> &mdash; tap "Share Quote" to send a clean, branded summary to the customer via WhatsApp</li>
+        </ol>
+    </div>
+
+    <!-- Example Scenario -->
+    <div class="example-box">
+        <div class="example-label">Worked Example</div>
+        <p><strong>Mrs Johnson wants Karndean Knight Tile in her kitchen (4m &times; 5m) and hallway (3m &times; 1.2m).</strong></p>
+        <p style="margin-top:0.75rem;"><strong>Room 1 &mdash; Kitchen:</strong></p>
+        <ul style="margin:0.35rem 0 0.5rem 1.2rem;list-style:disc;">
+            <li>Area: 4 &times; 5 = 20m&sup2;</li>
+            <li>With 10% wastage: 22m&sup2;</li>
+            <li>Karndean Knight Tile at &pound;35/m&sup2; = &pound;770 materials</li>
+            <li>Fitting at &pound;15/m&sup2; = &pound;330 fitting</li>
+            <li>Underlay: &pound;80 | Door bars: &pound;25</li>
+            <li><strong>Kitchen total: &pound;1,205</strong></li>
+        </ul>
+        <p><strong>Room 2 &mdash; Hallway:</strong></p>
+        <ul style="margin:0.35rem 0 0.5rem 1.2rem;list-style:disc;">
+            <li>Area: 3 &times; 1.2 = 3.6m&sup2;</li>
+            <li>With 10% wastage: 3.96m&sup2; (rounded to 4m&sup2;)</li>
+            <li>Karndean Knight Tile at &pound;35/m&sup2; = &pound;140 materials</li>
+            <li>Fitting at &pound;15/m&sup2; = &pound;60 fitting</li>
+            <li>Door bars: &pound;25</li>
+            <li><strong>Hallway total: &pound;225</strong></li>
+        </ul>
+        <p style="margin-top:0.5rem;font-weight:600;color:var(--text);"><strong>Quote Total: &pound;1,430 + VAT = &pound;1,716</strong></p>
+        <p style="margin-top:0.35rem;">The app does all of this automatically. You just type in the room sizes.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Quote Status Tracking</div>
+        <p>Every quote has a status. Tap the status badge on any quote to move it forward:</p>
+        <div class="status-flow">
+            <span class="status-pill">Draft</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Sent</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Accepted</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Booked</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Complete</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Paid</span>
+        </div>
+        <p style="margin-top:0.5rem;">This lets you see at a glance where every quote stands &mdash; how many are waiting for a response, how many are booked in, and what's been paid.</p>
+    </div>
+
+    <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Always share the quote within an hour of the home visit. Speed wins. The longer you wait, the more likely the customer gets a price from someone else first.</p>
+    </div>
+
+</div>
+
+<!-- ===================== TAB 4: JOBS ===================== -->
+<div class="tab-content" id="jobs" data-print-title="4. Jobs">
+
+    <h2 class="section-title">Tracking Jobs</h2>
+    <p class="section-subtitle">Once a quote is accepted and booked, it becomes a job. The Jobs tab tracks everything from scheduling through to payment.</p>
+
+    <div class="card">
+        <div class="card-title">How Jobs Link to Quotes</div>
+        <p>When you update a quote status to <strong>"Booked"</strong>, the app automatically creates a job entry. The job inherits all the details from the quote &mdash; customer, rooms, flooring types, and pricing. You don't need to re-enter anything.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Job Status Flow</div>
+        <p>Track every job through these stages:</p>
+        <div class="status-flow">
+            <span class="status-pill">Scheduled</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">In Progress</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Snagging</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Complete</span><span class="status-arrow">&#8594;</span>
+            <span class="status-pill">Paid</span>
+        </div>
+        <p style="margin-top:0.65rem;"><strong>Scheduled</strong> &mdash; fitting date is booked in<br>
+        <strong>In Progress</strong> &mdash; you're on-site, work is underway<br>
+        <strong>Snagging</strong> &mdash; main work done, minor finishing touches needed<br>
+        <strong>Complete</strong> &mdash; all work finished, customer happy<br>
+        <strong>Paid</strong> &mdash; payment received in full</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Revenue Tracking</div>
+        <p>The Jobs tab shows your revenue dashboard:</p>
+        <ul style="margin:0.5rem 0 0 1.2rem;list-style:disc;">
+            <li><strong>This week</strong> &mdash; total value of jobs completed this week</li>
+            <li><strong>This month</strong> &mdash; running monthly revenue total</li>
+            <li><strong>Outstanding</strong> &mdash; jobs marked Complete but not yet Paid</li>
+        </ul>
+        <p style="margin-top:0.5rem;">This gives you a real picture of your business performance without needing a spreadsheet.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Photo Reference Notes</div>
+        <p>Before every fitting, take photos on your phone camera: <strong>before</strong> (empty room), <strong>during</strong> (work in progress), and <strong>after</strong> (finished result).</p>
+        <p style="margin-top:0.5rem;">The photos stay in your phone's camera roll. In the app, log a note against the job saying which photos you've taken &mdash; e.g., "Before/during/after photos taken, kitchen Karndean install." This reminds you which jobs have good photos ready for social media.</p>
+    </div>
+
+    <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Log every job &mdash; even small ones. The revenue dashboard shows your real monthly performance. A &pound;300 hallway fitting is still &pound;300 towards your monthly total.</p>
+    </div>
+
+</div>
+
+<!-- ===================== TAB 5: REVIEWS ===================== -->
+<div class="tab-content" id="reviews" data-print-title="5. Reviews">
+
+    <h2 class="section-title">Getting Google Reviews</h2>
+    <p class="section-subtitle">Reviews are the single most powerful trust signal for a local business. This is where you close the gap.</p>
+
+    <div class="warning-box">
+        <span class="note-icon">&#9888;</span>
+        <span>New Image Carpets has 46 Google reviews at 4.9 stars. You currently have 0. This is the single biggest gap in your online presence &mdash; and the easiest one to fix.</span>
+    </div>
+
+    <div class="card">
+        <div class="card-title">How to Request a Review</div>
+        <ol class="step-list">
+            <li>Go to the <strong>Reviews</strong> tab in the app</li>
+            <li>Tap <strong>"Request Review"</strong> next to the customer's name</li>
+            <li>The app opens WhatsApp with a <strong>pre-written message</strong> and your <strong>Google review link</strong> already included</li>
+            <li>Tap <strong>Send</strong> in WhatsApp &mdash; that's it</li>
+        </ol>
+        <p style="margin-top:0.5rem;color:var(--muted);font-size:0.84rem;">The message is friendly, personal, and makes it easy for the customer. They just tap the link and leave a review.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">When to Ask</div>
+        <p>The best moment to ask for a review is right after the customer says something like <strong>"I love it"</strong> or <strong>"It looks amazing"</strong>. That's the peak of their happiness with the work.</p>
+        <p style="margin-top:0.5rem;">Don't wait until the next day. Don't wait until you send the invoice. Ask in the moment, then send the WhatsApp link while you're still standing in their hallway.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Monthly Target</div>
+        <div class="info-highlight">
+            <strong>Target: 4 reviews per month</strong><br>
+            The app shows a progress bar for each month so you can see how you're tracking.
+        </div>
+        <p style="margin-top:0.5rem;">Not every customer will leave one. If you ask 6 customers a month, you'll likely get 4 reviews. Some months more, some less &mdash; the key is asking consistently.</p>
+    </div>
+
+    <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>3 reviews a month for a year = 36 reviews. That puts you ahead of every independent flooring retailer in the area. Two years of this and you're untouchable on Google.</p>
+    </div>
+
+</div>
+
+<!-- ===================== TAB 6: SETTINGS ===================== -->
+<div class="tab-content" id="settings" data-print-title="6. Settings">
+
+    <h2 class="section-title">App Settings</h2>
+    <p class="section-subtitle">Settings is where you control your business details, pricing, message templates, and backup. Most of this is already set up for you.</p>
+
+    <div class="card">
+        <div class="card-title">Business Details</div>
+        <p>Your business name, phone number, email, and address are pre-filled. If anything changes (new phone number, updated hours), edit it here. These details appear on your shared quotes.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Default Pricing (Price per m&sup2;)</div>
+        <p>The app uses <strong>price per square metre</strong> to calculate quote totals. This means:</p>
+        <ul style="margin:0.5rem 0 0.5rem 1.2rem;list-style:disc;">
+            <li><strong>Material cost</strong> &mdash; what you charge per m&sup2; for each flooring type (e.g., &pound;35/m&sup2; for Karndean Knight Tile)</li>
+            <li><strong>Fitting cost</strong> &mdash; your fitting rate per m&sup2; (e.g., &pound;15/m&sup2;)</li>
+            <li><strong>Extras</strong> &mdash; fixed prices for underlay, door bars, furniture moving, etc.</li>
+        </ul>
+        <p style="margin-top:0.5rem;">Set your standard rates here and they auto-fill every new quote. You can always override them on individual quotes for specific brands or products.</p>
+    </div>
+
+    <!-- Google Review Link -->
+    <div class="collapsible open">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+            <h3>&#127279; How to Find Your Google Review Link</h3>
+            <span class="collapsible-arrow">&#9660;</span>
+        </div>
+        <div class="collapsible-body">
+            <div class="collapsible-inner">
+                <p style="margin-bottom:0.75rem;">This is the link that customers tap to leave you a Google review. Here's how to find it:</p>
+                <ol class="step-list">
+                    <li>On your phone, open <strong>Google</strong> and search for <strong>"Whitburn Coastal Flooring"</strong></li>
+                    <li>Find your <strong>Google Business Profile</strong> (the info card that appears with your address, hours, and photos)</li>
+                    <li>If you can't find it, you may need to <strong>claim your profile</strong> first at <strong>business.google.com</strong></li>
+                    <li>Once you're managing your profile, go to <strong>Home &gt; "Get more reviews"</strong></li>
+                    <li>Google gives you a <strong>short link</strong> &mdash; copy it</li>
+                    <li>Open your app, go to <strong>Settings</strong>, and paste it into the <strong>"Google Review Link"</strong> field</li>
+                    <li>Save &mdash; now every review request will include this link automatically</li>
+                </ol>
+                <p style="margin-top:0.75rem;">If you're having trouble, the Google Business Profile &amp; Website Strategy document (02) has a full step-by-step guide with screenshots.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Message Templates</div>
+        <p>The app uses templates for WhatsApp messages (review requests, quote sharing). You can edit these in Settings.</p>
+        <p style="margin-top:0.5rem;">Templates support the <strong>{{customer_name}}</strong> variable &mdash; wherever you put this in the message, the app replaces it with the actual customer's name when sending.</p>
+        <div class="example-box" style="margin-top:0.75rem;">
+            <div class="example-label">Template Example</div>
+            <p>"Hi {{customer_name}}, thanks for choosing Whitburn Coastal Flooring! If you're happy with the work, we'd really appreciate a quick Google review &mdash; it helps us a lot."</p>
+            <p style="margin-top:0.35rem;">Becomes: "Hi Sarah, thanks for choosing Whitburn Coastal Flooring! If you're happy with the work, we'd really appreciate a quick Google review &mdash; it helps us a lot."</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Backup &amp; Restore</div>
+        <p>All your data is stored on your phone. If you lose your phone or clear your browser data, the data is gone. That's why backup matters.</p>
+        <ol class="step-list">
+            <li><strong>Backup:</strong> Go to Settings, tap <strong>"Backup Data"</strong>. This saves a file to your phone that contains all your customers, quotes, jobs, and settings</li>
+            <li><strong>Restore:</strong> If you ever need to restore, tap <strong>"Restore Data"</strong> and select your backup file</li>
+        </ol>
+        <div class="info-highlight" style="margin-top:0.75rem;">
+            <strong>Do this weekly.</strong> One tap. Peace of mind. Set a reminder on your phone for every Friday afternoon.
+        </div>
+    </div>
+
+</div>
+
+<!-- ===================== TAB 7: DATA & PRIVACY ===================== -->
+<div class="tab-content" id="data-privacy" data-print-title="7. Data & Privacy">
+
+    <h2 class="section-title">Data &amp; Privacy</h2>
+    <p class="section-subtitle">A plain-English guide to keeping customer data safe and staying on the right side of UK law. This is simpler than you think.</p>
+
+    <div class="card">
+        <div class="card-title">What This Means for You</div>
+        <p>You're storing customer names, phone numbers, and addresses in this app. Under UK law (UK GDPR and the Data Protection Act 2018), that makes you a <strong>data controller</strong>.</p>
+        <p style="margin-top:0.5rem;">That sounds more serious than it is. It simply means you have a legal responsibility to look after that information properly. Here are the 4 things you need to do:</p>
+    </div>
+
+    <!-- 4 Things -->
+    <div class="card" style="border-left:3px solid var(--accent);">
+        <div class="card-title">1. Register with the ICO (&pound;40/year)</div>
+        <p>The Information Commissioner's Office (ICO) is the UK's data privacy regulator. Almost every business that holds customer data needs to register. It costs <strong>&pound;40 per year</strong> and takes about <strong>10 minutes</strong> online.</p>
+        <ol class="step-list" style="margin-top:0.75rem;">
+            <li>Go to <strong>ico.org.uk/registration</strong></li>
+            <li>Click <strong>"Register as a data controller"</strong></li>
+            <li>Answer the questions about your business (sole trader, number of staff, what data you hold)</li>
+            <li>Pay &pound;40 by card</li>
+            <li>You'll get a <strong>registration number</strong> &mdash; keep this somewhere safe</li>
+        </ol>
+        <p style="margin-top:0.5rem;font-size:0.82rem;">Link: <strong>https://ico.org.uk/for-organisations/sme-web-hub/</strong></p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent);">
+        <div class="card-title">2. Tell Customers You Store Their Data</div>
+        <p>When you take a customer's details, let them know you'll store their name, phone number, and address to manage their quote and fitting. You don't need a printed form for this &mdash; <strong>verbal is fine for now</strong>.</p>
+        <p style="margin-top:0.5rem;">Something like: "I'll save your details in our system so I can manage your quote and stay in touch. We don't share your information with anyone."</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent);">
+        <div class="card-title">3. Keep Your Phone Locked</div>
+        <p>Your customer data lives on your phone. A passcode or fingerprint lock is the single most important security measure you can take. If your phone is unlocked and it gets lost, anyone could access your customer details.</p>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent);">
+        <div class="card-title">4. Back Up Your Data Regularly</div>
+        <p>If your phone breaks, gets stolen, or the data gets wiped, you need a backup. Use the app's Backup feature weekly (see the Settings tab). Store the backup file in a safe place &mdash; email it to yourself or save it to cloud storage.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Security Checklist -->
+    <h3 class="card-title">Security Checklist</h3>
+    <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.5rem;">Tap each item once you've done it. Aim for all 8.</p>
+    <div class="progress-label" id="securityProgress">0 of 8 complete</div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="securityBar"></div></div>
+    <ul class="checklist" id="securityChecklist">
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Phone has a passcode or fingerprint/face lock enabled</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Phone auto-locks after 1&ndash;2 minutes of inactivity</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Registered with the ICO (or registration in progress)</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> App data backed up at least once</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Backup file stored somewhere safe (email or cloud)</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Weekly backup reminder set on phone</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Verbal privacy notice given to customers when collecting details</li>
+        <li onclick="toggleCheck(this, 'securityChecklist')"><span class="check-box"></span> Old customer data reviewed &mdash; delete anyone you no longer need</li>
+    </ul>
+
+    <hr class="divider">
+
+    <!-- Ready-to-Use Privacy Notice -->
+    <h3 class="card-title">Ready-to-Use Privacy Notice</h3>
+    <p style="font-size:0.84rem;color:var(--muted);margin-bottom:0.75rem;">If you ever need a written privacy notice (for your showroom wall, a quote footer, or your future website), here's one you can use. Tap "Copy" to copy it to your clipboard.</p>
+
+    <div class="privacy-text" id="privacyNotice">
+        <button class="copy-btn" onclick="copyPrivacy()">&#128203; Copy</button>
+        <strong>Whitburn Coastal Flooring &mdash; Customer Privacy Notice</strong><br><br>
+We collect your name, phone number, email address, and property address to provide you with flooring quotes, manage fitting appointments, and stay in touch about your order.<br><br>
+We do not share your personal information with any third parties. Your data is stored securely on our business devices and is only accessed by Whitburn Coastal Flooring staff.<br><br>
+You can ask us to update or delete your information at any time by calling us on 0191 529 5905 or emailing whitburncoastalflooring@outlook.com.<br><br>
+We are registered with the Information Commissioner's Office (ICO) as a data controller.<br><br>
+Whitburn Coastal Flooring, 1 East Street / 4 North Guards, Whitburn Village, Sunderland, SR6
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p class="footer-ai">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+    <p class="footer-brand">Prepared by DMT Consulting | Trade Arrangement | March 2026</p>
+</div>
+
+<script>
+    // Tab Switching
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.getAttribute('data-tab');
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(target).classList.add('active');
+            // Scroll tab into view
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            // Scroll content to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // Collapsible Sections
+    function toggleCollapsible(header) {
+        const parent = header.closest('.collapsible');
+        parent.classList.toggle('open');
+    }
+
+    // Checklist Toggle
+    function toggleCheck(li, listId) {
+        li.classList.toggle('checked');
+        const box = li.querySelector('.check-box');
+        box.innerHTML = li.classList.contains('checked') ? '&#10003;' : '';
+        updateProgress(listId);
+    }
+
+    function updateProgress(listId) {
+        const list = document.getElementById(listId);
+        const items = list.querySelectorAll('li');
+        const checked = list.querySelectorAll('li.checked').length;
+        const total = items.length;
+        const pct = Math.round((checked / total) * 100);
+
+        let progressId, barId;
+        if (listId === 'setupChecklist') {
+            progressId = 'setupProgress';
+            barId = 'setupBar';
+        } else {
+            progressId = 'securityProgress';
+            barId = 'securityBar';
+        }
+
+        document.getElementById(progressId).textContent = checked + ' of ' + total + ' complete';
+        document.getElementById(barId).style.width = pct + '%';
+    }
+
+    // Copy Privacy Notice
+    function copyPrivacy() {
+        const el = document.getElementById('privacyNotice');
+        // Get text without the button text
+        const clone = el.cloneNode(true);
+        const btn = clone.querySelector('.copy-btn');
+        if (btn) btn.remove();
+        const text = clone.innerText.trim();
+
+        navigator.clipboard.writeText(text).then(() => {
+            const copyBtn = el.querySelector('.copy-btn');
+            copyBtn.classList.add('copied');
+            copyBtn.innerHTML = '&#10003; Copied!';
+            setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                copyBtn.innerHTML = '&#128203; Copy';
+            }, 2000);
+        }).catch(() => {
+            // Fallback
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            const copyBtn = el.querySelector('.copy-btn');
+            copyBtn.classList.add('copied');
+            copyBtn.innerHTML = '&#10003; Copied!';
+            setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                copyBtn.innerHTML = '&#128203; Copy';
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>

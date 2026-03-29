@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Audit &amp; Strategy | Whitburn Coastal Flooring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0A1628;--card:#111D2E;--border:#1E3A5F;
+--accent:#2E8B8B;--accent-light:#3AA3A3;--sandy:#C4956A;--sandy-light:#D4A87A;
+--green:#10B981;--amber:#F59E0B;--red:#EF4444;
+--text:#E8EDF3;--muted:#8BA4C4;
+--font-head:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,sans-serif;
+--radius:10px;--radius-sm:6px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* HEADER */
+.header{text-align:center;padding:2.5rem 1.25rem 1.5rem;border-bottom:1px solid var(--border)}
+.header-label{font-family:var(--font-body);font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+.header h1{font-family:var(--font-head);font-size:1.75rem;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:.35rem}
+.header .subtitle{font-size:.95rem;color:var(--muted)}
+.header .value-badge{display:inline-block;margin-top:.75rem;padding:.35rem 1rem;background:rgba(46,139,139,.12);border:1px solid var(--accent);border-radius:20px;font-size:.8rem;font-weight:600;color:var(--accent)}
+
+/* TABS */
+.tab-bar{position:sticky;top:0;z-index:100;display:flex;background:var(--card);border-bottom:2px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;min-width:0;padding:.85rem .5rem;font-family:var(--font-body);font-size:.78rem;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;text-align:center;white-space:nowrap;transition:all .2s}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(46,139,139,.06)}
+.tab-panel{display:none;padding:1.25rem;max-width:820px;margin:0 auto}
+.tab-panel.active{display:block}
+
+/* SCORE BANNER */
+.score-banner{display:flex;align-items:center;gap:1rem;padding:1.25rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.5rem}
+.score-ring{position:relative;width:70px;height:70px;flex-shrink:0}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .track{fill:none;stroke:var(--border);stroke-width:6}
+.score-ring .fill{fill:none;stroke:var(--amber);stroke-width:6;stroke-linecap:round;stroke-dasharray:188.5;stroke-dashoffset:94.25;transition:stroke-dashoffset 1s ease}
+.score-number{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:1.35rem;font-weight:700;color:var(--amber)}
+.score-text h2{font-family:var(--font-head);font-size:1.1rem;margin-bottom:.25rem}
+.score-text p{font-size:.85rem;color:var(--muted);line-height:1.5}
+
+/* PLATFORM CARDS */
+.platform-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;border-left:4px solid var(--border)}
+.platform-card.green{border-left-color:var(--green)}
+.platform-card.amber{border-left-color:var(--amber)}
+.platform-card.red{border-left-color:var(--red)}
+.platform-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
+.platform-name{display:flex;align-items:center;gap:.6rem}
+.platform-icon{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.platform-icon.fb{background:rgba(24,119,242,.15);color:#1877F2}
+.platform-icon.ig{background:rgba(225,48,108,.15);color:#E1306C}
+.platform-icon.tt{background:rgba(255,255,255,.1);color:#fff}
+.platform-icon.pi{background:rgba(230,0,35,.15);color:#E60023}
+.platform-icon.go{background:rgba(66,133,244,.15);color:#4285F4}
+.platform-icon.we{background:rgba(46,139,139,.15);color:var(--accent)}
+.platform-name h3{font-family:var(--font-head);font-size:1.05rem}
+.score-badge{padding:.25rem .65rem;border-radius:20px;font-size:.75rem;font-weight:700;white-space:nowrap}
+.score-badge.green{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.score-badge.amber{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
+.score-badge.red{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.platform-stats{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:.75rem}
+.stat{padding:.35rem .7rem;background:rgba(255,255,255,.04);border-radius:var(--radius-sm);font-size:.8rem;color:var(--muted)}
+.stat strong{color:var(--text);font-weight:600}
+.findings-list{list-style:none;padding:0}
+.findings-list li{position:relative;padding:.35rem 0 .35rem 1.4rem;font-size:.88rem;color:var(--muted);line-height:1.55}
+.findings-list li::before{content:'';position:absolute;left:0;top:.7rem;width:8px;height:8px;border-radius:50%}
+.findings-list .pro::before{background:var(--green)}
+.findings-list .con::before{background:var(--red)}
+.findings-list .note::before{background:var(--amber)}
+.gap-callout{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:var(--radius);padding:1rem 1.25rem;margin-top:.75rem}
+.gap-callout h4{color:var(--red);font-size:.9rem;margin-bottom:.35rem}
+.gap-callout p{font-size:.85rem;color:var(--muted);line-height:1.55}
+
+/* ACTION PLAN */
+.action-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:.75rem;overflow:hidden}
+.action-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.action-header:hover{background:rgba(255,255,255,.02)}
+.action-number{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;color:#fff}
+.action-number.critical{background:var(--red)}
+.action-number.high{background:var(--amber)}
+.action-number.medium{background:var(--accent)}
+.action-number.low{background:var(--muted)}
+.action-title{flex:1;font-size:.9rem;font-weight:600}
+.action-priority{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .5rem;border-radius:3px;white-space:nowrap}
+.action-priority.critical{background:rgba(239,68,68,.12);color:var(--red)}
+.action-priority.high{background:rgba(245,158,11,.12);color:var(--amber)}
+.action-priority.medium{background:rgba(46,139,139,.12);color:var(--accent)}
+.action-priority.low{background:rgba(139,164,196,.12);color:var(--muted)}
+.action-chevron{color:var(--muted);transition:transform .25s;flex-shrink:0}
+.action-item.open .action-chevron{transform:rotate(180deg)}
+.action-body{padding:0 1.25rem 1.25rem;display:none;font-size:.88rem;color:var(--muted);line-height:1.65}
+.action-item.open .action-body{display:block}
+.action-body p{margin-bottom:.6rem}
+.action-body ul{margin:.5rem 0 .5rem 1.2rem}
+.action-body ul li{margin-bottom:.3rem}
+.action-body .why{padding:.65rem;background:rgba(46,139,139,.06);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-top:.5rem;font-size:.82rem;font-style:italic}
+
+/* ASSETS */
+.asset-group{margin-bottom:2rem}
+.asset-group-title{font-family:var(--font-head);font-size:1.1rem;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);color:var(--sandy)}
+.asset-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:.75rem;overflow:hidden}
+.asset-header{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;cursor:pointer;-webkit-tap-highlight-color:transparent;gap:.5rem}
+.asset-header:hover{background:rgba(255,255,255,.02)}
+.asset-label{font-size:.85rem;font-weight:600;flex:1}
+.asset-tag{font-size:.65rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.15rem .45rem;border-radius:3px;background:rgba(46,139,139,.1);color:var(--accent);white-space:nowrap}
+.asset-chevron{color:var(--muted);transition:transform .25s;flex-shrink:0}
+.asset-card.open .asset-chevron{transform:rotate(180deg)}
+.asset-body{display:none;padding:0 1rem 1rem}
+.asset-card.open .asset-body{display:block}
+.copy-block{position:relative;background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.85rem;padding-right:3.5rem;margin-bottom:.65rem;font-size:.82rem;color:var(--text);line-height:1.6;white-space:pre-wrap;word-wrap:break-word}
+.copy-btn{position:absolute;top:.5rem;right:.5rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);padding:.35rem .65rem;font-size:.7rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s;white-space:nowrap}
+.copy-btn:hover{background:var(--accent-light)}
+.copy-btn.copied{background:var(--green)}
+
+/* CALENDAR TABLE */
+.calendar-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.5rem 0}
+.calendar-table{width:100%;min-width:640px;border-collapse:collapse;font-size:.75rem}
+.calendar-table th{padding:.55rem .4rem;background:rgba(46,139,139,.1);color:var(--accent);font-weight:600;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.calendar-table td{padding:.5rem .4rem;border-bottom:1px solid rgba(30,58,95,.4);vertical-align:top}
+.calendar-table tr:hover td{background:rgba(255,255,255,.02)}
+.cal-fb{color:#1877F2}.cal-ig{color:#E1306C}.cal-tt{color:#fff;opacity:.8}.cal-pi{color:#E60023}.cal-go{color:#4285F4}
+.cal-platform{display:inline-block;padding:.1rem .35rem;border-radius:3px;font-size:.68rem;font-weight:600;margin-right:.25rem}
+.cal-platform.fb{background:rgba(24,119,242,.12);color:#1877F2}
+.cal-platform.ig{background:rgba(225,48,108,.12);color:#E1306C}
+.cal-platform.pi{background:rgba(230,0,35,.12);color:#E60023}
+.cal-platform.tt{background:rgba(255,255,255,.08);color:#ccc}
+.cal-platform.go{background:rgba(66,133,244,.12);color:#4285F4}
+
+/* HASHTAG SETS */
+.hashtag-set{margin-bottom:.75rem}
+.hashtag-label{font-size:.8rem;font-weight:600;color:var(--sandy);margin-bottom:.3rem}
+.hashtag-tags{font-size:.8rem;color:var(--accent);line-height:1.8;word-break:break-word}
+
+/* FOOTER */
+.footer{text-align:center;padding:2rem 1.25rem;border-top:1px solid var(--border);margin-top:2rem}
+.footer .ai-note{font-size:.75rem;color:var(--muted);margin-bottom:.75rem;font-style:italic;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.5}
+.footer .credit{font-size:.8rem;color:var(--muted)}
+
+/* PRINT */
+@media print{
+body{background:#fff;color:#1a1a1a;font-size:11pt}
+.tab-bar{display:none}
+.tab-panel{display:block!important;padding:1rem 0;break-inside:avoid}
+.tab-panel::before{content:attr(data-print-title);display:block;font-family:var(--font-head);font-size:16pt;font-weight:700;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:2pt solid #2E8B8B;color:#2E8B8B}
+.header{padding:1.5rem 0;border-bottom:2pt solid #2E8B8B}
+.header-label,.value-badge{color:#2E8B8B}
+.header h1{color:#0A1628}
+.score-banner,.platform-card,.action-item,.asset-card{border:1pt solid #ccc;background:#fff;page-break-inside:avoid}
+.platform-card{border-left:4pt solid #ccc}
+.platform-card.green{border-left-color:#10B981}
+.platform-card.amber{border-left-color:#F59E0B}
+.platform-card.red{border-left-color:#EF4444}
+.score-text h2,.platform-name h3,.asset-group-title{color:#0A1628}
+.action-body,.asset-body{display:block!important}
+.copy-btn{display:none}
+.action-chevron,.asset-chevron{display:none}
+.score-number{color:#F59E0B}
+.footer{border-top:1pt solid #ccc}
+.footer .ai-note,.footer .credit{color:#666}
+.copy-block{background:#f5f5f5;border:1pt solid #ddd;color:#1a1a1a}
+}
+
+/* RESPONSIVE */
+@media(min-width:640px){
+.header h1{font-size:2.1rem}
+.tab-btn{font-size:.85rem;padding:1rem .75rem}
+.tab-panel{padding:1.75rem}
+.platform-header{flex-wrap:nowrap}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+<div class="header-label">Whitburn Coastal Flooring</div>
+<h1>Social Media Audit &amp; Strategy</h1>
+<p class="subtitle">Your platforms assessed, your plan mapped, your content ready to go</p>
+<span class="value-badge">Deliverable Value: &pound;600</span>
+</header>
+
+<!-- TAB BAR -->
+<nav class="tab-bar" role="tablist">
+<button class="tab-btn active" role="tab" aria-selected="true" data-tab="found">What We Found</button>
+<button class="tab-btn" role="tab" aria-selected="false" data-tab="plan">Your Action Plan</button>
+<button class="tab-btn" role="tab" aria-selected="false" data-tab="assets">Ready-Made Assets</button>
+</nav>
+
+<!-- ===================== TAB 1: WHAT WE FOUND ===================== -->
+<section class="tab-panel active" id="found" role="tabpanel" data-print-title="What We Found">
+
+<!-- Score Banner -->
+<div class="score-banner">
+<div class="score-ring">
+<svg viewBox="0 0 64 64" width="70" height="70">
+<circle class="track" cx="32" cy="32" r="28"/>
+<circle class="fill" cx="32" cy="32" r="28"/>
+</svg>
+<div class="score-number">5/10</div>
+</div>
+<div class="score-text">
+<h2>Social Media Health Score</h2>
+<p>You're active on 3 platforms but invisible on the one that matters most for purchase intent: Pinterest. Strong foundations, but major gaps are costing you customers.</p>
+</div>
+</div>
+
+<!-- Facebook -->
+<div class="platform-card green">
+<div class="platform-header">
+<div class="platform-name">
+<div class="platform-icon fb">f</div>
+<h3>Facebook Page</h3>
+</div>
+<span class="score-badge green">7/10 &mdash; Good Foundation</span>
+</div>
+<div class="platform-stats">
+<span class="stat"><strong>740</strong> followers</span>
+<span class="stat"><strong>622</strong> page likes</span>
+<span class="stat"><strong>8</strong> reviews (100% recommend)</span>
+<span class="stat"><strong>164</strong> posts</span>
+</div>
+<ul class="findings-list">
+<li class="pro">Business page is set up and active &mdash; you're ahead of many independents here</li>
+<li class="pro">740 followers is solid for a village-based retailer &mdash; this is a genuinely engaged local audience</li>
+<li class="pro">All 8 reviews are positive with 100% recommendation rate &mdash; your customers clearly love you</li>
+<li class="pro">Good quality work photos &mdash; your Karndean installations and Margo Selby showcases photograph beautifully</li>
+<li class="con">Posting is irregular &mdash; last post was 27th February 2026, with gaps before that</li>
+<li class="con">About section is incomplete &mdash; missing key business details that help customers find you</li>
+<li class="note">Only 8 reviews &mdash; with your track record, you should have 40+ by now</li>
+</ul>
+</div>
+
+<!-- Instagram -->
+<div class="platform-card amber">
+<div class="platform-header">
+<div class="platform-name">
+<div class="platform-icon ig">&#9679;</div>
+<h3>Instagram</h3>
+</div>
+<span class="score-badge amber">5/10 &mdash; Needs Strategy</span>
+</div>
+<div class="platform-stats">
+<span class="stat"><strong>522</strong> followers</span>
+<span class="stat"><strong>164</strong> posts</span>
+<span class="stat">@whitburncoastal</span>
+</div>
+<ul class="findings-list">
+<li class="pro">522 followers shows organic interest &mdash; people want to see your work</li>
+<li class="pro">164 posts means there's a decent content library to work with</li>
+<li class="pro">Visual content suits flooring perfectly &mdash; transformations, textures, and finished rooms</li>
+<li class="con">No Reels strategy &mdash; this is where Instagram's algorithm pushes reach in 2026</li>
+<li class="con">Hashtag usage needs work &mdash; the right hashtags put you in front of people searching for flooring inspiration</li>
+<li class="con">Inconsistent posting schedule &mdash; the algorithm rewards regular content</li>
+<li class="note">Bio could be optimised with a call-to-action and showroom address</li>
+</ul>
+</div>
+
+<!-- TikTok -->
+<div class="platform-card amber">
+<div class="platform-header">
+<div class="platform-name">
+<div class="platform-icon tt">&#9835;</div>
+<h3>TikTok</h3>
+</div>
+<span class="score-badge amber">4/10 &mdash; Underutilised</span>
+</div>
+<div class="platform-stats">
+<span class="stat">@whitburncoastal.flooring</span>
+<span class="stat">Some flooring content</span>
+</div>
+<ul class="findings-list">
+<li class="pro">Account exists &mdash; you've taken the first step which many competitors haven't</li>
+<li class="pro">Flooring transformation videos have massive viral potential on TikTok</li>
+<li class="note">Currently underutilised &mdash; sporadic content that isn't reaching its potential</li>
+<li class="con">Not leveraging the platform's strengths: short-form timelapse transformation videos</li>
+<li class="note">Huge opportunity: flooring before-and-after content regularly gets 100K+ views on TikTok</li>
+</ul>
+</div>
+
+<!-- Pinterest -->
+<div class="platform-card red">
+<div class="platform-header">
+<div class="platform-name">
+<div class="platform-icon pi">P</div>
+<h3>Pinterest</h3>
+</div>
+<span class="score-badge red">0/10 &mdash; No Presence</span>
+</div>
+<ul class="findings-list">
+<li class="con">No Pinterest account exists &mdash; this is the single biggest gap in your social strategy</li>
+<li class="con">Pinterest is THE platform for flooring inspiration &mdash; it's where homeowners go before they buy</li>
+<li class="con">Interior designers use Pinterest boards to plan rooms &mdash; they could be finding you here</li>
+</ul>
+<div class="gap-callout">
+<h4>Why This Matters</h4>
+<p>Pinterest users are planners and buyers. When someone searches "Karndean kitchen flooring ideas" or "luxury vinyl living room", they're already in buying mode. Every day without a Pinterest presence, potential customers are finding your competitors' work instead of yours. For a premium flooring showroom, this is your highest-value missing platform.</p>
+</div>
+</div>
+
+<!-- Google Reviews -->
+<div class="platform-card red">
+<div class="platform-header">
+<div class="platform-name">
+<div class="platform-icon go">G</div>
+<h3>Google Reviews</h3>
+</div>
+<span class="score-badge red">1/10 &mdash; Critical Gap</span>
+</div>
+<ul class="findings-list">
+<li class="con">Zero Google reviews found &mdash; despite a 100% recommendation rate on Facebook</li>
+<li class="con">No reviews on Yell or Thomson either &mdash; the trust signals simply aren't where people search</li>
+<li class="con">When someone Googles "flooring near me", businesses with reviews appear first</li>
+</ul>
+<div class="gap-callout">
+<h4>The Gap Between Reality and Visibility</h4>
+<p>Your customers love you &mdash; 100% of Facebook reviewers recommend you. But Google doesn't know that. When someone searches for a flooring shop, Google shows businesses with reviews. Yours has none. Your quality is excellent; your visibility doesn't match. Fixing this is one of the highest-impact, zero-cost actions you can take.</p>
+</div>
+</div>
+
+<!-- Website -->
+<div class="platform-card red">
+<div class="platform-header">
+<div class="platform-name">
+<div class="platform-icon we">W</div>
+<h3>Website</h3>
+</div>
+<span class="score-badge red">0/10 &mdash; None</span>
+</div>
+<ul class="findings-list">
+<li class="con">No website exists &mdash; covered in full detail in Deliverable 02 (Google Business Profile &amp; Website Strategy)</li>
+<li class="con">Means you're invisible to Google search for flooring-related queries in your area</li>
+<li class="con">Competitors like New Image Carpets and Frank's dominate search results because they have websites</li>
+</ul>
+</div>
+
+</section>
+
+<!-- ===================== TAB 2: YOUR ACTION PLAN ===================== -->
+<section class="tab-panel" id="plan" role="tabpanel" data-print-title="Your Action Plan">
+
+<p style="font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6">Ten prioritised steps to transform your social media presence. Start at the top &mdash; the critical and high-priority actions will have the biggest impact on getting new customers through the door. Click any step to see exactly what to do.</p>
+
+<!-- Step 1 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number critical">1</div>
+<div class="action-title">Create a Pinterest Business Account with 10 Boards</div>
+<span class="action-priority critical">Critical</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Pinterest is the number one platform for home improvement inspiration. Homeowners and interior designers search Pinterest when planning a room &mdash; they're already in buying mode when they find you there.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Go to business.pinterest.com and sign up using your business email</li>
+<li>Set your business name to "Whitburn Coastal Flooring" and category to "Home Decor"</li>
+<li>Add your showroom address, phone number, and a link to your Facebook page</li>
+<li>Create these 10 boards: Karndean Inspiration, Statement Staircases, Open Plan Living, Bedroom Comfort, Designer Carpets, Before &amp; After, Colour Palettes, Whitburn Showroom, Flooring Tips, Our Work</li>
+<li>Upload your best 5 work photos to each relevant board (descriptions are ready in the Assets tab)</li>
+</ul>
+<div class="why">Flooring is one of the most visual purchases a homeowner makes. Pinterest puts your best work in front of people who are actively planning and ready to buy. Your competitors aren't doing this yet &mdash; move first.</div>
+</div>
+</div>
+
+<!-- Step 2 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number high">2</div>
+<div class="action-title">Set Up a Content Calendar &mdash; 3 Posts Per Week Minimum</div>
+<span class="action-priority high">High</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Irregular posting tells the algorithm (and potential customers) that you're not active. Consistent posting &mdash; even just 3 times a week &mdash; keeps you visible in feeds and builds trust.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Pick 3 fixed days per week (e.g., Tuesday, Thursday, Saturday)</li>
+<li>Use the 30-day content calendar in the Assets tab &mdash; it's already planned out for you</li>
+<li>Batch your photos: take 5&ndash;10 photos on a fitting day, then schedule them across the week</li>
+<li>Mix content types: work photos, designer brand showcases, behind-the-scenes, tips, customer stories</li>
+</ul>
+<div class="why">Social media algorithms reward consistency. Three posts per week keeps your business visible without feeling like a full-time job. The content calendar takes the guesswork away.</div>
+</div>
+</div>
+
+<!-- Step 3 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number high">3</div>
+<div class="action-title">Start Instagram Reels &mdash; Flooring Transformation Timelapses</div>
+<span class="action-priority high">High</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Instagram Reels get 2&ndash;3 times more reach than standard posts. Flooring transformations are perfect for this format &mdash; people love watching a room change from bare boards to a finished floor.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Before your next fitting, prop your phone up in the corner of the room on timelapse mode</li>
+<li>Record the full transformation from bare floor to finished room</li>
+<li>Upload to Instagram Reels with a caption (ready-made captions are in the Assets tab)</li>
+<li>Add trending audio &mdash; Instagram suggests popular music when you create a Reel</li>
+<li>Aim for 1 Reel per week from your fitting jobs</li>
+</ul>
+<div class="why">One timelapse video of a Karndean kitchen installation can reach thousands of local homeowners. It showcases your skill in 30 seconds and makes people imagine their own home looking that good.</div>
+</div>
+</div>
+
+<!-- Step 4 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number high">4</div>
+<div class="action-title">Launch a Review Generation System</div>
+<span class="action-priority high">High</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>You have zero Google reviews despite a perfect score on Facebook. Your happy customers just need a nudge. The templates in the Assets tab make it effortless.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>After every fitting, send the WhatsApp review request message (pre-written in Assets tab)</li>
+<li>Include a direct link to your Google review page so they can tap and type</li>
+<li>Follow up once after 3 days if they haven't left one &mdash; the follow-up template is also ready</li>
+<li>Aim for 4 new Google reviews per month &mdash; that's just 1 per week</li>
+<li>When a review comes in, reply to it publicly (response templates are in Deliverable 02)</li>
+</ul>
+<div class="why">Google reviews are the number one trust signal for local businesses. Going from 0 to 10+ reviews will dramatically improve where you appear in local search results. Your customers already love you &mdash; you just need to ask them.</div>
+</div>
+</div>
+
+<!-- Step 5 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number medium">5</div>
+<div class="action-title">Complete Your Facebook About Section</div>
+<span class="action-priority medium">Medium</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Your Facebook About section is the first thing many potential customers read. An incomplete profile looks unprofessional and means people can't find key details like your opening hours or brands you stock.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Go to your Facebook page &rarr; About &rarr; Edit each section</li>
+<li>Copy and paste the complete About section text from the Assets tab</li>
+<li>Add your opening hours: Tue&ndash;Fri 9am&ndash;4pm, Wed 9am&ndash;1pm, Sat 10am&ndash;2pm</li>
+<li>Set your address to 1 East Street / 4 North Guards, Whitburn Village, SR6</li>
+<li>Add your phone: 0191 529 5905</li>
+<li>Set your category to "Carpet &amp; Flooring Store"</li>
+</ul>
+<div class="why">A complete profile builds trust and makes it easier for people to contact you. It takes 5 minutes but immediately makes your page look more professional.</div>
+</div>
+</div>
+
+<!-- Step 6 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number medium">6</div>
+<div class="action-title">Optimise Your Instagram Bio and Hashtag Strategy</div>
+<span class="action-priority medium">Medium</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Your Instagram bio is your shopfront on the platform &mdash; it needs to tell people who you are, what you do, and how to visit in three seconds flat.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Update your bio using the ready-made text in the Assets tab</li>
+<li>Use the hashtag sets from the Assets tab on every post &mdash; choose the set that matches your content type</li>
+<li>Add your showroom address to your profile location</li>
+<li>Include a call-to-action: "Visit our showroom" or "DM for a free quote"</li>
+</ul>
+<div class="why">The right hashtags put your posts in front of people who don't follow you yet but are searching for flooring inspiration. The right bio converts them from viewers to visitors.</div>
+</div>
+</div>
+
+<!-- Step 7 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number medium">7</div>
+<div class="action-title">Cross-Post TikTok Content to Instagram Reels</div>
+<span class="action-priority medium">Medium</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>You're already creating video content for TikTok &mdash; make it work twice as hard by posting the same videos to Instagram Reels.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Save your TikTok videos to your phone before posting (use "Save to device")</li>
+<li>Upload the same video to Instagram Reels with a tailored caption</li>
+<li>Remove any TikTok watermark first &mdash; Instagram reduces reach on watermarked content</li>
+<li>Adjust captions and hashtags for each platform (templates in Assets tab)</li>
+</ul>
+<div class="why">One piece of content, two audiences. This doubles your reach with almost no extra effort. Many of your potential customers are on Instagram but not TikTok, and vice versa.</div>
+</div>
+</div>
+
+<!-- Step 8 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number medium">8</div>
+<div class="action-title">Pin All Your Best Work Photos to Pinterest Boards</div>
+<span class="action-priority medium">Medium</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Once your Pinterest boards are set up (Step 1), populate them with your existing library of work photos. You've got 164 Instagram posts worth of content &mdash; repurpose the best ones.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Go through your Instagram and Facebook photos and save the best 30&ndash;40 images</li>
+<li>Upload each to the most relevant Pinterest board</li>
+<li>Use the pin descriptions from the Assets tab &mdash; they're written to be searchable</li>
+<li>Add relevant keywords: flooring type, brand name, room type, style</li>
+<li>Aim for at least 5 pins per board to start</li>
+</ul>
+<div class="why">Pinterest pins are evergreen &mdash; unlike social media posts, they keep getting found for months and years. A pin you upload today could bring a customer to your door in six months' time.</div>
+</div>
+</div>
+
+<!-- Step 9 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number low">9</div>
+<div class="action-title">Explore Facebook and Instagram Ads for Showroom Awareness</div>
+<span class="action-priority low">Low</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Once your profiles are polished and you're posting consistently, a small ad budget can amplify your reach significantly &mdash; especially for driving showroom visits.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Start with just &pound;5&ndash;10 per week on boosted Facebook posts</li>
+<li>Target: 10-mile radius around Whitburn Village, homeowners aged 30&ndash;65</li>
+<li>Boost your best-performing posts (the ones that already get the most likes and comments)</li>
+<li>Use "Visit our showroom" as your call-to-action</li>
+<li>Track results for one month before increasing spend</li>
+</ul>
+<div class="why">Get the fundamentals right first (Steps 1&ndash;8), then amplify with paid reach. A small, targeted budget goes a long way for a local business. This is a future step once organic content is consistent.</div>
+</div>
+</div>
+
+<!-- Step 10 -->
+<div class="action-item">
+<div class="action-header" onclick="toggleAction(this)">
+<div class="action-number low">10</div>
+<div class="action-title">Set Up an Automated Posting Schedule</div>
+<span class="action-priority low">Low</span>
+<svg class="action-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="action-body">
+<p>Once you're comfortable creating regular content, scheduling tools let you batch your posts in one sitting and have them publish automatically throughout the week.</p>
+<p><strong>What to do:</strong></p>
+<ul>
+<li>Facebook has a free built-in scheduler: create your post, click the dropdown next to "Post", and choose "Schedule"</li>
+<li>Meta Business Suite (free) lets you schedule both Facebook and Instagram from one place</li>
+<li>Spend 30 minutes on a Monday morning scheduling all your posts for the week</li>
+<li>For Pinterest, the free plan on Tailwind or Pinterest's own scheduler works well</li>
+</ul>
+<div class="why">Scheduling means you're never scrambling for content at the last minute. One focused session per week keeps all your platforms active without daily pressure. This step saves you time once the content habit is established.</div>
+</div>
+</div>
+
+</section>
+
+<!-- ===================== TAB 3: READY-MADE ASSETS ===================== -->
+<section class="tab-panel" id="assets" role="tabpanel" data-print-title="Ready-Made Assets">
+
+<p style="font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6">Everything below is ready to copy, paste, and use. Click any item to expand it, then use the <strong>Copy</strong> button to grab the text. Every post, template, and description is written specifically for Whitburn Coastal Flooring.</p>
+
+<!-- ===== SOCIAL MEDIA POSTS ===== -->
+<div class="asset-group">
+<h3 class="asset-group-title">Ready-to-Post Social Media Content</h3>
+
+<!-- FB1 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">FB1: Before &amp; After Karndean Knight Tile Transformation</span>
+<span class="asset-tag">Facebook</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">What a difference the right floor makes. &#128248;
+
+This kitchen went from tired carpet tiles to stunning Karndean Knight Tile in just one day. The beauty of Karndean is that you get the natural stone look with none of the cold, hard feel underfoot &mdash; and it's waterproof, scratch-resistant, and designed to last for decades.
+
+Thinking about transforming your kitchen? Pop into our Whitburn Village showroom to see the full Karndean range, or give us a call on 0191 529 5905 to book a free home visit.
+
+#KarndeanFlooring #KnightTile #KitchenFlooring #FlooringTransformation #WhitburnVillage #BeforeAndAfter #LVT #FlooringInspiration
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+<p style="font-size:.78rem;color:var(--muted);margin-top:.4rem"><strong>Photo tip:</strong> Post a side-by-side or swipe image &mdash; old floor on the left, new Karndean on the right. Good lighting makes all the difference.</p>
+</div>
+</div>
+
+<!-- FB2 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">FB2: "Did You Know?" &mdash; LVT vs Real Wood</span>
+<span class="asset-tag">Facebook</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Did you know? &#129300;
+
+Luxury vinyl tile (LVT) is now the fastest-growing flooring choice in UK homes &mdash; and once you see it up close, you'll understand why.
+
+&#10003; Looks and feels like real wood or stone
+&#10003; 100% waterproof &mdash; perfect for kitchens and bathrooms
+&#10003; Warmer and softer underfoot than natural materials
+&#10003; Scratch and scuff resistant (great if you have pets or kids)
+&#10003; Costs less than the real thing and lasts just as long
+
+We stock Karndean, Invictus, and more in our Whitburn Village showroom. Come and see the difference for yourself &mdash; no appointment needed.
+
+#LVT #LuxuryVinylTile #FlooringFacts #HomeImprovement #WhitburnCoastalFlooring #FlooringAdvice #KarndeanDesignflooring
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+
+<!-- FB3 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">FB3: Margo Selby Designer Carpet Showcase</span>
+<span class="asset-tag">Facebook</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">When a carpet is designed by an award-winning textile artist, you can tell. &#127912;
+
+We're proud to stock the Margo Selby collection by Alternative Flooring &mdash; bold geometric patterns, beautiful colour combinations, and a quality you can feel the moment you touch it.
+
+These aren't your everyday carpets. They're statement pieces that transform a staircase, hallway, or living room into something truly special.
+
+Come and see (and feel) the full Margo Selby range in our Whitburn Village showroom. These always get people talking.
+
+#MargoSelby #AlternativeFlooring #DesignerCarpet #StatementStaircase #InteriorDesign #CarpetDesign #WhitburnCoastalFlooring #NorthEastHomes
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+
+<!-- FB4 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">FB4: Spring Refresh Your Floors Campaign</span>
+<span class="asset-tag">Facebook</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Spring is here &mdash; and there's no better time to refresh your floors. &#127793;
+
+After a long winter of muddy boots and central heating, your flooring has taken a beating. Whether you're thinking about new carpet for the bedrooms, LVT for the kitchen, or a statement runner for the stairs, now is the time to plan.
+
+&#128197; Here's our spring offer: Book a free home visit this month and we'll bring the showroom to you &mdash; samples, measuring, and a no-obligation quote, all in the comfort of your own home.
+
+&#128222; Call 0191 529 5905 or message us to book your visit.
+
+#SpringRefresh #NewFlooring #HomeVisit #FreeQuote #WhitburnCoastalFlooring #FlooringInspo #SpringHome
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+
+<!-- IG1 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">IG1: Staircase Installation Reel Caption</span>
+<span class="asset-tag">Instagram Reel</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">From bare boards to a statement staircase in one day. &#128079;
+
+This Margo Selby runner completely transformed this hallway. Swipe to see the before &#10145;
+
+Carpet: Alternative Flooring, Margo Selby collection
+Fitting: Whitburn Coastal Flooring
+
+Thinking about your staircase? Come and see the full range in our Whitburn Village showroom or DM us for a free quote.
+
+#MargoSelby #StaircaseRunner #StaircaseTransformation #AlternativeFlooring #FlooringInstallation #CarpetFitting #InteriorDesign #NorthEastInteriors #WhitburnVillage #HomeRenovation
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+<p style="font-size:.78rem;color:var(--muted);margin-top:.4rem"><strong>Video tip:</strong> Set your phone on timelapse at the bottom of the stairs looking up. Capture the full installation from bare wood to finished runner. Add trending audio in the Reels editor.</p>
+</div>
+</div>
+
+<!-- IG2 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">IG2: Showroom Tour Carousel Caption</span>
+<span class="asset-tag">Instagram Carousel</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Step inside our Whitburn Village showroom &#128304;
+
+&#10145; Swipe to see what's waiting for you:
+1. Karndean luxury vinyl &mdash; wood and stone looks that are 100% waterproof
+2. Margo Selby designer carpets &mdash; bold patterns that make a statement
+3. iSENSE &amp; Associated Weavers &mdash; comfort underfoot in every colour
+4. Invictus vinyl &mdash; tough, stylish, and family-proof
+5. Our sample wall &mdash; because you need to feel it before you choose
+
+Open: Tue&ndash;Fri 9am&ndash;4pm | Wed 9am&ndash;1pm | Sat 10am&ndash;2pm
+No appointment needed &mdash; just walk in.
+
+&#128205; 1 East Street, Whitburn Village, SR6
+
+#WhitburnCoastalFlooring #FlooringShowroom #Karndean #MargoSelby #iSENSE #InvictusVinyl #WhitburnVillage #NorthEastHomes #FlooringSamples #InteriorInspo
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+<p style="font-size:.78rem;color:var(--muted);margin-top:.4rem"><strong>Photo tip:</strong> Take 5 bright, well-lit photos of different areas of the showroom. Include close-ups of textures and patterns. Natural light from the shop window works best.</p>
+</div>
+</div>
+
+<!-- PIN1 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">PIN1: Karndean Bathroom Inspiration Pin</span>
+<span class="asset-tag">Pinterest</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Karndean Luxury Vinyl Tile | Bathroom Flooring Inspiration
+
+This Karndean Art Select stone-effect LVT brings a natural limestone look to the bathroom without the cold feel or maintenance worries. Completely waterproof, warm underfoot, and designed to handle the busiest family bathroom.
+
+Available at Whitburn Coastal Flooring, Whitburn Village, Sunderland. Visit our showroom to see the full range or call 0191 529 5905 for a free home consultation.
+
+#KarndeanFlooring #BathroomFlooring #LVT #LuxuryVinylTile #BathroomDesign #FlooringInspiration #WaterproofFlooring #BathroomRenovation #HomeDesign #InteriorDesign
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+
+<!-- PIN2 -->
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">PIN2: Open Plan Living Room LVT Design Pin</span>
+<span class="asset-tag">Pinterest</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Open Plan Living Room | Karndean Knight Tile Wood-Effect LVT
+
+Create seamless flow through your open plan living space with Karndean Knight Tile. This warm oak-effect luxury vinyl runs beautifully from kitchen to living area, giving you the natural wood look that's completely waterproof and scratch-resistant &mdash; ideal for open plan family living.
+
+Professional supply and fitting by Whitburn Coastal Flooring, Whitburn Village, Sunderland. Free home visits and no-obligation quotes available.
+
+#OpenPlanLiving #KarndeanKnightTile #WoodEffectFlooring #LVTFlooring #OpenPlanKitchen #FlooringDesign #HomeRenovation #InteriorDesign #LuxuryVinyl #FlooringIdeas
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+</div>
+
+<!-- ===== WHATSAPP REVIEW TEMPLATES ===== -->
+<div class="asset-group">
+<h3 class="asset-group-title">WhatsApp Review Request Templates</h3>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">Post-Fitting Review Request</span>
+<span class="asset-tag">WhatsApp</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Hi [NAME], hope you're enjoying your new floors! We love knowing our customers are happy with the finished result.
+
+If you've got a spare minute, it would mean the world to us if you could leave a quick Google review. It really helps other people in the area find us.
+
+Just tap this link and it takes 30 seconds: [YOUR GOOGLE REVIEW LINK]
+
+Thanks so much &mdash; and if you ever need anything else, you know where we are!
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">Post-Consultation Review Request</span>
+<span class="asset-tag">WhatsApp</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Hi [NAME], thanks for visiting the showroom today! Hope we helped you narrow down your choices.
+
+If you found our advice helpful, we'd really appreciate a quick Google review &mdash; it helps local families find us when they're looking for flooring.
+
+Here's the link (30 seconds, promise!): [YOUR GOOGLE REVIEW LINK]
+
+No rush on your decision &mdash; we're here whenever you're ready to go ahead. &#128578;
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">Gentle Follow-Up (3 Days Later)</span>
+<span class="asset-tag">WhatsApp</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Hi [NAME], just a quick one! If you get a chance to leave us a Google review, we'd be really grateful. Totally understand if you're busy &mdash; no pressure at all.
+
+Here's the link again in case it's easier: [YOUR GOOGLE REVIEW LINK]
+
+Hope you're still loving the new floors! &#128578;
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+</div>
+
+<!-- ===== FACEBOOK ABOUT SECTION ===== -->
+<div class="asset-group">
+<h3 class="asset-group-title">Facebook About Section</h3>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">Complete Facebook About Text</span>
+<span class="asset-tag">Copy &amp; Paste</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Whitburn Coastal Flooring is an independent carpet and flooring showroom in the heart of Whitburn Village, Sunderland.
+
+We stock premium brands including Karndean Designflooring, Alternative Flooring (featuring the Margo Selby collection), Associated Weavers, Invictus Vinyl, and iSENSE Carpets. From luxury vinyl tile and designer carpets to laminate and sheet vinyl, we have flooring for every room and every budget.
+
+Our services include:
+&#8226; Free home visits with samples
+&#8226; Professional measuring and quoting
+&#8226; Expert fitting by experienced installers
+&#8226; Bespoke design consultations
+&#8226; A welcoming showroom where you can see and feel every product
+
+We believe the right floor transforms a home. Visit our showroom to browse the range, get expert advice, and see why our customers recommend us 100%.
+
+&#128205; 1 East Street / 4 North Guards, Whitburn Village, Sunderland, SR6
+&#128222; 0191 529 5905
+&#128231; whitburncoastalflooring@outlook.com
+
+Opening Hours:
+Tuesday&ndash;Friday: 9am&ndash;4pm
+Wednesday: 9am&ndash;1pm
+Saturday: 10am&ndash;2pm
+Sunday &amp; Monday: Closed
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+</div>
+
+<!-- ===== INSTAGRAM BIO ===== -->
+<div class="asset-group">
+<h3 class="asset-group-title">Instagram Bio</h3>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">Optimised Instagram Bio Text</span>
+<span class="asset-tag">Copy &amp; Paste</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<div class="copy-block">Carpet &amp; Flooring Showroom &#127754;
+&#9670; Karndean | Margo Selby | Invictus | iSENSE
+&#9670; Free home visits &amp; expert fitting
+&#9670; Whitburn Village, Sunderland SR6
+&#11015; Visit our showroom or DM for a quote
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+</div>
+</div>
+</div>
+
+<!-- ===== PINTEREST BOARD DESCRIPTIONS ===== -->
+<div class="asset-group">
+<h3 class="asset-group-title">Pinterest Board Descriptions</h3>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">All 10 Board Descriptions</span>
+<span class="asset-tag">Pinterest</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+
+<p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">Copy each description when you create the board on Pinterest.</p>
+
+<div class="copy-block"><strong>1. Karndean Inspiration</strong>
+Stunning Karndean Designflooring ideas for every room. Luxury vinyl tile and plank that looks and feels like real wood and stone &mdash; waterproof, durable, and beautiful. Supplied and fitted by Whitburn Coastal Flooring, Whitburn Village, Sunderland.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>2. Statement Staircases</strong>
+Staircase carpet runners, bold patterns, and stunning transformations. Featuring the Margo Selby collection by Alternative Flooring and classic wool blends. Professional staircase fitting by Whitburn Coastal Flooring.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>3. Open Plan Living</strong>
+Flooring ideas for open plan kitchens, dining rooms, and living spaces. Seamless LVT, Karndean planks, and luxury vinyl that flows beautifully from room to room. Inspiration for modern family living.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>4. Bedroom Comfort</strong>
+Soft, warm, and luxurious bedroom carpet ideas. From plush iSENSE textures to Associated Weavers patterns, find the perfect carpet to make your bedroom a retreat. Available at Whitburn Coastal Flooring.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>5. Designer Carpets</strong>
+Explore the Margo Selby collection and premium designer carpets by Alternative Flooring. Bold geometric patterns, vibrant colours, and award-winning textile design for homes that dare to be different.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>6. Before &amp; After</strong>
+Real flooring transformations by Whitburn Coastal Flooring. See the dramatic difference new flooring makes &mdash; from tired old carpet to stunning Karndean, from bare boards to designer runners. Every photo is our own work.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>7. Colour Palettes</strong>
+Flooring colour inspiration for your home. Warm oaks, cool greys, natural stones, and bold patterns &mdash; find the colour palette that suits your interior style. Curated by Whitburn Coastal Flooring.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>8. Whitburn Showroom</strong>
+Step inside our showroom in Whitburn Village, Sunderland. See our range of Karndean, Margo Selby, iSENSE, Invictus, and Associated Weavers samples. Open Tue&ndash;Sat &mdash; no appointment needed.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>9. Flooring Tips</strong>
+Expert flooring advice from Whitburn Coastal Flooring. How to choose between carpet and LVT, what to expect during fitting, how to care for your floors, and how to pick the right flooring for every room.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>10. Our Work</strong>
+Professional flooring installations by Whitburn Coastal Flooring &mdash; Karndean luxury vinyl, designer carpets, laminates, and more. Every project here was supplied and fitted by our team in homes across the North East.
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+</div>
+</div>
+</div>
+
+<!-- ===== HASHTAG SETS ===== -->
+<div class="asset-group">
+<h3 class="asset-group-title">Hashtag Sets</h3>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">5 Ready-to-Use Hashtag Sets</span>
+<span class="asset-tag">Copy &amp; Paste</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">Pick the set that matches your post type. Copy and paste at the end of your caption.</p>
+
+<div class="copy-block"><strong>Set 1: General Flooring</strong>
+#WhitburnCoastalFlooring #FlooringInspiration #FlooringDesign #NewFlooring #HomeFlooring #FlooringInstallation #WhitburnVillage #Sunderland #NorthEastHomes #InteriorDesign #HomeImprovement #FlooringSolutions
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>Set 2: Karndean &amp; LVT</strong>
+#KarndeanFlooring #KarndeanDesignflooring #LVT #LuxuryVinylTile #LuxuryVinylPlank #WaterproofFlooring #KnightTile #KarndeanKitchen #FlooringInspiration #WhitburnCoastalFlooring #NorthEastHomes #InteriorDesign
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>Set 3: Carpet &amp; Designer</strong>
+#MargoSelby #AlternativeFlooring #DesignerCarpet #CarpetDesign #StaircaseRunner #iSENSECarpets #AssociatedWeavers #CarpetFitting #WhitburnCoastalFlooring #InteriorDesign #NorthEastInteriors #HomeDecor
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>Set 4: Before &amp; After Transformations</strong>
+#BeforeAndAfter #FlooringTransformation #RoomTransformation #HomeRenovation #FlooringMakeover #NewFloorFeeling #WhitburnCoastalFlooring #NorthEastHomes #FlooringInstallation #HomeImprovement #InteriorDesign #Renovation
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+<div class="copy-block"><strong>Set 5: Local &amp; Community</strong>
+#WhitburnVillage #Whitburn #Sunderland #SunderlandBusiness #NorthEast #NorthEastBusiness #ShopLocal #SupportLocal #IndependentRetailer #LocalBusiness #SR6 #NorthEastHomes
+<button class="copy-btn" onclick="copyText(this)">Copy</button></div>
+
+</div>
+</div>
+</div>
+
+<!-- ===== 30-DAY CONTENT CALENDAR ===== -->
+<div class="asset-group">
+<h3 class="asset-group-title">30-Day Content Calendar</h3>
+
+<div class="asset-card">
+<div class="asset-header" onclick="toggleAsset(this)">
+<span class="asset-label">April 2026 &mdash; Full Month Plan</span>
+<span class="asset-tag">Calendar</span>
+<svg class="asset-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+</div>
+<div class="asset-body">
+<p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">Colour-coded by platform. Aim for at least 3 posts per week across your channels.</p>
+<div class="calendar-wrap">
+<table class="calendar-table">
+<thead>
+<tr><th>Day</th><th>Date</th><th>Platform</th><th>Content</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Tue</td><td>1 Apr</td><td><span class="cal-platform fb">FB</span></td><td>Spring refresh campaign post (use FB4)</td><td>Kick off the month strong</td></tr>
+<tr><td>Wed</td><td>2 Apr</td><td><span class="cal-platform pi">PIN</span></td><td>Pin 5 best kitchen installations to "Karndean Inspiration" board</td><td>Start building boards</td></tr>
+<tr><td>Thu</td><td>3 Apr</td><td><span class="cal-platform ig">IG</span></td><td>Showroom tour carousel (use IG2)</td><td>Use hashtag Set 1</td></tr>
+<tr><td>Sat</td><td>5 Apr</td><td><span class="cal-platform fb">FB</span></td><td>"Did you know?" LVT post (use FB2)</td><td>Educational content</td></tr>
+<tr><td>Tue</td><td>8 Apr</td><td><span class="cal-platform ig">IG</span></td><td>Close-up texture photo &mdash; Karndean wood effect</td><td>Use hashtag Set 2</td></tr>
+<tr><td>Wed</td><td>9 Apr</td><td><span class="cal-platform pi">PIN</span></td><td>Pin 5 staircase photos to "Statement Staircases" board</td><td>Add board descriptions</td></tr>
+<tr><td>Thu</td><td>10 Apr</td><td><span class="cal-platform fb">FB</span></td><td>Before/after transformation (use FB1)</td><td>Side-by-side photo</td></tr>
+<tr><td>Sat</td><td>12 Apr</td><td><span class="cal-platform ig">IG</span><span class="cal-platform tt">TT</span></td><td>Reel/TikTok: Staircase fitting timelapse</td><td>Use IG1 caption for Reels</td></tr>
+<tr><td>Tue</td><td>15 Apr</td><td><span class="cal-platform fb">FB</span></td><td>Margo Selby showcase (use FB3)</td><td>Feature designer brands</td></tr>
+<tr><td>Wed</td><td>16 Apr</td><td><span class="cal-platform pi">PIN</span></td><td>Pin bathroom inspiration photos (use PIN1 description)</td><td>Build bathroom board</td></tr>
+<tr><td>Thu</td><td>17 Apr</td><td><span class="cal-platform ig">IG</span></td><td>Behind the scenes &mdash; fitting day photo</td><td>Use hashtag Set 4</td></tr>
+<tr><td>Sat</td><td>19 Apr</td><td><span class="cal-platform fb">FB</span></td><td>Customer story &mdash; share a positive review with thanks</td><td>Screenshot a FB review</td></tr>
+<tr><td>Tue</td><td>22 Apr</td><td><span class="cal-platform ig">IG</span><span class="cal-platform tt">TT</span></td><td>Reel/TikTok: Kitchen LVT transformation timelapse</td><td>Cross-post to both</td></tr>
+<tr><td>Wed</td><td>23 Apr</td><td><span class="cal-platform pi">PIN</span></td><td>Pin open plan living room photos (use PIN2 description)</td><td>Build living room board</td></tr>
+<tr><td>Thu</td><td>24 Apr</td><td><span class="cal-platform fb">FB</span></td><td>Showroom photo &mdash; "Pop in this week, no appointment needed"</td><td>Warm, inviting tone</td></tr>
+<tr><td>Sat</td><td>26 Apr</td><td><span class="cal-platform ig">IG</span></td><td>Sample close-up &mdash; Invictus vinyl range</td><td>Use hashtag Set 1</td></tr>
+<tr><td>Tue</td><td>29 Apr</td><td><span class="cal-platform fb">FB</span></td><td>End of month recap &mdash; "April was a busy month! Here's what we fitted"</td><td>Collage of month's work</td></tr>
+<tr><td>Wed</td><td>30 Apr</td><td><span class="cal-platform pi">PIN</span></td><td>Pin 5 best April photos across all boards</td><td>Keep boards growing</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:.78rem;color:var(--muted);margin-top:.5rem"><strong>Weekly review requests:</strong> Send a WhatsApp review request to every customer after their fitting is complete. Target: 4 new Google reviews this month.</p>
+</div>
+</div>
+</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p class="ai-note">This document was made partially with Claude AI. While we've reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+<p class="credit">Prepared by DMT Consulting | Trade Arrangement | March 2026</p>
+</footer>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+btn.addEventListener('click',()=>{
+document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});
+document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+btn.classList.add('active');
+btn.setAttribute('aria-selected','true');
+document.getElementById(btn.dataset.tab).classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+});
+});
+
+// Action plan collapsible
+function toggleAction(header){
+const item=header.parentElement;
+item.classList.toggle('open');
+}
+
+// Asset collapsible
+function toggleAsset(header){
+const card=header.parentElement;
+card.classList.toggle('open');
+}
+
+// Copy to clipboard
+function copyText(btn){
+const block=btn.parentElement;
+const clone=block.cloneNode(true);
+clone.querySelector('.copy-btn').remove();
+// Remove bold tags but keep their text
+clone.querySelectorAll('strong').forEach(s=>{
+s.replaceWith(s.textContent);
+});
+const text=clone.textContent.trim();
+navigator.clipboard.writeText(text).then(()=>{
+btn.textContent='Copied!';
+btn.classList.add('copied');
+setTimeout(()=>{
+btn.textContent='Copy';
+btn.classList.remove('copied');
+},2000);
+}).catch(()=>{
+// Fallback for older browsers
+const ta=document.createElement('textarea');
+ta.value=text;
+ta.style.position='fixed';
+ta.style.opacity='0';
+document.body.appendChild(ta);
+ta.select();
+document.execCommand('copy');
+document.body.removeChild(ta);
+btn.textContent='Copied!';
+btn.classList.add('copied');
+setTimeout(()=>{
+btn.textContent='Copy';
+btn.classList.remove('copied');
+},2000);
+});
+}
+
+// Animate score ring on load
+window.addEventListener('load',()=>{
+const fill=document.querySelector('.score-ring .fill');
+if(fill){
+// 5/10 = 50%, dashoffset = 188.5 * (1 - 0.5) = 94.25
+setTimeout(()=>{fill.style.strokeDashoffset='94.25';},300);
+}
+});
+</script>
+</body>
+</html>

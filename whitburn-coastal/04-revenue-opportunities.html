@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Opportunities Review | Whitburn Coastal Flooring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0A1628;
+  --card: #111D2E;
+  --border: #1E3A5F;
+  --accent: #2E8B8B;
+  --sandy: #C4956A;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --critical: #EF4444;
+  --text: #E8EDF3;
+  --muted: #8BA4C4;
+  --accent-glow: rgba(46, 139, 139, 0.15);
+  --sandy-glow: rgba(196, 149, 106, 0.15);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 2.5rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(46,139,139,0.08) 0%, transparent 100%);
+}
+
+.header-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.header-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.header-value {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.35rem 1rem;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 0.85rem 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.tab-btn.active {
+  color: var(--accent);
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--text);
+}
+
+.tab-content {
+  display: none;
+  padding: 1.5rem 1rem 3rem;
+  max-width: 720px;
+  margin: 0 auto;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Score Block */
+.score-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.score-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.score-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.score-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--critical);
+  line-height: 1;
+}
+
+.score-out-of {
+  font-size: 1.1rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.score-bar-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.score-bar-fill {
+  height: 100%;
+  width: 30%;
+  background: linear-gradient(90deg, var(--critical), var(--warning));
+  border-radius: 4px;
+  transition: width 1.2s ease;
+}
+
+.score-summary {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.score-summary strong {
+  color: var(--sandy);
+}
+
+/* Section Titles */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-subtitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin: 1.75rem 0 0.75rem;
+}
+
+/* Current Model Card */
+.model-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.model-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.model-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.model-icon.reactive { background: rgba(239,68,68,0.15); }
+.model-icon.missing { background: rgba(245,158,11,0.15); }
+
+.model-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.model-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.model-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge-red { background: rgba(239,68,68,0.15); color: var(--critical); }
+.badge-amber { background: rgba(245,158,11,0.15); color: var(--warning); }
+
+/* Missing Revenue Grid */
+.missing-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.missing-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--critical);
+  border-radius: 8px;
+  padding: 1rem 1rem 1rem 1.15rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.missing-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(239,68,68,0.15);
+  color: var(--critical);
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.missing-text {
+  flex: 1;
+}
+
+.missing-text strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.missing-text span {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Action Plan Cards */
+.action-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.action-card:hover {
+  border-color: var(--accent);
+}
+
+.action-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.action-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.action-number.quick { background: rgba(16,185,129,0.15); color: var(--success); }
+.action-number.mid { background: rgba(46,139,139,0.15); color: var(--accent); }
+
+.action-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.action-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.action-meta {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.action-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag-free { background: rgba(16,185,129,0.12); color: var(--success); }
+.tag-low { background: rgba(46,139,139,0.12); color: var(--accent); }
+.tag-high-impact { background: rgba(196,149,106,0.12); color: var(--sandy); }
+
+.action-chevron {
+  color: var(--muted);
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.action-card.open .action-chevron {
+  transform: rotate(180deg);
+}
+
+.action-body {
+  display: none;
+  padding: 0 1.15rem 1.15rem;
+  border-top: 1px solid var(--border);
+}
+
+.action-card.open .action-body {
+  display: block;
+}
+
+.action-body p {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 0.85rem;
+}
+
+.action-body p strong {
+  color: var(--text);
+}
+
+/* Ready-Made Assets */
+.asset-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.asset-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.asset-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.asset-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--accent-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.asset-icon.sandy { background: var(--sandy-glow); }
+
+.asset-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.asset-chevron {
+  color: var(--muted);
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.asset-card.open .asset-chevron {
+  transform: rotate(180deg);
+}
+
+.asset-body {
+  display: none;
+  padding: 0 1.15rem 1.15rem;
+  border-top: 1px solid var(--border);
+}
+
+.asset-card.open .asset-body {
+  display: block;
+}
+
+.asset-content {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 0.85rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.asset-content strong, .asset-content b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.asset-content .highlight {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.asset-content .sandy-hl {
+  color: var(--sandy);
+  font-weight: 600;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.75rem;
+}
+
+.copy-btn:hover {
+  background: #35a0a0;
+  transform: translateY(-1px);
+}
+
+.copy-btn.copied {
+  background: var(--success);
+}
+
+/* Package Cards */
+.package-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 600px) {
+  .package-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.pkg-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1.15rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pkg-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+.pkg-card.sandy::before {
+  background: var(--sandy);
+}
+
+.pkg-card.premium::before {
+  background: linear-gradient(90deg, var(--accent), var(--sandy));
+}
+
+.pkg-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.pkg-tagline {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.pkg-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.pkg-card.sandy .pkg-price { color: var(--sandy); }
+.pkg-card.premium .pkg-price { color: var(--text); }
+
+.pkg-note {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.pkg-features {
+  list-style: none;
+  text-align: left;
+  margin-top: 0.75rem;
+}
+
+.pkg-features li {
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.pkg-features li:last-child { border-bottom: none; }
+
+.pkg-features .check {
+  color: var(--success);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+@media (min-width: 520px) {
+  .calendar-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 680px) {
+  .calendar-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.cal-month {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.7rem;
+}
+
+.cal-month-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+
+.cal-theme {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.15rem;
+}
+
+.cal-detail {
+  font-size: 0.68rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Referral Card Visual */
+.referral-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .referral-visual {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ref-card-side {
+  background: linear-gradient(135deg, #1a2a40, #111D2E);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ref-card-side::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--sandy));
+}
+
+.ref-card-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.ref-card-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.ref-card-body {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.ref-card-body .amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--sandy);
+  display: block;
+  margin: 0.5rem 0;
+}
+
+/* WhatsApp Sequence */
+.wa-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.wa-msg {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--success);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+.wa-timing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.wa-timing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+
+.wa-timing-text {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--success);
+}
+
+.wa-msg-text {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+/* Quick Reply Templates */
+.qr-grid {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.qr-item {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.qr-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.qr-text {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2rem 0;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+
+.footer-ai {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  line-height: 1.5;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-brand {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+/* Health Check Visual */
+.hc-card {
+  background: linear-gradient(135deg, #1a2a40 0%, var(--card) 100%);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 1.5rem 1.25rem;
+  margin-top: 0.85rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--sandy), var(--accent));
+}
+
+.hc-badge {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.hc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.hc-subtitle {
+  font-size: 0.8rem;
+  color: var(--sandy);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hc-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.hc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.hc-item .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.hc-footer-text {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.5;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Print Styles */
+@media print {
+  body { background: #fff; color: #111; font-size: 10pt; }
+  .header { border-bottom-color: #ccc; background: none; }
+  .header h1 { color: #111; }
+  .header-eyebrow, .header-value { color: #2E8B8B; }
+  .header-sub { color: #555; }
+  .tab-bar { display: none; }
+  .tab-content { display: block !important; padding: 1rem 0; }
+  .tab-content::before {
+    content: attr(data-tab-title);
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    font-weight: 700;
+    color: #2E8B8B;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #2E8B8B;
+  }
+  .score-block, .model-card, .missing-item, .action-card, .asset-card, .pkg-card {
+    background: #f8f8f8;
+    border-color: #ddd;
+    color: #111;
+    break-inside: avoid;
+  }
+  .action-body { display: block !important; }
+  .asset-body { display: block !important; }
+  .copy-btn { display: none; }
+  .score-number { color: #c33; }
+  .section-title { color: #111; border-bottom-color: #ccc; }
+  .section-subtitle { color: #2E8B8B; }
+  .score-summary, .model-card p, .missing-text span, .action-body p, .asset-content {
+    color: #333;
+  }
+  .missing-text strong, .action-name, .asset-title, .pkg-name {
+    color: #111;
+  }
+  .footer { border-top-color: #ccc; }
+  .footer-ai, .footer-brand { color: #555; }
+  .hc-card { border-color: #2E8B8B; background: #f8f8f8; }
+}
+
+@media (max-width: 420px) {
+  .header h1 { font-size: 1.45rem; }
+  .tab-btn { font-size: 0.65rem; padding: 0.75rem 0.25rem; }
+  .score-number { font-size: 2.4rem; }
+  .hc-items { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-eyebrow">Whitburn Coastal Flooring</div>
+  <h1>Revenue Opportunities Review</h1>
+  <p class="header-sub">Untapped income streams and growth potential</p>
+  <span class="header-value">Market Value: &pound;600</span>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="found" onclick="switchTab('found')">What We Found</button>
+  <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">Your Action Plan</button>
+  <button class="tab-btn" data-tab="assets" onclick="switchTab('assets')">Ready-Made Assets</button>
+</nav>
+
+<!-- TAB 1: WHAT WE FOUND -->
+<section class="tab-content active" id="tab-found" data-tab-title="What We Found">
+
+  <div class="score-block">
+    <div class="score-label">Revenue Optimisation Score</div>
+    <div class="score-display">
+      <span class="score-number">3</span>
+      <span class="score-out-of">/ 10</span>
+    </div>
+    <div class="score-bar-track">
+      <div class="score-bar-fill"></div>
+    </div>
+    <p class="score-summary">You have a <strong>premium product</strong>, loyal customers, and zero systems to turn those into repeat revenue. The average flooring customer spends <strong>&pound;2,000&ndash;&pound;5,000</strong>. You&rsquo;re winning them through word of mouth alone &mdash; imagine what happens when Google, Pinterest, and a follow-up system start working for you.</p>
+  </div>
+
+  <h2 class="section-title">Current Revenue Model</h2>
+
+  <div class="model-card">
+    <div class="model-card-header">
+      <div class="model-icon reactive">&#9888;</div>
+      <div>
+        <div class="model-card-title">100% Reactive Model</div>
+        <span class="model-badge badge-red">High Risk</span>
+      </div>
+    </div>
+    <p>Every sale currently depends on the customer finding you first &mdash; either walking past the showroom, hearing about you from a friend, or scrolling past a Facebook post. There is no system pulling customers in, no system following up after a job, and no system turning one sale into two. You are entirely at the mercy of chance, and your competitors are investing in the systems you are not.</p>
+  </div>
+
+  <div class="model-card">
+    <div class="model-card-header">
+      <div class="model-icon missing">&#128269;</div>
+      <div>
+        <div class="model-card-title">How Customers Currently Find You</div>
+        <span class="model-badge badge-amber">Limited Channels</span>
+      </div>
+    </div>
+    <p>Walk-ins from Whitburn Village foot traffic. Phone calls from existing customer recommendations. Facebook messages from followers who see posts. That is it. No Google search visibility, no online enquiry form, no appointment booking, no email marketing, no referral programme, no aftercare follow-up. Three channels versus the seven or eight that your competitors are using.</p>
+  </div>
+
+  <h2 class="section-title">Missing Revenue Streams</h2>
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.6;">Each of these represents money you are currently leaving on the table. Not theoretical money &mdash; real customers who are searching, considering, and buying flooring in the SR6 area right now.</p>
+
+  <div class="missing-grid">
+    <div class="missing-item">
+      <div class="missing-num">1</div>
+      <div class="missing-text">
+        <strong>No Online Enquiry Funnel</strong>
+        <span>When someone searches &ldquo;flooring Whitburn&rdquo; or &ldquo;Karndean fitter Sunderland,&rdquo; they cannot find you, cannot ask you a question, and cannot request a quote. They find New Image Carpets or Frank&rsquo;s instead. Every day without a web presence is a day competitors collect your potential customers.</span>
+      </div>
+    </div>
+    <div class="missing-item">
+      <div class="missing-num">2</div>
+      <div class="missing-text">
+        <strong>No Showroom Appointment Booking</strong>
+        <span>Customers who want a proper consultation currently have to call during your opening hours and hope someone answers. A simple online booking system (even Facebook&rsquo;s built-in one) converts browsers into committed visitors who arrive ready to buy.</span>
+      </div>
+    </div>
+    <div class="missing-item">
+      <div class="missing-num">3</div>
+      <div class="missing-text">
+        <strong>No Post-Installation Follow-Up</strong>
+        <span>After fitting, the relationship ends. No check-in to ask how the floor looks, no prompt for a review, no referral request. Your happiest customers &mdash; right after seeing their new floor &mdash; never hear from you again. That single moment is worth at least one Google review and one referral per job.</span>
+      </div>
+    </div>
+    <div class="missing-item">
+      <div class="missing-num">4</div>
+      <div class="missing-text">
+        <strong>No Maintenance or Aftercare Upselling</strong>
+        <span>Carpet needs professional cleaning. LVT needs periodic maintenance. Grout needs resealing. Every floor you fit is a future service appointment you are not booking. An annual &ldquo;Flooring Health Check&rdquo; creates a reason for repeat contact and repeat revenue.</span>
+      </div>
+    </div>
+    <div class="missing-item">
+      <div class="missing-num">5</div>
+      <div class="missing-text">
+        <strong>No Seasonal Campaign System</strong>
+        <span>Spring refurb season, autumn warmth campaigns, new year new room promotions, bank holiday sales &mdash; the flooring industry runs on seasonal demand. Without a campaign calendar, you miss every wave of buying intent. Your competitors at Frank&rsquo;s run promotions year-round.</span>
+      </div>
+    </div>
+    <div class="missing-item">
+      <div class="missing-num">6</div>
+      <div class="missing-text">
+        <strong>No Landlord or Property Developer Pipeline</strong>
+        <span>The Sunderland rental market requires regular refurbishment. Landlords replacing flooring between tenants need a reliable, trade-priced supplier. One landlord relationship can mean three to five repeat jobs per year, and you currently have no system to attract or retain them.</span>
+      </div>
+    </div>
+    <div class="missing-item">
+      <div class="missing-num">7</div>
+      <div class="missing-text">
+        <strong>No Interior Designer Referral Network</strong>
+        <span>You stock designer brands like Margo Selby and Karndean that interior designers specify. Yet there is no formal partnership in place &mdash; no referral agreement, no designer trade pricing, no joint marketing. Designers are recommending competitors who have made the effort to build that relationship.</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- TAB 2: YOUR ACTION PLAN -->
+<section class="tab-content" id="tab-plan" data-tab-title="Your Action Plan">
+
+  <div class="section-subtitle">Quick Wins &mdash; &pound;0 Cost, This Month</div>
+  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">These six actions cost nothing and can each be started today. Together, they begin transforming a reactive business into one that actively generates enquiries, referrals, and repeat customers.</p>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number quick">1</div>
+      <div class="action-info">
+        <div class="action-name">Review Generation System</div>
+        <div class="action-meta">
+          <span class="action-tag tag-free">&pound;0</span>
+          <span class="action-tag tag-high-impact">High Impact</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>You have 8 Facebook reviews and a 100% recommendation rate &mdash; but zero Google reviews. New Image Carpets is building their Google presence while yours remains invisible. <strong>Target: 4 Google reviews per month.</strong> After every completed job, send a short WhatsApp message with your direct Google review link. We have provided the exact templates in the Ready-Made Assets tab. Within three months, you will have a visible, credible Google presence that builds trust before customers even contact you.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number quick">2</div>
+      <div class="action-info">
+        <div class="action-name">WhatsApp Business Setup with Catalogue</div>
+        <div class="action-meta">
+          <span class="action-tag tag-free">&pound;0</span>
+          <span class="action-tag tag-high-impact">High Impact</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>WhatsApp Business is free and purpose-built for businesses like yours. Set up a business profile with your showroom hours, address, and a catalogue showcasing your flooring ranges. Use <strong>quick replies</strong> for common questions (&ldquo;What are your opening hours?&rdquo;, &ldquo;Do you offer free quotes?&rdquo;, &ldquo;Do you stock Karndean?&rdquo;). Customers already message you &mdash; this just makes it faster and more professional. Ready-made quick reply templates are in the Assets tab.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number quick">3</div>
+      <div class="action-info">
+        <div class="action-name">Facebook Showroom Appointment Booking</div>
+        <div class="action-meta">
+          <span class="action-tag tag-free">&pound;0</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>Facebook has a built-in appointment booking feature that most small businesses never activate. Turn it on, set your available slots (matching your Tue&ndash;Sat hours), and add it as a call-to-action button on your page. Customers browsing your page at 9pm can book a Saturday showroom visit without needing to call. <strong>A booked appointment is ten times more likely to convert than a casual walk-in</strong> because the customer has already committed time to you.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number quick">4</div>
+      <div class="action-info">
+        <div class="action-name">Post-Installation Follow-Up Sequence</div>
+        <div class="action-meta">
+          <span class="action-tag tag-free">&pound;0</span>
+          <span class="action-tag tag-high-impact">High Impact</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>Three WhatsApp messages, sent at three key moments, that turn every completed job into reviews, referrals, and repeat business. <strong>Day after fitting:</strong> a quick check-in (&ldquo;How does the new floor look?&rdquo;). <strong>Two weeks later:</strong> a gentle Google review request with a direct link. <strong>Six months later:</strong> a maintenance check-in that opens the door for aftercare services and referrals. The full message sequence with exact wording is ready to copy in the Assets tab.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number quick">5</div>
+      <div class="action-info">
+        <div class="action-name">Seasonal Campaign Calendar Launch</div>
+        <div class="action-meta">
+          <span class="action-tag tag-free">&pound;0</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p><strong>Spring refurbishment season is happening right now.</strong> People are redecorating after winter, preparing homes for sale, and upgrading rooms before summer entertaining. A simple Facebook post about spring flooring refreshes, timed to this week, costs nothing and taps into existing buying intent. The full 12-month campaign calendar in the Assets tab gives you a ready-made reason to post every single month, aligned to how people actually buy flooring throughout the year.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number quick">6</div>
+      <div class="action-info">
+        <div class="action-name">Pinterest-Driven Inspiration Funnel</div>
+        <div class="action-meta">
+          <span class="action-tag tag-free">&pound;0</span>
+          <span class="action-tag tag-high-impact">High Impact</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>Pinterest is the single most powerful platform for flooring businesses that almost nobody in the North East is using. People searching &ldquo;kitchen flooring ideas&rdquo; or &ldquo;herringbone LVT&rdquo; on Pinterest have <strong>active purchase intent</strong> &mdash; they are planning a project, not casually browsing. Your installation photos, showroom displays, and designer brand showcases are exactly the content that performs on Pinterest. Setting up an account and pinning your best project photos takes one afternoon and creates a permanent, searchable gallery that drives enquiries for years.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-subtitle">Mid-Term Wins &mdash; 1 to 3 Months</div>
+  <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">These opportunities require a small investment of time or money but each one creates a new, ongoing revenue stream that did not exist before.</p>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number mid">7</div>
+      <div class="action-info">
+        <div class="action-name">Interior Designer Partnership Programme</div>
+        <div class="action-meta">
+          <span class="action-tag tag-low">Low Cost</span>
+          <span class="action-tag tag-high-impact">High Impact</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>You stock the brands that designers specify &mdash; Karndean, Margo Selby, Alternative Flooring. Create a formal partnership: <strong>they recommend Whitburn Coastal Flooring to their clients, you recommend them back.</strong> Offer a designer trade account with priority sample loans, client introductions, and a small referral acknowledgement. One active designer partnership can generate three to five high-value jobs per quarter. A ready-to-send partnership pitch letter is in the Assets tab.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number mid">8</div>
+      <div class="action-info">
+        <div class="action-name">Landlord &amp; Property Developer Package</div>
+        <div class="action-meta">
+          <span class="action-tag tag-low">Low Cost</span>
+          <span class="action-tag tag-high-impact">High Impact</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>Sunderland has a strong rental market. Landlords need reliable, cost-effective flooring that looks professional and wears well &mdash; exactly what you supply. Create a <strong>dedicated landlord package</strong> with simplified pricing tiers for rental-grade flooring (hard-wearing carpet, LVT, and vinyl). Offer bulk or repeat-customer discounts and a priority turnaround for tenant changeovers. A bulk pricing template is ready in the Assets tab &mdash; send it to local letting agents and landlord networks.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number mid">9</div>
+      <div class="action-info">
+        <div class="action-name">Flooring Maintenance Plan</div>
+        <div class="action-meta">
+          <span class="action-tag tag-low">Low Cost</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>An annual &ldquo;Flooring Health Check&rdquo; &mdash; like an MOT for their floors. <strong>Annual carpet deep clean + LVT maintenance + joint inspection.</strong> This creates a guaranteed annual touchpoint with every past customer. During the inspection, you can identify areas that need attention, recommend upgrades for other rooms, and ask for referrals. Even if only 20% of past customers sign up, that is recurring revenue and a built-in referral opportunity every year. The branded Health Check card is in the Assets tab.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number mid">10</div>
+      <div class="action-info">
+        <div class="action-name">Referral Reward Scheme</div>
+        <div class="action-meta">
+          <span class="action-tag tag-low">Low Cost</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p><strong>&pound;50 credit per successful referral</strong> &mdash; deducted from the referee&rsquo;s next order. Word of mouth is already your strongest channel. A formal reward scheme supercharges it. Hand every customer a referral card after installation (concept design in the Assets tab). When their friend or family member places an order and mentions the referral, the original customer gets &pound;50 off their next purchase. On a &pound;2,000+ average order, &pound;50 is a tiny cost for a guaranteed warm lead.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number mid">11</div>
+      <div class="action-info">
+        <div class="action-name">&ldquo;Design at Home&rdquo; Premium Consultation Service</div>
+        <div class="action-meta">
+          <span class="action-tag tag-low">Low Cost</span>
+          <span class="action-tag tag-high-impact">High Impact</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>Charge <strong>&pound;75 for a premium home consultation</strong> &mdash; home visit, sample presentation, full room measurement, design advice, and a detailed quote. The &pound;75 is deducted in full from any order placed. This achieves two things: it filters out time-wasters who book free home visits with no intention of buying, and it positions you as a premium, consultative service rather than just a shop. Customers who pay for a consultation convert at dramatically higher rates because they have already invested.</p>
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-header" onclick="toggleAction(this)">
+      <div class="action-number mid">12</div>
+      <div class="action-info">
+        <div class="action-name">Houzz Portfolio for the Designer Market</div>
+        <div class="action-meta">
+          <span class="action-tag tag-free">&pound;0</span>
+        </div>
+      </div>
+      <span class="action-chevron">&#9660;</span>
+    </div>
+    <div class="action-body">
+      <p>Houzz is where homeowners and interior designers search for flooring professionals. A free Houzz profile with a portfolio of your best installations puts you in front of a premium audience that is actively planning a project. <strong>Upload your strongest before-and-after photos</strong>, tag the brands used (Karndean, Margo Selby), and include your service area. This is a one-time setup that generates long-term inbound enquiries from exactly the kind of customer who values quality over price.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- TAB 3: READY-MADE ASSETS -->
+<section class="tab-content" id="tab-assets" data-tab-title="Ready-Made Assets">
+
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;">Every asset below is ready to use. Copy the text, adapt the details where marked, and put it to work. Each one has a Copy button that places the content directly on your clipboard.</p>
+
+  <!-- Asset 1: Flooring Health Check Card -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon">&#128203;</div>
+        <div class="asset-title">Flooring Health Check Card</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">An annual inspection concept &mdash; like an MOT for floors. Hand this to every customer after installation to drive repeat visits and aftercare revenue.</p>
+      <div class="hc-card">
+        <span class="hc-badge">Annual Service</span>
+        <div class="hc-title">Flooring Health Check</div>
+        <div class="hc-subtitle">Whitburn Coastal Flooring</div>
+        <div class="hc-items">
+          <div class="hc-item"><span class="dot"></span> Carpet condition assessment</div>
+          <div class="hc-item"><span class="dot"></span> LVT joint &amp; seal inspection</div>
+          <div class="hc-item"><span class="dot"></span> Underlay condition check</div>
+          <div class="hc-item"><span class="dot"></span> Door bar &amp; trim review</div>
+          <div class="hc-item"><span class="dot"></span> Deep clean recommendation</div>
+          <div class="hc-item"><span class="dot"></span> Wear &amp; warranty advisory</div>
+          <div class="hc-item"><span class="dot"></span> Room upgrade consultation</div>
+          <div class="hc-item"><span class="dot"></span> Maintenance plan renewal</div>
+        </div>
+        <div class="hc-footer-text">Book your annual Flooring Health Check and keep your floors looking their best. Call 0191 529 5905 or message us on WhatsApp.</div>
+      </div>
+      <div class="asset-content" id="asset-healthcheck">FLOORING HEALTH CHECK — ANNUAL INSPECTION
+
+Whitburn Coastal Flooring
+1 East Street / 4 North Guards, Whitburn Village, SR6
+0191 529 5905
+
+YOUR FLOORS DESERVE AN ANNUAL CHECK-UP
+
+Just like your car needs an MOT, your flooring benefits from a professional inspection once a year. Our Flooring Health Check covers:
+
+- Carpet condition assessment (pile wear, staining, stretching)
+- LVT joint and seal inspection (lifting, gaps, moisture check)
+- Underlay condition check (compression, damp, support)
+- Door bar and finishing trim review (loose fittings, trip hazards)
+- Deep clean recommendation (professional clean where needed)
+- Wear and warranty advisory (product-specific guidance)
+- Room upgrade consultation (new trends, additional rooms)
+- Maintenance plan renewal (ongoing care programme)
+
+WHAT HAPPENS NEXT:
+After your Health Check, we provide a written report with our findings and recommendations. No pressure, no obligation — just honest advice from your local flooring specialists.
+
+Book your annual Flooring Health Check:
+Call: 0191 529 5905
+WhatsApp: Message us directly
+Visit: Our Whitburn Village showroom (Tue-Sat)
+
+YOUR FLOOR. OUR EXPERTISE. YEAR AFTER YEAR.</div>
+      <button class="copy-btn" onclick="copyAsset('asset-healthcheck', this)">&#128203; Copy Health Check Card</button>
+    </div>
+  </div>
+
+  <!-- Asset 2: Interior Designer Partnership Letter -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon sandy">&#9993;</div>
+        <div class="asset-title">Interior Designer Partnership Letter</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">Ready to send to local interior designers. Personalise the name and send by email or post.</p>
+      <div class="asset-content" id="asset-designer-letter">Dear [Designer Name],
+
+I'm writing to introduce Whitburn Coastal Flooring and explore whether a referral partnership might benefit both of our businesses.
+
+We are an independent flooring retailer based in Whitburn Village, Sunderland, specialising in premium and designer flooring. We are proud stockists of Karndean, Alternative Flooring (including Margo Selby collections), Associated Weavers, Invictus Vinyl, and iSENSE Carpets.
+
+WHAT WE OFFER OUR DESIGN PARTNERS:
+
+- Priority access to new collections and sample loans
+- Trade account with designer pricing
+- Direct line to our showroom for client appointments
+- Professional fitting service with attention to detail
+- Joint client consultations where helpful
+- Cross-referral: we recommend your design services to our customers
+
+WHAT WE ASK:
+
+- Consider recommending Whitburn Coastal Flooring when your clients need flooring supply and installation
+- Share our contact details with clients who mention flooring projects
+- No exclusivity required — we simply want to be one of your trusted options
+
+Our showroom is open for designer visits Tuesday to Saturday. I would welcome the chance to show you our current collections and discuss how we might work together.
+
+Warm regards,
+
+[Your Name]
+Whitburn Coastal Flooring
+1 East Street / 4 North Guards, Whitburn Village, SR6
+0191 529 5905
+whitburncoastalflooring@outlook.com</div>
+      <button class="copy-btn" onclick="copyAsset('asset-designer-letter', this)">&#128203; Copy Partnership Letter</button>
+    </div>
+  </div>
+
+  <!-- Asset 3: Landlord/Developer Bulk Pricing Template -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon">&#127970;</div>
+        <div class="asset-title">Landlord &amp; Developer Bulk Pricing Template</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">Send to letting agents, landlord networks, and property developers. Customise pricing before sending.</p>
+      <div class="asset-content" id="asset-landlord">WHITBURN COASTAL FLOORING
+Landlord &amp; Property Developer Pricing
+
+We understand that rental properties need flooring that is hard-wearing, quick to install, and cost-effective — without looking cheap. We offer dedicated packages for landlords and property developers in the Sunderland and South Tyneside area.
+
+RENTAL-GRADE FLOORING PACKAGES:
+
+CARPET — Hard-Wearing Rental Range
+- Budget tier: Heavy domestic carpet + standard underlay
+- Mid tier: Extra heavy domestic carpet + quality underlay
+- Supply and fit included
+- Ideal for: bedrooms, living rooms, stairs and landing
+
+LVT (LUXURY VINYL TILE) — Low-Maintenance Range
+- Budget tier: Click-fit LVT, wood or stone effect
+- Mid tier: Premium click-fit LVT with integrated underlay
+- Supply and fit included
+- Ideal for: kitchens, bathrooms, hallways, open-plan living
+
+VINYL — Quick-Turnaround Range
+- Sheet vinyl, wide selection of patterns
+- Supply and fit included
+- Ideal for: kitchens, bathrooms, utility rooms
+
+BULK AND REPEAT CUSTOMER BENEFITS:
+
+- Simplified per-room pricing (no hidden extras)
+- Priority turnaround for tenant changeovers
+- Repeat customer discount on 3+ properties per year
+- Free uplift of old flooring on full refurbishment jobs
+- One point of contact from quote to completion
+
+All prices are available on request and depend on room sizes and product selection. We are happy to visit the property, measure up, and provide a fixed quote with no obligation.
+
+TO DISCUSS YOUR REQUIREMENTS:
+Call: 0191 529 5905
+WhatsApp: Message us directly
+Email: whitburncoastalflooring@outlook.com
+Visit: Whitburn Village showroom (Tue-Sat)
+
+Whitburn Coastal Flooring
+1 East Street / 4 North Guards, Whitburn Village, SR6</div>
+      <button class="copy-btn" onclick="copyAsset('asset-landlord', this)">&#128203; Copy Landlord Template</button>
+    </div>
+  </div>
+
+  <!-- Asset 4: 12-Month Seasonal Campaign Calendar -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon sandy">&#128197;</div>
+        <div class="asset-title">12-Month Seasonal Campaign Calendar</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">A full year of flooring-specific campaign themes. Each month has a hook tied to how people actually buy flooring.</p>
+      <div class="calendar-grid">
+        <div class="cal-month">
+          <div class="cal-month-name">January</div>
+          <div class="cal-theme">New Year, New Room</div>
+          <div class="cal-detail">Fresh start energy. Target living rooms &amp; bedrooms. &ldquo;Start the year underfoot.&rdquo;</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">February</div>
+          <div class="cal-theme">Valentine&rsquo;s Bedroom</div>
+          <div class="cal-detail">Luxury bedroom carpet. Cosy underfoot. &ldquo;The most romantic upgrade.&rdquo;</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">March</div>
+          <div class="cal-theme">Spring Refurb</div>
+          <div class="cal-detail">Post-winter refresh. Hallways &amp; living spaces. &ldquo;Spring clean starts at the floor.&rdquo;</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">April</div>
+          <div class="cal-theme">Easter Living Room</div>
+          <div class="cal-detail">Bank holiday project time. Family rooms &amp; open plan. Home entertaining ready.</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">May</div>
+          <div class="cal-theme">Bank Holiday Sale</div>
+          <div class="cal-detail">Promotional event. Selected ranges, limited time. Drive footfall to showroom.</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">June</div>
+          <div class="cal-theme">Summer Conservatory</div>
+          <div class="cal-detail">LVT for conservatories &amp; sun rooms. Heat-stable, light-resistant flooring.</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">July</div>
+          <div class="cal-theme">Holiday Home Prep</div>
+          <div class="cal-detail">Refresh before summer guests arrive. Quick-fit options for fast turnaround.</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">August</div>
+          <div class="cal-theme">Back to School</div>
+          <div class="cal-detail">Kids&rsquo; bedrooms &amp; playrooms. Hard-wearing, easy-clean, stain-resistant options.</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">September</div>
+          <div class="cal-theme">Autumn Warmth</div>
+          <div class="cal-detail">Cosy carpet season begins. Wool blends, deep piles. &ldquo;Warmth you can feel.&rdquo;</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">October</div>
+          <div class="cal-theme">Kitchen &amp; Bathroom</div>
+          <div class="cal-detail">Pre-Christmas renovation. Waterproof LVT &amp; vinyl. Practical luxury.</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">November</div>
+          <div class="cal-theme">Winter Luxury</div>
+          <div class="cal-detail">Premium ranges for Christmas readiness. Karndean &amp; designer collections showcase.</div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-name">December</div>
+          <div class="cal-theme">Gift Vouchers &amp; New Year</div>
+          <div class="cal-detail">Flooring gift vouchers. Book January fitting now. &ldquo;Give the gift of a new room.&rdquo;</div>
+        </div>
+      </div>
+      <div class="asset-content" id="asset-calendar" style="margin-top:0.75rem;">12-MONTH SEASONAL CAMPAIGN CALENDAR — WHITBURN COASTAL FLOORING
+
+JANUARY — New Year, New Room
+Theme: Fresh start energy. New year, new floor.
+Target rooms: Living rooms, bedrooms
+Hook: "Start the year underfoot — transform your most-used room."
+
+FEBRUARY — Valentine's Bedroom Luxury
+Theme: Romantic, cosy bedroom upgrades
+Target: Premium bedroom carpet, deep pile, wool blends
+Hook: "The most romantic upgrade you can make."
+
+MARCH — Spring Refurb Season
+Theme: Post-winter refresh, spring cleaning starts at the floor
+Target: Hallways, living spaces, tired-looking rooms
+Hook: "Spring clean starts at the floor. Book your free measure."
+
+APRIL — Easter Living Room
+Theme: Bank holiday project time, family gathering spaces
+Target: Living rooms, open-plan areas, dining rooms
+Hook: "Make your home entertaining-ready this Easter."
+
+MAY — Bank Holiday Sale
+Theme: Promotional event, selected ranges, limited-time pricing
+Target: All ranges, drive showroom footfall
+Hook: "Bank Holiday Flooring Event — this weekend only."
+
+JUNE — Summer Conservatory &amp; Sun Room
+Theme: Heat-stable, light-resistant LVT for sun-facing rooms
+Target: Conservatories, sun rooms, garden rooms
+Hook: "Flooring that loves the sun as much as you do."
+
+JULY — Holiday Home Prep
+Theme: Quick-fit options before summer guests arrive
+Target: Guest bedrooms, hallways, bathrooms
+Hook: "Guest-ready in days, not weeks."
+
+AUGUST — Back to School
+Theme: Hard-wearing, easy-clean kids' rooms and playrooms
+Target: Children's bedrooms, playrooms, family rooms
+Hook: "Floors that can handle anything they throw at them."
+
+SEPTEMBER — Autumn Warmth
+Theme: Cosy carpet season, warm tones, deep piles
+Target: Bedrooms, living rooms, stairs and landing
+Hook: "Warmth you can feel. Autumn's cosiest upgrade."
+
+OCTOBER — Kitchen &amp; Bathroom Season
+Theme: Pre-Christmas practical renovation
+Target: Kitchens, bathrooms, utility rooms (waterproof LVT and vinyl)
+Hook: "The rooms that work hardest deserve the best flooring."
+
+NOVEMBER — Winter Luxury
+Theme: Premium designer ranges for Christmas-ready homes
+Target: Karndean, Margo Selby, designer collections
+Hook: "Make it special this Christmas. Designer flooring, fitted before the big day."
+
+DECEMBER — Gift Vouchers &amp; New Year Bookings
+Theme: Flooring gift vouchers, book January fitting slots
+Target: Gift buyers, January planners
+Hook: "Give the gift of a new room. Vouchers available, January slots booking now."</div>
+      <button class="copy-btn" onclick="copyAsset('asset-calendar', this)">&#128203; Copy Campaign Calendar</button>
+    </div>
+  </div>
+
+  <!-- Asset 5: Referral Reward Card Concept -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon">&#127873;</div>
+        <div class="asset-title">Referral Reward Card Concept</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">Front and back of a referral card to hand to every customer after installation.</p>
+      <div class="referral-visual">
+        <div class="ref-card-side">
+          <div class="ref-card-label">Front</div>
+          <div class="ref-card-brand">Whitburn Coastal Flooring</div>
+          <div class="ref-card-body">
+            Know someone who needs new flooring?
+            <span class="amount">&pound;50</span>
+            credit when they place an order
+          </div>
+        </div>
+        <div class="ref-card-side">
+          <div class="ref-card-label">Back</div>
+          <div class="ref-card-brand">How It Works</div>
+          <div class="ref-card-body" style="text-align:left;font-size:0.72rem;">
+            1. Give this card to a friend or family member<br>
+            2. They mention your name when placing their order<br>
+            3. You receive &pound;50 credit on your next purchase<br><br>
+            <strong style="color:var(--sandy);">No limit. Refer as many people as you like.</strong><br><br>
+            <span style="font-size:0.65rem;color:var(--muted);">0191 529 5905 | Whitburn Village, SR6</span>
+          </div>
+        </div>
+      </div>
+      <div class="asset-content" id="asset-referral">REFERRAL REWARD CARD — WHITBURN COASTAL FLOORING
+
+=== FRONT ===
+
+WHITBURN COASTAL FLOORING
+
+Know someone who needs new flooring?
+
+Refer a friend and receive
+
+£50 CREDIT
+
+on your next purchase when they place an order.
+
+=== BACK ===
+
+HOW IT WORKS:
+
+1. Give this card to a friend, family member, or neighbour
+2. They mention your name when they place their order with us
+3. Once their order is confirmed, you receive £50 credit to use on your next purchase
+
+NO LIMIT — Refer as many people as you like. Each successful referral earns another £50 credit.
+
+Terms: Credit is applied to future orders with Whitburn Coastal Flooring. Referral must be a new customer. Credit has no cash value and no expiry date.
+
+Whitburn Coastal Flooring
+1 East Street / 4 North Guards, Whitburn Village, SR6
+0191 529 5905 | whitburncoastalflooring@outlook.com</div>
+      <button class="copy-btn" onclick="copyAsset('asset-referral', this)">&#128203; Copy Referral Card</button>
+    </div>
+  </div>
+
+  <!-- Asset 6: Post-Installation WhatsApp Sequence -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon sandy">&#128172;</div>
+        <div class="asset-title">Post-Installation WhatsApp Sequence</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">Three messages at three key moments. Each one builds the relationship and drives a specific outcome.</p>
+      <div class="wa-sequence">
+        <div class="wa-msg">
+          <div class="wa-timing">
+            <span class="wa-timing-dot"></span>
+            <span class="wa-timing-text">Message 1 &mdash; Day After Installation</span>
+          </div>
+          <div class="wa-msg-text">Hi [Customer Name], it's [Your Name] from Whitburn Coastal Flooring. Just wanted to check in — how's the new floor looking? If you notice anything at all or have any questions about care and maintenance, just give us a shout. Enjoy it! 😊</div>
+        </div>
+        <div class="wa-msg">
+          <div class="wa-timing">
+            <span class="wa-timing-dot"></span>
+            <span class="wa-timing-text">Message 2 &mdash; Two Weeks Later</span>
+          </div>
+          <div class="wa-msg-text">Hi [Customer Name], hope the new floor is settling in nicely! If you've got a spare moment, it would mean a lot if you could leave us a quick Google review — it really helps other people find us. Here's the direct link: [YOUR GOOGLE REVIEW LINK]
+
+No pressure at all — but if you're happy with the work, a few words go a long way. Thanks again for choosing us.</div>
+        </div>
+        <div class="wa-msg">
+          <div class="wa-timing">
+            <span class="wa-timing-dot"></span>
+            <span class="wa-timing-text">Message 3 &mdash; Six Months Later</span>
+          </div>
+          <div class="wa-msg-text">Hi [Customer Name], it's Whitburn Coastal Flooring. It's been about 6 months since we fitted your [flooring type] — just checking in to see how it's wearing. If you'd like us to take a look or if you're thinking about any other rooms, we're always happy to help.
+
+Also, if you know anyone looking for new flooring, we have a referral reward — £50 credit for you when they place an order. Just mention it to them!
+
+Hope all's well. 👋</div>
+        </div>
+      </div>
+      <div class="asset-content" id="asset-whatsapp">POST-INSTALLATION WHATSAPP FOLLOW-UP SEQUENCE
+
+=== MESSAGE 1 — DAY AFTER INSTALLATION ===
+(Goal: Check satisfaction, catch any issues early, show you care)
+
+Hi [Customer Name], it's [Your Name] from Whitburn Coastal Flooring. Just wanted to check in — how's the new floor looking? If you notice anything at all or have any questions about care and maintenance, just give us a shout. Enjoy it!
+
+=== MESSAGE 2 — TWO WEEKS LATER ===
+(Goal: Generate a Google review while satisfaction is still high)
+
+Hi [Customer Name], hope the new floor is settling in nicely! If you've got a spare moment, it would mean a lot if you could leave us a quick Google review — it really helps other people find us. Here's the direct link: [YOUR GOOGLE REVIEW LINK]
+
+No pressure at all — but if you're happy with the work, a few words go a long way. Thanks again for choosing us.
+
+=== MESSAGE 3 — SIX MONTHS LATER ===
+(Goal: Reopen the relationship, drive referrals and repeat business)
+
+Hi [Customer Name], it's Whitburn Coastal Flooring. It's been about 6 months since we fitted your [flooring type] — just checking in to see how it's wearing. If you'd like us to take a look or if you're thinking about any other rooms, we're always happy to help.
+
+Also, if you know anyone looking for new flooring, we have a referral reward — £50 credit for you when they place an order. Just mention it to them!
+
+Hope all's well.
+
+---
+INSTRUCTIONS: Save these as WhatsApp quick replies or set calendar reminders for each customer:
+- Day 1: Send Message 1
+- Day 14: Send Message 2
+- Month 6: Send Message 3
+Replace [Customer Name], [Your Name], [flooring type], and [YOUR GOOGLE REVIEW LINK] each time.</div>
+      <button class="copy-btn" onclick="copyAsset('asset-whatsapp', this)">&#128203; Copy WhatsApp Sequence</button>
+    </div>
+  </div>
+
+  <!-- Asset 7: Service Package Pricing Cards -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon">&#128176;</div>
+        <div class="asset-title">Service Package Pricing Cards</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">Three service tiers to display in the showroom, on social media, or in quotes. Clear, professional, and easy for customers to understand.</p>
+      <div class="package-grid">
+        <div class="pkg-card premium">
+          <div class="pkg-name">The Full Room</div>
+          <div class="pkg-tagline">Complete, hands-off flooring transformation</div>
+          <div class="pkg-price">From &pound;POA</div>
+          <div class="pkg-note">Price on application &mdash; based on room size &amp; product</div>
+          <ul class="pkg-features">
+            <li><span class="check">&#10003;</span> Flooring supply (full range)</li>
+            <li><span class="check">&#10003;</span> Professional fitting</li>
+            <li><span class="check">&#10003;</span> Quality underlay included</li>
+            <li><span class="check">&#10003;</span> Finishing strips &amp; door bars</li>
+            <li><span class="check">&#10003;</span> Furniture moving &amp; replacement</li>
+            <li><span class="check">&#10003;</span> Uplift &amp; disposal of old flooring</li>
+            <li><span class="check">&#10003;</span> Full room preparation</li>
+            <li><span class="check">&#10003;</span> Post-fit clean-up</li>
+          </ul>
+        </div>
+        <div class="pkg-card">
+          <div class="pkg-name">The Quick Refresh</div>
+          <div class="pkg-tagline">Great value when you prepare the room</div>
+          <div class="pkg-price">From &pound;POA</div>
+          <div class="pkg-note">Price on application &mdash; based on room size &amp; product</div>
+          <ul class="pkg-features">
+            <li><span class="check">&#10003;</span> Flooring supply (full range)</li>
+            <li><span class="check">&#10003;</span> Professional fitting</li>
+            <li><span class="check">&#10003;</span> Quality underlay included</li>
+            <li><span class="check">&#10003;</span> Finishing strips &amp; door bars</li>
+            <li><span class="check">&#10003;</span> Customer prepares room</li>
+            <li><span class="check">&#10003;</span> Customer removes old flooring</li>
+          </ul>
+        </div>
+        <div class="pkg-card sandy">
+          <div class="pkg-name">Design &amp; Consult</div>
+          <div class="pkg-tagline">Premium home visit with expert guidance</div>
+          <div class="pkg-price">&pound;75</div>
+          <div class="pkg-note">Deducted in full from any order placed</div>
+          <ul class="pkg-features">
+            <li><span class="check">&#10003;</span> Home visit at your convenience</li>
+            <li><span class="check">&#10003;</span> Sample presentation in your room</li>
+            <li><span class="check">&#10003;</span> Professional room measurement</li>
+            <li><span class="check">&#10003;</span> Design &amp; colour advice</li>
+            <li><span class="check">&#10003;</span> Full written quote</li>
+            <li><span class="check">&#10003;</span> &pound;75 deducted from order</li>
+          </ul>
+        </div>
+      </div>
+      <div class="asset-content" id="asset-packages">SERVICE PACKAGES — WHITBURN COASTAL FLOORING
+
+=== THE FULL ROOM ===
+Complete, hands-off flooring transformation
+From: Price on application
+
+Includes:
+- Flooring supply from our full range
+- Professional fitting by our experienced team
+- Quality underlay included
+- Finishing strips and door bars
+- Furniture moving and replacement
+- Uplift and disposal of old flooring
+- Full room preparation
+- Post-fit clean-up
+
+Everything handled. You don't lift a finger.
+
+=== THE QUICK REFRESH ===
+Great value when you prepare the room yourself
+From: Price on application
+
+Includes:
+- Flooring supply from our full range
+- Professional fitting by our experienced team
+- Quality underlay included
+- Finishing strips and door bars
+- Customer prepares the room (furniture cleared)
+- Customer removes old flooring (or we can quote separately)
+
+Same quality flooring and fitting, at a lower price.
+
+=== DESIGN &amp; CONSULT ===
+Premium home consultation
+Price: £75 (deducted in full from any order placed)
+
+Includes:
+- Home visit at a time that suits you
+- Sample presentation in your actual room and lighting
+- Professional room measurement
+- Design and colour advice from our specialists
+- Full written quote with no obligation
+- £75 fee deducted from your order if you proceed
+
+See your new floor before you commit.
+
+---
+Whitburn Coastal Flooring
+0191 529 5905 | Whitburn Village, SR6</div>
+      <button class="copy-btn" onclick="copyAsset('asset-packages', this)">&#128203; Copy Service Packages</button>
+    </div>
+  </div>
+
+  <!-- Asset 8: WhatsApp Business Quick Replies -->
+  <div class="asset-card">
+    <div class="asset-header" onclick="toggleAsset(this)">
+      <div class="asset-header-left">
+        <div class="asset-icon sandy">&#9889;</div>
+        <div class="asset-title">WhatsApp Business Quick Reply Templates</div>
+      </div>
+      <span class="asset-chevron">&#9660;</span>
+    </div>
+    <div class="asset-body">
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;margin-bottom:0.5rem;">Pre-written quick replies for WhatsApp Business. Set these up once and respond to common questions in one tap.</p>
+      <div class="qr-grid">
+        <div class="qr-item">
+          <div class="qr-label">Opening Hours</div>
+          <div class="qr-text">Thanks for your message! Our showroom hours are: Tue-Fri 9am-4pm, Wed 9am-1pm, Sat 10am-2pm. Closed Sun &amp; Mon. Pop in anytime or we can arrange a home visit at a time that suits you.</div>
+        </div>
+        <div class="qr-item">
+          <div class="qr-label">Free Quote</div>
+          <div class="qr-text">Absolutely, we offer free no-obligation quotes! We can either measure up at your home or if you have rough room sizes, we can give you a ballpark over the phone. What rooms are you looking at?</div>
+        </div>
+        <div class="qr-item">
+          <div class="qr-label">Karndean Enquiry</div>
+          <div class="qr-text">Yes, we are official Karndean stockists! We have a wide range of Karndean designs on display in our showroom. Would you like to book a time to come and see them? We can also bring samples to your home.</div>
+        </div>
+        <div class="qr-item">
+          <div class="qr-label">Home Visit Booking</div>
+          <div class="qr-text">We'd be happy to visit your home with samples! Our Design &amp; Consult service is £75, which is deducted in full from any order you place. It includes measurement, design advice, and a written quote. What day works best for you?</div>
+        </div>
+        <div class="qr-item">
+          <div class="qr-label">How Long Does Fitting Take?</div>
+          <div class="qr-text">It depends on the room size and flooring type, but as a rough guide: most single rooms take one day, stairs and landing is usually a day, and a full house can take 3-5 days. We'll confirm exact timings when we quote.</div>
+        </div>
+        <div class="qr-item">
+          <div class="qr-label">Do You Fit As Well?</div>
+          <div class="qr-text">Yes! We supply and fit. Our team handles everything from measurement to fitting, including underlay, finishing strips, and furniture moving if needed. It's all done by our own experienced fitters — no subcontractors.</div>
+        </div>
+      </div>
+      <div class="asset-content" id="asset-quickreplies">WHATSAPP BUSINESS QUICK REPLY TEMPLATES
+Whitburn Coastal Flooring
+
+Set these up in WhatsApp Business > Business Tools > Quick Replies.
+Each reply has a shortcut keyword — type "/" followed by the keyword to use it.
+
+---
+
+SHORTCUT: /hours
+OPENING HOURS
+Thanks for your message! Our showroom hours are: Tue-Fri 9am-4pm, Wed 9am-1pm, Sat 10am-2pm. Closed Sun &amp; Mon. Pop in anytime or we can arrange a home visit at a time that suits you.
+
+---
+
+SHORTCUT: /quote
+FREE QUOTE
+Absolutely, we offer free no-obligation quotes! We can either measure up at your home or if you have rough room sizes, we can give you a ballpark over the phone. What rooms are you looking at?
+
+---
+
+SHORTCUT: /karndean
+KARNDEAN ENQUIRY
+Yes, we are official Karndean stockists! We have a wide range of Karndean designs on display in our showroom. Would you like to book a time to come and see them? We can also bring samples to your home.
+
+---
+
+SHORTCUT: /visit
+HOME VISIT BOOKING
+We'd be happy to visit your home with samples! Our Design &amp; Consult service is £75, which is deducted in full from any order you place. It includes measurement, design advice, and a written quote. What day works best for you?
+
+---
+
+SHORTCUT: /fitting
+HOW LONG DOES FITTING TAKE?
+It depends on the room size and flooring type, but as a rough guide: most single rooms take one day, stairs and landing is usually a day, and a full house can take 3-5 days. We'll confirm exact timings when we quote.
+
+---
+
+SHORTCUT: /supply
+DO YOU FIT AS WELL?
+Yes! We supply and fit. Our team handles everything from measurement to fitting, including underlay, finishing strips, and furniture moving if needed. It's all done by our own experienced fitters — no subcontractors.</div>
+      <button class="copy-btn" onclick="copyAsset('asset-quickreplies', this)">&#128203; Copy Quick Replies</button>
+    </div>
+  </div>
+
+</section>
+
+<footer class="footer">
+  <p class="footer-ai">This document was made partially with Claude AI. While we have reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+  <p class="footer-brand">Prepared by DMT Consulting | Trade Arrangement | March 2026</p>
+</footer>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.getElementById('tab-' + tabId).classList.add('active');
+  document.querySelector('[data-tab="' + tabId + '"]').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleAction(header) {
+  var card = header.closest('.action-card');
+  card.classList.toggle('open');
+}
+
+function toggleAsset(header) {
+  var card = header.closest('.asset-card');
+  card.classList.toggle('open');
+}
+
+function copyAsset(id, btn) {
+  var el = document.getElementById(id);
+  var text = el.textContent || el.innerText;
+  text = text.replace(/^\s+/gm, '').trim();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      showCopied(btn);
+    }).catch(function() {
+      fallbackCopy(text, btn);
+    });
+  } else {
+    fallbackCopy(text, btn);
+  }
+}
+
+function fallbackCopy(text, btn) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showCopied(btn);
+  } catch (e) {
+    // silent fail
+  }
+  document.body.removeChild(ta);
+}
+
+function showCopied(btn) {
+  var original = btn.innerHTML;
+  btn.innerHTML = '&#10003; Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() {
+    btn.innerHTML = original;
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
+// Animate score bar on load
+document.addEventListener('DOMContentLoaded', function() {
+  var bar = document.querySelector('.score-bar-fill');
+  if (bar) {
+    bar.style.width = '0%';
+    setTimeout(function() {
+      bar.style.width = '30%';
+    }, 300);
+  }
+});
+</script>
+</body>
+</html>

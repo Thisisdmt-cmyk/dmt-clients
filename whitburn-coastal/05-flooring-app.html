@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0A1628">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WCF Manager">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="WCF Manager">
+<meta name="description" content="Whitburn Coastal Flooring — Business Manager">
+<title>Whitburn Coastal Flooring — Business Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0A1628;--card:#111D2E;--border:#1E3A5F;
+--accent:#2E8B8B;--accent-light:#3AADAD;--accent-dim:rgba(46,139,139,.15);
+--sand:#C4956A;--sand-dim:rgba(196,149,106,.15);
+--success:#10B981;--warning:#F59E0B;--danger:#EF4444;
+--text:#E8EDF3;--muted:#8BA4C4;--dim:#4A6484;
+--radius:12px;--radius-sm:8px;--radius-lg:16px;
+--shadow:0 4px 24px rgba(0,0,0,.4);
+--transition:all .25s cubic-bezier(.4,0,.2,1);
+}
+html{font-size:16px;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;padding-bottom:72px;padding-top:60px}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:-.01em}
+
+/* HEADER */
+.app-header{position:fixed;top:0;left:0;right:0;z-index:100;background:linear-gradient(135deg,#0A1628 0%,#111D2E 100%);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:12px;height:60px;backdrop-filter:blur(12px)}
+.app-header .logo-mark{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--sand));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#0A1628;flex-shrink:0}
+.app-header h1{font-size:16px;line-height:1.2;color:var(--text)}
+.app-header .subtitle{font-size:11px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400;letter-spacing:.5px;text-transform:uppercase}
+
+/* TAB BAR */
+.tab-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:linear-gradient(to top,#080F1C,#0D1829);border-top:1px solid var(--border);display:flex;height:72px;padding-bottom:env(safe-area-inset-bottom,8px)}
+.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:none;border:none;color:var(--dim);font-size:10px;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:var(--transition);padding:8px 4px;min-height:52px;position:relative}
+.tab-btn svg{width:24px;height:24px;transition:var(--transition)}
+.tab-btn.active{color:var(--accent)}
+.tab-btn.active::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:3px;background:var(--accent);border-radius:0 0 3px 3px}
+.tab-btn:active{transform:scale(.92)}
+
+/* PAGE SECTIONS */
+.page{display:none;padding:16px;animation:fadeIn .3s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:var(--transition)}
+.card:active{transform:scale(.985)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:var(--transition);min-height:52px;-webkit-tap-highlight-color:transparent}
+.btn:active{transform:scale(.95)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-light)}
+.btn-secondary{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(46,139,139,.3)}
+.btn-sand{background:var(--sand);color:#0A1628}
+.btn-danger{background:rgba(239,68,68,.15);color:var(--danger);border:1px solid rgba(239,68,68,.3)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-sm{min-height:40px;padding:8px 14px;font-size:13px;border-radius:6px}
+.btn-block{width:100%}
+.btn-icon{width:44px;height:44px;min-height:44px;padding:0;border-radius:50%}
+
+/* FAB */
+.fab{position:fixed;bottom:88px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(46,139,139,.4);cursor:pointer;z-index:50;transition:var(--transition)}
+.fab:active{transform:scale(.9)}
+
+/* SEARCH */
+.search-bar{position:relative;margin-bottom:16px}
+.search-bar input{width:100%;padding:12px 16px 12px 44px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:var(--transition);min-height:52px}
+.search-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+.search-bar input::placeholder{color:var(--dim)}
+.search-bar svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--dim)}
+
+/* FORM ELEMENTS */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:var(--transition);min-height:48px}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+.form-group textarea{min-height:80px;resize:vertical}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238BA4C4' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;backdrop-filter:blur(4px);animation:fadeOverlay .3s ease}
+.modal-overlay.active{display:flex;align-items:flex-end}
+@keyframes fadeOverlay{from{opacity:0}to{opacity:1}}
+.modal-sheet{width:100%;max-height:92vh;background:var(--card);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:0;overflow:hidden;animation:slideUp .35s cubic-bezier(.22,1,.36,1)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{width:40px;height:4px;background:var(--dim);border-radius:2px;margin:10px auto}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 16px;border-bottom:1px solid var(--border)}
+.modal-header h2{font-size:18px}
+.modal-close{width:36px;height:36px;border-radius:50%;background:var(--bg);border:1px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
+.modal-body{padding:20px;overflow-y:auto;max-height:calc(92vh - 80px);-webkit-overflow-scrolling:touch}
+
+/* STATUS BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.badge-draft{background:rgba(139,164,196,.15);color:var(--muted)}
+.badge-sent{background:rgba(46,139,139,.15);color:var(--accent)}
+.badge-accepted{background:rgba(16,185,129,.15);color:var(--success)}
+.badge-booked{background:rgba(196,149,106,.15);color:var(--sand)}
+.badge-complete{background:rgba(16,185,129,.2);color:var(--success)}
+.badge-paid{background:rgba(16,185,129,.3);color:var(--success)}
+.badge-scheduled{background:rgba(46,139,139,.15);color:var(--accent)}
+.badge-inprogress{background:rgba(245,158,11,.15);color:var(--warning)}
+.badge-snagging{background:rgba(239,68,68,.15);color:var(--danger)}
+
+/* STAT CARDS */
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center}
+.stat-card .stat-value{font-size:24px;font-weight:700;font-family:'Playfair Display',serif}
+.stat-card .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+
+/* PROGRESS BAR */
+.progress-bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:8px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-light));border-radius:4px;transition:width .5s ease}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:48px 24px;color:var(--muted)}
+.empty-state svg{width:64px;height:64px;margin-bottom:16px;opacity:.4}
+.empty-state h3{font-size:18px;color:var(--text);margin-bottom:8px}
+.empty-state p{font-size:14px;line-height:1.5}
+
+/* TOAST */
+.toast{position:fixed;top:76px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--success);color:#fff;padding:12px 24px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;z-index:500;transition:transform .4s cubic-bezier(.22,1,.36,1);pointer-events:none;box-shadow:var(--shadow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.error{background:var(--danger)}
+
+/* CONFIRM DIALOG */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.confirm-overlay.active{display:flex}
+.confirm-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;width:calc(100% - 48px);max-width:360px;text-align:center;animation:scaleIn .25s ease}
+@keyframes scaleIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.confirm-box h3{font-size:18px;margin-bottom:8px}
+.confirm-box p{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.confirm-actions{display:flex;gap:12px}
+.confirm-actions .btn{flex:1}
+
+/* FILTER PILLS */
+.filter-pills{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.filter-pills::-webkit-scrollbar{display:none}
+.pill{padding:8px 16px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;transition:var(--transition);min-height:36px;display:flex;align-items:center}
+.pill.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+
+/* QUOTE SHARE VIEW */
+.quote-share-view{background:#fff;color:#1a1a1a;padding:32px 24px;border-radius:var(--radius-lg);margin:16px 0}
+.quote-share-view h2{color:#0A1628;font-size:20px;margin-bottom:4px}
+.quote-share-view .qs-sub{color:#666;font-size:13px;margin-bottom:20px}
+.quote-share-view table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0}
+.quote-share-view th{text-align:left;padding:8px;border-bottom:2px solid #0A1628;font-weight:600;color:#0A1628}
+.quote-share-view td{padding:8px;border-bottom:1px solid #eee}
+.quote-share-view .qs-total-row td{border-top:2px solid #0A1628;font-weight:700;font-size:15px}
+.quote-share-view .qs-footer{font-size:11px;color:#888;margin-top:16px;line-height:1.5;font-style:italic}
+
+/* EXTRAS CHECKLIST */
+.extras-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(30,58,95,.3)}
+.extras-item:last-child{border-bottom:none}
+.extras-item label{flex:1;font-size:14px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.extras-item input[type="checkbox"]{width:22px;height:22px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+.extras-item input[type="number"]{width:80px;min-height:36px;padding:6px 8px;text-align:right}
+
+/* ROOM CARD */
+.room-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;position:relative}
+.room-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.room-card-header h3{font-size:16px;color:var(--accent)}
+.room-remove{width:32px;height:32px;border-radius:50%;background:rgba(239,68,68,.1);border:none;color:var(--danger);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+.room-calc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.room-calc span{display:flex;justify-content:space-between}
+.room-calc .calc-value{color:var(--text);font-weight:600}
+
+/* CUSTOMER HISTORY */
+.history-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(30,58,95,.3)}
+.history-item:last-child{border-bottom:none}
+
+/* JOB NOTES */
+.photo-note{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.photo-note .note-icon{color:var(--sand);flex-shrink:0;margin-top:2px}
+
+/* SECTION TITLES */
+.section-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* SETTINGS */
+.settings-group{margin-bottom:24px}
+.settings-group h3{font-size:15px;margin-bottom:12px;color:var(--sand)}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(30,58,95,.3)}
+.setting-row:last-child{border-bottom:none}
+.setting-row label{font-size:14px;flex:1}
+.setting-row input{width:100px;text-align:right;min-height:40px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ANIMATIONS */
+.card-enter{animation:cardEnter .3s ease}
+@keyframes cardEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Quote total bar */
+.quote-total-bar{position:sticky;bottom:0;background:linear-gradient(to top,var(--card) 80%,transparent);padding:16px 0 0;margin-top:16px;z-index:10}
+.total-display{background:var(--bg);border:1px solid var(--accent);border-radius:var(--radius);padding:16px}
+.total-line{display:flex;justify-content:space-between;padding:4px 0;font-size:14px;color:var(--muted)}
+.total-line.grand{font-size:20px;font-weight:700;color:var(--text);padding-top:8px;margin-top:8px;border-top:1px solid var(--border)}
+
+/* RESPONSIVE */
+@media(min-width:480px){
+  .stat-row{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:768px){
+  body{max-width:480px;margin:0 auto}
+}
+
+/* PRINT */
+@media print{
+  body{background:#fff;color:#000;padding:0}
+  .app-header,.tab-bar,.fab,.toast,.modal-overlay,.confirm-overlay{display:none!important}
+  .page{display:block!important;padding:20px}
+  .card{border:1px solid #ddd;background:#fff}
+  .badge{border:1px solid #ccc}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="logo-mark">W</div>
+  <div>
+    <h1>Whitburn Coastal Flooring</h1>
+    <div class="subtitle">Business Manager</div>
+  </div>
+</header>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CONFIRM DIALOG -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">Are you sure?</h3>
+    <p id="confirmMsg"></p>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-danger" id="confirmBtn" onclick="">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE: CUSTOMERS ========== -->
+<section class="page active" id="page-customers">
+  <div class="search-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="customerSearch" placeholder="Search customers..." oninput="renderCustomers()">
+  </div>
+  <div id="customerList"></div>
+</section>
+
+<!-- ========== PAGE: QUOTES ========== -->
+<section class="page" id="page-quotes">
+  <div class="search-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="quoteSearch" placeholder="Search quotes..." oninput="renderQuotes()">
+  </div>
+  <div class="filter-pills" id="quoteFilters"></div>
+  <div id="quoteList"></div>
+</section>
+
+<!-- ========== PAGE: JOBS ========== -->
+<section class="page" id="page-jobs">
+  <div class="stat-row" id="jobStats"></div>
+  <div class="filter-pills" id="jobFilters"></div>
+  <div id="jobList"></div>
+</section>
+
+<!-- ========== PAGE: REVIEWS ========== -->
+<section class="page" id="page-reviews">
+  <div class="stat-row" id="reviewStats"></div>
+  <div class="section-title">Monthly Progress</div>
+  <div class="card" id="reviewProgress"></div>
+  <div class="filter-pills" id="reviewFilters"></div>
+  <div id="reviewList"></div>
+</section>
+
+<!-- ========== PAGE: SETTINGS ========== -->
+<section class="page" id="page-settings">
+  <div id="settingsContent"></div>
+</section>
+
+<!-- FAB -->
+<button class="fab" id="fab" onclick="handleFab()">+</button>
+
+<!-- TAB BAR -->
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="customers" onclick="switchTab('customers')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Customers</span>
+  </button>
+  <button class="tab-btn" data-tab="quotes" onclick="switchTab('quotes')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    <span>Quotes</span>
+  </button>
+  <button class="tab-btn" data-tab="jobs" onclick="switchTab('jobs')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+    <span>Jobs</span>
+  </button>
+  <button class="tab-btn" data-tab="reviews" onclick="switchTab('reviews')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span>Reviews</span>
+  </button>
+  <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span>Settings</span>
+  </button>
+</nav>
+
+<!-- ========== MODALS ========== -->
+
+<!-- CUSTOMER MODAL -->
+<div class="modal-overlay" id="customerModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="customerModalTitle">Add Customer</h2>
+      <button class="modal-close" onclick="closeModal('customerModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="custId">
+      <div class="form-group"><label>Full Name *</label><input type="text" id="custName" placeholder="e.g. John Smith"></div>
+      <div class="form-group"><label>Phone *</label><input type="tel" id="custPhone" placeholder="e.g. 07700 900123"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="custEmail" placeholder="e.g. john@example.com"></div>
+      <div class="form-group"><label>Address</label><textarea id="custAddress" rows="2" placeholder="Full address..."></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Property Type</label>
+          <select id="custProperty"><option value="house">House</option><option value="flat">Flat</option><option value="commercial">Commercial</option></select>
+        </div>
+        <div class="form-group"><label>Flooring Pref.</label>
+          <select id="custFlooringPref"><option value="">None</option><option value="Carpet">Carpet</option><option value="LVT">LVT</option><option value="Laminate">Laminate</option><option value="Vinyl">Vinyl</option><option value="Hardwood">Hardwood</option></select>
+        </div>
+      </div>
+      <div class="form-group"><label>Notes</label><textarea id="custNotes" rows="3" placeholder="Any notes..."></textarea></div>
+      <button class="btn btn-primary btn-block" onclick="saveCustomer()">Save Customer</button>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMER VIEW MODAL -->
+<div class="modal-overlay" id="customerViewModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="custViewName">Customer</h2>
+      <button class="modal-close" onclick="closeModal('customerViewModal')">&times;</button>
+    </div>
+    <div class="modal-body" id="custViewBody"></div>
+  </div>
+</div>
+
+<!-- QUOTE MODAL -->
+<div class="modal-overlay" id="quoteModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="quoteModalTitle">New Quote</h2>
+      <button class="modal-close" onclick="closeModal('quoteModal')">&times;</button>
+    </div>
+    <div class="modal-body" id="quoteModalBody"></div>
+  </div>
+</div>
+
+<!-- QUOTE SHARE MODAL -->
+<div class="modal-overlay" id="quoteShareModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2>Quote Preview</h2>
+      <button class="modal-close" onclick="closeModal('quoteShareModal')">&times;</button>
+    </div>
+    <div class="modal-body" id="quoteShareBody"></div>
+  </div>
+</div>
+
+<!-- JOB MODAL -->
+<div class="modal-overlay" id="jobModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="jobModalTitle">Job Details</h2>
+      <button class="modal-close" onclick="closeModal('jobModal')">&times;</button>
+    </div>
+    <div class="modal-body" id="jobModalBody"></div>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2 id="reviewModalTitle">Review Tracker</h2>
+      <button class="modal-close" onclick="closeModal('reviewModal')">&times;</button>
+    </div>
+    <div class="modal-body" id="reviewModalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================
+   DATA LAYER
+   ============================ */
+const STORAGE_KEY = 'wcf_data';
+
+function getDefaultData() {
+  return {
+    customers: [],
+    quotes: [],
+    jobs: [],
+    reviews: [],
+    settings: {
+      businessName: 'Whitburn Coastal Flooring',
+      phone: '0191 529 5905',
+      email: 'whitburncoastalflooring@outlook.com',
+      address: '4 North Guards, Whitburn Village, SR6 7BU',
+      googleReviewLink: '',
+      pricing: { Carpet: 25, LVT: 35, Laminate: 20, Vinyl: 18, Hardwood: 45 },
+      labourRate: 12,
+      extras: {
+        underlay: 5,
+        gripperRods: 25,
+        doorBars: 15,
+        furnitureMoving: 40,
+        upliftOld: 35,
+        subfloorPrep: 60,
+        skirtingRefit: 45,
+        stairRods: 30
+      },
+      templates: {
+        quoteMsg: "Hi {{customer_name}}, thanks for choosing Whitburn Coastal Flooring! Your {{flooring_type}} quote is ready. Would you like to discuss it?",
+        reviewMsg: "Hi {{customer_name}}, we hope you're loving your new {{flooring_type}} floors! It would mean the world if you could leave us a quick Google review: {{review_link}} — Thank you!",
+        reminderMsg: "Hi {{customer_name}}, just a gentle reminder — if you've got a spare minute, a Google review would really help us out: {{review_link}} — Many thanks!"
+      }
+    },
+    nextId: { customer: 1, quote: 1, job: 1, review: 1 }
+  };
+}
+
+let D = {};
+function loadData() { try { D = JSON.parse(localStorage.getItem(STORAGE_KEY)) || getDefaultData(); if (!D.nextId) D.nextId = { customer:1, quote:1, job:1, review:1 }; if (!D.settings.templates) D.settings.templates = getDefaultData().settings.templates; if (!D.settings.extras) D.settings.extras = getDefaultData().settings.extras; } catch(e) { D = getDefaultData(); } }
+function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(D)); }
+function genId(type) { if (!D.nextId[type]) D.nextId[type] = 1; return D.nextId[type]++; }
+
+loadData();
+
+/* ============================
+   UTILITY
+   ============================ */
+let currentTab = 'customers';
+let currentQuoteFilter = 'All';
+let currentJobFilter = 'All';
+let currentReviewFilter = 'All';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  const fab = document.getElementById('fab');
+  fab.style.display = (tab === 'settings') ? 'none' : 'flex';
+  renderCurrentTab();
+}
+
+function renderCurrentTab() {
+  switch(currentTab) {
+    case 'customers': renderCustomers(); break;
+    case 'quotes': renderQuotes(); break;
+    case 'jobs': renderJobs(); break;
+    case 'reviews': renderReviews(); break;
+    case 'settings': renderSettings(); break;
+  }
+}
+
+function handleFab() {
+  switch(currentTab) {
+    case 'customers': openCustomerModal(); break;
+    case 'quotes': openQuoteModal(); break;
+    case 'jobs': openJobFromQuoteModal(); break;
+    case 'reviews': openReviewModal(); break;
+  }
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 2500);
+}
+
+function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+
+let confirmCb = null;
+function showConfirm(title, msg, cb) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMsg').textContent = msg;
+  confirmCb = cb;
+  document.getElementById('confirmBtn').onclick = () => { closeConfirm(); if (confirmCb) confirmCb(); };
+  document.getElementById('confirmOverlay').classList.add('active');
+}
+function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('active'); }
+
+function fmt(n) { return '£' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function fmtDate(d) { if (!d) return '—'; const dt = new Date(d); return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
+function whatsappNum(phone) { let p = phone.replace(/\s+/g,'').replace(/[^0-9]/g,''); if (p.startsWith('0')) p = '44' + p.slice(1); return p; }
+
+const ROOM_NAMES = ['Kitchen','Living Room','Hallway','Stairs','Bedroom 1','Bedroom 2','Bedroom 3','Bedroom 4','Bathroom','Dining Room','Conservatory','Landing','Custom'];
+const FLOORING_TYPES = ['Carpet','LVT','Laminate','Vinyl','Hardwood'];
+const BRANDS = ['Karndean','Alternative Flooring','iSENSE','Invictus','Associated Weavers','Other'];
+const QUOTE_STATUSES = ['Draft','Sent','Accepted','Booked','Complete','Paid'];
+const JOB_STATUSES = ['Scheduled','In Progress','Snagging','Complete','Paid'];
+const REVIEW_STATUSES = ['Not Asked','Asked','Reminded','Left Review'];
+const EXTRAS_LABELS = {underlay:'Underlay (per m\u00B2)',gripperRods:'Gripper Rods',doorBars:'Door Bars / Finishing Strips',furnitureMoving:'Furniture Moving',upliftOld:'Uplift Old Flooring',subfloorPrep:'Subfloor Preparation',skirtingRefit:'Skirting Board Removal/Refit',stairRods:'Stair Rods'};
+
+function badgeClass(status) {
+  const map = { Draft:'draft', Sent:'sent', Accepted:'accepted', Booked:'booked', Complete:'complete', Paid:'paid', Scheduled:'scheduled', 'In Progress':'inprogress', Snagging:'snagging', 'Not Asked':'draft', Asked:'sent', Reminded:'booked', 'Left Review':'complete' };
+  return 'badge badge-' + (map[status] || 'draft');
+}
+
+/* ============================
+   CUSTOMERS
+   ============================ */
+function renderCustomers() {
+  const q = (document.getElementById('customerSearch').value || '').toLowerCase();
+  let custs = D.customers.filter(c => {
+    if (!q) return true;
+    return (c.name||'').toLowerCase().includes(q) || (c.phone||'').includes(q) || (c.address||'').toLowerCase().includes(q);
+  }).sort((a,b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
+  const el = document.getElementById('customerList');
+  if (!custs.length) {
+    el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><h3>${q ? 'No matches found' : 'No customers yet'}</h3><p>${q ? 'Try a different search term' : 'Tap the + button to add your first customer'}</p></div>`;
+    return;
+  }
+  el.innerHTML = custs.map(c => {
+    const quotes = D.quotes.filter(q => q.customerId === c.id);
+    const jobs = D.jobs.filter(j => j.customerId === c.id);
+    return `<div class="card card-enter" onclick="viewCustomer(${c.id})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div style="font-weight:600;font-size:16px;margin-bottom:2px">${esc(c.name)}</div>
+        <div style="font-size:13px;color:var(--muted)">${esc(c.phone||'No phone')}</div>
+        ${c.address?`<div style="font-size:12px;color:var(--dim);margin-top:2px">${esc(c.address).split('\\n')[0]}</div>`:''}</div>
+        <div style="text-align:right">
+          ${c.flooringPref?`<span class="badge badge-sent" style="margin-bottom:4px">${c.flooringPref}</span>`:''}<br>
+          <span style="font-size:11px;color:var(--dim)">${quotes.length}Q · ${jobs.length}J</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openCustomerModal(id) {
+  const isEdit = !!id;
+  document.getElementById('customerModalTitle').textContent = isEdit ? 'Edit Customer' : 'Add Customer';
+  if (isEdit) {
+    const c = D.customers.find(x => x.id === id);
+    if (!c) return;
+    document.getElementById('custId').value = c.id;
+    document.getElementById('custName').value = c.name||'';
+    document.getElementById('custPhone').value = c.phone||'';
+    document.getElementById('custEmail').value = c.email||'';
+    document.getElementById('custAddress').value = c.address||'';
+    document.getElementById('custProperty').value = c.propertyType||'house';
+    document.getElementById('custFlooringPref').value = c.flooringPref||'';
+    document.getElementById('custNotes').value = c.notes||'';
+  } else {
+    document.getElementById('custId').value = '';
+    ['custName','custPhone','custEmail','custAddress','custNotes'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('custProperty').value = 'house';
+    document.getElementById('custFlooringPref').value = '';
+  }
+  openModal('customerModal');
+}
+
+function saveCustomer() {
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  if (!name || !phone) { showToast('Name and phone are required', true); return; }
+  const id = document.getElementById('custId').value;
+  const data = {
+    name, phone,
+    email: document.getElementById('custEmail').value.trim(),
+    address: document.getElementById('custAddress').value.trim(),
+    propertyType: document.getElementById('custProperty').value,
+    flooringPref: document.getElementById('custFlooringPref').value,
+    notes: document.getElementById('custNotes').value.trim()
+  };
+  if (id) {
+    const idx = D.customers.findIndex(c => c.id === Number(id));
+    if (idx >= 0) Object.assign(D.customers[idx], data);
+  } else {
+    data.id = genId('customer');
+    data.dateAdded = new Date().toISOString();
+    D.customers.push(data);
+  }
+  saveData(); closeModal('customerModal'); renderCustomers();
+  showToast(id ? 'Customer updated' : 'Customer added');
+}
+
+function viewCustomer(id) {
+  const c = D.customers.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('custViewName').textContent = c.name;
+  const quotes = D.quotes.filter(q => q.customerId === id);
+  const jobs = D.jobs.filter(j => j.customerId === id);
+  const review = D.reviews.find(r => r.customerId === id);
+  let h = `<div style="display:flex;gap:8px;margin-bottom:16px">
+    <a href="tel:${esc(c.phone)}" class="btn btn-primary btn-sm" style="flex:1;text-decoration:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call</a>
+    <a href="https://wa.me/${whatsappNum(c.phone)}" target="_blank" class="btn btn-sm" style="flex:1;background:#25D366;color:#fff;text-decoration:none"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.553 4.113 1.519 5.845L.054 23.681l5.957-1.433A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.975 0-3.852-.528-5.504-1.526l-.395-.234-3.535.851.889-3.445-.256-.407A9.783 9.783 0 0 1 2.18 12c0-5.414 4.406-9.82 9.82-9.82S21.82 6.586 21.82 12 17.414 21.82 12 21.82z"/></svg> WhatsApp</a>
+  </div>`;
+  h += `<div class="card" style="margin-bottom:16px">`;
+  if (c.email) h += `<div style="font-size:13px;color:var(--muted);margin-bottom:4px">${esc(c.email)}</div>`;
+  if (c.address) h += `<div style="font-size:13px;color:var(--muted);margin-bottom:4px">${esc(c.address)}</div>`;
+  h += `<div style="font-size:13px;color:var(--dim)">Property: ${c.propertyType||'—'} · Added: ${fmtDate(c.dateAdded)}</div>`;
+  if (c.notes) h += `<div style="margin-top:8px;font-size:13px;color:var(--muted);padding-top:8px;border-top:1px solid var(--border)">${esc(c.notes)}</div>`;
+  h += `</div>`;
+  h += `<div style="display:flex;gap:8px;margin-bottom:16px">
+    <button class="btn btn-secondary btn-sm" style="flex:1" onclick="closeModal('customerViewModal');openCustomerModal(${c.id})">Edit</button>
+    <button class="btn btn-danger btn-sm" style="flex:1" onclick="deleteCustomer(${c.id})">Delete</button>
+  </div>`;
+  if (quotes.length) {
+    h += `<div class="section-title">Quotes (${quotes.length})</div>`;
+    quotes.forEach(q => {
+      h += `<div class="history-item" onclick="closeModal('customerViewModal');viewQuote(${q.id})" style="cursor:pointer">
+        <div style="flex:1"><div style="font-weight:600">Quote #${q.id}</div><div style="font-size:12px;color:var(--muted)">${fmtDate(q.date)} · ${q.rooms?q.rooms.length:0} room(s)</div></div>
+        <div style="text-align:right"><span class="${badgeClass(q.status)}">${q.status}</span><div style="font-weight:600;margin-top:4px">${fmt(q.grandTotal||0)}</div></div>
+      </div>`;
+    });
+  }
+  if (jobs.length) {
+    h += `<div class="section-title">Jobs (${jobs.length})</div>`;
+    jobs.forEach(j => {
+      h += `<div class="history-item"><div style="flex:1"><div style="font-weight:600">Job #${j.id}</div><div style="font-size:12px;color:var(--muted)">${fmtDate(j.date)}</div></div><span class="${badgeClass(j.status)}">${j.status}</span></div>`;
+    });
+  }
+  document.getElementById('custViewBody').innerHTML = h;
+  openModal('customerViewModal');
+}
+
+function deleteCustomer(id) {
+  showConfirm('Delete Customer', 'This will permanently delete this customer and all linked data. Are you sure?', () => {
+    D.customers = D.customers.filter(c => c.id !== id);
+    D.quotes = D.quotes.filter(q => q.customerId !== id);
+    D.jobs = D.jobs.filter(j => j.customerId !== id);
+    D.reviews = D.reviews.filter(r => r.customerId !== id);
+    saveData(); closeModal('customerViewModal'); renderCustomers();
+    showToast('Customer deleted');
+  });
+}
+
+/* ============================
+   QUOTES
+   ============================ */
+let editingQuote = null;
+
+function renderQuotes() {
+  const q = (document.getElementById('quoteSearch').value || '').toLowerCase();
+  // Filters
+  const fp = document.getElementById('quoteFilters');
+  fp.innerHTML = ['All',...QUOTE_STATUSES].map(s => `<div class="pill${currentQuoteFilter===s?' active':''}" onclick="currentQuoteFilter='${s}';renderQuotes()">${s}</div>`).join('');
+
+  let quotes = D.quotes.filter(qo => {
+    if (currentQuoteFilter !== 'All' && qo.status !== currentQuoteFilter) return false;
+    if (!q) return true;
+    const cust = D.customers.find(c => c.id === qo.customerId);
+    const cn = cust ? cust.name.toLowerCase() : '';
+    return cn.includes(q) || ('quote #'+qo.id).includes(q);
+  }).sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  const el = document.getElementById('quoteList');
+  if (!quotes.length) {
+    el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><h3>No quotes yet</h3><p>Tap + to create your first quote</p></div>`;
+    return;
+  }
+  el.innerHTML = quotes.map(qo => {
+    const cust = D.customers.find(c => c.id === qo.customerId);
+    const roomNames = (qo.rooms||[]).map(r => r.roomName).join(', ');
+    return `<div class="card card-enter" onclick="viewQuote(${qo.id})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div><div style="font-weight:600">Quote #${qo.id}</div><div style="font-size:13px;color:var(--muted)">${cust?esc(cust.name):'No customer'}</div></div>
+        <span class="${badgeClass(qo.status)}">${qo.status}</span>
+      </div>
+      <div style="font-size:12px;color:var(--dim);margin-bottom:6px">${roomNames||'No rooms'}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:var(--dim)">${fmtDate(qo.date)}</span>
+        <span style="font-size:18px;font-weight:700;font-family:'Playfair Display',serif;color:var(--accent)">${fmt(qo.grandTotal||0)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openQuoteModal(quoteId) {
+  editingQuote = quoteId ? D.quotes.find(q => q.id === quoteId) : null;
+  const isEdit = !!editingQuote;
+  document.getElementById('quoteModalTitle').textContent = isEdit ? 'Edit Quote #' + editingQuote.id : 'New Quote';
+
+  let quote = editingQuote || { customerId: '', status: 'Draft', rooms: [], extras: {}, date: new Date().toISOString() };
+
+  let h = `<div class="form-group"><label>Customer</label><select id="qCustomer">
+    <option value="">— Select customer —</option>
+    ${D.customers.map(c => `<option value="${c.id}"${quote.customerId==c.id?' selected':''}>${esc(c.name)}</option>`).join('')}
+  </select></div>`;
+  if (isEdit) {
+    h += `<div class="form-group"><label>Status</label><select id="qStatus">${QUOTE_STATUSES.map(s=>`<option${quote.status===s?' selected':''}>${s}</option>`).join('')}</select></div>`;
+  }
+  h += `<div class="section-title">Rooms</div><div id="qRooms"></div>`;
+  h += `<button class="btn btn-secondary btn-sm btn-block" onclick="addRoomToQuote()" style="margin-bottom:16px">+ Add Room</button>`;
+  h += `<div class="section-title">Extras</div><div id="qExtras"></div>`;
+  h += `<div class="quote-total-bar"><div class="total-display" id="qTotals"></div></div>`;
+  h += `<div style="margin-top:16px;display:flex;gap:8px">
+    <button class="btn btn-primary btn-block" onclick="saveQuote()">Save Quote</button>
+  </div>`;
+
+  document.getElementById('quoteModalBody').innerHTML = h;
+
+  // Store rooms in temp
+  window._qRooms = JSON.parse(JSON.stringify(quote.rooms || []));
+  window._qExtras = JSON.parse(JSON.stringify(quote.extras || {}));
+
+  if (!window._qRooms.length) addRoomToQuote();
+  else renderQuoteRooms();
+  renderQuoteExtras();
+  recalcQuote();
+  openModal('quoteModal');
+}
+
+function addRoomToQuote() {
+  window._qRooms.push({ roomName: 'Kitchen', length: '', width: '', flooringType: 'Carpet', brand: 'Karndean', pricePerM2: D.settings.pricing.Carpet });
+  renderQuoteRooms();
+  recalcQuote();
+}
+
+function renderQuoteRooms() {
+  const el = document.getElementById('qRooms');
+  el.innerHTML = window._qRooms.map((r, i) => {
+    const area = (parseFloat(r.length)||0) * (parseFloat(r.width)||0);
+    const wastage = area * 0.1;
+    const totalArea = area + wastage;
+    const matCost = totalArea * (parseFloat(r.pricePerM2)||0);
+    const labCost = totalArea * D.settings.labourRate;
+    return `<div class="room-card card-enter">
+      <div class="room-card-header">
+        <h3>${esc(r.roomName)}</h3>
+        <button class="room-remove" onclick="removeRoom(${i})" title="Remove room">&times;</button>
+      </div>
+      <div class="form-group"><label>Room</label><select onchange="window._qRooms[${i}].roomName=this.value;renderQuoteRooms();recalcQuote()">${ROOM_NAMES.map(n=>`<option${r.roomName===n?' selected':''}>${n}</option>`).join('')}</select></div>
+      <div class="form-row">
+        <div class="form-group"><label>Length (m)</label><input type="number" step="0.01" min="0" value="${r.length}" placeholder="0.00" oninput="window._qRooms[${i}].length=this.value;updateRoomCalc(${i});recalcQuote()"></div>
+        <div class="form-group"><label>Width (m)</label><input type="number" step="0.01" min="0" value="${r.width}" placeholder="0.00" oninput="window._qRooms[${i}].width=this.value;updateRoomCalc(${i});recalcQuote()"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Flooring Type</label><select onchange="window._qRooms[${i}].flooringType=this.value;window._qRooms[${i}].pricePerM2=D.settings.pricing[this.value]||0;renderQuoteRooms();recalcQuote()">${FLOORING_TYPES.map(f=>`<option${r.flooringType===f?' selected':''}>${f}</option>`).join('')}</select></div>
+        <div class="form-group"><label>Brand</label><select onchange="window._qRooms[${i}].brand=this.value">${BRANDS.map(b=>`<option${r.brand===b?' selected':''}>${b}</option>`).join('')}</select></div>
+      </div>
+      <div class="form-group"><label>Price per m\u00B2</label><input type="number" step="0.01" min="0" value="${r.pricePerM2}" oninput="window._qRooms[${i}].pricePerM2=this.value;recalcQuote()"></div>
+      <div class="room-calc" id="roomCalc${i}">
+        <span>Area <span class="calc-value">${area.toFixed(2)} m\u00B2</span></span>
+        <span>Wastage (10%) <span class="calc-value">${wastage.toFixed(2)} m\u00B2</span></span>
+        <span>Total Area <span class="calc-value">${totalArea.toFixed(2)} m\u00B2</span></span>
+        <span>Material <span class="calc-value">${fmt(matCost)}</span></span>
+        <span>Labour <span class="calc-value">${fmt(labCost)}</span></span>
+        <span>Room Total <span class="calc-value" style="color:var(--accent)">${fmt(matCost+labCost)}</span></span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateRoomCalc(i) {
+  // Live update happens on re-render via recalcQuote
+}
+
+function removeRoom(i) {
+  window._qRooms.splice(i, 1);
+  renderQuoteRooms();
+  recalcQuote();
+}
+
+function renderQuoteExtras() {
+  const el = document.getElementById('qExtras');
+  const ex = window._qExtras;
+  el.innerHTML = Object.keys(EXTRAS_LABELS).map(key => {
+    const checked = ex[key] && ex[key].enabled;
+    const price = (ex[key] && ex[key].price !== undefined) ? ex[key].price : D.settings.extras[key];
+    return `<div class="extras-item">
+      <label><input type="checkbox" ${checked?'checked':''} onchange="toggleExtra('${key}',this.checked)"> ${EXTRAS_LABELS[key]}</label>
+      <input type="number" step="0.01" min="0" value="${price}" onchange="updateExtraPrice('${key}',this.value)" style="width:80px">
+    </div>`;
+  }).join('');
+}
+
+function toggleExtra(key, checked) {
+  if (!window._qExtras[key]) window._qExtras[key] = { enabled: false, price: D.settings.extras[key] };
+  window._qExtras[key].enabled = checked;
+  recalcQuote();
+}
+function updateExtraPrice(key, val) {
+  if (!window._qExtras[key]) window._qExtras[key] = { enabled: false, price: 0 };
+  window._qExtras[key].price = parseFloat(val) || 0;
+  recalcQuote();
+}
+
+function recalcQuote() {
+  let roomsTotal = 0;
+  let totalAreaAll = 0;
+  window._qRooms.forEach(r => {
+    const area = (parseFloat(r.length)||0) * (parseFloat(r.width)||0);
+    const wastage = area * 0.1;
+    const totalArea = area + wastage;
+    totalAreaAll += totalArea;
+    const matCost = totalArea * (parseFloat(r.pricePerM2)||0);
+    const labCost = totalArea * D.settings.labourRate;
+    roomsTotal += matCost + labCost;
+  });
+  let extrasTotal = 0;
+  Object.keys(window._qExtras).forEach(key => {
+    const ex = window._qExtras[key];
+    if (ex && ex.enabled) {
+      if (key === 'underlay') extrasTotal += (ex.price||0) * totalAreaAll;
+      else extrasTotal += (ex.price || 0);
+    }
+  });
+  const subtotal = roomsTotal + extrasTotal;
+  const vat = subtotal * 0.2;
+  const grand = subtotal + vat;
+  const el = document.getElementById('qTotals');
+  if (el) {
+    el.innerHTML = `<div class="total-line"><span>Rooms</span><span>${fmt(roomsTotal)}</span></div>
+      <div class="total-line"><span>Extras</span><span>${fmt(extrasTotal)}</span></div>
+      <div class="total-line"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+      <div class="total-line"><span>VAT (20%)</span><span>${fmt(vat)}</span></div>
+      <div class="total-line grand"><span>Grand Total</span><span>${fmt(grand)}</span></div>`;
+  }
+  // Re-render room calcs inline
+  window._qRooms.forEach((r,i) => {
+    const ce = document.getElementById('roomCalc'+i);
+    if (!ce) return;
+    const area = (parseFloat(r.length)||0) * (parseFloat(r.width)||0);
+    const wastage = area * 0.1;
+    const totalArea = area + wastage;
+    const matCost = totalArea * (parseFloat(r.pricePerM2)||0);
+    const labCost = totalArea * D.settings.labourRate;
+    ce.innerHTML = `<span>Area <span class="calc-value">${area.toFixed(2)} m\u00B2</span></span>
+      <span>Wastage (10%) <span class="calc-value">${wastage.toFixed(2)} m\u00B2</span></span>
+      <span>Total Area <span class="calc-value">${totalArea.toFixed(2)} m\u00B2</span></span>
+      <span>Material <span class="calc-value">${fmt(matCost)}</span></span>
+      <span>Labour <span class="calc-value">${fmt(labCost)}</span></span>
+      <span>Room Total <span class="calc-value" style="color:var(--accent)">${fmt(matCost+labCost)}</span></span>`;
+  });
+}
+
+function saveQuote() {
+  const custId = document.getElementById('qCustomer').value;
+  // Recalc totals
+  let roomsTotal = 0, extrasTotal = 0, totalAreaAll = 0;
+  window._qRooms.forEach(r => {
+    const area = (parseFloat(r.length)||0) * (parseFloat(r.width)||0);
+    const wastage = area * 0.1;
+    const totalArea = area + wastage;
+    totalAreaAll += totalArea;
+    roomsTotal += totalArea * (parseFloat(r.pricePerM2)||0) + totalArea * D.settings.labourRate;
+  });
+  Object.keys(window._qExtras).forEach(key => {
+    const ex = window._qExtras[key];
+    if (ex && ex.enabled) {
+      if (key === 'underlay') extrasTotal += (ex.price||0) * totalAreaAll;
+      else extrasTotal += (ex.price || 0);
+    }
+  });
+  const subtotal = roomsTotal + extrasTotal;
+  const vat = subtotal * 0.2;
+  const grand = subtotal + vat;
+
+  const qData = {
+    customerId: custId ? Number(custId) : null,
+    rooms: JSON.parse(JSON.stringify(window._qRooms)),
+    extras: JSON.parse(JSON.stringify(window._qExtras)),
+    subtotal, vat, grandTotal: grand,
+    date: editingQuote ? editingQuote.date : new Date().toISOString(),
+    status: editingQuote ? (document.getElementById('qStatus')?.value || editingQuote.status) : 'Draft'
+  };
+
+  if (editingQuote) {
+    const idx = D.quotes.findIndex(q => q.id === editingQuote.id);
+    if (idx >= 0) { qData.id = editingQuote.id; D.quotes[idx] = qData; }
+  } else {
+    qData.id = genId('quote');
+    D.quotes.push(qData);
+  }
+  saveData(); closeModal('quoteModal'); renderQuotes();
+  showToast(editingQuote ? 'Quote updated' : 'Quote created');
+  editingQuote = null;
+}
+
+function viewQuote(id) {
+  const q = D.quotes.find(x => x.id === id);
+  if (!q) return;
+  const cust = D.customers.find(c => c.id === q.customerId);
+
+  let h = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <div><div style="font-weight:600;font-size:18px">Quote #${q.id}</div><div style="font-size:13px;color:var(--muted)">${cust?esc(cust.name):'No customer'} · ${fmtDate(q.date)}</div></div>
+    <span class="${badgeClass(q.status)}">${q.status}</span>
+  </div>`;
+
+  // Status change
+  h += `<div class="form-group"><label>Change Status</label><select onchange="changeQuoteStatus(${q.id},this.value)">${QUOTE_STATUSES.map(s=>`<option${q.status===s?' selected':''}>${s}</option>`).join('')}</select></div>`;
+
+  // Rooms
+  if (q.rooms && q.rooms.length) {
+    q.rooms.forEach(r => {
+      const area = (parseFloat(r.length)||0) * (parseFloat(r.width)||0);
+      const wastage = area * 0.1;
+      const totalArea = area + wastage;
+      const matCost = totalArea * (parseFloat(r.pricePerM2)||0);
+      const labCost = totalArea * D.settings.labourRate;
+      h += `<div class="room-card"><div class="room-card-header"><h3>${esc(r.roomName)}</h3><span class="badge badge-sent">${r.flooringType}</span></div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">${r.brand||''} · ${r.length}m × ${r.width}m · ${fmt(r.pricePerM2)}/m\u00B2</div>
+        <div class="room-calc">
+          <span>Area <span class="calc-value">${area.toFixed(2)} m\u00B2</span></span>
+          <span>Total Area <span class="calc-value">${totalArea.toFixed(2)} m\u00B2</span></span>
+          <span>Material <span class="calc-value">${fmt(matCost)}</span></span>
+          <span>Labour <span class="calc-value">${fmt(labCost)}</span></span>
+        </div></div>`;
+    });
+  }
+
+  // Extras
+  const activeExtras = Object.keys(q.extras||{}).filter(k => q.extras[k] && q.extras[k].enabled);
+  if (activeExtras.length) {
+    h += `<div class="section-title">Extras</div>`;
+    activeExtras.forEach(k => {
+      const ex = q.extras[k];
+      h += `<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-bottom:1px solid rgba(30,58,95,.2)"><span>${EXTRAS_LABELS[k]||k}</span><span>${fmt(ex.price)}</span></div>`;
+    });
+  }
+
+  h += `<div class="total-display" style="margin-top:16px">
+    <div class="total-line"><span>Subtotal</span><span>${fmt(q.subtotal||0)}</span></div>
+    <div class="total-line"><span>VAT (20%)</span><span>${fmt(q.vat||0)}</span></div>
+    <div class="total-line grand"><span>Grand Total</span><span>${fmt(q.grandTotal||0)}</span></div>
+  </div>`;
+
+  h += `<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+    <button class="btn btn-primary btn-sm" style="flex:1" onclick="closeModal('quoteShareModal');openQuoteModal(${q.id})">Edit</button>
+    <button class="btn btn-sand btn-sm" style="flex:1" onclick="shareQuote(${q.id})">Share Quote</button>
+    ${q.status==='Accepted'||q.status==='Booked'?`<button class="btn btn-secondary btn-sm" style="flex:1" onclick="createJobFromQuote(${q.id})">Create Job</button>`:''}
+    <button class="btn btn-danger btn-sm" style="flex:1" onclick="deleteQuote(${q.id})">Delete</button>
+  </div>`;
+
+  document.getElementById('quoteShareBody').innerHTML = h;
+  openModal('quoteShareModal');
+}
+
+function changeQuoteStatus(id, status) {
+  const q = D.quotes.find(x => x.id === id);
+  if (q) { q.status = status; saveData(); showToast('Status updated to ' + status); }
+}
+
+function deleteQuote(id) {
+  showConfirm('Delete Quote', 'This will permanently delete this quote. Are you sure?', () => {
+    D.quotes = D.quotes.filter(q => q.id !== id);
+    saveData(); closeModal('quoteShareModal'); renderQuotes();
+    showToast('Quote deleted');
+  });
+}
+
+function shareQuote(id) {
+  const q = D.quotes.find(x => x.id === id);
+  if (!q) return;
+  const cust = D.customers.find(c => c.id === q.customerId);
+  const s = D.settings;
+
+  let h = `<div class="quote-share-view" id="shareView">
+    <div style="text-align:center;margin-bottom:20px">
+      <h2 style="color:#0A1628">${esc(s.businessName)}</h2>
+      <div class="qs-sub">${esc(s.address)} &middot; ${esc(s.phone)}</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+      <div><strong>Quote #${q.id}</strong><br><span style="color:#666;font-size:13px">${fmtDate(q.date)}</span></div>
+      ${cust?`<div style="text-align:right"><strong>${esc(cust.name)}</strong><br><span style="color:#666;font-size:13px">${esc(cust.phone)}</span></div>`:''}
+    </div>
+    <table><thead><tr><th>Room</th><th>Type</th><th>Area</th><th style="text-align:right">Cost</th></tr></thead><tbody>`;
+
+  (q.rooms||[]).forEach(r => {
+    const area = (parseFloat(r.length)||0) * (parseFloat(r.width)||0);
+    const totalArea = area + area * 0.1;
+    const cost = totalArea * (parseFloat(r.pricePerM2)||0) + totalArea * D.settings.labourRate;
+    h += `<tr><td>${esc(r.roomName)}</td><td>${r.flooringType}</td><td>${totalArea.toFixed(1)} m\u00B2</td><td style="text-align:right">${fmt(cost)}</td></tr>`;
+  });
+
+  const activeExtras = Object.keys(q.extras||{}).filter(k => q.extras[k]?.enabled);
+  activeExtras.forEach(k => {
+    h += `<tr><td colspan="3">${EXTRAS_LABELS[k]||k}</td><td style="text-align:right">${fmt(q.extras[k].price)}</td></tr>`;
+  });
+
+  h += `</tbody></table>
+    <div style="text-align:right;margin-top:12px">
+      <div style="font-size:13px;color:#666">Subtotal: ${fmt(q.subtotal||0)}</div>
+      <div style="font-size:13px;color:#666">VAT (20%): ${fmt(q.vat||0)}</div>
+      <div style="font-size:18px;font-weight:700;color:#0A1628;margin-top:4px">Total: ${fmt(q.grandTotal||0)}</div>
+    </div>
+    <div class="qs-footer">This is an estimate based on approximate measurements. Final pricing may vary following on-site assessment.</div>
+  </div>`;
+
+  h += `<div style="display:flex;gap:8px;margin-top:12px">
+    <button class="btn btn-primary btn-sm btn-block" onclick="copyShareText(${q.id})">Copy as Text</button>
+    ${cust?`<a href="https://wa.me/${whatsappNum(cust.phone)}?text=${encodeURIComponent(generateShareText(q))}" target="_blank" class="btn btn-sm btn-block" style="background:#25D366;color:#fff;text-decoration:none">Send via WhatsApp</a>`:''}
+  </div>`;
+
+  closeModal('quoteShareModal');
+  document.getElementById('quoteShareBody').innerHTML = h;
+  openModal('quoteShareModal');
+}
+
+function generateShareText(q) {
+  const s = D.settings;
+  const cust = D.customers.find(c => c.id === q.customerId);
+  let t = `${s.businessName}\n${s.address} | ${s.phone}\n\n`;
+  t += `QUOTE #${q.id} — ${fmtDate(q.date)}\n`;
+  if (cust) t += `For: ${cust.name}\n`;
+  t += `\n`;
+  (q.rooms||[]).forEach(r => {
+    const area = (parseFloat(r.length)||0) * (parseFloat(r.width)||0);
+    const totalArea = area + area * 0.1;
+    const cost = totalArea * (parseFloat(r.pricePerM2)||0) + totalArea * D.settings.labourRate;
+    t += `${r.roomName} — ${r.flooringType} (${r.brand})\n  ${totalArea.toFixed(1)} m\u00B2 = ${fmt(cost)}\n`;
+  });
+  const activeExtras = Object.keys(q.extras||{}).filter(k => q.extras[k]?.enabled);
+  if (activeExtras.length) {
+    t += `\nExtras:\n`;
+    activeExtras.forEach(k => { t += `  ${EXTRAS_LABELS[k]||k}: ${fmt(q.extras[k].price)}\n`; });
+  }
+  t += `\nSubtotal: ${fmt(q.subtotal||0)}\nVAT (20%): ${fmt(q.vat||0)}\nTOTAL: ${fmt(q.grandTotal||0)}\n`;
+  t += `\nThis is an estimate based on approximate measurements. Final pricing may vary following on-site assessment.`;
+  return t;
+}
+
+function copyShareText(id) {
+  const q = D.quotes.find(x => x.id === id);
+  if (!q) return;
+  const text = generateShareText(q);
+  navigator.clipboard.writeText(text).then(() => showToast('Quote copied to clipboard')).catch(() => showToast('Could not copy', true));
+}
+
+/* ============================
+   JOBS
+   ============================ */
+function renderJobs() {
+  // Stats
+  const now = new Date();
+  const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const thisWeek = D.jobs.filter(j => j.status === 'Paid' && new Date(j.paidDate||j.date) >= weekStart).reduce((s,j)=>s+(j.revenue||0),0);
+  const thisMonth = D.jobs.filter(j => j.status === 'Paid' && new Date(j.paidDate||j.date) >= monthStart).reduce((s,j)=>s+(j.revenue||0),0);
+  const outstanding = D.jobs.filter(j => j.status === 'Complete').reduce((s,j)=>s+(j.revenue||0),0);
+  const activeJobs = D.jobs.filter(j => !['Complete','Paid'].includes(j.status)).length;
+
+  document.getElementById('jobStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value" style="color:var(--accent)">${fmt(thisWeek)}</div><div class="stat-label">This Week</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--success)">${fmt(thisMonth)}</div><div class="stat-label">This Month</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--warning)">${fmt(outstanding)}</div><div class="stat-label">Outstanding</div></div>
+    <div class="stat-card"><div class="stat-value">${activeJobs}</div><div class="stat-label">Active Jobs</div></div>`;
+
+  // Filters
+  document.getElementById('jobFilters').innerHTML = ['All',...JOB_STATUSES].map(s => `<div class="pill${currentJobFilter===s?' active':''}" onclick="currentJobFilter='${s}';renderJobs()">${s}</div>`).join('');
+
+  let jobs = D.jobs.filter(j => currentJobFilter === 'All' || j.status === currentJobFilter).sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  const el = document.getElementById('jobList');
+  if (!jobs.length) {
+    el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><h3>No jobs yet</h3><p>Jobs are created from accepted quotes</p></div>`;
+    return;
+  }
+  el.innerHTML = jobs.map(j => {
+    const cust = D.customers.find(c => c.id === j.customerId);
+    return `<div class="card card-enter" onclick="viewJob(${j.id})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div><div style="font-weight:600">Job #${j.id}</div><div style="font-size:13px;color:var(--muted)">${cust?esc(cust.name):'—'}</div></div>
+        <span class="${badgeClass(j.status)}">${j.status}</span>
+      </div>
+      <div style="font-size:12px;color:var(--dim)">${fmtDate(j.date)} · ${(j.rooms||[]).map(r=>r.roomName).join(', ')} · ${(j.rooms||[]).map(r=>r.flooringType).filter((v,i,a)=>a.indexOf(v)===i).join(', ')}</div>
+      <div style="text-align:right;font-weight:700;color:var(--accent);margin-top:4px">${fmt(j.revenue||0)}</div>
+    </div>`;
+  }).join('');
+}
+
+function openJobFromQuoteModal() {
+  // Show list of accepted/booked quotes to create job from
+  const eligible = D.quotes.filter(q => ['Accepted','Booked'].includes(q.status) && !D.jobs.find(j => j.quoteId === q.id));
+  if (!eligible.length) { showToast('No accepted quotes to create jobs from', true); return; }
+  let h = `<div class="section-title">Create Job from Quote</div>`;
+  eligible.forEach(q => {
+    const cust = D.customers.find(c => c.id === q.customerId);
+    h += `<div class="card" onclick="createJobFromQuote(${q.id})" style="cursor:pointer">
+      <div style="font-weight:600">Quote #${q.id} — ${cust?esc(cust.name):'—'}</div>
+      <div style="font-size:13px;color:var(--muted)">${(q.rooms||[]).map(r=>r.roomName).join(', ')} · ${fmt(q.grandTotal||0)}</div>
+    </div>`;
+  });
+  document.getElementById('jobModalBody').innerHTML = h;
+  document.getElementById('jobModalTitle').textContent = 'New Job';
+  openModal('jobModal');
+}
+
+function createJobFromQuote(quoteId) {
+  const q = D.quotes.find(x => x.id === quoteId);
+  if (!q) return;
+  if (D.jobs.find(j => j.quoteId === quoteId)) { showToast('Job already exists for this quote', true); return; }
+  const job = {
+    id: genId('job'),
+    quoteId: q.id,
+    customerId: q.customerId,
+    rooms: JSON.parse(JSON.stringify(q.rooms||[])),
+    revenue: q.grandTotal || 0,
+    date: new Date().toISOString(),
+    status: 'Scheduled',
+    fitterNotes: '',
+    photoNotes: [],
+    paidDate: null
+  };
+  D.jobs.push(job);
+  q.status = 'Booked';
+  saveData();
+  closeModal('quoteShareModal'); closeModal('jobModal');
+  switchTab('jobs');
+  showToast('Job created from Quote #' + q.id);
+}
+
+function viewJob(id) {
+  const j = D.jobs.find(x => x.id === id);
+  if (!j) return;
+  const cust = D.customers.find(c => c.id === j.customerId);
+
+  let h = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <div><div style="font-weight:600;font-size:18px">Job #${j.id}</div><div style="font-size:13px;color:var(--muted)">${cust?esc(cust.name):'—'} · ${fmtDate(j.date)}</div></div>
+    <span class="${badgeClass(j.status)}">${j.status}</span>
+  </div>`;
+
+  h += `<div class="form-group"><label>Status</label><select onchange="changeJobStatus(${j.id},this.value)">${JOB_STATUSES.map(s=>`<option${j.status===s?' selected':''}>${s}</option>`).join('')}</select></div>`;
+
+  // Rooms
+  if (j.rooms && j.rooms.length) {
+    h += `<div class="section-title">Rooms</div>`;
+    j.rooms.forEach(r => {
+      h += `<div style="padding:8px 0;border-bottom:1px solid rgba(30,58,95,.2);font-size:14px"><strong>${esc(r.roomName)}</strong> — ${r.flooringType} (${r.brand}) · ${r.length}m × ${r.width}m</div>`;
+    });
+  }
+
+  h += `<div class="section-title">Revenue</div>
+    <div class="card"><div style="font-size:24px;font-weight:700;font-family:'Playfair Display',serif;color:var(--accent)">${fmt(j.revenue||0)}</div></div>`;
+
+  // Fitter notes
+  h += `<div class="section-title">Fitter Notes</div>
+    <div class="form-group"><textarea id="jobNotes${j.id}" rows="3" placeholder="Add fitter notes...">${esc(j.fitterNotes||'')}</textarea></div>
+    <button class="btn btn-secondary btn-sm" onclick="saveJobNotes(${j.id})">Save Notes</button>`;
+
+  // Photo reference notes
+  h += `<div class="section-title">Photo Reference Notes</div>
+    <div id="photoNotes${j.id}">`;
+  (j.photoNotes||[]).forEach((pn, i) => {
+    h += `<div class="photo-note"><span class="note-icon">&#128247;</span><span>${esc(pn)}</span></div>`;
+  });
+  h += `</div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input type="text" id="newPhotoNote${j.id}" placeholder="e.g. Before photo - kitchen from doorway" style="flex:1;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:14px;min-height:44px">
+      <button class="btn btn-secondary btn-sm" onclick="addPhotoNote(${j.id})">Add</button>
+    </div>`;
+
+  h += `<div style="margin-top:20px"><button class="btn btn-danger btn-sm btn-block" onclick="deleteJob(${j.id})">Delete Job</button></div>`;
+
+  document.getElementById('jobModalBody').innerHTML = h;
+  document.getElementById('jobModalTitle').textContent = 'Job #' + j.id;
+  openModal('jobModal');
+}
+
+function changeJobStatus(id, status) {
+  const j = D.jobs.find(x => x.id === id);
+  if (j) {
+    j.status = status;
+    if (status === 'Paid') j.paidDate = new Date().toISOString();
+    // Also update linked quote
+    if (status === 'Complete' || status === 'Paid') {
+      const q = D.quotes.find(x => x.id === j.quoteId);
+      if (q) q.status = status;
+    }
+    saveData(); showToast('Job status: ' + status);
+  }
+}
+
+function saveJobNotes(id) {
+  const j = D.jobs.find(x => x.id === id);
+  if (j) { j.fitterNotes = document.getElementById('jobNotes'+id).value; saveData(); showToast('Notes saved'); }
+}
+
+function addPhotoNote(id) {
+  const j = D.jobs.find(x => x.id === id);
+  const input = document.getElementById('newPhotoNote'+id);
+  if (j && input.value.trim()) {
+    if (!j.photoNotes) j.photoNotes = [];
+    j.photoNotes.push(input.value.trim());
+    saveData();
+    const el = document.getElementById('photoNotes'+id);
+    el.innerHTML += `<div class="photo-note"><span class="note-icon">&#128247;</span><span>${esc(input.value.trim())}</span></div>`;
+    input.value = '';
+    showToast('Photo note added');
+  }
+}
+
+function deleteJob(id) {
+  showConfirm('Delete Job', 'This will permanently delete this job. Are you sure?', () => {
+    D.jobs = D.jobs.filter(j => j.id !== id);
+    saveData(); closeModal('jobModal'); renderJobs();
+    showToast('Job deleted');
+  });
+}
+
+/* ============================
+   REVIEWS
+   ============================ */
+function renderReviews() {
+  const total = D.customers.length;
+  const asked = D.reviews.filter(r => r.status !== 'Not Asked').length;
+  const left = D.reviews.filter(r => r.status === 'Left Review').length;
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const monthlyReviews = D.reviews.filter(r => r.status === 'Left Review' && new Date(r.reviewDate||r.dateUpdated) >= monthStart).length;
+  const target = 4;
+  const pct = Math.min(100, Math.round((monthlyReviews / target) * 100));
+
+  document.getElementById('reviewStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Customers</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--accent)">${total?Math.round(asked/total*100):0}%</div><div class="stat-label">Asked</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--success)">${left}</div><div class="stat-label">Reviews</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:${monthlyReviews>=target?'var(--success)':'var(--warning)'}">${monthlyReviews}/${target}</div><div class="stat-label">This Month</div></div>`;
+
+  document.getElementById('reviewProgress').innerHTML = `
+    <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:13px">
+      <span style="color:var(--muted)">Monthly Target: ${target} reviews</span>
+      <span style="font-weight:600;color:var(--accent)">${pct}%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>`;
+
+  // Filters
+  document.getElementById('reviewFilters').innerHTML = ['All',...REVIEW_STATUSES].map(s => `<div class="pill${currentReviewFilter===s?' active':''}" onclick="currentReviewFilter='${s}';renderReviews()">${s}</div>`).join('');
+
+  let reviews = D.reviews.filter(r => currentReviewFilter === 'All' || r.status === currentReviewFilter).sort((a,b) => new Date(b.dateUpdated||0) - new Date(a.dateUpdated||0));
+
+  const el = document.getElementById('reviewList');
+  if (!reviews.length) {
+    el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><h3>No review requests yet</h3><p>Tap + to start tracking reviews</p></div>`;
+    return;
+  }
+  el.innerHTML = reviews.map(r => {
+    const cust = D.customers.find(c => c.id === r.customerId);
+    return `<div class="card card-enter" onclick="viewReview(${r.id})">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-weight:600">${cust?esc(cust.name):'Unknown'}</div>
+        <div style="font-size:12px;color:var(--dim)">${r.platform||'—'} · ${fmtDate(r.dateUpdated)}</div></div>
+        <span class="${badgeClass(r.status)}">${r.status}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openReviewModal() {
+  // Show customers not yet tracked
+  const tracked = new Set(D.reviews.map(r => r.customerId));
+  const untracked = D.customers.filter(c => !tracked.has(c.id));
+
+  let h = '';
+  if (untracked.length) {
+    h += `<div class="section-title">Select Customer</div>`;
+    untracked.forEach(c => {
+      h += `<div class="card" onclick="createReview(${c.id})" style="cursor:pointer">
+        <div style="font-weight:600">${esc(c.name)}</div>
+        <div style="font-size:12px;color:var(--muted)">${esc(c.phone)}</div>
+      </div>`;
+    });
+  } else {
+    h += `<div class="empty-state"><p>All customers are already being tracked</p></div>`;
+  }
+  document.getElementById('reviewModalBody').innerHTML = h;
+  document.getElementById('reviewModalTitle').textContent = 'Track Review';
+  openModal('reviewModal');
+}
+
+function createReview(custId) {
+  const r = {
+    id: genId('review'),
+    customerId: custId,
+    status: 'Not Asked',
+    platform: 'Google',
+    dateUpdated: new Date().toISOString(),
+    reviewDate: null
+  };
+  D.reviews.push(r);
+  saveData(); closeModal('reviewModal'); renderReviews();
+  showToast('Review tracker added');
+}
+
+function viewReview(id) {
+  const r = D.reviews.find(x => x.id === id);
+  if (!r) return;
+  const cust = D.customers.find(c => c.id === r.customerId);
+  const s = D.settings;
+
+  let h = `<div style="margin-bottom:16px"><div style="font-weight:600;font-size:18px">${cust?esc(cust.name):'Unknown'}</div>
+    <span class="${badgeClass(r.status)}">${r.status}</span></div>`;
+
+  h += `<div class="form-group"><label>Status</label><select onchange="changeReviewStatus(${r.id},this.value)">${REVIEW_STATUSES.map(st=>`<option${r.status===st?' selected':''}>${st}</option>`).join('')}</select></div>`;
+  h += `<div class="form-group"><label>Platform</label><select onchange="changeReviewPlatform(${r.id},this.value)"><option${r.platform==='Google'?' selected':''}>Google</option><option${r.platform==='Facebook'?' selected':''}>Facebook</option><option${r.platform==='Instagram'?' selected':''}>Instagram</option></select></div>`;
+
+  // WhatsApp buttons
+  if (cust) {
+    const reviewLink = s.googleReviewLink || '[your Google review link]';
+    const reviewMsg = s.templates.reviewMsg.replace('{{customer_name}}', cust.name).replace('{{flooring_type}}', cust.flooringPref||'new').replace('{{review_link}}', reviewLink);
+    const reminderMsg = s.templates.reminderMsg.replace('{{customer_name}}', cust.name).replace('{{review_link}}', reviewLink);
+
+    h += `<div class="section-title">Send Review Request</div>`;
+    h += `<a href="https://wa.me/${whatsappNum(cust.phone)}?text=${encodeURIComponent(reviewMsg)}" target="_blank" class="btn btn-block" style="background:#25D366;color:#fff;text-decoration:none;margin-bottom:8px">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.553 4.113 1.519 5.845L.054 23.681l5.957-1.433A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.975 0-3.852-.528-5.504-1.526l-.395-.234-3.535.851.889-3.445-.256-.407A9.783 9.783 0 0 1 2.18 12c0-5.414 4.406-9.82 9.82-9.82S21.82 6.586 21.82 12 17.414 21.82 12 21.82z"/></svg>
+      Send Review Request</a>`;
+    h += `<a href="https://wa.me/${whatsappNum(cust.phone)}?text=${encodeURIComponent(reminderMsg)}" target="_blank" class="btn btn-secondary btn-block" style="text-decoration:none;margin-bottom:16px">Send Reminder</a>`;
+  }
+
+  h += `<button class="btn btn-danger btn-sm btn-block" onclick="deleteReview(${r.id})">Remove Tracker</button>`;
+
+  document.getElementById('reviewModalBody').innerHTML = h;
+  document.getElementById('reviewModalTitle').textContent = 'Review — ' + (cust?cust.name:'');
+  openModal('reviewModal');
+}
+
+function changeReviewStatus(id, status) {
+  const r = D.reviews.find(x => x.id === id);
+  if (r) { r.status = status; r.dateUpdated = new Date().toISOString(); if (status === 'Left Review') r.reviewDate = new Date().toISOString(); saveData(); showToast('Status: ' + status); }
+}
+function changeReviewPlatform(id, platform) {
+  const r = D.reviews.find(x => x.id === id);
+  if (r) { r.platform = platform; saveData(); }
+}
+function deleteReview(id) {
+  showConfirm('Remove Tracker', 'Remove this review tracker?', () => {
+    D.reviews = D.reviews.filter(r => r.id !== id);
+    saveData(); closeModal('reviewModal'); renderReviews();
+    showToast('Tracker removed');
+  });
+}
+
+/* ============================
+   SETTINGS
+   ============================ */
+function renderSettings() {
+  const s = D.settings;
+  let h = `<div class="settings-group"><h3>Business Details</h3>
+    <div class="form-group"><label>Business Name</label><input type="text" value="${esc(s.businessName)}" onchange="D.settings.businessName=this.value;saveData()"></div>
+    <div class="form-group"><label>Phone</label><input type="tel" value="${esc(s.phone)}" onchange="D.settings.phone=this.value;saveData()"></div>
+    <div class="form-group"><label>Email</label><input type="email" value="${esc(s.email)}" onchange="D.settings.email=this.value;saveData()"></div>
+    <div class="form-group"><label>Address</label><textarea rows="2" onchange="D.settings.address=this.value;saveData()">${esc(s.address)}</textarea></div>
+    <div class="form-group"><label>Google Review Link</label><input type="url" value="${esc(s.googleReviewLink||'')}" placeholder="Paste your Google review link" onchange="D.settings.googleReviewLink=this.value;saveData()"></div>
+  </div>`;
+
+  h += `<div class="settings-group"><h3>Default Pricing (per m\u00B2)</h3>`;
+  FLOORING_TYPES.forEach(ft => {
+    h += `<div class="setting-row"><label>${ft}</label><input type="number" step="0.01" value="${s.pricing[ft]}" onchange="D.settings.pricing['${ft}']=parseFloat(this.value)||0;saveData()"></div>`;
+  });
+  h += `</div>`;
+
+  h += `<div class="settings-group"><h3>Labour Rate (per m\u00B2)</h3>
+    <div class="setting-row"><label>Fitting Rate</label><input type="number" step="0.01" value="${s.labourRate}" onchange="D.settings.labourRate=parseFloat(this.value)||0;saveData()"></div>
+  </div>`;
+
+  h += `<div class="settings-group"><h3>Standard Extras Pricing</h3>`;
+  Object.keys(EXTRAS_LABELS).forEach(key => {
+    h += `<div class="setting-row"><label>${EXTRAS_LABELS[key]}</label><input type="number" step="0.01" value="${s.extras[key]}" onchange="D.settings.extras['${key}']=parseFloat(this.value)||0;saveData()"></div>`;
+  });
+  h += `</div>`;
+
+  h += `<div class="settings-group"><h3>Message Templates</h3>
+    <div class="form-group"><label>Quote Message</label><textarea rows="3" onchange="D.settings.templates.quoteMsg=this.value;saveData()">${esc(s.templates.quoteMsg)}</textarea></div>
+    <div class="form-group"><label>Review Request</label><textarea rows="3" onchange="D.settings.templates.reviewMsg=this.value;saveData()">${esc(s.templates.reviewMsg)}</textarea></div>
+    <div class="form-group"><label>Review Reminder</label><textarea rows="3" onchange="D.settings.templates.reminderMsg=this.value;saveData()">${esc(s.templates.reminderMsg)}</textarea></div>
+    <p style="font-size:12px;color:var(--dim);margin-top:4px">Variables: {{customer_name}}, {{flooring_type}}, {{review_link}}</p>
+  </div>`;
+
+  h += `<div class="settings-group"><h3>Data Management</h3>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <button class="btn btn-secondary btn-sm" style="flex:1" onclick="backupData()">Backup (JSON)</button>
+      <button class="btn btn-secondary btn-sm" style="flex:1" onclick="document.getElementById('restoreFile').click()">Restore</button>
+      <input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restoreData(event)">
+    </div>
+    <button class="btn btn-danger btn-sm btn-block" onclick="resetData()">Reset All Data</button>
+  </div>`;
+
+  h += `<div style="text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:24px">
+    <p style="font-size:12px;color:var(--dim);margin-bottom:8px">Prepared by DMT Consulting | Trade Arrangement | March 2026</p>
+    <p style="font-size:11px;color:var(--dim);line-height:1.5">This application was made partially with Claude AI. While we have reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+  </div>`;
+
+  document.getElementById('settingsContent').innerHTML = h;
+}
+
+function backupData() {
+  const blob = new Blob([JSON.stringify(D, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'wcf_backup_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Backup downloaded');
+}
+
+function restoreData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.customers && data.quotes) {
+        showConfirm('Restore Data', 'This will replace ALL current data. Are you sure?', () => {
+          D = data;
+          saveData();
+          renderCurrentTab();
+          showToast('Data restored successfully');
+        });
+      } else {
+        showToast('Invalid backup file', true);
+      }
+    } catch(err) {
+      showToast('Could not read file', true);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+function resetData() {
+  showConfirm('Reset All Data', 'This will permanently delete ALL customers, quotes, jobs, and reviews. This cannot be undone. Are you sure?', () => {
+    D = getDefaultData();
+    saveData();
+    renderCurrentTab();
+    showToast('All data reset');
+  });
+}
+
+/* ============================
+   HELPERS
+   ============================ */
+function esc(str) {
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+/* ============================
+   MODAL SWIPE TO CLOSE
+   ============================ */
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+/* ============================
+   INIT
+   ============================ */
+renderCustomers();
+</script>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Business Profile & Website Strategy — Whitburn Coastal Flooring | DMT Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dark:#0A1628;--card:#111D2E;--border:#1E3A5F;--teal:#2E8B8B;--sand:#C4956A;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--text:#E8EDF3;--dim:#8BA4C4;--white:#FFFFFF}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.section-number{font-family:'Playfair Display',serif}
+
+/* Layout */
+.page{max-width:880px;margin:0 auto;padding:0 24px 80px}
+
+/* Hero */
+.hero{padding:60px 0 32px;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(46,139,139,0.12) 0%,transparent 70%);pointer-events:none}
+.brand{font-family:'Playfair Display',serif;font-size:16px;letter-spacing:0.12em;color:var(--teal);margin-bottom:12px;text-transform:uppercase}
+.doc-number{font-size:13px;color:var(--dim);margin-bottom:32px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5.5vw,54px);line-height:1.1;margin-bottom:8px;font-weight:700}
+.hero h1 span{color:var(--teal)}
+.hero .subtitle{font-size:17px;color:var(--dim);margin-bottom:0;font-style:italic}
+.value-badge{display:inline-block;background:rgba(46,139,139,0.12);border:1px solid rgba(46,139,139,0.3);color:var(--teal);font-size:13px;font-weight:700;padding:6px 18px;border-radius:20px;margin-top:16px;letter-spacing:0.5px}
+
+/* Tab Bar */
+.tab-bar{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:2px solid var(--border);display:flex;gap:0;margin:0 -24px;padding:0 24px}
+.tab-btn{flex:1;padding:16px 12px;font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--dim);background:none;border:none;cursor:pointer;position:relative;transition:color 0.25s,background 0.25s;text-align:center;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tab-btn:hover{color:var(--text);background:rgba(255,255,255,0.03)}
+.tab-btn.active{color:var(--white);border-bottom-color:var(--teal)}
+.tab-btn .tab-dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:6px;vertical-align:middle;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* Tab content */
+.tab-content{display:none;padding-top:32px;animation:fadeTab 0.3s ease}
+.tab-content.active{display:block}
+@keyframes fadeTab{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Urgent banner */
+.urgent-banner{background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(239,68,68,0.05));border:1px solid var(--red);border-radius:12px;padding:20px 28px;margin-bottom:32px;display:flex;align-items:center;gap:16px;animation:pulse-border 2s ease-in-out infinite}
+@keyframes pulse-border{0%,100%{border-color:var(--red)}50%{border-color:rgba(239,68,68,0.4)}}
+.urgent-icon{font-size:32px;flex-shrink:0}
+.urgent-text{font-size:14px;font-weight:600;color:var(--red)}
+.urgent-text span{color:var(--white);font-weight:400}
+
+/* Score */
+.score-section{margin:24px 0 32px}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;text-align:center}
+.score-row{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+.score-circle{width:100px;height:100px;border-radius:50%;border:4px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.score-num{font-family:'Playfair Display',serif;font-size:42px;color:var(--red);line-height:1;font-weight:800}
+.score-of{font-size:12px;color:var(--dim)}
+.score-label{font-size:14px;color:var(--dim)}
+.score-label strong{color:var(--white);display:block;font-size:16px;margin-bottom:2px}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.stat-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px 12px;text-align:center}
+.stat-value{font-family:'Playfair Display',serif;font-size:28px;line-height:1;margin-bottom:4px;font-weight:700}
+.stat-value.red{color:var(--red)}
+.stat-value.amber{color:var(--amber)}
+.stat-value.teal{color:var(--teal)}
+.stat-value.green{color:var(--green)}
+.stat-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px}
+
+/* Finding cards */
+.finding-grid{display:flex;flex-direction:column;gap:16px;margin-top:24px}
+.finding-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;display:flex;gap:16px;align-items:flex-start}
+.finding-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.finding-icon.critical{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3)}
+.finding-icon.warning{background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3)}
+.finding-icon.info{background:rgba(46,139,139,0.12);border:1px solid rgba(46,139,139,0.3)}
+.finding-icon.good{background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3)}
+.finding-body h3{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px}
+.finding-body p{font-size:13px;color:var(--dim);line-height:1.6}
+.finding-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px;margin-top:8px}
+.finding-tag.critical{background:rgba(239,68,68,0.15);color:var(--red)}
+.finding-tag.warning{background:rgba(245,158,11,0.15);color:var(--amber)}
+.finding-tag.info{background:rgba(46,139,139,0.15);color:var(--teal)}
+
+/* Competitor table */
+.comp-wrap{overflow-x:auto;margin:24px 0 0;-webkit-overflow-scrolling:touch}
+.comp-table{width:100%;border-collapse:collapse;min-width:500px}
+.comp-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);padding:10px 12px;border-bottom:1px solid var(--border)}
+.comp-table td{padding:12px;border-bottom:1px solid var(--border);font-size:14px}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-you{background:rgba(239,68,68,0.06)}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.badge.green{background:rgba(16,185,129,0.15);color:var(--green)}
+.badge.red{background:rgba(239,68,68,0.15);color:var(--red)}
+.badge.amber{background:rgba(245,158,11,0.15);color:var(--amber)}
+.badge.teal{background:rgba(46,139,139,0.15);color:var(--teal)}
+
+/* Section headers */
+.section{margin-top:40px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.section-number{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;font-weight:700;color:var(--white)}
+.section-number.red{background:var(--red)}
+.section-number.green{background:var(--green)}
+.section-number.amber{background:var(--amber)}
+.section-number.teal{background:var(--teal)}
+.section h2{font-size:clamp(24px,3.5vw,32px);line-height:1.1}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px}
+.card p,.card li{font-size:14px;color:var(--dim);line-height:1.7}
+.card p+p{margin-top:12px}
+.card strong{color:var(--text)}
+.card-header{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:12px;color:var(--text)}
+
+/* Collapsible steps */
+.step-block{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.step-header{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;user-select:none;transition:background 0.2s}
+.step-header:hover{background:rgba(255,255,255,0.02)}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--teal);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;flex-shrink:0;font-weight:700}
+.step-num.urgent{background:var(--red)}
+.step-num.amber{background:var(--amber)}
+.step-meta{flex:1}
+.step-meta h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:2px;font-weight:700}
+.step-meta .step-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.step-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px}
+.step-tag.free{background:rgba(16,185,129,0.15);color:var(--green)}
+.step-tag.low-cost{background:rgba(245,158,11,0.15);color:var(--amber)}
+.step-tag.investment{background:rgba(46,139,139,0.15);color:var(--teal)}
+.step-tag.urgent-tag{background:rgba(239,68,68,0.15);color:var(--red)}
+.step-tag.this-week{background:rgba(46,139,139,0.15);color:var(--teal)}
+.step-chevron{font-size:18px;color:var(--dim);transition:transform 0.3s;flex-shrink:0}
+.step-block.open .step-chevron{transform:rotate(180deg)}
+.step-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.step-block.open .step-body{max-height:4000px}
+.step-inner{padding:0 24px 24px;border-top:1px solid var(--border);padding-top:20px}
+.step-inner p{font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px}
+.step-inner p:last-child{margin-bottom:0}
+.step-inner strong{color:var(--text)}
+.step-inner ol,.step-inner ul{padding-left:20px;margin:12px 0}
+.step-inner li{font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:6px}
+.step-inner li strong{color:var(--text)}
+.url-box{display:inline-block;background:rgba(46,139,139,0.1);border:1px solid rgba(46,139,139,0.3);color:var(--teal);font-size:13px;padding:6px 14px;border-radius:6px;margin:8px 0;font-family:monospace;word-break:break-all}
+
+/* Phase label */
+.phase-label{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--sand);text-transform:uppercase;letter-spacing:0.1em;margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid rgba(196,149,106,0.2)}
+
+/* Asset sections */
+.asset-section{margin-top:36px}
+.asset-section h2{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:4px;font-weight:700}
+.asset-section .asset-desc{font-size:13px;color:var(--dim);margin-bottom:16px}
+
+/* Copy block */
+.copy-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px;position:relative}
+.copy-block .copy-label{font-family:'Playfair Display',serif;font-size:16px;color:var(--teal);margin-bottom:10px;letter-spacing:0.02em;font-weight:700}
+.copy-block .copy-text{font-size:14px;color:var(--dim);line-height:1.8;white-space:pre-wrap}
+.copy-btn{position:absolute;top:16px;right:16px;background:rgba(46,139,139,0.15);border:1px solid rgba(46,139,139,0.3);color:var(--teal);font-size:12px;font-weight:700;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;letter-spacing:0.5px;text-transform:uppercase}
+.copy-btn:hover{background:var(--teal);color:var(--white)}
+.copy-btn.copied{background:var(--green);border-color:var(--green);color:var(--white)}
+
+/* Service chips grid */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:12px}
+.service-chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.service-chip .svc-name{font-size:14px;font-weight:600;color:var(--text)}
+.service-chip .copy-chip{background:rgba(46,139,139,0.12);border:1px solid rgba(46,139,139,0.25);color:var(--teal);font-size:10px;font-weight:700;padding:4px 10px;border-radius:5px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;letter-spacing:0.5px;flex-shrink:0;font-family:'Inter',sans-serif}
+.service-chip .copy-chip:hover{background:var(--teal);color:var(--white)}
+.service-chip .copy-chip.copied{background:var(--green);border-color:var(--green);color:var(--white)}
+
+/* Copy All button */
+.copy-all-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(46,139,139,0.15);border:1px solid rgba(46,139,139,0.3);color:var(--teal);font-size:13px;font-weight:700;padding:10px 20px;border-radius:8px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;letter-spacing:0.5px;text-transform:uppercase;margin:12px 0}
+.copy-all-btn:hover{background:var(--teal);color:var(--white)}
+.copy-all-btn.copied{background:var(--green);border-color:var(--green);color:var(--white)}
+
+/* Photo checklist */
+.photo-checklist{list-style:none;padding:0;margin-top:12px}
+.photo-checklist li{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--dim)}
+.photo-checklist li:last-child{border-bottom:none}
+.photo-check{width:24px;height:24px;border:2px solid var(--border);border-radius:6px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:1px}
+.photo-check:hover{border-color:var(--teal)}
+.photo-checklist li.checked .photo-check{background:var(--green);border-color:var(--green)}
+.photo-checklist li.checked .photo-check::after{content:'';width:6px;height:10px;border:2px solid var(--white);border-top:none;border-left:none;transform:rotate(45deg);margin-top:-2px}
+.photo-checklist li.checked{opacity:0.5}
+.photo-info .photo-name{font-weight:600;color:var(--text);margin-bottom:2px}
+.photo-info .photo-tip{font-size:12px;color:var(--dim)}
+
+/* Google Post template cards */
+.post-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:12px;position:relative}
+.post-card .post-type{font-family:'Playfair Display',serif;font-size:14px;color:var(--sand);margin-bottom:8px;font-weight:600}
+.post-card .post-text{font-size:14px;color:var(--dim);line-height:1.7;white-space:pre-wrap}
+
+/* Review template */
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:12px;position:relative}
+.review-card .review-type{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;margin-bottom:8px}
+.review-card .review-type.positive{color:var(--green)}
+.review-card .review-type.negative{color:var(--amber)}
+.review-card .review-text{font-size:14px;color:var(--dim);line-height:1.7;white-space:pre-wrap}
+
+/* So What box */
+.so-what{background:linear-gradient(135deg,rgba(46,139,139,0.08),rgba(46,139,139,0.02));border:1px solid rgba(46,139,139,0.3);border-radius:12px;padding:28px;margin-bottom:24px}
+.so-what .label{font-family:'Playfair Display',serif;font-size:20px;color:var(--teal);margin-bottom:10px;font-weight:700}
+.so-what p{font-size:15px;color:var(--text);line-height:1.8}
+
+/* Alert card */
+.alert-card{background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(239,68,68,0.03));border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:24px;margin-bottom:16px}
+.alert-card .alert-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--red);margin-bottom:6px;font-weight:700}
+.alert-card p{font-size:14px;color:var(--dim);line-height:1.7}
+
+/* Footer */
+footer{text-align:center;padding:48px 0 32px;font-size:12px;color:var(--dim);border-top:1px solid var(--border);margin-top:60px}
+footer p{margin-bottom:4px}
+
+/* Print */
+@media print{
+  body{background:white;color:#1a1a1a}
+  .tab-bar{position:static;border:none}
+  .tab-content{display:block!important;page-break-before:always}
+  .copy-btn,.copy-chip,.copy-all-btn{display:none}
+  .step-body{max-height:none!important}
+  .card,.copy-block,.step-block,.finding-card,.alert-card,.so-what,.post-card,.review-card{border:1px solid #ddd;background:#f9f9f9}
+  .hero::before{display:none}
+  .score-circle{border-color:#d00}
+  .urgent-banner{border-color:#d00;background:#fff5f5}
+  footer{border-top:1px solid #ddd}
+  .value-badge{border-color:#999;color:#333}
+}
+
+@media(max-width:640px){
+  .page{padding:0 16px 60px}
+  .hero{padding:40px 0 20px}
+  .tab-btn{font-size:13px;padding:12px 8px}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:1fr}
+  .score-row{flex-direction:column}
+  .urgent-banner{flex-direction:column;text-align:center;gap:8px}
+  .finding-card{flex-direction:column;gap:10px}
+  .step-header{padding:16px}
+  .step-inner{padding:0 16px 20px;padding-top:16px}
+  .comp-table{font-size:12px}
+  .comp-table td,.comp-table th{padding:8px 6px}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="brand">Whitburn Coastal Flooring</div>
+    <div class="doc-number">Document 02 &mdash; Google Business Profile & Website Strategy</div>
+    <h1>Google Profile <span>&</span> Website</h1>
+    <p class="subtitle">Getting found by the customers already searching for you</p>
+    <div class="value-badge">Market Value: &pound;400</div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="found" onclick="switchTab('found')">What We Found <span class="tab-dot"></span></button>
+    <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">Your Action Plan</button>
+    <button class="tab-btn" data-tab="assets" onclick="switchTab('assets')">Ready-Made Assets</button>
+  </div>
+
+  <!-- ===================== TAB 1: WHAT WE FOUND ===================== -->
+  <div id="found" class="tab-content active">
+
+    <div class="urgent-banner">
+      <div class="urgent-icon">&#9888;</div>
+      <div class="urgent-text">CRITICAL: Your best customers love you &mdash; but Google doesn&rsquo;t know you exist. <span>Zero Google reviews. No website. When someone searches &ldquo;flooring Whitburn&rdquo; or &ldquo;Karndean fitter Sunderland&rdquo;, your competitors appear. You don&rsquo;t.</span></div>
+    </div>
+
+    <!-- Score -->
+    <div class="score-section">
+      <div class="score-card">
+        <div class="score-row">
+          <div class="score-circle">
+            <div class="score-num">1</div>
+            <div class="score-of">/ 10</div>
+          </div>
+          <div class="score-label">
+            <strong>Google & Website Visibility</strong>
+            Customers are searching. They&rsquo;re finding your competitors instead.
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-value red">0</div>
+            <div class="stat-label">Google Reviews</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value red">None</div>
+            <div class="stat-label">Website</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value red">Low</div>
+            <div class="stat-label">Search Visibility</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value amber">Some</div>
+            <div class="stat-label">Directory Listings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Findings -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number red">!</div>
+        <h2>Key Findings</h2>
+      </div>
+
+      <div class="finding-grid">
+
+        <div class="finding-card">
+          <div class="finding-icon critical">&#128308;</div>
+          <div class="finding-body">
+            <h3>Google Business Profile: Minimal / Unclaimed</h3>
+            <p>Your Google Business Profile has no reviews, no owner-uploaded photos, and no properly listed services. When potential customers search for flooring in your area, Google has almost nothing to show them about your business. This is the single biggest missed opportunity for a retail showroom.</p>
+            <span class="finding-tag critical">Red &mdash; Critical</span>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon critical">&#128308;</div>
+          <div class="finding-body">
+            <h3>Website: None Exists</h3>
+            <p>For an independent retailer stocking premium brands like Karndean, Alternative Flooring, and Margo Selby, having no website means you are invisible to anyone who searches before they visit. When someone Googles &ldquo;Karndean fitter Sunderland&rdquo;, they will find Specialist Floors NE, New Image Carpets, even the Karndean website itself &mdash; but not you. Every week without a web presence is a week of lost enquiries.</p>
+            <span class="finding-tag critical">Red &mdash; Critical</span>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon critical">&#128308;</div>
+          <div class="finding-body">
+            <h3>Search Visibility: Invisible</h3>
+            <p>You do not appear in organic search results for key local terms: &ldquo;flooring Whitburn&rdquo;, &ldquo;carpet shop Sunderland&rdquo;, &ldquo;LVT fitter near me&rdquo;, &ldquo;flooring showroom SR6&rdquo;. Without a website and with a minimal Google profile, the search engines have nothing to rank. Your competitors dominate every search term that matters to your business.</p>
+            <span class="finding-tag critical">Red &mdash; Critical</span>
+          </div>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-icon warning">&#128992;</div>
+          <div class="finding-body">
+            <h3>Directory Listings: Present but Passive</h3>
+            <p>You appear on Yell (0 reviews), Thomson Local, the Alternative Flooring retailer page, the Karndean retailer directory, and the Invictus retailer page. These are useful but they&rsquo;re not actively working for you &mdash; no reviews, no enhanced listings, no proactive presence. They confirm you exist, but they don&rsquo;t sell you.</p>
+            <span class="finding-tag warning">Amber &mdash; Needs Work</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Competitor Comparison -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number teal">&#9733;</div>
+        <h2>Competitor Comparison</h2>
+      </div>
+      <p style="font-size:14px;color:var(--dim);margin-bottom:16px;">This is what your customers see when they search. Every feature your competitors have that you don&rsquo;t is a reason for a potential customer to choose them over you.</p>
+
+      <div class="comp-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Whitburn Coastal</th>
+              <th>New Image Carpets</th>
+              <th>Frank's</th>
+              <th>Specialist Floors NE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="comp-you">
+              <td><strong>Google Rating</strong></td>
+              <td><span class="badge red">None</span></td>
+              <td><span class="badge green">4.9 (46)</span></td>
+              <td>N/A local</td>
+              <td><span class="badge green">Good reviews</span></td>
+            </tr>
+            <tr class="comp-you">
+              <td><strong>Website</strong></td>
+              <td><span class="badge red">None</span></td>
+              <td><span class="badge green">Full site</span></td>
+              <td><span class="badge green">National site</span></td>
+              <td><span class="badge green">Full site</span></td>
+            </tr>
+            <tr class="comp-you">
+              <td><strong>Showrooms</strong></td>
+              <td>1</td>
+              <td>2</td>
+              <td>National chain</td>
+              <td>Mobile / visit</td>
+            </tr>
+            <tr class="comp-you">
+              <td><strong>Years Trading</strong></td>
+              <td>Established</td>
+              <td>~50 years</td>
+              <td>National</td>
+              <td>Established</td>
+            </tr>
+            <tr class="comp-you">
+              <td><strong>Online Booking</strong></td>
+              <td><span class="badge red">No</span></td>
+              <td><span class="badge green">Yes</span></td>
+              <td><span class="badge green">Yes</span></td>
+              <td><span class="badge amber">Enquiry form</span></td>
+            </tr>
+            <tr class="comp-you">
+              <td><strong>Brand Pages</strong></td>
+              <td><span class="badge red">No</span></td>
+              <td><span class="badge green">Yes</span></td>
+              <td><span class="badge green">Yes</span></td>
+              <td><span class="badge green">Yes</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- So What -->
+    <div class="so-what" style="margin-top:32px;">
+      <div class="label">So What Does This Mean?</div>
+      <p>Right now, the people who find Whitburn Coastal Flooring are those who already know you &mdash; walk-ins, word of mouth, Facebook followers. But the much larger group of people searching Google for flooring in your area have no way to find you. Claiming your Google Business Profile and building even a simple web presence would immediately put you in front of customers who are actively looking to buy. This is the fastest path to new enquiries with the lowest cost.</p>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB 2: YOUR ACTION PLAN ===================== -->
+  <div id="plan" class="tab-content">
+
+    <div class="so-what">
+      <div class="label">Your Roadmap</div>
+      <p>We&rsquo;ve broken this into three phases. Phase 1 is free and can be done this week with just your phone. Phase 2 costs little or nothing and builds your presence over the month ahead. Phase 3 is about future investment when you&rsquo;re ready &mdash; not included in this package, but planned so you know where to go next.</p>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div class="phase-label">Phase 1 &mdash; Free, This Week</div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num urgent">1</div>
+        <div class="step-meta">
+          <h3>Claim & Optimise Your Google Business Profile</h3>
+          <div class="step-tags">
+            <span class="step-tag free">Free</span>
+            <span class="step-tag urgent-tag">Urgent</span>
+            <span class="step-tag this-week">This Week</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p><strong>This is the single most important thing you can do for your business online.</strong> A claimed, optimised Google Business Profile means you appear on Google Maps, in local search results, and in the &ldquo;local pack&rdquo; (the map section at the top of Google search). It&rsquo;s completely free.</p>
+          <p><strong>Step-by-step (do this on your phone or computer):</strong></p>
+          <ol>
+            <li><strong>Go to</strong> <span class="url-box">business.google.com</span></li>
+            <li><strong>Sign in</strong> with a Google account (create one if needed &mdash; use your business email or a new Gmail)</li>
+            <li><strong>Search for your business:</strong> type &ldquo;Whitburn Coastal Flooring&rdquo; &mdash; if a listing appears, click &ldquo;Claim this business&rdquo;</li>
+            <li><strong>If no listing appears:</strong> click &ldquo;Add your business to Google&rdquo; and enter your details</li>
+            <li><strong>Verify your business:</strong> Google will ask you to verify &mdash; usually by phone call or postcard to <strong>0191 529 5905</strong>. The phone call is instant; the postcard takes 5-7 days.</li>
+            <li><strong>Once verified:</strong> you can edit all your business information, add photos, respond to reviews, and post updates</li>
+          </ol>
+          <p><strong>Time needed:</strong> 15 minutes to claim, then 30 minutes to fill in the details (we&rsquo;ve written everything for you in the Ready-Made Assets tab).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num urgent">2</div>
+        <div class="step-meta">
+          <h3>Complete All Profile Fields</h3>
+          <div class="step-tags">
+            <span class="step-tag free">Free</span>
+            <span class="step-tag urgent-tag">Urgent</span>
+            <span class="step-tag this-week">This Week</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>Google rewards complete profiles with higher visibility. Fill in <strong>every single field</strong>. We&rsquo;ve written your description, services list, and opening hours &mdash; all ready to paste from the Assets tab.</p>
+          <p><strong>Key fields to complete:</strong></p>
+          <ul>
+            <li><strong>Business name:</strong> Whitburn Coastal Flooring</li>
+            <li><strong>Address:</strong> 1 East Street / 4 North Guards, Whitburn Village, Sunderland, SR6</li>
+            <li><strong>Phone:</strong> 0191 529 5905</li>
+            <li><strong>Website:</strong> (leave blank for now, or use your Facebook page URL as a placeholder)</li>
+            <li><strong>Hours:</strong> Tue-Fri 9am-4pm, Wed 9am-1pm, Sat 10am-2pm, Sun-Mon Closed</li>
+            <li><strong>Business description:</strong> Copy from Assets tab (we&rsquo;ve SEO-optimised it)</li>
+            <li><strong>Services:</strong> Add every service from the list in Assets tab</li>
+            <li><strong>Categories:</strong> Primary: &ldquo;Flooring Store&rdquo;. Additional: &ldquo;Carpet Store&rdquo;, &ldquo;Floor Laying Service&rdquo;, &ldquo;Vinyl Floor Covering Supplier&rdquo;</li>
+            <li><strong>Photos:</strong> Upload at least 10 photos (see photo guidance in Assets tab)</li>
+            <li><strong>Products:</strong> List key brands &mdash; Karndean, Alternative Flooring, Invictus, iSENSE, Associated Weavers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num urgent">3</div>
+        <div class="step-meta">
+          <h3>Start Generating Google Reviews</h3>
+          <div class="step-tags">
+            <span class="step-tag free">Free</span>
+            <span class="step-tag urgent-tag">Urgent</span>
+            <span class="step-tag this-week">This Week</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>You have 8 Facebook reviews at 100% recommendation &mdash; your customers clearly love you. But Google doesn&rsquo;t know that. <strong>New Image Carpets has 46 Google reviews at 4.9 stars.</strong> That&rsquo;s the target.</p>
+          <p><strong>Your review campaign:</strong></p>
+          <ol>
+            <li><strong>Get your Google Review link:</strong> Once your profile is claimed, go to your Google Business dashboard &gt; &ldquo;Ask for reviews&rdquo; &gt; copy the short link</li>
+            <li><strong>Text or WhatsApp your recent customers:</strong> Use the ready-made message templates in the Assets tab. Start with the last 10-15 customers you&rsquo;ve done work for.</li>
+            <li><strong>Ask at the point of delight:</strong> The best time to ask is right after you&rsquo;ve finished a job and the customer is happy. &ldquo;If you&rsquo;re happy with how it looks, we&rsquo;d really appreciate a Google review &mdash; it makes a huge difference to a small business.&rdquo;</li>
+            <li><strong>Target:</strong> 4 reviews per month. Within 6 months you&rsquo;ll have 24+ reviews and be competitive with every flooring business in the area.</li>
+          </ol>
+          <p><strong>Important:</strong> Never offer incentives for reviews (Google&rsquo;s terms prohibit this). Just ask honestly &mdash; happy customers are usually glad to help.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-label">Phase 2 &mdash; Free to Low Cost, This Month</div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">4</div>
+        <div class="step-meta">
+          <h3>Set Up a Simple Landing Page</h3>
+          <div class="step-tags">
+            <span class="step-tag free">Free</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>You don&rsquo;t need a full website right now. A free <strong>Linktree</strong> or <strong>Carrd.co</strong> page gives you a simple web address you can put on your Google profile, business cards, and social media bios. It acts as a mini-website until you&rsquo;re ready for the real thing.</p>
+          <p><strong>What to include:</strong></p>
+          <ul>
+            <li>Business name and a one-line description</li>
+            <li>Link to your Facebook page</li>
+            <li>Link to your Instagram</li>
+            <li>&ldquo;Call Us&rdquo; button linking to <strong>0191 529 5905</strong></li>
+            <li>&ldquo;WhatsApp Us&rdquo; button</li>
+            <li>&ldquo;Visit Our Showroom&rdquo; with your address and a Google Maps link</li>
+            <li>Brands you stock: Karndean, Alternative Flooring, Margo Selby, Invictus, iSENSE</li>
+          </ul>
+          <p><strong>Linktree</strong> is free and takes about 20 minutes. <strong>Carrd.co</strong> gives you a more polished single-page site (free, or &pound;19/year for a custom domain). Content suggestions are in the Assets tab.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">5</div>
+        <div class="step-meta">
+          <h3>Get Listed on Houzz</h3>
+          <div class="step-tags">
+            <span class="step-tag free">Free</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p><strong>Houzz is critical for premium flooring.</strong> This is where interior designers, architects, and homeowners planning renovations go to find professionals. If you stock designer brands like Margo Selby and Karndean, this is your audience.</p>
+          <ol>
+            <li>Go to <span class="url-box">houzz.co.uk/professionals</span></li>
+            <li>Create a free professional profile</li>
+            <li>Category: &ldquo;Flooring&rdquo; or &ldquo;Carpet &amp; Flooring&rdquo;</li>
+            <li>Upload your best showroom and installation photos</li>
+            <li>Write a description emphasising your designer brand partnerships</li>
+            <li>Houzz leads tend to be higher value &mdash; these are customers planning significant renovations, not looking for the cheapest price</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">6</div>
+        <div class="step-meta">
+          <h3>Get Listed on Checkatrade</h3>
+          <div class="step-tags">
+            <span class="step-tag low-cost">Low Cost</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>Checkatrade is the UK&rsquo;s leading trusted trader platform. For fitting services, having a Checkatrade profile adds serious trust &mdash; customers feel safer knowing you&rsquo;ve been vetted.</p>
+          <ul>
+            <li>Go to <span class="url-box">checkatrade.com/join</span></li>
+            <li>Membership costs approximately &pound;60-120/month depending on your area and categories</li>
+            <li>You&rsquo;ll need to provide proof of insurance, qualifications, and references</li>
+            <li>The Checkatrade badge is a powerful trust signal for customers who don&rsquo;t know you yet</li>
+            <li>Reviews on Checkatrade are verified, which makes them more trustworthy than most platforms</li>
+          </ul>
+          <p><strong>Consider this an investment,</strong> not an expense. A single job from a Checkatrade lead will pay for several months of membership.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num">7</div>
+        <div class="step-meta">
+          <h3>Optimise Existing Directory Listings</h3>
+          <div class="step-tags">
+            <span class="step-tag free">Free</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>You&rsquo;re already listed on Yell, Thomson Local, the Alternative Flooring partner page, and the Karndean retailer directory. Make sure each listing is complete, accurate, and consistent.</p>
+          <p><strong>Check and update each listing:</strong></p>
+          <ul>
+            <li><strong>Yell:</strong> Claim your listing if you haven&rsquo;t. Add photos and a description. Ask happy customers to leave reviews here too.</li>
+            <li><strong>Thomson Local:</strong> Verify your details are correct (address, phone, hours).</li>
+            <li><strong>Alternative Flooring:</strong> Ensure your retailer page links to your social media and has current contact details.</li>
+            <li><strong>Karndean:</strong> Same &mdash; check your retailer profile is complete.</li>
+            <li><strong>Invictus:</strong> Verify your listing on their retailer directory.</li>
+          </ul>
+          <p><strong>Why this matters:</strong> Consistent information across all listings (same name, address, phone number everywhere) helps Google trust your business data. Inconsistent listings hurt your search ranking.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-label">Phase 3 &mdash; Future Investment</div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num amber">8</div>
+        <div class="step-meta">
+          <h3>Professional Website</h3>
+          <div class="step-tags">
+            <span class="step-tag investment">Investment: &pound;1,200&ndash;&pound;2,500</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>A full website is the long-term goal. Once your Google Profile is working and generating reviews, a website becomes the next step to truly competing with businesses like New Image Carpets.</p>
+          <p><strong>What a good flooring website needs:</strong></p>
+          <ul>
+            <li>Homepage with showroom photos and brand logos</li>
+            <li>Individual pages for each flooring type (carpet, LVT, laminate, vinyl, hardwood)</li>
+            <li>A gallery of completed installations (before &amp; after)</li>
+            <li>Brand partner pages (Karndean, Alternative Flooring, Margo Selby, Invictus, iSENSE)</li>
+            <li>Contact page with embedded Google Map, phone number, and an enquiry form</li>
+            <li>&ldquo;Book a Home Visit&rdquo; or &ldquo;Request a Quote&rdquo; call-to-action on every page</li>
+            <li>Customer testimonials and review excerpts</li>
+            <li>SEO-optimised content for local search terms</li>
+          </ul>
+          <p><strong>Budget guide:</strong> &pound;1,200&ndash;&pound;1,800 for a solid template-based site (Squarespace, WordPress). &pound;2,000&ndash;&pound;2,500 for a bespoke design. Avoid anyone quoting under &pound;800 &mdash; you&rsquo;ll get what you pay for.</p>
+          <p><strong>This is not included in this package</strong> &mdash; but everything we&rsquo;ve done here (brand colours, SEO descriptions, service lists, photo guidance) gives any web designer a massive head start. You&rsquo;ll save hundreds on briefing alone.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num amber">9</div>
+        <div class="step-meta">
+          <h3>Google Ads for Local Search</h3>
+          <div class="step-tags">
+            <span class="step-tag investment">Future Investment</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>Once you have a website (or even a strong Google Business Profile with reviews), Google Ads can put you at the very top of search results for terms like &ldquo;flooring Sunderland&rdquo;, &ldquo;carpet fitter near me&rdquo;, and &ldquo;Karndean flooring North East&rdquo;.</p>
+          <p><strong>Typical budget:</strong> &pound;150&ndash;&pound;300/month for a local flooring business. This could generate 15-30 enquiries per month for high-intent search terms.</p>
+          <p><strong>Wait until:</strong> You have at least 10-15 Google reviews and either a website or a strong landing page. Sending paid traffic to a business with no reviews and no web presence wastes money.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num amber">10</div>
+        <div class="step-meta">
+          <h3>SEO Strategy</h3>
+          <div class="step-tags">
+            <span class="step-tag investment">Future Investment</span>
+          </div>
+        </div>
+        <div class="step-chevron">&#9660;</div>
+      </div>
+      <div class="step-body">
+        <div class="step-inner">
+          <p>Search Engine Optimisation is the long game &mdash; making your website appear in Google results without paying for ads. For a local flooring business, the key targets would be:</p>
+          <ul>
+            <li>&ldquo;Flooring showroom Whitburn&rdquo; / &ldquo;Flooring Sunderland&rdquo;</li>
+            <li>&ldquo;Karndean fitter Sunderland&rdquo; / &ldquo;Karndean retailer North East&rdquo;</li>
+            <li>&ldquo;Carpet shop near me&rdquo; (with local targeting)</li>
+            <li>&ldquo;LVT flooring Sunderland&rdquo; / &ldquo;Vinyl flooring Whitburn&rdquo;</li>
+            <li>&ldquo;Alternative Flooring stockist Sunderland&rdquo;</li>
+            <li>&ldquo;Home visit flooring consultation Sunderland&rdquo;</li>
+          </ul>
+          <p><strong>Good news:</strong> Everything we&rsquo;ve done in this package &mdash; the optimised descriptions, the service lists, the brand mentions &mdash; is already SEO groundwork. When you build your website, you won&rsquo;t be starting from scratch.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB 3: READY-MADE ASSETS ===================== -->
+  <div id="assets" class="tab-content">
+
+    <!-- GBP Description -->
+    <div class="asset-section">
+      <h2>Google Business Profile Description</h2>
+      <p class="asset-desc">SEO-optimised, ready to paste directly into your Google Business Profile. Approximately 750 characters &mdash; within Google&rsquo;s limit.</p>
+
+      <div class="copy-block">
+        <div class="copy-label">Business Description</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text" id="gbp-desc">Whitburn Coastal Flooring is an independent carpet and flooring showroom in the heart of Whitburn Village, Sunderland. We supply and professionally fit a wide range of premium flooring including Karndean design flooring, Alternative Flooring (featuring Margo Selby designer collections), Invictus luxury vinyl, iSENSE carpets, and Associated Weavers.
+
+Visit our showroom to browse hundreds of samples, or book a free home visit where we bring the showroom to you. We offer expert measuring, detailed quoting, and professional fitting for every job &mdash; from a single room to a complete home.
+
+Whether you're looking for luxury vinyl tiles, statement staircase carpets, hardwearing laminate, or bespoke designer rugs, our team will help you find the perfect floor for your home.
+
+Open: Tue&ndash;Fri 9am&ndash;4pm, Wed 9am&ndash;1pm, Sat 10am&ndash;2pm. Call 0191 529 5905.</div>
+      </div>
+    </div>
+
+    <!-- Services List -->
+    <div class="asset-section">
+      <h2>Complete Services List</h2>
+      <p class="asset-desc">Add each of these as individual services in your Google Business Profile. Click to copy each one.</p>
+
+      <button class="copy-all-btn" onclick="copyAllServices(this)">Copy All Services</button>
+
+      <div class="services-grid">
+        <div class="service-chip"><span class="svc-name">Carpet supply & fitting</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">LVT supply & fitting</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Laminate flooring</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Vinyl flooring</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Hardwood flooring</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Karndean design flooring</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Amtico alternatives</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Bespoke carpet design</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Made-to-measure rugs & runners</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Staircase carpet fitting</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Commercial flooring</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Home visit & consultation</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Free measuring service</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Professional fitting</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Subfloor preparation</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+        <div class="service-chip"><span class="svc-name">Flooring removal & uplift</span><button class="copy-chip" onclick="copyService(this)">Copy</button></div>
+      </div>
+    </div>
+
+    <!-- Google Post Templates -->
+    <div class="asset-section">
+      <h2>Google Post Templates</h2>
+      <p class="asset-desc">Post these directly to your Google Business Profile to keep it active. Google rewards businesses that post regularly with better visibility. Aim for 2-3 posts per month.</p>
+
+      <div class="post-card">
+        <div class="post-type">1. Spring Refresh Campaign</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Spring is the perfect time to refresh your home with new flooring. Visit our Whitburn Village showroom to explore our latest collections from Karndean, Alternative Flooring, and more. Free home visits available &mdash; we bring the showroom to you. Call 0191 529 5905 to book.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">2. Karndean Showcase</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Karndean design flooring combines the beauty of natural wood and stone with the practicality of luxury vinyl. Waterproof, durable, and stunning. See the full range in our Whitburn showroom or book a free home consultation. We supply and fit &mdash; one team from start to finish.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">3. New Stock Arrival</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">New samples just arrived in the showroom! Come and see the latest designs from Alternative Flooring, including the stunning Margo Selby collection. Bold patterns, beautiful textures, and made to measure. Pop in to Whitburn Village or call us on 0191 529 5905.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">4. Home Visit Service</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Can't make it to the showroom? No problem. We offer free home visits across Sunderland, South Shields, and the wider North East. We'll bring samples, measure up, and give you a no-obligation quote &mdash; all in the comfort of your home. Call 0191 529 5905 to book your visit.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">5. Staircase Transformation</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Transform your staircase with a professionally fitted designer carpet. From subtle neutrals to bold Margo Selby patterns, we'll help you make a statement. Expert fitting guaranteed. Visit our Whitburn Village showroom or book a free home consultation today.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">6. Autumn/Winter Warmth</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Get your home winter-ready with luxurious new carpet from iSENSE or Associated Weavers. Nothing beats the warmth and comfort of quality carpet underfoot when the temperature drops. Visit our showroom in Whitburn Village &mdash; open Tue-Sat. 0191 529 5905.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">7. Customer Story / Completed Job</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Another beautiful installation completed! [Describe the job &mdash; e.g., Karndean Knight Tile in a kitchen/diner, or a Margo Selby runner on a Victorian staircase]. From showroom visit to finished floor, we handle everything. See more of our work and get inspired for your home.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">8. LVT / Vinyl Focus</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Luxury vinyl tile is the fastest-growing flooring choice in the UK &mdash; and for good reason. Waterproof, easy to maintain, and available in stunning wood and stone effects. We stock Karndean, Invictus, and more. Expert fitting included. Visit us in Whitburn Village.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">9. New Year New Room</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">New year, fresh start? A new floor transforms any room. Whether it's carpet for the bedroom, LVT for the kitchen, or statement flooring for the hallway &mdash; we'll help you choose, measure, and fit. Start the year with a free home consultation. Call 0191 529 5905.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">10. Designer Brand Focus</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">We're proud to be an authorised stockist of some of the UK's finest flooring brands &mdash; Karndean, Alternative Flooring, Margo Selby, Invictus, and iSENSE. Premium quality you can see and feel in our Whitburn Village showroom. Independent advice, no hard sell.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">11. Showroom Invitation</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Have you visited our showroom in Whitburn Village? Hundreds of samples across carpet, LVT, laminate, vinyl, and hardwood. Friendly, no-pressure advice from people who genuinely love flooring. Open Tue-Sat. Pop in for a browse &mdash; everyone's welcome.</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-type">12. Flooring Tips / Advice Post</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Choosing between carpet and LVT? Here's a quick guide: Carpet is perfect for bedrooms and living rooms &mdash; warm, soft, and cosy. LVT is ideal for kitchens, bathrooms, and hallways &mdash; waterproof, durable, and easy to clean. Not sure? Book a free consultation and we'll help you decide. 0191 529 5905.</div>
+      </div>
+    </div>
+
+    <!-- Photo Guidance -->
+    <div class="asset-section">
+      <h2>Photo Guidance</h2>
+      <p class="asset-desc">Google profiles with photos get 42% more requests for directions and 35% more click-throughs to websites. Upload at least 10 photos to start. Use this checklist.</p>
+
+      <div class="card">
+        <ul class="photo-checklist">
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Showroom Interior &mdash; Wide Shot</div>
+              <div class="photo-tip">Stand at the entrance and capture the full showroom. Good lighting, tidy displays. Show the range and scale of what you stock.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Showroom Interior &mdash; Sample Displays</div>
+              <div class="photo-tip">Close-up of sample boards, racks, and stands. Show the variety. Customers want to see they'll have plenty to choose from.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Karndean Display Area</div>
+              <div class="photo-tip">If you have a dedicated Karndean section, photograph it. Brand association boosts credibility.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Alternative Flooring / Margo Selby Samples</div>
+              <div class="photo-tip">Showcase the designer collections. These attract premium customers.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Fitting in Progress</div>
+              <div class="photo-tip">A photo of professional fitting work. Shows you're not just a shop &mdash; you do the full job. Wear branded clothing if possible.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Completed Installation &mdash; Kitchen/Living Room</div>
+              <div class="photo-tip">A beautifully finished room. Clean, well-lit, showing the flooring as the star. Before-and-after pairs are even better.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Completed Installation &mdash; Staircase</div>
+              <div class="photo-tip">Staircase carpets are your signature work. Photograph your best staircase installations &mdash; especially Margo Selby patterns.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Shop Exterior / Whitburn Village</div>
+              <div class="photo-tip">Your shop front from the street. Include the village setting &mdash; it shows you're a real, established local business.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Team / Staff Photo</div>
+              <div class="photo-tip">People trust people. A friendly photo of you (and your team, if applicable) in the showroom makes the business feel approachable.</div>
+            </div>
+          </li>
+          <li onclick="toggleCheck(this)">
+            <div class="photo-check"></div>
+            <div class="photo-info">
+              <div class="photo-name">Home Visit / Consultation</div>
+              <div class="photo-tip">If you can photograph a home visit (with customer permission), this shows the personal service that sets you apart from chain stores.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-header">Photo Tips</div>
+        <ul style="padding-left:18px;">
+          <li><strong>Lighting matters most.</strong> Natural light or good showroom lighting. Avoid flash &mdash; it flattens textures.</li>
+          <li><strong>Clean and tidy.</strong> Remove clutter before shooting. Every photo represents your business.</li>
+          <li><strong>Landscape orientation</strong> works best for Google Business Profile cover photos.</li>
+          <li><strong>Phone cameras are fine</strong> &mdash; modern phones take excellent photos. Just wipe the lens first.</li>
+          <li><strong>Show texture and detail</strong> &mdash; flooring is tactile. Get close enough to show the quality.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Review Response Templates -->
+    <div class="asset-section">
+      <h2>Review Response Templates</h2>
+      <p class="asset-desc">Always respond to every review &mdash; positive and negative. It shows you care and builds trust with future customers reading them.</p>
+
+      <div class="review-card">
+        <div class="review-type positive">Positive Response 1 &mdash; General</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="review-text">Thank you so much for the kind words! We're really glad you're happy with your new flooring. It was a pleasure working with you, and we hope you enjoy it for years to come. If you ever need anything in the future, don't hesitate to get in touch. &mdash; The Whitburn Coastal Flooring Team</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-type positive">Positive Response 2 &mdash; Specific Job</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="review-text">Thank you for taking the time to leave this review! It was a great job to work on, and the [flooring type] really transformed the room. We appreciate your trust in us, and it's always rewarding to see a happy customer. Enjoy your beautiful new floor!</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-type positive">Positive Response 3 &mdash; Referral Prompt</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="review-text">What a lovely review &mdash; thank you! We really enjoyed helping you choose the perfect flooring for your home. If any of your friends or family are thinking about new floors, we'd love to help them too. Thanks again for your support!</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-type negative">Negative Response &mdash; Professional & Constructive</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="review-text">Thank you for your feedback. We're sorry to hear your experience didn't meet the high standard we set for ourselves. We'd really like the opportunity to put this right &mdash; could you give us a call on 0191 529 5905 so we can discuss this directly? Customer satisfaction is genuinely important to us, and we want to make sure you're happy.</div>
+      </div>
+    </div>
+
+    <!-- Review Request WhatsApp Templates -->
+    <div class="asset-section">
+      <h2>Review Request Templates (WhatsApp)</h2>
+      <p class="asset-desc">Send these via WhatsApp after completing a job. Replace [GOOGLE REVIEW LINK] with your actual Google review link once your profile is claimed.</p>
+
+      <div class="copy-block">
+        <div class="copy-label">Template 1 &mdash; Right After Fitting</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Hi [Name], thanks again for choosing Whitburn Coastal Flooring! We hope you're loving your new floor. If you have a spare minute, we'd really appreciate a quick Google review &mdash; it makes a huge difference to a small business like ours. Here's the link: [GOOGLE REVIEW LINK]. Thanks so much!</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">Template 2 &mdash; A Few Days Later</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Hi [Name], just checking in &mdash; how's the new flooring settling in? If you're happy with how it looks, we'd be so grateful if you could leave us a quick Google review. It really helps other people find us: [GOOGLE REVIEW LINK]. Hope you're enjoying it!</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">Template 3 &mdash; Follow-Up (If No Response)</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Hi [Name], hope the flooring is looking great! Sorry to bother you &mdash; I know everyone's busy. If you did get a chance to leave a quick Google review, it would honestly make our day: [GOOGLE REVIEW LINK]. No pressure at all, and thanks again for choosing us!</div>
+      </div>
+    </div>
+
+    <!-- Linktree / Landing Page Content -->
+    <div class="asset-section">
+      <h2>Linktree / Landing Page Content</h2>
+      <p class="asset-desc">Use this content when setting up your Linktree or Carrd.co page.</p>
+
+      <div class="copy-block">
+        <div class="copy-label">Headline</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Whitburn Coastal Flooring &mdash; Premium Carpet & Flooring Showroom, Whitburn Village</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">Short Bio</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Independent flooring specialists in Whitburn Village, Sunderland. Stockists of Karndean, Alternative Flooring, Margo Selby, Invictus & iSENSE. Showroom visits, free home consultations, expert fitting.</div>
+      </div>
+
+      <div class="copy-block">
+        <div class="copy-label">Suggested Link Labels</div>
+        <button class="copy-btn" onclick="copyText(this)">Copy</button>
+        <div class="copy-text">Call Us: 0191 529 5905
+WhatsApp Us
+Visit Our Showroom (Google Maps link)
+See Our Work (Facebook page link)
+Follow Us on Instagram (@whitburncoastal)
+Brands We Stock
+Book a Free Home Visit</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Prepared by DMT Consulting | Trade Arrangement | March 2026</p>
+    <p style="margin-top:8px;font-size:11px;font-style:italic;">This document was made partially with Claude AI. While we&rsquo;ve reviewed everything for accuracy, please check any facts, figures, or recommendations before acting on them.</p>
+  </footer>
+
+</div>
+
+<script>
+function switchTab(id){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  document.querySelector('[data-tab="'+id+'"]').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleStep(header){
+  var block=header.parentElement;
+  block.classList.toggle('open');
+}
+
+function copyText(btn){
+  var block=btn.parentElement;
+  var textEl=block.querySelector('.copy-text');
+  if(!textEl) return;
+  var text=textEl.innerText;
+  navigator.clipboard.writeText(text).then(function(){
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  });
+}
+
+function copyService(btn){
+  var chip=btn.parentElement;
+  var name=chip.querySelector('.svc-name').innerText;
+  navigator.clipboard.writeText(name).then(function(){
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  });
+}
+
+function copyAllServices(btn){
+  var chips=document.querySelectorAll('.svc-name');
+  var all=[];
+  chips.forEach(function(c){all.push(c.innerText)});
+  navigator.clipboard.writeText(all.join('\n')).then(function(){
+    btn.textContent='Copied All!';
+    btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy All Services';btn.classList.remove('copied');},2000);
+  });
+}
+
+function toggleCheck(li){
+  li.classList.toggle('checked');
+}
+</script>
+</body>
+</html>
