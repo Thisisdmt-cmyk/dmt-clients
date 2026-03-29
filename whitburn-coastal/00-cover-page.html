@@ -339,46 +339,82 @@
             font-style: italic;
         }
 
-        /* ── Obligations ── */
-        .obligations-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-        @media (min-width: 600px) {
-            .obligations-grid { grid-template-columns: 1fr 1fr; }
-        }
-        .obligation-card {
+        /* ── Obligations Table ── */
+        .obligations-table-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.25rem;
+            border-radius: 12px;
+            overflow: hidden;
         }
-        .obligation-card h4 {
+        .obligations-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .obligations-table th,
+        .obligations-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+        .obligations-table thead th {
             font-family: 'Playfair Display', serif;
-            font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
             color: var(--text);
+            background: rgba(10, 22, 40, 0.5);
+            border-bottom: 2px solid var(--border);
         }
-        .obligation-card ul {
-            list-style: none;
-            padding: 0;
+        .obligations-table thead th:first-child {
+            width: 28%;
         }
-        .obligation-card li {
-            font-size: 0.85rem;
-            color: var(--muted);
-            padding: 0.35rem 0;
-            padding-left: 1.4rem;
-            position: relative;
-            line-height: 1.5;
+        .obligations-table thead th:not(:first-child) {
+            width: 36%;
         }
-        .obligation-card li::before {
-            content: '—';
-            position: absolute;
-            left: 0;
-            color: var(--teal);
+        .obligations-table thead th .pkg-badge {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.68rem;
             font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+        .obligations-table thead th .pkg-badge.teal { color: var(--teal); }
+        .obligations-table thead th .pkg-badge.muted { color: var(--muted); }
+        .obligations-table tbody tr:last-child td { border-bottom: none; }
+        .obligations-table .row-label {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--sand);
+            white-space: nowrap;
+        }
+        .obligations-table td {
+            color: var(--muted);
+        }
+        .obligations-table td strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .obligations-table .subtitle {
+            display: block;
+            font-size: 0.78rem;
+            font-style: italic;
+            color: var(--muted);
+            opacity: 0.75;
+            margin-top: 0.35rem;
+        }
+        @media (max-width: 599px) {
+            .obligations-table th,
+            .obligations-table td {
+                padding: 0.75rem 0.85rem;
+                font-size: 0.82rem;
+            }
+            .obligations-table thead th { font-size: 0.88rem; }
+            .obligations-table thead th:first-child { width: auto; }
         }
 
         /* ── Terms ── */
@@ -605,7 +641,7 @@
             <div class="exchange-block">
                 <div class="exchange-label">What You Receive</div>
                 <p>The full Digital Uplift Package at commercial quality, as detailed below.</p>
-                <div class="value-badge">Market Value: &pound;7,000+</div>
+                <div class="value-badge">Market Value: &pound;6,500+</div>
             </div>
 
             <div class="deliverables-heading">Deliverables Included</div>
@@ -613,34 +649,34 @@
             <div class="deliverable-row">
                 <span class="icon">&#10003;</span>
                 <span class="name">Social Media Audit &amp; Strategy</span>
-                <span class="val">&pound;600</span>
+                <span class="val">&pound;1,000</span>
             </div>
             <div class="deliverable-row">
                 <span class="icon">&#10003;</span>
                 <span class="name">Google Business Profile &amp; Website Strategy</span>
-                <span class="val">&pound;400</span>
+                <span class="val">&pound;750</span>
             </div>
             <div class="deliverable-row">
                 <span class="icon">&#10003;</span>
                 <span class="name">Brand Audit &amp; Strategy</span>
-                <span class="val">&pound;500</span>
+                <span class="val">&pound;750</span>
             </div>
             <div class="deliverable-row">
                 <span class="icon">&#10003;</span>
                 <span class="name">Revenue Opportunities Review</span>
-                <span class="val">&pound;600</span>
+                <span class="val">&pound;1,000</span>
             </div>
 
             <div class="deliverable-row star-row">
                 <span class="icon">&#9733;</span>
                 <span class="name">Bespoke Flooring Business Manager App <span class="star-badge">Star Deliverable</span></span>
-                <span class="val">&pound;2,000</span>
+                <span class="val">&pound;2,500</span>
             </div>
 
             <div class="deliverable-row">
                 <span class="icon">&#10003;</span>
                 <span class="name">App Training Guide &amp; Data Security</span>
-                <span class="val">Included</span>
+                <span class="val">&pound;500</span>
             </div>
             <div class="deliverable-row">
                 <span class="icon">&#10003;</span>
@@ -650,7 +686,7 @@
 
             <div class="total-row">
                 <span class="label">Total Market Value</span>
-                <span class="amount">&pound;7,000+</span>
+                <span class="amount">&pound;6,500+</span>
             </div>
 
             <div class="package-tagline">Full commercial quality. Zero cost to you.</div>
@@ -670,7 +706,7 @@
             <div class="exchange-block">
                 <div class="exchange-label">What You Receive</div>
                 <p>The core audit package as detailed below.</p>
-                <div class="value-badge">Market Value: &pound;1,500</div>
+                <div class="value-badge">Market Value: &pound;2,500</div>
             </div>
 
             <div class="deliverables-heading">Deliverables</div>
@@ -678,28 +714,28 @@
             <div class="deliverable-row included">
                 <span class="icon">&#10003;</span>
                 <span class="name">Social Media Audit &amp; Strategy</span>
-                <span class="val">&pound;600</span>
+                <span class="val">&pound;1,000</span>
             </div>
             <div class="deliverable-row included">
                 <span class="icon">&#10003;</span>
                 <span class="name">Google Business Profile &amp; Website Strategy</span>
-                <span class="val">&pound;400</span>
+                <span class="val">&pound;750</span>
             </div>
             <div class="deliverable-row included">
                 <span class="icon">&#10003;</span>
                 <span class="name">Brand Audit &amp; Strategy</span>
-                <span class="val">&pound;500</span>
+                <span class="val">&pound;750</span>
             </div>
 
             <div class="deliverable-row excluded">
                 <span class="icon">&#10007;</span>
                 <span class="name">Revenue Opportunities Review</span>
-                <span class="val">&pound;600</span>
+                <span class="val">&pound;1,000</span>
             </div>
             <div class="deliverable-row excluded">
                 <span class="icon">&#10007;</span>
                 <span class="name">Bespoke Flooring Business Manager App</span>
-                <span class="val">&pound;2,000</span>
+                <span class="val">&pound;2,500</span>
             </div>
             <div class="deliverable-row excluded">
                 <span class="icon">&#10007;</span>
@@ -714,7 +750,7 @@
 
             <div class="total-row">
                 <span class="label">Total Market Value</span>
-                <span class="amount">&pound;1,500</span>
+                <span class="amount">&pound;2,500</span>
             </div>
 
             <div class="package-tagline">Good foundation. But the tools that transform your business are not included.</div>
@@ -725,35 +761,33 @@
     <section class="section">
         <h2 class="section-title"><span class="num">2.</span> Mutual Obligations</h2>
 
-        <div class="obligations-grid">
-            <div class="obligation-card">
-                <h4>DMT Consulting Delivers</h4>
-                <ul>
-                    <li>All specified deliverables for the selected package, built to full commercial quality</li>
-                    <li>Each deliverable as a self-contained, mobile-responsive HTML document viewable on any device</li>
-                    <li>Bespoke Progressive Web App (Package A only) with offline capability and full training guide</li>
-                    <li>All ready-made assets, templates, and copy-paste content included within each deliverable</li>
-                    <li>Reasonable post-delivery support for questions about the package contents</li>
-                </ul>
-            </div>
-
-            <div class="obligation-card">
-                <h4>Client Provides (Package A)</h4>
-                <ul>
-                    <li>Kitchen and sitting room flooring &mdash; supply, fit, underlay, finishing strips, and all associated materials</li>
-                    <li>Professional standard installation completed to an agreed timeline</li>
-                    <li>Permission for DMT Consulting to use the engagement as a testimonial and anonymised case study</li>
-                </ul>
-            </div>
-
-            <div class="obligation-card">
-                <h4>Client Provides (Package B)</h4>
-                <ul>
-                    <li>Flooring materials supplied at trade cost &mdash; DMT Consulting pays for all materials</li>
-                    <li>No fitting labour is required from the client under this package</li>
-                    <li>Permission for DMT Consulting to use the engagement as a testimonial</li>
-                </ul>
-            </div>
+        <div class="obligations-table-card">
+            <table class="obligations-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Package A <span class="pkg-badge teal">Premium</span></th>
+                        <th>Package B <span class="pkg-badge muted">Partial</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="row-label">DMT delivers</td>
+                        <td><strong>Full package</strong> &mdash; all 8 deliverables, bespoke app, training guide, assets &amp; templates, plus post-delivery support</td>
+                        <td><strong>Core package</strong> &mdash; 3 audit deliverables (Social Media, Google Business Profile, Brand Strategy)</td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Client provides</td>
+                        <td>Kitchen &amp; sitting room flooring &mdash; supply, fit, underlay, finishing strips, and all associated materials. Professional standard, complete.</td>
+                        <td>Flooring materials at trade cost only &mdash; DMT Consulting pays for all materials<span class="subtitle">No fitting labour is required from the client under this package</span></td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">Testimonial</td>
+                        <td>Yes &mdash; testimonial + anonymised case study</td>
+                        <td>Yes &mdash; testimonial only</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
@@ -780,7 +814,7 @@
                 <div class="radio-circle"></div>
                 <div class="radio-text">
                     <strong>Package A &mdash; Premium Trade</strong>
-                    <span>Full Digital Uplift Package (value &pound;7,000+) in exchange for kitchen &amp; sitting room flooring, supply and fit complete</span>
+                    <span>Full Digital Uplift Package (value &pound;6,500+) in exchange for kitchen &amp; sitting room flooring, supply and fit complete</span>
                 </div>
             </div>
 
@@ -788,7 +822,7 @@
                 <div class="radio-circle"></div>
                 <div class="radio-text">
                     <strong>Package B &mdash; Partial Trade</strong>
-                    <span>Core audit package (value &pound;1,500) in exchange for materials supplied at trade cost</span>
+                    <span>Core audit package (value &pound;2,500) in exchange for materials supplied at trade cost</span>
                 </div>
             </div>
         </div>
