@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>T&W Garage Manager — Training Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--dark:#0A0F1A;--card:#111827;--border:#1E293B;--blue:#3B82F6;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--text:#F1F5F9;--dim:#94A3B8;--white:#FFFFFF;--radius:12px}
+:root{--dark:#1A1A2E;--card:#1E2A42;--border:#2A3A52;--blue:#E84B8A;--green:#10B981;--amber:#F59E0B;--red:#EF4444;--text:#F1F5F9;--dim:#94A3B8;--white:#FFFFFF;--radius:12px}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0.02em}
+h1,h2,h3,h4,.section-number{font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:0.02em}
 
 /* ── LAYOUT ── */
 .page{max-width:860px;margin:0 auto;padding:0 20px 60px}
 
 /* ── HEADER ── */
 .hero{text-align:center;padding:48px 20px 32px;position:relative}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 20%,rgba(59,130,246,0.1) 0%,transparent 60%);pointer-events:none}
-.brand-tag{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.15em;color:var(--blue);margin-bottom:12px}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 20%,rgba(232,75,138,0.1) 0%,transparent 60%);pointer-events:none}
+.brand-tag{font-family:'DM Sans',sans-serif;font-size:16px;letter-spacing:0.15em;color:var(--blue);margin-bottom:12px}
 .hero h1{font-size:clamp(32px,6vw,52px);line-height:1.05;margin-bottom:8px}
 .hero h1 span{color:var(--amber)}
 .hero-sub{font-size:16px;color:var(--dim);max-width:480px;margin:0 auto}
@@ -30,7 +30,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
 .tab-bar::-webkit-scrollbar{display:none}
 .tab-btn{flex-shrink:0;padding:14px 18px;font-size:13px;font-weight:700;color:var(--dim);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Inter',sans-serif;letter-spacing:0.02em}
 .tab-btn:hover{color:var(--text)}
-.tab-btn.active{color:var(--amber);border-bottom-color:var(--amber)}
+.tab-btn.active{color:#E84B8A;border-bottom-color:#E84B8A}
 @media(max-width:600px){.tab-btn{padding:12px 13px;font-size:12px}}
 
 /* ── TAB CONTENT ── */
@@ -53,18 +53,18 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
 .overview-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:transform .2s,border-color .2s}
 .overview-card:hover{transform:translateY(-2px);border-color:var(--blue)}
 .overview-icon{font-size:36px;margin-bottom:12px;display:block}
-.overview-card h4{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:4px;letter-spacing:0.03em}
+.overview-card h4{font-family:'DM Sans',sans-serif;font-size:22px;margin-bottom:4px;letter-spacing:0.03em}
 .overview-card p{font-size:13px;color:var(--dim);line-height:1.5}
 
 /* ── STEP CARDS ── */
 .step{display:flex;gap:16px;margin-bottom:20px}
-.step-num{flex-shrink:0;width:40px;height:40px;background:var(--blue);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;margin-top:2px}
+.step-num{flex-shrink:0;width:40px;height:40px;background:var(--blue);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-size:20px;margin-top:2px}
 .step-num.amber{background:var(--amber);color:var(--dark)}
 .step-num.green{background:var(--green)}
 .step-body{flex:1;min-width:0}
 .step-body h4{font-size:15px;font-weight:700;margin-bottom:4px}
 .step-body p{font-size:14px;color:var(--dim);line-height:1.6}
-.step-body code{background:rgba(59,130,246,0.15);color:var(--blue);padding:2px 8px;border-radius:6px;font-size:13px;font-family:'Inter',sans-serif;font-weight:600}
+.step-body code{background:rgba(232,75,138,0.15);color:var(--blue);padding:2px 8px;border-radius:6px;font-size:13px;font-family:'Inter',sans-serif;font-weight:600}
 
 /* ── CHECKLIST ── */
 .checklist{list-style:none;padding:0;margin:16px 0}
@@ -78,17 +78,17 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
 
 /* ── PRO TIP ── */
 .pro-tip{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-left:4px solid var(--amber);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:24px 0;position:relative}
-.pro-tip::before{content:'PRO TIP';font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.1em;color:var(--amber);display:block;margin-bottom:6px}
+.pro-tip::before{content:'PRO TIP';font-family:'DM Sans',sans-serif;font-size:14px;letter-spacing:0.1em;color:var(--amber);display:block;margin-bottom:6px}
 .pro-tip p{font-size:14px;color:var(--text);line-height:1.7;font-style:italic}
 
 /* ── WARNING BOX ── */
 .warning-box{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-left:4px solid var(--red);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:24px 0}
-.warning-box::before{content:'IMPORTANT';font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.1em;color:var(--red);display:block;margin-bottom:6px}
+.warning-box::before{content:'IMPORTANT';font-family:'DM Sans',sans-serif;font-size:14px;letter-spacing:0.1em;color:var(--red);display:block;margin-bottom:6px}
 .warning-box p{font-size:14px;color:var(--dim);line-height:1.7}
 
 /* ── INFO BOX ── */
-.info-box{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-left:4px solid var(--blue);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:24px 0}
-.info-box h4{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--blue);margin-bottom:6px;letter-spacing:0.03em}
+.info-box{background:rgba(232,75,138,0.08);border:1px solid rgba(232,75,138,0.25);border-left:4px solid var(--blue);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:24px 0}
+.info-box h4{font-family:'DM Sans',sans-serif;font-size:18px;color:var(--blue);margin-bottom:6px;letter-spacing:0.03em}
 .info-box p,.info-box li{font-size:14px;color:var(--dim);line-height:1.7}
 .info-box ul{list-style:none;padding:0;margin-top:8px}
 .info-box li{padding:4px 0;padding-left:16px;position:relative}
@@ -107,7 +107,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
 /* ── STATUS FLOW ── */
 .status-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:20px 0}
 .status-pill{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;white-space:nowrap}
-.status-pill.progress{background:rgba(59,130,246,0.15);color:var(--blue)}
+.status-pill.progress{background:rgba(232,75,138,0.15);color:var(--blue)}
 .status-pill.complete{background:rgba(16,185,129,0.15);color:var(--green)}
 .status-pill.paid{background:rgba(245,158,11,0.15);color:var(--amber)}
 .flow-arrow{color:var(--dim);font-size:18px}
@@ -141,7 +141,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
 /* ── SUMMARY METRIC CARDS ── */
 .metric-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin:20px 0}
 .metric{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
-.metric .num{font-family:'Bebas Neue',sans-serif;font-size:32px}
+.metric .num{font-family:'DM Sans',sans-serif;font-size:32px}
 .metric .num.red{color:var(--red)}
 .metric .num.amber{color:var(--amber)}
 .metric .num.green{color:var(--green)}
@@ -183,7 +183,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <div class="hero">
-  <div class="brand-tag">DMT CONSULTING</div>
+  <div class="brand-tag">PINK HOUSE TRADING</div>
   <div class="hero-badge">Training Guide</div>
   <h1>T&W GARAGE <span>MANAGER</span></h1>
   <p class="hero-sub">Your garage management app — everything in one place. This guide walks you through every feature, step by step.</p>
@@ -215,7 +215,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Install on Phone -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">INSTALL ON YOUR PHONE</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">INSTALL ON YOUR PHONE</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:20px">The app works in your phone's browser, but you can add it to your home screen so it looks and feels like a real app. No app store needed.</p>
 
   <div class="collapsible">
@@ -245,7 +245,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- What Each Tab Does -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:36px 0 16px;letter-spacing:0.03em">WHAT EACH TAB DOES</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:36px 0 16px;letter-spacing:0.03em">WHAT EACH TAB DOES</h3>
 
   <div class="card-grid">
     <div class="overview-card">
@@ -276,7 +276,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- 5-Minute Setup -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:36px 0 16px;letter-spacing:0.03em">5-MINUTE SETUP</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:36px 0 16px;letter-spacing:0.03em">5-MINUTE SETUP</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:16px">Do these five things and your app is ready to go.</p>
 
   <ul class="checklist" id="setup-checklist">
@@ -300,14 +300,14 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Add a Customer -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">ADDING A NEW CUSTOMER</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">ADDING A NEW CUSTOMER</h3>
 
   <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Tap the + button</h4><p>You'll find it in the top right corner of the Customers screen.</p></div></div>
   <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Fill in the customer details</h4><p>Name and phone are the essentials. Fill in as much as you can — the more you add, the more the app can do for you.</p></div></div>
   <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Tap Save</h4><p>The customer is added to your list straight away.</p></div></div>
 
   <!-- Field Guide -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">WHAT EACH FIELD MEANS</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">WHAT EACH FIELD MEANS</h3>
 
   <div class="card">
     <div class="field-list">
@@ -343,7 +343,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Search, Edit, Contact -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">FINDING AND CONTACTING CUSTOMERS</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">FINDING AND CONTACTING CUSTOMERS</h3>
 
   <div class="collapsible open">
     <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -402,7 +402,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Colour Coding -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">THE COLOUR SYSTEM</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">THE COLOUR SYSTEM</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:16px">Every customer with an MOT date gets a colour. This tells you at a glance how urgent it is.</p>
 
   <div class="colour-key">
@@ -430,7 +430,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Daily Routine -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">YOUR DAILY ROUTINE</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">YOUR DAILY ROUTINE</h3>
 
   <div class="info-box">
     <h4>EVERY MORNING — 2 MINUTES</h4>
@@ -438,14 +438,14 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- How to Send -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">SENDING A REMINDER</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">SENDING A REMINDER</h3>
 
   <div class="step"><div class="step-num amber">1</div><div class="step-body"><h4>Find the customer in the list</h4><p>Red and amber customers appear at the top. They're sorted by urgency.</p></div></div>
   <div class="step"><div class="step-num amber">2</div><div class="step-body"><h4>Tap "Send Reminder"</h4><p>This opens WhatsApp with a pre-written message. The message includes their name, car details, and your phone number.</p></div></div>
   <div class="step"><div class="step-num amber">3</div><div class="step-body"><h4>Hit send in WhatsApp</h4><p>Check the message looks right, then tap the send arrow. Done — they've been reminded.</p></div></div>
 
   <!-- Tracking -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">TRACKING YOUR REMINDERS</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">TRACKING YOUR REMINDERS</h3>
 
   <div class="collapsible open">
     <button class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -468,7 +468,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Summary Bar -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE SUMMARY BAR</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE SUMMARY BAR</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:16px">At the top of the MOT Reminders screen, you'll see four numbers. Here's what they mean:</p>
 
   <div class="metric-row">
@@ -502,14 +502,14 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- How to Ask -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">ASKING FOR A REVIEW</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">ASKING FOR A REVIEW</h3>
 
   <div class="step"><div class="step-num green">1</div><div class="step-body"><h4>Go to the Reviews tab</h4><p>You'll see your customer list with a "Ask for Review" button next to each one.</p></div></div>
   <div class="step"><div class="step-num green">2</div><div class="step-body"><h4>Tap "Ask for Review"</h4><p>WhatsApp opens with a friendly, pre-written message. It includes a direct link to your Google review page — the customer just needs to tap it and leave their stars.</p></div></div>
   <div class="step"><div class="step-num green">3</div><div class="step-body"><h4>Send it in WhatsApp</h4><p>Check the message, tap send. The app tracks that you've asked this customer.</p></div></div>
 
   <!-- When to Ask -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">WHEN TO ASK</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">WHEN TO ASK</h3>
 
   <div class="card">
     <p style="font-size:15px;font-weight:700;margin-bottom:8px;color:var(--amber)">Timing is everything.</p>
@@ -517,7 +517,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Dashboard -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE REVIEW DASHBOARD</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE REVIEW DASHBOARD</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:16px">At the top of the Reviews screen, you'll see your progress:</p>
 
   <div class="metric-row">
@@ -528,7 +528,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Update Link -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">SETTING YOUR GOOGLE REVIEW LINK</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">SETTING YOUR GOOGLE REVIEW LINK</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:12px">The review request message includes a link to your Google review page. You set this up once in Settings. See the <strong>Settings</strong> tab of this guide for exactly how to find your link.</p>
 
   <div class="pro-tip">
@@ -548,7 +548,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Add a Job -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">ADDING A JOB</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">ADDING A JOB</h3>
 
   <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Tap the + button on the Jobs tab</h4><p>Opens the new job form.</p></div></div>
   <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Link it to a customer</h4><p>Start typing a customer name — the app will suggest matches. Tap to select. This connects the job to their record.</p></div></div>
@@ -557,7 +557,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Save the job</h4><p>It starts as "In Progress". Update the status as the job moves along.</p></div></div>
 
   <!-- Status Flow -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">JOB STATUS FLOW</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">JOB STATUS FLOW</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:12px">Every job follows this path:</p>
 
   <div class="status-flow">
@@ -586,7 +586,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Dashboard -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE JOBS DASHBOARD</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">THE JOBS DASHBOARD</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:16px">The summary at the top gives you a snapshot of your workshop:</p>
 
   <div class="metric-row">
@@ -710,7 +710,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- What You Need to Do -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">WHAT YOU NEED TO DO</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:28px 0 16px;letter-spacing:0.03em">WHAT YOU NEED TO DO</h3>
 
   <div class="card">
     <div class="field-list">
@@ -734,7 +734,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- ICO Registration -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">ICO REGISTRATION</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">ICO REGISTRATION</h3>
 
   <div class="card">
     <p style="font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:12px">Most small businesses that process customer data digitally need to pay the <strong>ICO data protection fee</strong>. It's <strong>£40 per year</strong> for small businesses.</p>
@@ -744,7 +744,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </div>
 
   <!-- Practical Steps -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">PRACTICAL SECURITY STEPS</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">PRACTICAL SECURITY STEPS</h3>
 
   <ul class="checklist" id="privacy-checklist">
     <li onclick="toggleCheck(this)"><span class="check-box"></span><span>Lock your phone with a PIN, fingerprint, or face recognition</span></li>
@@ -756,7 +756,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
   </ul>
 
   <!-- Privacy Notice -->
-  <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">YOUR PRIVACY NOTICE</h3>
+  <h3 style="font-family:'DM Sans',sans-serif;font-size:24px;margin:32px 0 16px;letter-spacing:0.03em">YOUR PRIVACY NOTICE</h3>
   <p style="font-size:14px;color:var(--dim);margin-bottom:16px">Here's a simple privacy notice you can read to customers, print out and put on the wall, or keep on hand if anyone asks. Tap the button to copy it.</p>
 
   <div class="copy-wrap">
@@ -775,7 +775,7 @@ h1,h2,h3,h4,.section-number{font-family:'Bebas Neue',sans-serif;letter-spacing:0
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <div class="guide-footer">
   <p><strong>T&W Garage Manager Training Guide</strong></p>
-  <p>DMT Consulting &bull; March 2026</p>
+  <p>Prepared by Pink House Trading &bull; March 2026</p>
   <p class="ai-note">Produced with the assistance of AI tools. All content reviewed and approved for accuracy.</p>
 </div>
 

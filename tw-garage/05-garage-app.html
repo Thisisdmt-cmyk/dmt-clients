@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#1E40AF">
+<meta name="theme-color" content="#E84B8A">
 <meta name="mobile-web-app-capable" content="yes">
 <title>T&W Garage Manager</title>
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVCZXIEdhcmFnZSBNYW5hZ2VyIiwic2hvcnRfbmFtZSI6IlQmVyBHYXJhZ2UiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzFFNDBBRiIsInRoZW1lX2NvbG9yIjoiIzFFNDBBRiJ9">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVCZXIEdhcmFnZSBNYW5hZ2VyIiwic2hvcnRfbmFtZSI6IlQmVyBHYXJhZ2UiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI0U4NEI4QSIsInRoZW1lX2NvbG9yIjoiI0U4NEI4QSJ9">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--blue:#1E40AF;--blue-dark:#1E3A8A;--blue-light:#DBEAFE;--amber:#F59E0B;--amber-dark:#D97706;--amber-light:#FEF3C7;--dark:#1F2937;--grey:#6B7280;--light:#F3F4F6;--white:#FFFFFF;--green:#22C55E;--green-light:#D1FAE5;--red:#EF4444;--red-light:#FEE2E2;--radius:12px;--shadow:0 2px 8px rgba(0,0,0,0.08)}
+:root{--blue:#E84B8A;--blue-dark:#C73D73;--blue-light:#FDE2EE;--amber:#F59E0B;--amber-dark:#D97706;--amber-light:#FEF3C7;--dark:#1F2937;--grey:#6B7280;--light:#F3F4F6;--white:#FFFFFF;--green:#22C55E;--green-light:#D1FAE5;--red:#EF4444;--red-light:#FEE2E2;--radius:12px;--shadow:0 2px 8px rgba(0,0,0,0.08)}
 html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--light);color:var(--dark);overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:none;background:none;font-size:inherit}
 input,select,textarea{font-family:inherit;font-size:16px;border:2px solid #E5E7EB;border-radius:var(--radius);padding:14px 16px;width:100%;background:var(--white);color:var(--dark);transition:border-color .2s}
@@ -20,7 +20,7 @@ textarea{resize:vertical;min-height:80px}
 select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
 
 .app{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto;background:var(--white)}
-.header{background:var(--dark);color:var(--white);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:60px;flex-shrink:0}
+.header{background:#1A1A2E;color:var(--white);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:60px;flex-shrink:0}
 .header-left{display:flex;align-items:center;gap:10px}
 .header-brand{font-size:14px;font-weight:700;color:var(--amber);letter-spacing:0.5px}
 .header h1{font-size:18px;font-weight:600}
@@ -131,7 +131,7 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 
 .contact-btns{display:flex;gap:8px;margin-top:8px}
 .contact-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;min-height:44px;flex:1}
-.contact-btn.phone{background:#DBEAFE;color:#1E40AF}
+.contact-btn.phone{background:#FDE2EE;color:#E84B8A}
 .contact-btn.whatsapp{background:#D1FAE5;color:#065F46}
 
 .settings-item{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid #F3F4F6;cursor:pointer}
@@ -961,7 +961,7 @@ function renderSettings(container) {
     <button class="btn btn-danger" onclick="resetAllData()">Reset All Data</button>
 
     <div class="footer-text">
-      T&W Garage Manager v1.0 | All data stored on this device | Made by DMT Consulting<br>
+      T&W Garage Manager v1.0 | All data stored on this device | Made by Pink House Trading<br>
       This app was made partially with Claude AI. Please verify any calculations or recommendations.
     </div>`;
 
