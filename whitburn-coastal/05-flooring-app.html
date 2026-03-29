@@ -589,14 +589,167 @@ function loadData() {
         ensureDefaults();
       }
     } else {
-      APP = getDefaultData();
+      APP = getDemoData();
       saveData();
     }
   } catch (e) {
     console.error('Error loading data:', e);
-    APP = getDefaultData();
+    APP = getDemoData();
     saveData();
   }
+}
+
+function getDemoData() {
+  const d = getDefaultData();
+
+  // --- Demo Customers ---
+  d.customers = [
+    {
+      id: 1, name: 'Sarah Mitchell', phone: '07700 900123',
+      email: 'sarah.mitchell@email.com',
+      address: '14 Cliffside Way, Whitburn', postcode: 'SR6 7PQ',
+      propertyType: 'House', source: 'Facebook',
+      notes: 'Interested in Karndean for kitchen and hallway',
+      dateAdded: '2026-03-20T10:00:00.000Z'
+    },
+    {
+      id: 2, name: 'James & Emma Wilson', phone: '07700 900456',
+      email: 'james.wilson@email.com',
+      address: '28 The Green, Cleadon', postcode: 'SR6 7QR',
+      propertyType: 'House', source: 'Walk-in',
+      notes: 'New build, full house carpet and LVT',
+      dateAdded: '2026-03-18T14:30:00.000Z'
+    },
+    {
+      id: 3, name: 'Dave Patterson', phone: '07700 900789',
+      email: 'd.patterson@outlook.com',
+      address: '5 Front Street, Whitburn Village', postcode: 'SR6 7AH',
+      propertyType: 'Flat', source: 'Referral',
+      notes: 'Landlord, 2-bed rental refurb. Budget-conscious.',
+      dateAdded: '2026-03-22T09:15:00.000Z'
+    }
+  ];
+  d.nextId.customer = 4;
+
+  // --- Demo Quotes ---
+  // Quote WCF-001: Sarah Mitchell — Karndean Knight Tile (Rigid Core LVT)
+  // Kitchen: 4x5=20m², +10%=22m², mat 42/m²=924, lab 18/m²=396 => 1320
+  // Hallway: 3x1.2=3.6m², +10%=3.96m², mat 42/m²=166.32, lab 18/m²=71.28 => 237.60
+  // Sundries: LVT underlay 25.96m²@3=77.88, door bars 3@8=24, furniture 2@50=100
+  // Total: 1320+237.60+77.88+24+100 = 1759.48
+  d.quotes.push({
+    id: 1, number: 1, customerId: 1,
+    date: '2026-03-25', validityDays: 30, status: 'Sent',
+    rooms: [
+      {
+        id: 'room-demo-1a', name: 'Kitchen', measureMode: 'standard',
+        length: 4, width: 5, l1: 0, w1: 0, l2: 0, w2: 0, manualArea: 0,
+        brandId: 'karndean', rangeId: 'korlok',
+        customProduct: 'Karndean Knight Tile - Rigid Core LVT',
+        pricePerSqm: 42, wastage: 10, labourRate: 18,
+        flooringType: 'LVT', fittingMethod: 'click',
+        steps: 13, stepArea: 0.6
+      },
+      {
+        id: 'room-demo-1b', name: 'Hallway', measureMode: 'standard',
+        length: 3, width: 1.2, l1: 0, w1: 0, l2: 0, w2: 0, manualArea: 0,
+        brandId: 'karndean', rangeId: 'korlok',
+        customProduct: 'Karndean Knight Tile - Rigid Core LVT',
+        pricePerSqm: 42, wastage: 10, labourRate: 18,
+        flooringType: 'LVT', fittingMethod: 'click',
+        steps: 13, stepArea: 0.6
+      }
+    ],
+    sundries: {
+      lvtUnderlay: { enabled: true, qty: 25.96, price: 3 },
+      doorBars:    { enabled: true, qty: 3, price: 8 },
+      furnitureMoving: { enabled: true, qty: 2, price: 50 }
+    },
+    materialTotal: 1090.32,
+    labourTotal: 467.28,
+    sundriesTotal: 201.88,
+    grandTotal: 1759.48
+  });
+
+  // Quote WCF-002: James & Emma Wilson — Carpet
+  // Living Room: 6x4.5=27m², +10%=29.7m², mat 32=950.40, lab 8=237.60 => 1188.00
+  // Master Bedroom: 4x3.5=14m², +10%=15.4m², mat 32=492.80, lab 8=123.20 => 616.00
+  // Bedroom 2: 3.5x3=10.5m², +10%=11.55m², mat 18=207.90, lab 8=92.40 => 300.30
+  // Sundries: underlay 56.65@5=283.25, gripper 49@3=147, door bars 4@8=32
+  // Total: 1188+616+300.30+283.25+147+32 = 2566.55
+  d.quotes.push({
+    id: 2, number: 2, customerId: 2,
+    date: '2026-03-22', validityDays: 30, status: 'Accepted',
+    rooms: [
+      {
+        id: 'room-demo-2a', name: 'Living Room', measureMode: 'standard',
+        length: 6, width: 4.5, l1: 0, w1: 0, l2: 0, w2: 0, manualArea: 0,
+        brandId: 'isense', rangeId: 'serenity',
+        customProduct: 'iSENSE Serenity - Luxury Carpet',
+        pricePerSqm: 32, wastage: 10, labourRate: 8,
+        flooringType: 'Carpet', fittingMethod: 'stretch',
+        steps: 13, stepArea: 0.6
+      },
+      {
+        id: 'room-demo-2b', name: 'Master Bedroom', measureMode: 'standard',
+        length: 4, width: 3.5, l1: 0, w1: 0, l2: 0, w2: 0, manualArea: 0,
+        brandId: 'isense', rangeId: 'serenity',
+        customProduct: 'iSENSE Serenity - Luxury Carpet',
+        pricePerSqm: 32, wastage: 10, labourRate: 8,
+        flooringType: 'Carpet', fittingMethod: 'stretch',
+        steps: 13, stepArea: 0.6
+      },
+      {
+        id: 'room-demo-2c', name: 'Bedroom 2', measureMode: 'standard',
+        length: 3.5, width: 3, l1: 0, w1: 0, l2: 0, w2: 0, manualArea: 0,
+        brandId: 'associated-weavers', rangeId: 'aw-standard',
+        customProduct: 'Associated Weavers Stainaway',
+        pricePerSqm: 18, wastage: 10, labourRate: 8,
+        flooringType: 'Carpet', fittingMethod: 'stretch',
+        steps: 13, stepArea: 0.6
+      }
+    ],
+    sundries: {
+      underlay:    { enabled: true, qty: 56.65, price: 5 },
+      gripperRods: { enabled: true, qty: 49, price: 3 },
+      doorBars:    { enabled: true, qty: 4, price: 8 }
+    },
+    materialTotal: 1651.10,
+    labourTotal: 453.20,
+    sundriesTotal: 462.25,
+    grandTotal: 2566.55
+  });
+
+  d.nextId.quote = 3;
+  d.settings.quoteNextNumber = 3;
+
+  // --- Demo Job (from Quote WCF-002) ---
+  d.jobs.push({
+    id: 1, quoteId: 2, customerId: 2,
+    date: '2026-04-07',
+    rooms: JSON.parse(JSON.stringify(d.quotes[1].rooms)),
+    sundries: JSON.parse(JSON.stringify(d.quotes[1].sundries)),
+    grandTotal: 2566.55,
+    status: 'Scheduled',
+    fitter: 'Self',
+    estimatedDays: 2,
+    notes: 'Full house job - 2 days estimated. Customer preparing rooms.',
+    photoNotes: ''
+  });
+  d.nextId.job = 2;
+
+  // --- Demo Reviews ---
+  d.reviews = [
+    { id: 1, customerId: 1, platform: 'Google', status: 'Asked', dateRequested: '2026-03-26T12:00:00.000Z' },
+    { id: 2, customerId: 2, platform: 'Google', status: 'Not Asked', dateRequested: '2026-03-22T14:30:00.000Z' },
+    { id: 3, customerId: 3, platform: 'Google', status: 'Not Asked', dateRequested: '2026-03-22T09:15:00.000Z' }
+  ];
+  d.nextId.review = 4;
+
+  // Mark first launch as shown so demo user skips the welcome modal
+  d.settings.privacy.firstLaunchNoticeShown = true;
+
+  return d;
 }
 
 function saveData() {
