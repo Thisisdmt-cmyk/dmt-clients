@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue's Micro Pub — Content & Events Strategy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-primary: #1B4B7A;
+            --gold: #D4A853;
+            --gold-light: #E8C97A;
+            --dark-bg: #0F1923;
+            --card-bg: #152535;
+            --border: #1E3A5F;
+            --text: #E8EDF3;
+            --muted: #8BA4C4;
+            --success: #10B981;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
+
+        /* ── Animations ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes goldPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 168, 83, 0.15); }
+            50% { box-shadow: 0 0 40px rgba(212, 168, 83, 0.3); }
+        }
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── Header ── */
+        .hero {
+            text-align: center;
+            padding: 60px 24px 20px;
+            background: linear-gradient(180deg, rgba(27,75,122,0.25) 0%, var(--dark-bg) 100%);
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            border: 1px solid var(--gold);
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 12px;
+            animation: fadeInUp 0.8s ease;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        /* ── Tabs ── */
+        .tab-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .tab-nav {
+            display: flex;
+            gap: 4px;
+            padding: 20px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--dark-bg);
+            border-bottom: 1px solid var(--border);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 14px 16px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .tab-btn:hover { color: var(--text); background: rgba(27,75,122,0.15); }
+        .tab-btn.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+            background: rgba(212,168,83,0.05);
+        }
+        .tab-btn .tab-icon { display: block; font-size: 1.3rem; margin-bottom: 4px; }
+        .tab-content { display: none; padding: 30px 0 60px; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+
+        /* ── Section Styles ── */
+        .section-header {
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .section-header h2 span { color: var(--gold); }
+        .section-header p { color: var(--muted); font-size: 0.95rem; }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+        .card:hover { border-color: rgba(212,168,83,0.3); transform: translateY(-2px); }
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h3 .emoji { font-size: 1.4rem; }
+        .card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+
+        /* ── Pillar Cards ── */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+        }
+        .pillar-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+        .pillar-card:hover { border-color: rgba(212,168,83,0.3); transform: translateY(-2px); }
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .pillar-card[data-pillar="pour"]::before { background: #F59E0B; }
+        .pillar-card[data-pillar="crown"]::before { background: var(--gold); }
+        .pillar-card[data-pillar="crew"]::before { background: #3B82F6; }
+        .pillar-card[data-pillar="calendar"]::before { background: var(--success); }
+        .pillar-card[data-pillar="village"]::before { background: #8B5CF6; }
+        .pillar-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(212,168,83,0.1);
+            position: absolute;
+            top: 10px; right: 20px;
+        }
+        .pillar-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+        .pillar-card h3 span { color: var(--gold); font-family: 'Playfair Display', serif; }
+        .pillar-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .pillar-card[data-pillar="pour"] .pillar-tag { background: rgba(245,158,11,0.15); color: #F59E0B; }
+        .pillar-card[data-pillar="crown"] .pillar-tag { background: rgba(212,168,83,0.15); color: var(--gold); }
+        .pillar-card[data-pillar="crew"] .pillar-tag { background: rgba(59,130,246,0.15); color: #3B82F6; }
+        .pillar-card[data-pillar="calendar"] .pillar-tag { background: rgba(16,185,129,0.15); color: var(--success); }
+        .pillar-card[data-pillar="village"] .pillar-tag { background: rgba(139,92,246,0.15); color: #8B5CF6; }
+        .pillar-desc { color: var(--muted); font-size: 0.88rem; margin-bottom: 12px; line-height: 1.6; }
+        .pillar-freq {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.8rem; font-weight: 600; color: var(--success);
+        }
+        .pillar-freq::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+
+        /* ── Platform Cards ── */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .platform-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+        .platform-card:hover { border-color: rgba(212,168,83,0.3); transform: translateY(-2px); }
+        .platform-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .platform-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+        .badge-primary { background: rgba(212,168,83,0.15); color: var(--gold); }
+        .badge-secondary { background: rgba(139,92,246,0.15); color: #8B5CF6; }
+        .badge-growth { background: rgba(16,185,129,0.15); color: var(--success); }
+        .badge-seo { background: rgba(59,130,246,0.15); color: #3B82F6; }
+        .badge-email { background: rgba(245,158,11,0.15); color: #F59E0B; }
+        .platform-card .sub { color: var(--muted); font-size: 0.82rem; margin-bottom: 14px; }
+        .platform-detail {
+            display: flex; align-items: flex-start; gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+            color: var(--text);
+        }
+        .platform-detail .label {
+            flex-shrink: 0;
+            font-weight: 600;
+            color: var(--gold);
+            min-width: 80px;
+        }
+        .platform-detail .value { color: var(--muted); }
+        .key-action {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: rgba(16,185,129,0.08);
+            border-left: 3px solid var(--success);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.85rem;
+            color: var(--success);
+        }
+        .key-action strong { color: var(--success); }
+
+        /* ── Events Calendar ── */
+        .recurring-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .recurring-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 20px;
+            display: flex; align-items: center; gap: 14px;
+            transition: border-color 0.3s ease;
+        }
+        .recurring-card:hover { border-color: rgba(212,168,83,0.3); }
+        .recurring-day {
+            width: 48px; height: 48px;
+            background: rgba(27,75,122,0.4);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            color: var(--gold);
+            text-align: center;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+        .recurring-info h4 { font-size: 0.95rem; font-weight: 600; font-family: 'Inter', sans-serif; }
+        .recurring-info p { font-size: 0.8rem; color: var(--muted); }
+
+        .month-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+        .month-card:hover { border-color: rgba(212,168,83,0.3); }
+        .month-header {
+            padding: 16px 24px;
+            background: rgba(27,75,122,0.2);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .month-header h3 {
+            font-size: 1.2rem; font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        .month-header h3 span { color: var(--gold); }
+        .month-season {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: rgba(139,92,246,0.1);
+        }
+        .month-events { padding: 20px 24px; }
+        .event-item {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(30,58,95,0.5);
+        }
+        .event-item:last-child { border-bottom: none; }
+        .event-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+        .dot-special { background: var(--gold); }
+        .dot-social { background: #3B82F6; }
+        .dot-community { background: var(--success); }
+        .dot-seasonal { background: #F59E0B; }
+        .event-item .event-name { font-size: 0.9rem; font-weight: 600; }
+        .event-item .event-desc { font-size: 0.82rem; color: var(--muted); }
+
+        /* ── 30 Day Calendar ── */
+        .calendar-wrapper { overflow-x: auto; margin-bottom: 20px; }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(7, 1fr);
+            min-width: 900px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .cal-header {
+            background: rgba(27,75,122,0.3);
+            padding: 10px 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold);
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid rgba(30,58,95,0.4);
+        }
+        .cal-header:last-child { border-right: none; }
+        .cal-week-label {
+            background: rgba(27,75,122,0.15);
+            padding: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            border-right: 1px solid rgba(30,58,95,0.4);
+            border-bottom: 1px solid rgba(30,58,95,0.3);
+        }
+        .cal-cell {
+            padding: 6px 8px;
+            border-right: 1px solid rgba(30,58,95,0.3);
+            border-bottom: 1px solid rgba(30,58,95,0.3);
+            min-height: 80px;
+            font-size: 0.7rem;
+            background: var(--card-bg);
+        }
+        .cal-cell:nth-child(8n) { border-right: none; }
+        .cal-date {
+            font-weight: 700;
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+        .cal-post {
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin-bottom: 3px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--text);
+        }
+        .post-pour { background: rgba(245,158,11,0.15); border-left: 2px solid #F59E0B; }
+        .post-crown { background: rgba(212,168,83,0.15); border-left: 2px solid var(--gold); }
+        .post-crew { background: rgba(59,130,246,0.15); border-left: 2px solid #3B82F6; }
+        .post-calendar { background: rgba(16,185,129,0.15); border-left: 2px solid var(--success); }
+        .post-village { background: rgba(139,92,246,0.15); border-left: 2px solid #8B5CF6; }
+        .cal-platform {
+            font-size: 0.55rem;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* ── Caption Templates ── */
+        .template-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+            transition: border-color 0.3s ease;
+        }
+        .template-card:hover { border-color: rgba(212,168,83,0.3); }
+        .template-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex; align-items: center; gap: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        .template-num {
+            width: 24px; height: 24px;
+            background: rgba(212,168,83,0.15);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .template-card .usage { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; }
+        .template-body {
+            background: rgba(15,25,35,0.6);
+            border: 1px solid rgba(30,58,95,0.5);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 0.85rem;
+            color: var(--text);
+            line-height: 1.7;
+            white-space: pre-line;
+            font-family: 'Inter', sans-serif;
+        }
+        .template-body .placeholder {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* ── Hashtag Bank ── */
+        .hashtag-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+        }
+        .hashtag-section h4 {
+            font-size: 0.9rem; font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .hashtag-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+        .hashtag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(27,75,122,0.25);
+            border: 1px solid rgba(30,58,95,0.5);
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--gold);
+            cursor: default;
+            transition: background 0.2s;
+        }
+        .hashtag:hover { background: rgba(27,75,122,0.4); }
+
+        /* ── Newsletter Template ── */
+        .newsletter-preview {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 640px;
+        }
+        .nl-header {
+            background: linear-gradient(135deg, var(--blue-primary), #0F1923);
+            padding: 30px 28px;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+        }
+        .nl-header h3 {
+            font-size: 1.5rem; font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+        .nl-header p { color: var(--muted); font-size: 0.85rem; }
+        .nl-body { padding: 24px 28px; }
+        .nl-section {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(30,58,95,0.5);
+        }
+        .nl-section:last-child { border-bottom: none; }
+        .nl-section h4 {
+            font-size: 0.95rem; font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        .nl-section p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+        .nl-footer {
+            background: rgba(15,25,35,0.5);
+            padding: 16px 28px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* ── Event Promo Template ── */
+        .promo-template {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .promo-section {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(30,58,95,0.4);
+        }
+        .promo-section:last-child { border-bottom: none; }
+        .promo-section h4 {
+            font-size: 0.85rem; font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 6px;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .promo-section .promo-text {
+            background: rgba(15,25,35,0.6);
+            border: 1px solid rgba(30,58,95,0.5);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+
+        /* ── Footer ── */
+        .doc-footer {
+            text-align: center;
+            padding: 40px 24px 50px;
+            border-top: 1px solid var(--border);
+            margin-top: 30px;
+        }
+        .doc-footer p {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .doc-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ── Legend ── */
+        .legend {
+            display: flex; flex-wrap: wrap; gap: 14px;
+            margin-bottom: 16px;
+        }
+        .legend-item {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.72rem; font-weight: 600; color: var(--muted);
+        }
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 3px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .pillar-grid, .platform-grid, .recurring-grid {
+                grid-template-columns: 1fr;
+            }
+            .tab-btn { font-size: 0.75rem; padding: 12px 8px; }
+            .tab-btn .tab-icon { font-size: 1.1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .month-events { padding: 16px; }
+        }
+
+        /* ── Utility ── */
+        .gold { color: var(--gold); }
+        .mt-8 { margin-top: 8px; }
+        .mt-16 { margin-top: 16px; }
+        .mt-24 { margin-top: 24px; }
+        .mt-40 { margin-top: 40px; }
+        .mb-12 { margin-bottom: 12px; }
+        .mb-20 { margin-bottom: 20px; }
+        .text-sm { font-size: 0.85rem; }
+        .text-xs { font-size: 0.78rem; }
+        .text-muted { color: var(--muted); }
+        .fw-600 { font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+<header class="hero">
+    <div class="hero-badge">CAMRA Pub of the Year 2025</div>
+    <h1>Content & <span>Events Strategy</span></h1>
+    <p>A 12-month plan for what to post, where to post it, and how to fill Blue's Micro Pub every night of the week.</p>
+</header>
+
+<!-- ═══════════════════════════════════ TABS ═══════════════════════════════════ -->
+<div class="tab-container">
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('strategy')">
+            <span class="tab-icon">&#9998;</span>
+            Content Strategy
+        </button>
+        <button class="tab-btn" onclick="switchTab('events')">
+            <span class="tab-icon">&#128197;</span>
+            Events Calendar
+        </button>
+        <button class="tab-btn" onclick="switchTab('assets')">
+            <span class="tab-icon">&#128230;</span>
+            Ready-Made Assets
+        </button>
+    </nav>
+
+    <!-- ═════════════════════ TAB 1: CONTENT STRATEGY ═════════════════════ -->
+    <div id="tab-strategy" class="tab-content active">
+
+        <div class="section-header">
+            <h2>The Five <span>Content Pillars</span></h2>
+            <p>Every post you publish should fit into one of these five themes. Rotate them to keep the feed varied, strategic, and never repetitive.</p>
+        </div>
+
+        <div class="pillar-grid">
+            <!-- Pillar 1 -->
+            <div class="pillar-card" data-pillar="pour">
+                <div class="pillar-number">01</div>
+                <h3><span>The Pour</span></h3>
+                <div class="pillar-tag">Beer &amp; Cider Content</div>
+                <p class="pillar-desc">What's on tap, tasting notes, cider of the week, supplier stories. This is the bread and butter of pub content — people want to know what they'll be drinking before they arrive.</p>
+                <div class="pillar-freq">3x weekly</div>
+            </div>
+            <!-- Pillar 2 -->
+            <div class="pillar-card" data-pillar="crown">
+                <div class="pillar-number">02</div>
+                <h3><span>The Crown</span></h3>
+                <div class="pillar-tag">CAMRA Pub of the Year</div>
+                <p class="pillar-desc">Award celebrations, press coverage shares, behind-the-scenes of what it means to be Britain's best pub. This is your biggest differentiator — use it relentlessly.</p>
+                <div class="pillar-freq">2x weekly (first month) then weekly</div>
+            </div>
+            <!-- Pillar 3 -->
+            <div class="pillar-card" data-pillar="crew">
+                <div class="pillar-number">03</div>
+                <h3><span>The Crew</span></h3>
+                <div class="pillar-tag">People Content</div>
+                <p class="pillar-desc">Cal &amp; Alice, the regulars (with permission), staff stories, community moments. People connect with people, not brands. Show the faces behind the bar.</p>
+                <div class="pillar-freq">2x weekly</div>
+            </div>
+            <!-- Pillar 4 -->
+            <div class="pillar-card" data-pillar="calendar">
+                <div class="pillar-number">04</div>
+                <h3><span>The Calendar</span></h3>
+                <div class="pillar-tag">Events Content</div>
+                <p class="pillar-desc">Upcoming events, event recaps, countdowns, live coverage. Every event is three pieces of content: the announcement, the event itself, and the recap.</p>
+                <div class="pillar-freq">Daily during events, 3x weekly otherwise</div>
+            </div>
+            <!-- Pillar 5 -->
+            <div class="pillar-card" data-pillar="village">
+                <div class="pillar-number">05</div>
+                <h3><span>The Village</span></h3>
+                <div class="pillar-tag">Whitburn &amp; Local</div>
+                <p class="pillar-desc">Village life, coastal walks ending at the pub, local partnerships, community events. Position Blue's as the heart of Whitburn, not just a place to drink.</p>
+                <div class="pillar-freq">Weekly</div>
+            </div>
+        </div>
+
+        <!-- ── Platform Strategy ── -->
+        <h3 class="section-title mt-40">Platform Strategy</h3>
+
+        <div class="platform-grid">
+            <!-- Facebook -->
+            <div class="platform-card">
+                <h3>Facebook <span class="platform-badge badge-primary">Primary</span></h3>
+                <p class="sub">This is where pub customers are. The engine room.</p>
+                <div class="platform-detail"><span class="label">Post</span><span class="value">5&ndash;7x per week</span></div>
+                <div class="platform-detail"><span class="label">Format</span><span class="value">Photos + short copy. Events as Facebook Events.</span></div>
+                <div class="platform-detail"><span class="label">Best times</span><span class="value">11am&ndash;1pm (lunch browsers), 4&ndash;6pm (after-work crowd)</span></div>
+                <div class="key-action"><strong>Key action:</strong> Create a Facebook Event for EVERY recurring night &mdash; Cask Club, Pie &amp; Pint, Whisky Club, Running Club. This is the single biggest quick win.</div>
+            </div>
+            <!-- Instagram -->
+            <div class="platform-card">
+                <h3>Instagram <span class="platform-badge badge-secondary">Secondary</span></h3>
+                <p class="sub">Reach the younger craft beer audience. Visual-first.</p>
+                <div class="platform-detail"><span class="label">Feed</span><span class="value">3&ndash;4x per week (quality photos, carousels)</span></div>
+                <div class="platform-detail"><span class="label">Stories</span><span class="value">Daily &mdash; beer board, atmosphere, behind scenes</span></div>
+                <div class="platform-detail"><span class="label">Reels</span><span class="value">2x weekly (pouring shots, pub atmosphere, staff picks)</span></div>
+                <div class="platform-detail"><span class="label">Best times</span><span class="value">12pm, 5pm, 8pm</span></div>
+                <div class="key-action"><strong>Key action:</strong> Use Stories for real-time beer board updates. Photograph the board daily and post it &mdash; this alone drives visits.</div>
+            </div>
+            <!-- TikTok -->
+            <div class="platform-card">
+                <h3>TikTok <span class="platform-badge badge-growth">Growth</span></h3>
+                <p class="sub">The biggest untapped opportunity for pubs right now.</p>
+                <div class="platform-detail"><span class="label">Post</span><span class="value">3x weekly minimum</span></div>
+                <div class="platform-detail"><span class="label">Format</span><span class="value">Short 15&ndash;30s clips. Cask ale pulls, cider pours, pub atmosphere.</span></div>
+                <div class="platform-detail"><span class="label">Content</span><span class="value">"POV: You're at Britain's best pub", customer reactions, behind the bar</span></div>
+                <div class="key-action"><strong>Key action:</strong> Film 5 videos in one session, schedule across the week. Trending audio + pub content = massive reach potential.</div>
+            </div>
+            <!-- Google Posts -->
+            <div class="platform-card">
+                <h3>Google Posts <span class="platform-badge badge-seo">SEO</span></h3>
+                <p class="sub">Appears directly in Google search results. Massively underused by pubs.</p>
+                <div class="platform-detail"><span class="label">Post</span><span class="value">2x weekly</span></div>
+                <div class="platform-detail"><span class="label">Content</span><span class="value">Events, beer highlights, award news, seasonal offers</span></div>
+                <div class="key-action"><strong>Key action:</strong> Every time someone Googles "Blue's Micro Pub" or "pubs near Whitburn", your latest post appears. Two posts a week, massive return.</div>
+            </div>
+            <!-- Newsletter -->
+            <div class="platform-card">
+                <h3>Newsletter <span class="platform-badge badge-email">Email</span></h3>
+                <p class="sub">"The Blues Brief" &mdash; direct line to your most loyal fans.</p>
+                <div class="platform-detail"><span class="label">Frequency</span><span class="value">Monthly (first of each month)</span></div>
+                <div class="platform-detail"><span class="label">Sections</span><span class="value">What's On, Beer of the Month, Event Recap, Meet the Brewer, Subscriber Exclusive</span></div>
+                <div class="platform-detail"><span class="label">Platform</span><span class="value">Mailchimp (free up to 500 subscribers)</span></div>
+                <div class="key-action"><strong>Key action:</strong> Email signup card at the bar, QR code on tables. Build the list from day one &mdash; this audience is yours forever, no algorithm.</div>
+            </div>
+        </div>
+
+    </div><!-- /tab-strategy -->
+
+    <!-- ═════════════════════ TAB 2: EVENTS CALENDAR ═════════════════════ -->
+    <div id="tab-events" class="tab-content">
+
+        <div class="section-header">
+            <h2>12-Month <span>Events Calendar</span></h2>
+            <p>Your recurring nights are the foundation. Monthly specials are the reason people come back more often. Here's the full year mapped out.</p>
+        </div>
+
+        <!-- Recurring Events -->
+        <h3 class="section-title">Recurring Weekly &amp; Monthly</h3>
+
+        <div class="recurring-grid">
+            <div class="recurring-card">
+                <div class="recurring-day">WED</div>
+                <div class="recurring-info">
+                    <h4>Cask Club</h4>
+                    <p>Weekly cask ale night</p>
+                </div>
+            </div>
+            <div class="recurring-card">
+                <div class="recurring-day">THU</div>
+                <div class="recurring-info">
+                    <h4>Pie &amp; Pint + Running Club</h4>
+                    <p>Food, fitness &amp; beer &mdash; perfect combo</p>
+                </div>
+            </div>
+            <div class="recurring-card">
+                <div class="recurring-day">SUN</div>
+                <div class="recurring-info">
+                    <h4>Free Cheeseboard + Cask Club</h4>
+                    <p>Sunday session staple</p>
+                </div>
+            </div>
+            <div class="recurring-card">
+                <div class="recurring-day">1st<br>MON</div>
+                <div class="recurring-info">
+                    <h4>Whisky Club</h4>
+                    <p>Monthly &mdash; first Monday</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Specials -->
+        <h3 class="section-title mt-40">Monthly Specials &amp; Proposed Events</h3>
+
+        <!-- APRIL 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>April <span>2026</span></h3>
+                <span class="month-season">Spring Launch</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Easter Weekend Special</div><div class="event-desc">Themed ales, hot cross bun &amp; beer pairing. Big social push around "Easter at Britain's Best Pub."</div></div></div>
+                <div class="event-item"><div class="event-dot dot-social"></div><div><div class="event-name">Launch "The Blues Brief" Newsletter</div><div class="event-desc">First issue. QR codes on tables, signup cards at bar, social announcement across all platforms.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Midweek Quiz Night (Trial)</div><div class="event-desc">Test a Wednesday or Tuesday quiz format. Low-cost, high-engagement &mdash; if it works, make it weekly.</div></div></div>
+            </div>
+        </div>
+
+        <!-- MAY 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>May <span>2026</span></h3>
+                <span class="month-season">Bank Holiday Season</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Bank Holiday Beer Garden Launch Party</div><div class="event-desc">Mark the official start of outdoor season. Music, extended range, social media blitz.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Meet the Brewer Night #1</div><div class="event-desc">Invite a local North East brewery. Ticketed or free &mdash; either way, film everything for content.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">National Cider Month</div><div class="event-desc">Daily cider spotlight throughout May. Instagram Stories series, TikTok cider pours, cider flights.</div></div></div>
+            </div>
+        </div>
+
+        <!-- JUNE 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>June <span>2026</span></h3>
+                <span class="month-season">Summer Begins</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Summer Solstice Late Opening</div><div class="event-desc">Extended hours, outdoor music, longest day of the year celebration.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Father's Day Package</div><div class="event-desc">Gift card + branded glass bundle. Push hard on social &mdash; perfect gift content.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-social"></div><div><div class="event-name">TikTok Milestone Celebration</div><div class="event-desc">Target 500 followers. Behind-the-scenes "thank you" content, maybe a follower giveaway.</div></div></div>
+            </div>
+        </div>
+
+        <!-- JULY 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>July <span>2026</span></h3>
+                <span class="month-season">Peak Summer</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Blues Fest &mdash; Mini Festival Weekend</div><div class="event-desc">The flagship event. 15+ guest ales, street food, live music in the garden. Two days, massive content opportunity.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">National Beer Day</div><div class="event-desc">Featured across all platforms. Leverage the CAMRA title &mdash; who better to celebrate beer day?</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Collaboration Brew Launch</div><div class="event-desc">Partner with a local brewery to create a bespoke Blue's ale. Huge content potential from brew day to launch.</div></div></div>
+            </div>
+        </div>
+
+        <!-- AUGUST 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>August <span>2026</span></h3>
+                <span class="month-season">Summer Series</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Summer Series &mdash; Weekly Live Acoustic</div><div class="event-desc">Beer garden sessions every weekend. Consistent, repeatable, great for atmosphere content.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Charity Pint Night</div><div class="event-desc">&pound;1 per pint to a local cause. Community goodwill + feel-good content + press opportunity.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Beer &amp; Cheese Pairing Evening</div><div class="event-desc">Ticketed at &pound;20pp. Premium experience, limited capacity, perfect for Instagram carousels.</div></div></div>
+            </div>
+        </div>
+
+        <!-- SEPTEMBER 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>September <span>2026</span></h3>
+                <span class="month-season">Cask Ale Week</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Cask Ale Week (CAMRA Event)</div><div class="event-desc">Go big as Pub of the Year. Daily features, special guests, extended tap range. Own this week nationally.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Autumn Ale Showcase</div><div class="event-desc">Transition to darker, richer ales. Seasonal menu content, cosy pub atmosphere shots.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Quiz Night Goes Regular</div><div class="event-desc">If the April trial worked &mdash; make it a weekly fixture. Announce the regular slot.</div></div></div>
+            </div>
+        </div>
+
+        <!-- OCTOBER 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>October <span>2026</span></h3>
+                <span class="month-season">Dark Beer Season</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Dark Beer Season Launch</div><div class="event-desc">Stouts, porters, dark milds. Seasonal content series &mdash; "Dark Side of the Tap."</div></div></div>
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Halloween Ales Night</div><div class="event-desc">Dark ales, spooky ciders, themed atmosphere. Great for Reels and TikTok content.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Oktoberfest Themed Weekend</div><div class="event-desc">German-style beers, pretzels, steins. Fun, shareable, different from the usual.</div></div></div>
+            </div>
+        </div>
+
+        <!-- NOVEMBER 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>November <span>2026</span></h3>
+                <span class="month-season">Fireside Season</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Bonfire Night Special</div><div class="event-desc">Warming ales, themed evening. If close to any local firework displays, position as the after-party.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Whisky Month Expansion</div><div class="event-desc">Upgrade from monthly to weekly Whisky Club through November. Test appetite for more frequent sessions.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Small Business Saturday</div><div class="event-desc">Participate in the national campaign. Cross-promote with other Whitburn independents.</div></div></div>
+            </div>
+        </div>
+
+        <!-- DECEMBER 2026 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>December <span>2026</span></h3>
+                <span class="month-season">Festive Season</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">12 Ales of Christmas</div><div class="event-desc">Different guest ale daily, Dec 13&ndash;24. Daily social content series &mdash; people love advent-style countdowns.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Christmas Gift Card Push</div><div class="event-desc">Social campaign for gift cards as Christmas presents. Easy revenue, zero wastage.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">NYE Celebration</div><div class="event-desc">See out 2026 at Britain's best pub. Ticketed or open &mdash; either way, make it an event.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Mulled Cider &amp; Mince Pies</div><div class="event-desc">Cosy seasonal offering throughout December. Perfect for atmospheric content.</div></div></div>
+            </div>
+        </div>
+
+        <!-- JANUARY 2027 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>January <span>2027</span></h3>
+                <span class="month-season">New Year Energy</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">"Damp January" &mdash; Low ABV Spotlight</div><div class="event-desc">Counter Dry January with a curated low-ABV and alcohol-free range. Inclusive, current, press-worthy.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">New Year, New Ales Showcase</div><div class="event-desc">Fresh tap lineup for 2027. Content series introducing each new arrival.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Burns Night Whisky Special (25th)</div><div class="event-desc">Scottish whisky focus, haggis, poetry. Natural fit for the Whisky Club community.</div></div></div>
+            </div>
+        </div>
+
+        <!-- FEBRUARY 2027 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>February <span>2027</span></h3>
+                <span class="month-season">Anniversary Month</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Valentine's Tasting Evening</div><div class="event-desc">Ticketed couples event. Beer &amp; food pairing, intimate setting, premium experience.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">7th Anniversary Celebration</div><div class="event-desc">Opened February 2020. Seven years of Blue's &mdash; throwback content, special releases, regulars celebration.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Real Ale Month</div><div class="event-desc">Extended cask range, daily features, educational content about real ale and why it matters.</div></div></div>
+            </div>
+        </div>
+
+        <!-- MARCH 2027 -->
+        <div class="month-card reveal">
+            <div class="month-header">
+                <h3>March <span>2027</span></h3>
+                <span class="month-season">Year One Complete</span>
+            </div>
+            <div class="month-events">
+                <div class="event-item"><div class="event-dot dot-special"></div><div><div class="event-name">Anniversary of the CAMRA Win</div><div class="event-desc">Celebrate a full year as Britain's best pub. Recap content, milestone stats, thank-you to the community.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">Spring Ale Showcase</div><div class="event-desc">Lighter ales return. Seasonal transition content &mdash; the tap board tells the story of the seasons.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-community"></div><div><div class="event-name">Mother's Day Gift Cards</div><div class="event-desc">Repeat the Father's Day playbook. Gift card + experience push across all platforms.</div></div></div>
+                <div class="event-item"><div class="event-dot dot-seasonal"></div><div><div class="event-name">CAMRA Month / Good Beer Week</div><div class="event-desc">National campaign participation. Position Blue's front and centre as the flagship pub.</div></div></div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend mt-24">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> Flagship / Special</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3B82F6;"></div> Social / Digital</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--success);"></div> Community</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#F59E0B;"></div> Seasonal</div>
+        </div>
+
+    </div><!-- /tab-events -->
+
+    <!-- ═════════════════════ TAB 3: READY-MADE ASSETS ═════════════════════ -->
+    <div id="tab-assets" class="tab-content">
+
+        <div class="section-header">
+            <h2>Ready-Made <span>Assets</span></h2>
+            <p>Templates, copy banks, and a full 30-day content calendar. Everything you need to start posting immediately &mdash; just customise and publish.</p>
+        </div>
+
+        <!-- ── 1. 30-Day Content Calendar ── -->
+        <h3 class="section-title">30-Day Content Calendar</h3>
+        <p class="text-sm text-muted mb-12">Week 1 launches in April 2026. Each cell shows the content pillar and platform. Customise the specifics each week &mdash; the structure stays the same.</p>
+
+        <div class="legend mb-20">
+            <div class="legend-item"><div class="legend-dot" style="background:#F59E0B;"></div> The Pour</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> The Crown</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3B82F6;"></div> The Crew</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--success);"></div> The Calendar</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#8B5CF6;"></div> The Village</div>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="calendar-grid">
+                <!-- Headers -->
+                <div class="cal-header">Week</div>
+                <div class="cal-header">Mon</div>
+                <div class="cal-header">Tue</div>
+                <div class="cal-header">Wed</div>
+                <div class="cal-header">Thu</div>
+                <div class="cal-header">Fri</div>
+                <div class="cal-header">Sat</div>
+                <div class="cal-header">Sun</div>
+
+                <!-- WEEK 1 -->
+                <div class="cal-week-label">Week 1<br><span style="font-weight:400;font-size:0.6rem;color:var(--muted);">Apr 6</span></div>
+                <div class="cal-cell">
+                    <div class="cal-date">6</div>
+                    <div class="cal-post post-crown">CAMRA Win post<br><span class="cal-platform">FB + IG + Google</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">7</div>
+                    <div class="cal-post post-pour">Beer board update<br><span class="cal-platform">IG Stories + FB</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">8</div>
+                    <div class="cal-post post-calendar">Cask Club promo<br><span class="cal-platform">FB Event + IG</span></div>
+                    <div class="cal-post post-pour">Cider of the week<br><span class="cal-platform">TikTok + IG Reel</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">9</div>
+                    <div class="cal-post post-calendar">Pie &amp; Pint night<br><span class="cal-platform">FB Event + Stories</span></div>
+                    <div class="cal-post post-crew">Staff pick of week<br><span class="cal-platform">IG Feed + TikTok</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">10</div>
+                    <div class="cal-post post-pour">Weekend tap preview<br><span class="cal-platform">FB + IG + Google</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">11</div>
+                    <div class="cal-post post-crew">Saturday atmosphere<br><span class="cal-platform">IG Reel + TikTok</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">12</div>
+                    <div class="cal-post post-calendar">Cheeseboard Sunday<br><span class="cal-platform">FB + IG Stories</span></div>
+                    <div class="cal-post post-village">Village walk CTA<br><span class="cal-platform">IG Feed</span></div>
+                </div>
+
+                <!-- WEEK 2 -->
+                <div class="cal-week-label">Week 2<br><span style="font-weight:400;font-size:0.6rem;color:var(--muted);">Apr 13</span></div>
+                <div class="cal-cell">
+                    <div class="cal-date">13</div>
+                    <div class="cal-post post-crown">Press coverage share<br><span class="cal-platform">FB + IG + Google</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">14</div>
+                    <div class="cal-post post-pour">New ale arrival<br><span class="cal-platform">FB + IG Stories</span></div>
+                    <div class="cal-post post-crew">Meet Cal &amp; Alice<br><span class="cal-platform">TikTok</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">15</div>
+                    <div class="cal-post post-calendar">Cask Club tonight<br><span class="cal-platform">FB Event + Stories</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">16</div>
+                    <div class="cal-post post-calendar">Pie &amp; Pint + Run<br><span class="cal-platform">FB Event + Stories</span></div>
+                    <div class="cal-post post-pour">Tasting notes post<br><span class="cal-platform">IG Carousel</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">17</div>
+                    <div class="cal-post post-crown">Award milestone<br><span class="cal-platform">FB + Google</span></div>
+                    <div class="cal-post post-pour">Weekend lineup<br><span class="cal-platform">IG Stories + FB</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">18</div>
+                    <div class="cal-post post-crew">Regular spotlight<br><span class="cal-platform">IG Feed + FB</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">19</div>
+                    <div class="cal-post post-calendar">Cheeseboard Sunday<br><span class="cal-platform">FB + IG Stories</span></div>
+                </div>
+
+                <!-- WEEK 3 -->
+                <div class="cal-week-label">Week 3<br><span style="font-weight:400;font-size:0.6rem;color:var(--muted);">Apr 20</span></div>
+                <div class="cal-cell">
+                    <div class="cal-date">20</div>
+                    <div class="cal-post post-village">Whitburn spring<br><span class="cal-platform">IG Feed + FB</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">21</div>
+                    <div class="cal-post post-pour">Supplier story<br><span class="cal-platform">FB + IG Carousel</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">22</div>
+                    <div class="cal-post post-calendar">Cask Club tonight<br><span class="cal-platform">FB Event + Stories</span></div>
+                    <div class="cal-post post-pour">Cider spotlight<br><span class="cal-platform">TikTok + Reel</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">23</div>
+                    <div class="cal-post post-calendar">Pie &amp; Pint night<br><span class="cal-platform">FB Event</span></div>
+                    <div class="cal-post post-crew">Behind the bar<br><span class="cal-platform">TikTok + IG</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">24</div>
+                    <div class="cal-post post-crown">Review roundup<br><span class="cal-platform">FB + Google</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">25</div>
+                    <div class="cal-post post-pour">Saturday specials<br><span class="cal-platform">IG Stories + FB</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">26</div>
+                    <div class="cal-post post-calendar">Cheeseboard Sunday<br><span class="cal-platform">FB + Stories</span></div>
+                    <div class="cal-post post-crew">Community moment<br><span class="cal-platform">IG Feed</span></div>
+                </div>
+
+                <!-- WEEK 4 -->
+                <div class="cal-week-label">Week 4<br><span style="font-weight:400;font-size:0.6rem;color:var(--muted);">Apr 27</span></div>
+                <div class="cal-cell">
+                    <div class="cal-date">27</div>
+                    <div class="cal-post post-crown">Best pub quote<br><span class="cal-platform">IG Feed + FB</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">28</div>
+                    <div class="cal-post post-pour">Beer board update<br><span class="cal-platform">IG Stories + FB</span></div>
+                    <div class="cal-post post-calendar">May events teaser<br><span class="cal-platform">All platforms</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">29</div>
+                    <div class="cal-post post-calendar">Cask Club tonight<br><span class="cal-platform">FB Event</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">30</div>
+                    <div class="cal-post post-calendar">Pie &amp; Pint night<br><span class="cal-platform">FB Event + Stories</span></div>
+                    <div class="cal-post post-pour">Month's best pint<br><span class="cal-platform">TikTok + Reel</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">1</div>
+                    <div class="cal-post post-village">May Day post<br><span class="cal-platform">FB + IG</span></div>
+                    <div class="cal-post post-calendar">Newsletter #1 send<br><span class="cal-platform">Mailchimp</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">2</div>
+                    <div class="cal-post post-crew">Weekend vibes<br><span class="cal-platform">TikTok + Reel</span></div>
+                </div>
+                <div class="cal-cell">
+                    <div class="cal-date">3</div>
+                    <div class="cal-post post-calendar">Cheeseboard Sunday<br><span class="cal-platform">FB + Stories</span></div>
+                    <div class="cal-post post-crown">Month 1 recap<br><span class="cal-platform">IG Carousel</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── 2. Caption Templates ── -->
+        <h3 class="section-title mt-40">20 Caption Templates</h3>
+        <p class="text-sm text-muted mb-20">Ready to customise. Replace the <span class="gold">[bracketed text]</span> with your details and post. Two templates per content type.</p>
+
+        <!-- Template 1 -->
+        <div class="template-card">
+            <h4><span class="template-num">1</span> Beer Board Update</h4>
+            <p class="usage">Pillar: The Pour &bull; Use: 3x weekly &bull; Platform: FB + IG Stories</p>
+            <div class="template-body">Fresh on the board today:
+
+&#127866; <span class="placeholder">[Beer Name]</span> &mdash; <span class="placeholder">[Brewery]</span> (<span class="placeholder">[ABV]</span>%)
+&#127866; <span class="placeholder">[Beer Name]</span> &mdash; <span class="placeholder">[Brewery]</span> (<span class="placeholder">[ABV]</span>%)
+&#127866; <span class="placeholder">[Beer Name]</span> &mdash; <span class="placeholder">[Brewery]</span> (<span class="placeholder">[ABV]</span>%)
+
+Plus <span class="placeholder">[X]</span> ciders on draught.
+
+Doors open at <span class="placeholder">[time]</span>. See you at the bar.
+
+#BluesMicroPub #RealAle #CaskAle #WhitburnVillage</div>
+        </div>
+
+        <!-- Template 2 -->
+        <div class="template-card">
+            <h4><span class="template-num">2</span> Beer Board Update (Weekend Edition)</h4>
+            <p class="usage">Pillar: The Pour &bull; Use: Friday preview &bull; Platform: FB + IG + Google</p>
+            <div class="template-body">Your weekend lineup is locked in &#128293;
+
+We've got <span class="placeholder">[X]</span> cask ales and <span class="placeholder">[X]</span> real ciders ready to go. Highlights:
+
+&#11088; <span class="placeholder">[Beer Name]</span> from <span class="placeholder">[Brewery]</span> &mdash; <span class="placeholder">[one-line tasting note]</span>
+&#127822; <span class="placeholder">[Cider Name]</span> from <span class="placeholder">[Producer]</span> &mdash; <span class="placeholder">[one-line note]</span>
+
+Britain's best pub. Your weekend sorted.
+
+#BluesMicroPub #CAMRAPubOfTheYear #WhitburnVillage</div>
+        </div>
+
+        <!-- Template 3 -->
+        <div class="template-card">
+            <h4><span class="template-num">3</span> Event Announcement</h4>
+            <p class="usage">Pillar: The Calendar &bull; Use: Every event &bull; Platform: FB Event + IG + Google</p>
+            <div class="template-body">&#128197; <span class="placeholder">[EVENT NAME]</span>
+&#128205; Blue's Micro Pub, Whitburn
+&#128339; <span class="placeholder">[Day, Date]</span> at <span class="placeholder">[Time]</span>
+
+<span class="placeholder">[2-3 sentences about what the event is and why people should come]</span>
+
+<span class="placeholder">[Ticketed? Free entry? Limited spaces?]</span>
+
+Tag someone you'd bring &#128071;
+
+#BluesMicroPub #<span class="placeholder">[EventHashtag]</span> #WhitburnVillage</div>
+        </div>
+
+        <!-- Template 4 -->
+        <div class="template-card">
+            <h4><span class="template-num">4</span> Event Announcement (Countdown)</h4>
+            <p class="usage">Pillar: The Calendar &bull; Use: 3 days before event &bull; Platform: IG Stories + FB</p>
+            <div class="template-body"><span class="placeholder">[X]</span> days until <span class="placeholder">[Event Name]</span> &#9200;
+
+Here's what you need to know:
+
+&#127866; <span class="placeholder">[What's special about the lineup]</span>
+&#127925; <span class="placeholder">[Any entertainment/extras]</span>
+&#128101; <span class="placeholder">[Capacity/booking info]</span>
+
+Don't miss it. <span class="placeholder">[Day]</span> from <span class="placeholder">[Time]</span>.
+
+#BluesMicroPub #<span class="placeholder">[EventHashtag]</span></div>
+        </div>
+
+        <!-- Template 5 -->
+        <div class="template-card">
+            <h4><span class="template-num">5</span> Behind the Scenes</h4>
+            <p class="usage">Pillar: The Crew &bull; Use: 2x weekly &bull; Platform: IG Reel + TikTok</p>
+            <div class="template-body">POV: It's <span class="placeholder">[time]</span> and we're getting <span class="placeholder">[the board set up / the casks on / the cellar ready]</span> &#127866;
+
+The bit you don't see before the doors open at Britain's best pub.
+
+<span class="placeholder">[Fun detail about what's going on — a new delivery, tapping a special cask, taste-testing]</span>
+
+#BluesMicroPub #BehindTheBar #PubLife #RealAle</div>
+        </div>
+
+        <!-- Template 6 -->
+        <div class="template-card">
+            <h4><span class="template-num">6</span> Behind the Scenes (Cellar / Delivery)</h4>
+            <p class="usage">Pillar: The Crew &bull; Use: Delivery days &bull; Platform: TikTok + IG Stories</p>
+            <div class="template-body">Delivery day at Blue's &#128230;
+
+<span class="placeholder">[X]</span> casks just landed from <span class="placeholder">[Brewery/Breweries]</span>.
+
+We'll have these on the board by <span class="placeholder">[day]</span>. Which one do you want us to tap first?
+
+Comment below &#128071;
+
+#BluesMicroPub #CaskAle #DeliveryDay #RealAle</div>
+        </div>
+
+        <!-- Template 7 -->
+        <div class="template-card">
+            <h4><span class="template-num">7</span> Customer Celebration</h4>
+            <p class="usage">Pillar: The Crew &bull; Use: As they happen &bull; Platform: FB + IG Feed</p>
+            <div class="template-body">Cheers to <span class="placeholder">[Name/Group]</span> who <span class="placeholder">[celebrated their birthday / popped in from [City] / hit their 100th visit]</span> at Blue's tonight! &#127881;
+
+This is what it's all about. Proper beer, proper people, proper pub.
+
+Thanks for choosing us &mdash; see you at the bar again soon.
+
+#BluesMicroPub #PubFamily #WhitburnVillage</div>
+        </div>
+
+        <!-- Template 8 -->
+        <div class="template-card">
+            <h4><span class="template-num">8</span> Customer Celebration (Visitor from Afar)</h4>
+            <p class="usage">Pillar: The Crown &bull; Use: When visitors travel for the award &bull; Platform: FB + IG</p>
+            <div class="template-body">All the way from <span class="placeholder">[City/Country]</span> to visit Britain's best pub &#127942;
+
+Massive thanks to <span class="placeholder">[Name/Group]</span> for making the trip to Whitburn. That's what the CAMRA award is doing &mdash; putting this village on the map.
+
+Who's travelling the furthest to visit us next?
+
+#BluesMicroPub #CAMRAPubOfTheYear #BritainsBestPub</div>
+        </div>
+
+        <!-- Template 9 -->
+        <div class="template-card">
+            <h4><span class="template-num">9</span> Throwback / Milestone</h4>
+            <p class="usage">Pillar: The Crown &bull; Use: Weekly &bull; Platform: FB + IG Carousel</p>
+            <div class="template-body"><span class="placeholder">[X years/months/weeks]</span> ago, <span class="placeholder">[we opened the doors / won the award / launched Cask Club / served our first pint]</span>.
+
+<span class="placeholder">[1-2 sentences reflecting on what's changed or what it means]</span>
+
+Here's to the next <span class="placeholder">[milestone]</span>. Thanks for being part of the journey &#128153;
+
+#BluesMicroPub #Milestone #WhitburnVillage</div>
+        </div>
+
+        <!-- Template 10 -->
+        <div class="template-card">
+            <h4><span class="template-num">10</span> Throwback / Milestone (Stats)</h4>
+            <p class="usage">Pillar: The Crown &bull; Use: Monthly recap &bull; Platform: IG Carousel + FB</p>
+            <div class="template-body"><span class="placeholder">[Month]</span> at Blue's in numbers:
+
+&#127866; <span class="placeholder">[X]</span> different cask ales served
+&#127822; <span class="placeholder">[X]</span> ciders on rotation
+&#128101; <span class="placeholder">[X]</span> new faces through the door
+&#127942; <span class="placeholder">[X]</span> months as CAMRA Pub of the Year
+
+What a month. What a pub.
+
+#BluesMicroPub #MonthInReview #CAMRAPubOfTheYear</div>
+        </div>
+
+        <!-- Template 11 -->
+        <div class="template-card">
+            <h4><span class="template-num">11</span> Seasonal Content</h4>
+            <p class="usage">Pillar: The Pour &bull; Use: Seasonal transitions &bull; Platform: FB + IG Feed</p>
+            <div class="template-body"><span class="placeholder">[Season]</span> has arrived at Blue's &#127810;
+
+We're welcoming <span class="placeholder">[seasonal style — darker ales / lighter session ales / cider season]</span> to the board.
+
+First up: <span class="placeholder">[Beer Name]</span> from <span class="placeholder">[Brewery]</span>. <span class="placeholder">[One-line tasting note — what makes it perfect for this season]</span>.
+
+Come in from the <span class="placeholder">[cold / heat / rain]</span> and try one.
+
+#BluesMicroPub #<span class="placeholder">[SeasonHashtag]</span> #RealAle</div>
+        </div>
+
+        <!-- Template 12 -->
+        <div class="template-card">
+            <h4><span class="template-num">12</span> Seasonal Content (Weather-Reactive)</h4>
+            <p class="usage">Pillar: The Village &bull; Use: As weather demands &bull; Platform: FB + IG Stories</p>
+            <div class="template-body"><span class="placeholder">[Sun's out / Rain's in / Snow day / First frost]</span> in Whitburn today.
+
+You know what that means &mdash; <span class="placeholder">[beer garden is open / cosy corner is calling / perfect excuse for a dark pint]</span>.
+
+We're open from <span class="placeholder">[time]</span>. Bring <span class="placeholder">[sunglasses / a coat / yourself]</span>.
+
+#BluesMicroPub #WhitburnVillage #<span class="placeholder">[WeatherHashtag]</span></div>
+        </div>
+
+        <!-- Template 13 -->
+        <div class="template-card">
+            <h4><span class="template-num">13</span> Review / Testimonial Share</h4>
+            <p class="usage">Pillar: The Crown &bull; Use: When great reviews land &bull; Platform: FB + IG Feed + Google</p>
+            <div class="template-body">This just landed and honestly, it's why we do what we do &#128153;
+
+&#11088;&#11088;&#11088;&#11088;&#11088;
+"<span class="placeholder">[Short excerpt from the review — keep it punchy]</span>"
+
+Thank you <span class="placeholder">[Name if public]</span>. Reviews like this mean everything to a small independent pub.
+
+If you've visited us, we'd love to hear your thoughts too &mdash; <span class="placeholder">[link to Google / TripAdvisor]</span>
+
+#BluesMicroPub #CAMRAPubOfTheYear #BritainsBestPub</div>
+        </div>
+
+        <!-- Template 14 -->
+        <div class="template-card">
+            <h4><span class="template-num">14</span> Review / Testimonial (Video Reaction)</h4>
+            <p class="usage">Pillar: The Crown &bull; Use: Special reviews &bull; Platform: TikTok + IG Reel</p>
+            <div class="template-body">[Film yourself reading the review on camera]
+
+"Someone just left us this review..."
+
+&#11088; "<span class="placeholder">[Read the best line from the review]</span>"
+
+I mean... &#128557; Thank you.
+
+#BluesMicroPub #PubReview #BritainsBestPub #CaskAle</div>
+        </div>
+
+        <!-- Template 15 -->
+        <div class="template-card">
+            <h4><span class="template-num">15</span> Collaboration Announcement</h4>
+            <p class="usage">Pillar: The Pour &bull; Use: Partnerships / collabs &bull; Platform: All platforms</p>
+            <div class="template-body">Big news &#128227;
+
+We've teamed up with <span class="placeholder">[Brewery / Producer / Local Business]</span> to bring you <span class="placeholder">[what the collab is — a new beer, a pairing evening, a joint event]</span>.
+
+<span class="placeholder">[1-2 sentences about what makes this exciting]</span>
+
+Landing <span class="placeholder">[date]</span>. Watch this space.
+
+#BluesMicroPub #<span class="placeholder">[CollabPartner]</span> #Collab #NorthEastAle</div>
+        </div>
+
+        <!-- Template 16 -->
+        <div class="template-card">
+            <h4><span class="template-num">16</span> Collaboration Announcement (Meet the Brewer)</h4>
+            <p class="usage">Pillar: The Pour + The Crew &bull; Use: Brewer visits &bull; Platform: FB Event + IG + Google</p>
+            <div class="template-body">&#127866; Meet the Brewer: <span class="placeholder">[Brewer Name]</span> from <span class="placeholder">[Brewery]</span>
+
+<span class="placeholder">[Date]</span> at Blue's Micro Pub
+
+Come and meet the person behind <span class="placeholder">[the ales / your favourite pint / some of the North East's best beer]</span>.
+
+<span class="placeholder">[Brewer]</span> will be here to talk hops, taste beer, and answer your questions.
+
+<span class="placeholder">[Free entry / Ticketed / Limited spaces]</span>.
+
+#BluesMicroPub #MeetTheBrewer #<span class="placeholder">[BreweryHashtag]</span></div>
+        </div>
+
+        <!-- Template 17 -->
+        <div class="template-card">
+            <h4><span class="template-num">17</span> Menu / Food Content</h4>
+            <p class="usage">Pillar: The Calendar &bull; Use: Pie &amp; Pint nights &bull; Platform: FB + IG Stories</p>
+            <div class="template-body">Thursday means one thing... &#129385;
+
+Pie &amp; Pint night at Blue's.
+
+Tonight's pies:
+&#127860; <span class="placeholder">[Pie 1]</span>
+&#127860; <span class="placeholder">[Pie 2]</span>
+&#127860; <span class="placeholder">[Pie 3]</span>
+
+Paired with a pint of your choice from the board.
+
+From <span class="placeholder">[time]</span>. No booking needed.
+
+#BluesMicroPub #PieAndPint #WhitburnVillage</div>
+        </div>
+
+        <!-- Template 18 -->
+        <div class="template-card">
+            <h4><span class="template-num">18</span> Menu / Food (Cheeseboard Sunday)</h4>
+            <p class="usage">Pillar: The Calendar &bull; Use: Every Sunday &bull; Platform: FB + IG Stories</p>
+            <div class="template-body">It's Sunday. You know the drill &#129472;
+
+Free cheeseboard is out. Cask Club is running. And we've got <span class="placeholder">[X]</span> ales on the board today.
+
+The best way to end the weekend? This. Right here.
+
+Open from <span class="placeholder">[time]</span>. See you soon.
+
+#BluesMicroPub #CheeseSunday #CaskClub #WhitburnVillage</div>
+        </div>
+
+        <!-- Template 19 -->
+        <div class="template-card">
+            <h4><span class="template-num">19</span> "Last Orders" Closing Reminder</h4>
+            <p class="usage">Pillar: The Crew &bull; Use: Nightly &bull; Platform: IG Stories + FB</p>
+            <div class="template-body">Last orders at Blue's &#128276;
+
+Still time to get down for a final pint. We've got <span class="placeholder">[highlight beer still on]</span> left on the board.
+
+Doors close at <span class="placeholder">[closing time]</span>.
+
+See you tomorrow from <span class="placeholder">[opening time]</span> &#128153;
+
+#BluesMicroPub #LastOrders</div>
+        </div>
+
+        <!-- Template 20 -->
+        <div class="template-card">
+            <h4><span class="template-num">20</span> "Last Orders" (Weekend Close)</h4>
+            <p class="usage">Pillar: The Crew &bull; Use: Sat/Sun close &bull; Platform: IG Stories + FB</p>
+            <div class="template-body">What a <span class="placeholder">[Saturday / Sunday / weekend]</span> &#128153;
+
+<span class="placeholder">[X]</span> pints pulled. <span class="placeholder">[Fun detail — a cask kicked, a record crowd, someone's first visit]</span>.
+
+Thanks to everyone who came through the door today. This is why we love what we do.
+
+Back at it <span class="placeholder">[tomorrow / Monday]</span> from <span class="placeholder">[time]</span>.
+
+#BluesMicroPub #WeekendDone #PubLife</div>
+        </div>
+
+        <!-- ── 3. Hashtag Bank ── -->
+        <h3 class="section-title mt-40">Hashtag Bank</h3>
+        <p class="text-sm text-muted mb-20">Copy and paste from these groups. Mix 3&ndash;5 brand hashtags with 3&ndash;5 discovery hashtags per post. Don't exceed 10&ndash;12 total on Instagram.</p>
+
+        <div class="hashtag-section">
+            <h4>&#127937; Brand</h4>
+            <div class="hashtag-wrap">
+                <span class="hashtag">#BluesMicroPub</span>
+                <span class="hashtag">#BluesMicro</span>
+                <span class="hashtag">#WhitburnVillage</span>
+                <span class="hashtag">#BritainsBestPub</span>
+            </div>
+        </div>
+
+        <div class="hashtag-section">
+            <h4>&#127942; Awards</h4>
+            <div class="hashtag-wrap">
+                <span class="hashtag">#CAMRAPubOfTheYear</span>
+                <span class="hashtag">#CAMRACiderPubOfTheYear</span>
+                <span class="hashtag">#CAMRA2026</span>
+            </div>
+        </div>
+
+        <div class="hashtag-section">
+            <h4>&#127866; Beer &amp; Cider</h4>
+            <div class="hashtag-wrap">
+                <span class="hashtag">#RealAle</span>
+                <span class="hashtag">#CaskAle</span>
+                <span class="hashtag">#CraftCider</span>
+                <span class="hashtag">#CraftBeer</span>
+                <span class="hashtag">#RealCider</span>
+            </div>
+        </div>
+
+        <div class="hashtag-section">
+            <h4>&#128205; Local &amp; Regional</h4>
+            <div class="hashtag-wrap">
+                <span class="hashtag">#Whitburn</span>
+                <span class="hashtag">#SouthTyneside</span>
+                <span class="hashtag">#NorthEastPubs</span>
+                <span class="hashtag">#SunderlandPubs</span>
+                <span class="hashtag">#NorthEastAle</span>
+            </div>
+        </div>
+
+        <div class="hashtag-section">
+            <h4>&#128197; Events</h4>
+            <div class="hashtag-wrap">
+                <span class="hashtag">#CaskClub</span>
+                <span class="hashtag">#PieAndPint</span>
+                <span class="hashtag">#WhiskyClub</span>
+                <span class="hashtag">#RunningClub</span>
+            </div>
+        </div>
+
+        <div class="hashtag-section">
+            <h4>&#128150; Lifestyle</h4>
+            <div class="hashtag-wrap">
+                <span class="hashtag">#Micropub</span>
+                <span class="hashtag">#VillagePub</span>
+                <span class="hashtag">#PubLife</span>
+                <span class="hashtag">#BeerGarden</span>
+                <span class="hashtag">#DogFriendlyPub</span>
+            </div>
+        </div>
+
+        <!-- ── 4. Newsletter Template ── -->
+        <h3 class="section-title mt-40">Newsletter Template &mdash; "The Blues Brief"</h3>
+        <p class="text-sm text-muted mb-20">Issue #1 structure and sample content. Set up in Mailchimp, replicate this layout each month.</p>
+
+        <div class="newsletter-preview">
+            <div class="nl-header">
+                <h3>The Blues Brief</h3>
+                <p>Issue #1 &bull; April 2026 &bull; Blue's Micro Pub, Whitburn</p>
+            </div>
+            <div class="nl-body">
+                <div class="nl-section">
+                    <h4>&#128197; What's On This Month</h4>
+                    <p>Your guide to everything happening at Blue's in April. Cask Club every Wednesday and Sunday, Pie &amp; Pint every Thursday, and this month we're trialling a midweek quiz night &mdash; more details below. Plus our Easter Weekend Special with themed ales and a hot cross bun &amp; beer pairing you won't want to miss.</p>
+                </div>
+                <div class="nl-section">
+                    <h4>&#127866; Beer of the Month</h4>
+                    <p>Each month we'll spotlight one ale that stood out. This month's pick: [Beer Name] from [Brewery]. [2-3 sentences: tasting notes, why it's special, what to pair it with.] Ask for it at the bar &mdash; once it's gone, it's gone.</p>
+                </div>
+                <div class="nl-section">
+                    <h4>&#127881; Event Recap</h4>
+                    <p>A look back at last month's highlights. [Summary of key events, turnout, any memorable moments.] If you were there, you know. If you weren't &mdash; you'll want to be next time.</p>
+                </div>
+                <div class="nl-section">
+                    <h4>&#127891; Meet the Brewer / Supplier</h4>
+                    <p>This month we're shining a light on [Brewery/Supplier Name]. [Who they are, where they're based, what they brew/produce, and the relationship with Blue's.] We'll have their range on the board all month.</p>
+                </div>
+                <div class="nl-section">
+                    <h4>&#11088; Subscriber Exclusive</h4>
+                    <p>You're reading this because you're on the list &mdash; so here's something just for you. [Exclusive offer: early access to a ticketed event, first pour of a new cask, a free half-pint on your next visit with a code, etc.]</p>
+                </div>
+            </div>
+            <div class="nl-footer">
+                Blue's Micro Pub &bull; Whitburn Village &bull; CAMRA Pub of the Year 2025<br>
+                You're receiving this because you signed up at the bar or online. Unsubscribe anytime.
+            </div>
+        </div>
+
+        <!-- ── 5. Event Promotion Template ── -->
+        <h3 class="section-title mt-40">Event Promotion Template</h3>
+        <p class="text-sm text-muted mb-20">Standard format for promoting any event across all platforms. Adapt the copy length per platform.</p>
+
+        <div class="promo-template">
+            <div class="promo-section">
+                <h4>Facebook Event</h4>
+                <div class="promo-text">Title: <span class="placeholder">[Event Name]</span> at Blue's Micro Pub
+Location: Blue's Micro Pub, Whitburn
+Date/Time: <span class="placeholder">[Day, Date, Time]</span>
+
+Description:
+<span class="placeholder">[2-3 paragraphs covering: what the event is, what to expect, any special beers/ciders, whether it's ticketed or free, and a reason to come.]</span>
+
+Blue's Micro Pub &mdash; CAMRA Pub of the Year 2025.
+
+<span class="placeholder">[Relevant hashtags from the hashtag bank]</span></div>
+            </div>
+            <div class="promo-section">
+                <h4>Instagram Feed Post</h4>
+                <div class="promo-text"><span class="placeholder">[Event Name]</span> is happening &#127881;
+
+&#128197; <span class="placeholder">[Day, Date]</span>
+&#128339; <span class="placeholder">[Time]</span>
+&#128205; Blue's Micro Pub, Whitburn
+
+<span class="placeholder">[3-4 punchy sentences about the event]</span>
+
+Tag who you're bringing &#128071;
+
+<span class="placeholder">[8-12 hashtags]</span></div>
+            </div>
+            <div class="promo-section">
+                <h4>Instagram Story (3-slide sequence)</h4>
+                <div class="promo-text">Slide 1: Bold text overlay on atmosphere photo &mdash; "<span class="placeholder">[EVENT NAME]</span>"
+Slide 2: Details &mdash; Date, Time, What to expect
+Slide 3: Call to action &mdash; "See you there" + countdown sticker + link to FB Event</div>
+            </div>
+            <div class="promo-section">
+                <h4>Google Post</h4>
+                <div class="promo-text"><span class="placeholder">[Event Name]</span> at Blue's Micro Pub, <span class="placeholder">[Date]</span>.
+
+<span class="placeholder">[2 sentences: what it is, why to come.]</span>
+
+CAMRA Pub of the Year 2025. Whitburn Village.</div>
+            </div>
+            <div class="promo-section">
+                <h4>TikTok / Reel</h4>
+                <div class="promo-text">15-30 second clip:
+&bull; Quick cuts of the pub, pouring a pint, the venue setup
+&bull; Text overlay: "<span class="placeholder">[Event Name]</span> &mdash; <span class="placeholder">[Date]</span>"
+&bull; Trending audio
+&bull; Caption: "<span class="placeholder">[Event Name]</span> at Britain's best pub. <span class="placeholder">[Date]</span>. Be there. #BluesMicroPub #<span class="placeholder">[EventHashtag]</span>"</div>
+            </div>
+            <div class="promo-section">
+                <h4>Newsletter Mention</h4>
+                <div class="promo-text">Include in the "What's On This Month" section of The Blues Brief. 2-3 sentences with date, time, and a link to the Facebook Event or booking page.</div>
+            </div>
+        </div>
+
+    </div><!-- /tab-assets -->
+
+</div><!-- /tab-container -->
+
+<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+<footer class="doc-footer">
+    <p style="color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:6px;">Blue's Micro Pub &mdash; Whitburn Village</p>
+    <p>A gift from Pink House Trading | <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
+</footer>
+
+<script>
+    // Tab switching
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        const tabs = { strategy: 0, events: 1, assets: 2 };
+        document.querySelectorAll('.tab-btn')[tabs[tab]].classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Intersection Observer for reveal animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

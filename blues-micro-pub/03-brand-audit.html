@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Audit — Blue's Micro Pub, Whitburn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1B4B7A;
+    --gold: #D4A853;
+    --dark: #0F1923;
+    --card: #152535;
+    --border: #1E3A5F;
+    --text: #E8EDF3;
+    --muted: #8BA4C4;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --critical: #EF4444;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 3rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0a1118 0%, var(--dark) 100%);
+  }
+  .header-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .header h1 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .header h1 span { color: var(--gold); }
+  .header-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .header-meta span {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .header-meta strong { color: var(--text); }
+
+  /* TABS */
+  .tab-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: #0a1118;
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--gold); }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  /* TAB CONTENT */
+  .tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .tab-content.active { display: block; opacity: 1; }
+
+  /* SCORE HERO */
+  .score-hero {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, var(--card) 0%, #1a2f45 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+  }
+  .score-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--critical);
+    line-height: 1;
+  }
+  .score-number span { color: var(--muted); font-size: 2.5rem; }
+  .score-label {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .score-bar-track {
+    width: 100%;
+    max-width: 400px;
+    height: 8px;
+    background: #1E3A5F;
+    border-radius: 99px;
+    margin: 1.25rem auto 0;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    width: 30%;
+    background: linear-gradient(90deg, var(--critical), #F59E0B);
+    border-radius: 99px;
+    transition: width 1s ease;
+  }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-size: 1.35rem;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .section-subtitle {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  /* CURRENT BRANDING CARD */
+  .current-brand {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .current-brand h3 {
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .brand-detail {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(30,58,95,0.5);
+    font-size: 0.9rem;
+  }
+  .brand-detail:last-child { border-bottom: none; }
+  .brand-detail-label {
+    font-weight: 600;
+    color: var(--muted);
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+  .brand-detail-value { color: var(--text); }
+  .colour-chip {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 6px;
+    border: 1px solid rgba(255,255,255,0.15);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .brand-equity {
+    background: rgba(27,75,122,0.15);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .brand-equity strong { color: var(--gold); }
+
+  /* TRAFFIC LIGHT CARDS */
+  .tl-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .tl-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.15rem 1.25rem;
+  }
+  .tl-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .tl-badge.critical { background: rgba(239,68,68,0.15); color: var(--critical); border: 1px solid rgba(239,68,68,0.3); }
+  .tl-badge.warning { background: rgba(245,158,11,0.15); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
+  .tl-badge.ok { background: rgba(16,185,129,0.15); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
+  .tl-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .tl-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* COMPETITOR PANEL */
+  .competitor-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .competitor-panel h3 {
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 0.35rem;
+  }
+  .competitor-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  .competitor-list {
+    list-style: none;
+    padding: 0;
+  }
+  .competitor-list li {
+    position: relative;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    border-bottom: 1px solid rgba(30,58,95,0.35);
+  }
+  .competitor-list li:last-child { border-bottom: none; }
+  .competitor-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+  }
+
+  /* ACTION PLAN */
+  .action-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .action-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+  }
+  .action-card.urgent::before { background: var(--critical); }
+  .action-card.high::before { background: var(--warning); }
+  .action-card.medium::before { background: var(--primary); }
+  .action-card.low::before { background: var(--muted); }
+  .action-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .action-priority {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 5px;
+  }
+  .action-priority.urgent { background: rgba(239,68,68,0.15); color: var(--critical); }
+  .action-priority.high { background: rgba(245,158,11,0.15); color: var(--warning); }
+  .action-priority.medium { background: rgba(27,75,122,0.3); color: #6BA3D6; }
+  .action-priority.low { background: rgba(139,164,196,0.15); color: var(--muted); }
+  .action-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .action-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .action-body {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 0.25rem;
+  }
+  .action-body strong { color: var(--text); font-weight: 600; }
+
+  /* ASSETS TAB */
+  .asset-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .asset-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .asset-section h4 {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin: 1.25rem 0 0.5rem;
+  }
+
+  /* COLOUR SWATCHES */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 0.75rem;
+  }
+  .swatch {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+  .swatch:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+  .swatch-colour {
+    height: 80px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .swatch-info {
+    padding: 0.6rem 0.75rem;
+    background: var(--card);
+  }
+  .swatch-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .swatch-hex {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: 'Inter', monospace;
+  }
+  .swatch-copied {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .swatch-copied.show { opacity: 1; }
+
+  /* COPY BLOCKS */
+  .copy-block {
+    background: #0d1820;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.15rem 1.25rem;
+    margin: 0.75rem 0;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.7;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  .copy-block:hover { border-color: var(--gold); }
+  .copy-block .copy-hint {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.75rem;
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+  }
+  .copy-block:hover .copy-hint { color: var(--gold); }
+
+  /* DO / DON'T */
+  .do-dont-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 600px) { .do-dont-grid { grid-template-columns: 1fr; } }
+  .do-col, .dont-col {
+    padding: 1.15rem;
+    border-radius: 8px;
+  }
+  .do-col { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); }
+  .dont-col { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); }
+  .do-col h4 { color: var(--success); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+  .dont-col h4 { color: var(--critical); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+  .do-col li, .dont-col li {
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    list-style: none;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .do-col li::before { content: '+'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+  .dont-col li::before { content: '\2013'; position: absolute; left: 0; color: var(--critical); font-weight: 700; }
+
+  /* TAGLINE CARDS */
+  .tagline-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .tagline-card {
+    background: #0d1820;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    position: relative;
+  }
+  .tagline-card:hover { border-color: var(--gold); background: rgba(27,75,122,0.12); }
+  .tagline-card .copy-hint {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 0.6rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .tagline-card:hover .copy-hint { opacity: 1; }
+
+  /* SOCIAL BIO */
+  .social-bio-block {
+    margin-bottom: 1rem;
+  }
+  .social-platform {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  /* PRIORITY MATRIX LEGEND */
+  .priority-legend {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+    padding: 1rem 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .priority-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .priority-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .footer a { color: var(--gold); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .tab-bar { display: none; }
+    .tab-content { display: block !important; opacity: 1 !important; max-width: 100%; }
+    .header { background: #fff; border-bottom-color: #ddd; }
+    .header h1 { color: #1a1a1a; }
+    .swatch-colour, .colour-chip { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .tab-btn { font-size: 0.78rem; padding: 0.85rem 1rem; }
+    .header { padding: 2rem 1rem 1.5rem; }
+    .tab-content { padding: 1.5rem 1rem 3rem; }
+    .swatch-grid { grid-template-columns: repeat(3, 1fr); }
+    .brand-detail { flex-direction: column; gap: 0.2rem; }
+    .brand-detail-label { min-width: auto; }
+    .header-meta { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-label">Brand Audit</div>
+  <h1>Blue's <span>Micro Pub</span></h1>
+  <p class="header-sub">Whitburn, Tyne and Wear</p>
+  <div class="header-meta">
+    <span>Prepared <strong>March 2026</strong></span>
+    <span>CAMRA Pub of the Year <strong>2026</strong></span>
+  </div>
+</header>
+
+<!-- TAB BAR -->
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="findings">What We Found</button>
+  <button class="tab-btn" data-tab="actions">Your Action Plan</button>
+  <button class="tab-btn" data-tab="assets">Ready-Made Assets</button>
+</nav>
+
+<!-- ============================================================ -->
+<!-- TAB 1: WHAT WE FOUND -->
+<!-- ============================================================ -->
+<section class="tab-content active" id="tab-findings">
+
+  <!-- Overall Score -->
+  <div class="score-hero">
+    <div class="score-number">3<span>/10</span></div>
+    <div class="score-label">Overall Brand Score</div>
+    <div class="score-bar-track"><div class="score-bar-fill"></div></div>
+  </div>
+
+  <!-- Current Branding -->
+  <h2 class="section-title">Current Branding</h2>
+  <p class="section-subtitle">What you have right now and where it sits.</p>
+
+  <div class="current-brand">
+    <h3>Identity Snapshot</h3>
+    <div class="brand-detail">
+      <span class="brand-detail-label">Business Name</span>
+      <span class="brand-detail-value">Blue's Micro Pub</span>
+    </div>
+    <div class="brand-detail">
+      <span class="brand-detail-label">Brand Colour</span>
+      <span class="brand-detail-value"><span class="colour-chip" style="background:#5d97c9;"></span>#5d97c9 (mid-blue, from Square site)</span>
+    </div>
+    <div class="brand-detail">
+      <span class="brand-detail-label">Logo</span>
+      <span class="brand-detail-value">Animated GIF — not professional, not scalable for print or signage</span>
+    </div>
+    <div class="brand-detail">
+      <span class="brand-detail-label">Website</span>
+      <span class="brand-detail-value">Basic Square template with default styling</span>
+    </div>
+    <div class="brand-detail">
+      <span class="brand-detail-label">Visual Identity</span>
+      <span class="brand-detail-value">No consistent identity across platforms</span>
+    </div>
+    <div class="brand-equity">
+      <strong>Natural Brand Equity:</strong> The name "Blue's" is a genuine asset. Blue is the colour, it's memorable, it's personal. This gives you a head start that most businesses would envy — you just need the visual system to match.
+    </div>
+  </div>
+
+  <!-- Traffic Light Assessments -->
+  <h2 class="section-title">Area-by-Area Assessment</h2>
+  <p class="section-subtitle">Traffic-light ratings across seven core brand areas.</p>
+
+  <div class="tl-grid">
+    <div class="tl-card">
+      <span class="tl-badge critical">Critical</span>
+      <div>
+        <div class="tl-title">Logo</div>
+        <div class="tl-desc">Animated GIF, not a proper logo. Cannot be used on print, signage, or merchandise. A logo must work at any size, on any background, in any medium.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge warning">Warning</span>
+      <div>
+        <div class="tl-title">Colour Palette</div>
+        <div class="tl-desc">#5d97c9 is acceptable but lacks depth and personality. No secondary colours defined, no system in place for consistent usage.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge critical">Critical</span>
+      <div>
+        <div class="tl-title">Typography</div>
+        <div class="tl-desc">Default Square template fonts with no brand typography. Fonts are a huge part of personality — right now, you look like every other Square site.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge warning">Warning</span>
+      <div>
+        <div class="tl-title">Photography</div>
+        <div class="tl-desc">Relying on customer photos. No professional shots of the venue, beer selection, or owners. Your pub has character — your photos should show it.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge ok">OK</span>
+      <div>
+        <div class="tl-title">Tone of Voice</div>
+        <div class="tl-desc">Friendly, authentic, unpretentious. This is a genuine strength. The way you talk online already sounds like a great pub should sound. Protect this.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge critical">Critical</span>
+      <div>
+        <div class="tl-title">Consistency</div>
+        <div class="tl-desc">Different look on Facebook, Instagram, and the Square site. No unified identity tying it all together. Customers should recognise you instantly, everywhere.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge critical">Critical</span>
+      <div>
+        <div class="tl-title">Award Integration</div>
+        <div class="tl-desc">CAMRA Pub of the Year 2026 should be front and centre everywhere. It's barely visible. This is the most powerful marketing asset you have right now.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitor Comparison -->
+  <h2 class="section-title">Competitor Benchmark</h2>
+  <p class="section-subtitle">What the previous CAMRA Pub of the Year winner does well.</p>
+
+  <div class="competitor-panel">
+    <h3>Tamworth Tap</h3>
+    <p class="competitor-sub">CAMRA National Pub of the Year &mdash; what good looks like.</p>
+    <ul class="competitor-list">
+      <li>Professional branding with CAMRA badges prominently displayed across all touchpoints</li>
+      <li>Consistent visual identity across website, Facebook (14K followers), Instagram, and all platforms</li>
+      <li>Professional photography throughout — venue, products, team, events</li>
+      <li>Clear brand story: 16th century building, own brewery, sustainability narrative</li>
+      <li>"The Tap Times" branded newsletter — turns customers into a community</li>
+      <li>Merchandise-ready brand identity: everything works on a glass, a t-shirt, or a sign</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB 2: YOUR ACTION PLAN -->
+<!-- ============================================================ -->
+<section class="tab-content" id="tab-actions">
+
+  <h2 class="section-title">Your Action Plan</h2>
+  <p class="section-subtitle">Eight recommendations, prioritised by impact and urgency.</p>
+
+  <div class="priority-legend">
+    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--critical)"></span> Urgent — do this week</div>
+    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--warning)"></span> High — this month</div>
+    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--primary)"></span> Medium — next 3 months</div>
+    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--muted)"></span> Low — when ready</div>
+  </div>
+
+  <!-- 1 -->
+  <div class="action-card urgent">
+    <div class="action-header">
+      <span class="action-priority urgent">Urgent</span>
+      <span class="action-number">#1</span>
+      <span class="action-title">Professional Logo</span>
+    </div>
+    <div class="action-body">
+      Commission a proper logo that incorporates the name <strong>"Blue's"</strong> with character. Consider: a beer tap or handle silhouette in blue, or a simple wordmark with a pint glass dot on the apostrophe. It must work at all sizes, on dark and light backgrounds, and in both print and digital. The animated GIF cannot serve as your logo — it fails on signage, merchandise, menus, and business cards.
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="action-card urgent">
+    <div class="action-header">
+      <span class="action-priority urgent">Urgent</span>
+      <span class="action-number">#2</span>
+      <span class="action-title">Colour Palette</span>
+    </div>
+    <div class="action-body">
+      Upgrade from a single blue to a full brand palette:<br><br>
+      <strong><span class="colour-chip" style="background:#1B4B7A"></span>#1B4B7A Deep Pub Blue</strong> — primary, richer and more confident<br>
+      <strong><span class="colour-chip" style="background:#D4A853"></span>#D4A853 Ale Gold</strong> — warmth, craft, premium feel<br>
+      <strong><span class="colour-chip" style="background:#F5F1E8"></span>#F5F1E8 Warm Cream</strong> — for light backgrounds<br>
+      <strong><span class="colour-chip" style="background:#0F1923"></span>#0F1923 Midnight</strong> — for dark contexts<br>
+      <strong><span class="colour-chip" style="background:#2E7D6B"></span>#2E7D6B Hop Green</strong> — highlights, cider connection
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="action-card urgent">
+    <div class="action-header">
+      <span class="action-priority urgent">Urgent</span>
+      <span class="action-number">#3</span>
+      <span class="action-title">CAMRA Badge Integration</span>
+    </div>
+    <div class="action-body">
+      The Pub of the Year 2026 badge should be visible on <strong>every single touchpoint</strong>: Facebook cover photo, Instagram highlight, website hero section, window sticker, menu boards, Google Business photos, and every social post header. This is the most powerful marketing asset you currently have. Use it relentlessly.
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="action-card high">
+    <div class="action-header">
+      <span class="action-priority high">High</span>
+      <span class="action-number">#4</span>
+      <span class="action-title">Professional Photography</span>
+    </div>
+    <div class="action-body">
+      Book a half-day shoot covering: <strong>venue exterior and interior</strong>, beer taps and selection, Cal and Alice behind the bar, events in action, the beer garden, and food (pies, cheeseboard). Professional photos transform every platform you're on — website, social media, Google Business, TripAdvisor, press coverage.
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="action-card high">
+    <div class="action-header">
+      <span class="action-priority high">High</span>
+      <span class="action-number">#5</span>
+      <span class="action-title">Brand Fonts</span>
+    </div>
+    <div class="action-body">
+      Adopt two brand fonts, both free from Google Fonts:<br><br>
+      <strong style="font-family:'Playfair Display',serif; font-size:1.1rem;">Playfair Display</strong> for headings — classic, with a pub heritage feel<br>
+      <strong style="font-family:'Inter',sans-serif;">Inter</strong> for body text — clean, modern readability<br><br>
+      Use these consistently across your website, social media graphics, menus, and any printed materials.
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="action-card medium">
+    <div class="action-header">
+      <span class="action-priority medium">Medium</span>
+      <span class="action-number">#6</span>
+      <span class="action-title">Brand Story</span>
+    </div>
+    <div class="action-body">
+      Every great pub has a story. Yours is a good one: opened in February 2020, built by Cal and Alice Watson as a labour of love. A tiny pub with a big heart, founded on real ale, real cider, and real conversation. Five years later — CAMRA's Pub of the Year. <strong>The story writes itself.</strong> Ready-to-use versions are in the Assets tab.
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="action-card medium">
+    <div class="action-header">
+      <span class="action-priority medium">Medium</span>
+      <span class="action-number">#7</span>
+      <span class="action-title">Merchandise</span>
+    </div>
+    <div class="action-body">
+      The CAMRA win makes merchandise viable and desirable. Start with: <strong>branded pint glasses</strong>, t-shirts ("I drank at Britain's best pub"), tote bags, coasters, and beer mats. Merchandise turns your customers into walking ambassadors and creates a secondary revenue stream. Get the logo right first (Recommendation #1), then the merch follows naturally.
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="action-card low">
+    <div class="action-header">
+      <span class="action-priority low">Low</span>
+      <span class="action-number">#8</span>
+      <span class="action-title">Signage Refresh</span>
+    </div>
+    <div class="action-body">
+      Once the new logo and colour palette are in place, update your external signage to match. The pub front is the first impression for every walk-in — it should reflect the quality of what's inside. Coordinate with the new brand identity for a cohesive, professional look from the street.
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- TAB 3: READY-MADE ASSETS -->
+<!-- ============================================================ -->
+<section class="tab-content" id="tab-assets">
+
+  <h2 class="section-title">Ready-Made Assets</h2>
+  <p class="section-subtitle">Copy, paste, and use. Click any block to copy it to your clipboard.</p>
+
+  <!-- 1. COLOUR PALETTE -->
+  <div class="asset-section">
+    <h3>Colour Palette</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Click any swatch to copy the hex code.</p>
+    <div class="swatch-grid">
+      <div class="swatch" onclick="copySwatch(this, '#1B4B7A')">
+        <div class="swatch-colour" style="background:#1B4B7A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Deep Pub Blue</div>
+          <div class="swatch-hex">#1B4B7A</div>
+        </div>
+        <span class="swatch-copied">Copied</span>
+      </div>
+      <div class="swatch" onclick="copySwatch(this, '#D4A853')">
+        <div class="swatch-colour" style="background:#D4A853;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Ale Gold</div>
+          <div class="swatch-hex">#D4A853</div>
+        </div>
+        <span class="swatch-copied">Copied</span>
+      </div>
+      <div class="swatch" onclick="copySwatch(this, '#F5F1E8')">
+        <div class="swatch-colour" style="background:#F5F1E8;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warm Cream</div>
+          <div class="swatch-hex">#F5F1E8</div>
+        </div>
+        <span class="swatch-copied">Copied</span>
+      </div>
+      <div class="swatch" onclick="copySwatch(this, '#0F1923')">
+        <div class="swatch-colour" style="background:#0F1923;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Midnight</div>
+          <div class="swatch-hex">#0F1923</div>
+        </div>
+        <span class="swatch-copied">Copied</span>
+      </div>
+      <div class="swatch" onclick="copySwatch(this, '#2E7D6B')">
+        <div class="swatch-colour" style="background:#2E7D6B;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Hop Green</div>
+          <div class="swatch-hex">#2E7D6B</div>
+        </div>
+        <span class="swatch-copied">Copied</span>
+      </div>
+      <div class="swatch" onclick="copySwatch(this, '#E8EDF3')">
+        <div class="swatch-colour" style="background:#E8EDF3;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Soft White</div>
+          <div class="swatch-hex">#E8EDF3</div>
+        </div>
+        <span class="swatch-copied">Copied</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ABOUT US TEXT -->
+  <div class="asset-section">
+    <h3>About Us Text</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.5rem;">Three lengths. Click to copy.</p>
+
+    <h4>Short (Social Bios, Listings)</h4>
+    <div class="copy-block" onclick="copyBlock(this)">
+      <span class="copy-hint">Click to copy</span>
+      Blue's Micro Pub is Whitburn's neighbourhood pub, run by Cal and Alice Watson. Real ale, real cider, real conversation. Proudly named CAMRA Pub of the Year 2026. A tiny pub with a big heart.
+    </div>
+
+    <h4>Medium (Website, Directories)</h4>
+    <div class="copy-block" onclick="copyBlock(this)">
+      <span class="copy-hint">Click to copy</span>
+      Blue's Micro Pub opened its doors in February 2020 — a labour of love by Cal and Alice Watson in the heart of Whitburn village. With five handpulls of real ale and six real ciders on tap, Blue's quickly became the kind of pub that brings a community together. No gimmicks, no big screens, just great beer and great company. In 2026, that simple philosophy earned the highest honour in British pub culture: CAMRA Pub of the Year. The secret? We just love what we do.
+    </div>
+
+    <h4>Long (Press, Features, Print)</h4>
+    <div class="copy-block" onclick="copyBlock(this)">
+      <span class="copy-hint">Click to copy</span>
+      When Cal and Alice Watson opened Blue's Micro Pub in February 2020, the idea was simple: create a space where people could enjoy properly kept real ale and real cider in good company. No televisions, no fruit machines, no pretence — just five handpulls, six ciders, and conversation. Tucked into the heart of Whitburn village in Tyne and Wear, Blue's quickly became more than a pub. It became a gathering place. Regulars mixed with curious visitors. Pies and cheeseboards accompanied pints. Events brought the community through the door, and the warmth of the welcome kept them coming back.<br><br>Five years later, that dedication to doing things properly has been recognised at the highest level. In 2026, Blue's Micro Pub was named CAMRA Pub of the Year — the most prestigious award in British pub culture, celebrating the very best of real ale and community-focused hospitality. For Cal and Alice, the award belongs to everyone who has walked through the door and made Blue's what it is. A tiny pub with a big heart, and now, officially, one of the finest in Britain.
+    </div>
+  </div>
+
+  <!-- 3. BRAND VOICE GUIDELINES -->
+  <div class="asset-section">
+    <h3>Brand Voice Guidelines</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">How Blue's should sound — everywhere.</p>
+    <div class="do-dont-grid">
+      <div class="do-col">
+        <h4>Do</h4>
+        <ul>
+          <li>Be friendly and warm</li>
+          <li>Be personal — use first names</li>
+          <li>Be proud of what you do</li>
+          <li>Sound like a real person, not a brand</li>
+          <li>Celebrate your community</li>
+          <li>Be local — mention Whitburn</li>
+          <li>Be enthusiastic about beer and cider</li>
+          <li>Keep it short and punchy</li>
+        </ul>
+      </div>
+      <div class="dont-col">
+        <h4>Don't</h4>
+        <ul>
+          <li>Sound corporate or formal</li>
+          <li>Use salesy language or hard sells</li>
+          <li>Be pretentious about beer</li>
+          <li>Sound like a chain pub</li>
+          <li>Overuse hashtags or emojis</li>
+          <li>Use generic hospitality phrases</li>
+          <li>Apologise for being small</li>
+          <li>Copy what bigger venues do</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. TAGLINES -->
+  <div class="asset-section">
+    <h3>Suggested Taglines</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Five options. Click to copy.</p>
+    <div class="tagline-grid">
+      <div class="tagline-card" onclick="copyBlock(this)">"Whitburn's finest. Britain's best."<span class="copy-hint">Click to copy</span></div>
+      <div class="tagline-card" onclick="copyBlock(this)">"Real ale. Real cider. Real conversation."<span class="copy-hint">Click to copy</span></div>
+      <div class="tagline-card" onclick="copyBlock(this)">"The best pub in Britain. In a village."<span class="copy-hint">Click to copy</span></div>
+      <div class="tagline-card" onclick="copyBlock(this)">"Where Whitburn drinks."<span class="copy-hint">Click to copy</span></div>
+      <div class="tagline-card" onclick="copyBlock(this)">"Five handpulls. Six ciders. One award."<span class="copy-hint">Click to copy</span></div>
+    </div>
+  </div>
+
+  <!-- 5. SOCIAL MEDIA BIOS -->
+  <div class="asset-section">
+    <h3>Social Media Bios</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Ready to paste into each platform.</p>
+
+    <div class="social-bio-block">
+      <div class="social-platform">Facebook</div>
+      <div class="copy-block" onclick="copyBlock(this)">
+        <span class="copy-hint">Click to copy</span>
+        Blue's Micro Pub — Whitburn's neighbourhood pub. Five handpulls of real ale, six real ciders, and the warmest welcome in the North East. CAMRA Pub of the Year 2026. Run with love by Cal &amp; Alice Watson. Open [your hours]. No bookings needed, just turn up.
+      </div>
+    </div>
+
+    <div class="social-bio-block">
+      <div class="social-platform">Instagram</div>
+      <div class="copy-block" onclick="copyBlock(this)">
+        <span class="copy-hint">Click to copy</span>
+        Whitburn's micro pub. Real ale. Real cider. Real conversation. CAMRA Pub of the Year 2026. Run by Cal &amp; Alice.
+      </div>
+    </div>
+
+    <div class="social-bio-block">
+      <div class="social-platform">TripAdvisor</div>
+      <div class="copy-block" onclick="copyBlock(this)">
+        <span class="copy-hint">Click to copy</span>
+        Blue's Micro Pub is an award-winning micro pub in the heart of Whitburn village, Tyne and Wear. Proudly named CAMRA Pub of the Year 2026, we serve five rotating real ales and six real ciders in a friendly, intimate setting. No televisions, no fruit machines — just great beer and great company. Pies, cheeseboards, and bar snacks available. Run by Cal and Alice Watson since February 2020.
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. CAMRA ANNOUNCEMENT -->
+  <div class="asset-section">
+    <h3>CAMRA Award Announcement</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Print-ready text for press releases, social posts, or in-pub display.</p>
+
+    <div class="copy-block" onclick="copyBlock(this)">
+      <span class="copy-hint">Click to copy</span>
+      <strong style="color:var(--gold); font-family:'Playfair Display',serif; font-size:1.05rem;">Blue's Micro Pub — CAMRA Pub of the Year 2026</strong><br><br>
+      Blue's Micro Pub in Whitburn, Tyne and Wear, has been named the Campaign for Real Ale (CAMRA) Pub of the Year 2026 — the most prestigious award in British pub culture.<br><br>
+      Opened in February 2020 by Cal and Alice Watson, Blue's has earned the honour through its dedication to expertly kept real ale, real cider, and the kind of genuine hospitality that makes a great British pub.<br><br>
+      With five handpulls and six real ciders on tap, Blue's proves that you don't need to be big to be the best. For enquiries, please contact [your contact details].
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  A gift from Pink House Trading &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a>
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(tc) { tc.classList.remove('active'); });
+      btn.classList.add('active');
+      var target = document.getElementById('tab-' + btn.getAttribute('data-tab'));
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Copy swatch hex
+  function copySwatch(el, hex) {
+    navigator.clipboard.writeText(hex).then(function() {
+      var badge = el.querySelector('.swatch-copied');
+      badge.classList.add('show');
+      setTimeout(function() { badge.classList.remove('show'); }, 1200);
+    });
+  }
+
+  // Copy text block
+  function copyBlock(el) {
+    var text = el.innerText.replace('Click to copy', '').trim();
+    navigator.clipboard.writeText(text).then(function() {
+      var hint = el.querySelector('.copy-hint');
+      if (hint) {
+        var orig = hint.textContent;
+        hint.textContent = 'Copied!';
+        hint.style.color = '#10B981';
+        setTimeout(function() {
+          hint.textContent = orig;
+          hint.style.color = '';
+        }, 1500);
+      }
+    });
+  }
+</script>
+</body>
+</html>

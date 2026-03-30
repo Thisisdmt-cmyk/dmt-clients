@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Opportunities — Blue's Micro Pub, Whitburn</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --primary: #1B4B7A;
+  --gold: #D4A853;
+  --dark-bg: #0F1923;
+  --card-bg: #152535;
+  --border: #1E3A5F;
+  --text: #E8EDF3;
+  --muted: #8BA4C4;
+  --success: #10B981;
+  --warning: #F59E0B;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--dark-bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 60px 24px 40px;
+  background: linear-gradient(180deg, #0a1118 0%, var(--dark-bg) 100%);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(212,168,83,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));
+  border: 1px solid rgba(212,168,83,0.3);
+  border-radius: 40px;
+  padding: 8px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.header h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.header h1 span { color: var(--gold); }
+.header-sub {
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+.header-location {
+  font-size: 14px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* Tabs */
+.tab-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  padding-top: 32px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 24px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.2s;
+  border-radius: 8px 8px 0 0;
+}
+.tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.tab-btn.active {
+  color: var(--gold);
+  background: rgba(212,168,83,0.06);
+}
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px 2px 0 0;
+}
+.tab-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(139,164,196,0.15);
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 8px;
+}
+.tab-btn.active .tab-num {
+  background: rgba(212,168,83,0.2);
+  color: var(--gold);
+}
+
+/* Tab Content */
+.tab-content { display: none; padding: 40px 0 60px; }
+.tab-content.active { display: block; }
+
+/* Section titles */
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.section-desc {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 32px;
+  max-width: 700px;
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+  border-color: rgba(212,168,83,0.3);
+  transform: translateY(-1px);
+}
+
+/* Stream Grid */
+.stream-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+@media (max-width: 768px) { .stream-grid { grid-template-columns: 1fr; } }
+
+.stream-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+.stream-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.stream-active h3 { color: var(--success); }
+.stream-untapped h3 { color: var(--gold); }
+
+.stream-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(30,58,95,0.4);
+  font-size: 14px;
+}
+.stream-item:last-child { border-bottom: none; }
+.stream-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 1px;
+}
+.stream-active .stream-icon {
+  background: rgba(16,185,129,0.15);
+  color: var(--success);
+}
+.stream-untapped .stream-icon {
+  background: rgba(212,168,83,0.15);
+  color: var(--gold);
+}
+.stream-item-text strong { color: var(--text); }
+.stream-item-text span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+/* Chart */
+.chart-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 40px;
+}
+.chart-section h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.chart-section > p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+.chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+@media (max-width: 768px) { .chart-row { grid-template-columns: 1fr; gap: 28px; } }
+.chart-col h4 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  color: var(--muted);
+}
+.bar-item {
+  margin-bottom: 14px;
+}
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.bar-label span:last-child {
+  color: var(--muted);
+  font-weight: 600;
+}
+.bar-track {
+  height: 10px;
+  background: rgba(30,58,95,0.5);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.8s ease;
+}
+.bar-fill.current { background: linear-gradient(90deg, var(--primary), #2a6aaa); }
+.bar-fill.potential { background: linear-gradient(90deg, var(--gold), #e8c066); }
+
+.chart-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 600px) { .chart-summary { grid-template-columns: 1fr; } }
+.chart-stat {
+  text-align: center;
+  padding: 16px;
+  background: rgba(15,25,35,0.5);
+  border-radius: 8px;
+}
+.chart-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.chart-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* Opportunity Cards (Tab 2) */
+.opp-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.opp-card:hover { border-color: rgba(212,168,83,0.3); }
+.opp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  cursor: pointer;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.opp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+.opp-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));
+  border: 1px solid rgba(212,168,83,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.opp-title-group { min-width: 0; }
+.opp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.opp-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.opp-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.opp-revenue {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--success);
+  white-space: nowrap;
+}
+.opp-difficulty {
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.diff-easy {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.2);
+  color: var(--success);
+}
+.diff-medium {
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  color: var(--warning);
+}
+.diff-hard {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.2);
+  color: #EF4444;
+}
+.opp-toggle {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(139,164,196,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 14px;
+  transition: transform 0.3s, background 0.2s;
+}
+.opp-card.open .opp-toggle { transform: rotate(180deg); background: rgba(212,168,83,0.15); color: var(--gold); }
+.opp-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.opp-card.open .opp-body { max-height: 2000px; }
+.opp-body-inner {
+  padding: 0 28px 28px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+}
+.opp-body-inner p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+.opp-body-inner strong { color: var(--text); }
+.opp-list {
+  list-style: none;
+  margin: 0 0 16px 0;
+  padding: 0;
+}
+.opp-list li {
+  position: relative;
+  padding: 6px 0 6px 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.opp-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.opp-impl {
+  background: rgba(15,25,35,0.6);
+  border: 1px solid rgba(30,58,95,0.5);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 12px;
+}
+.opp-impl-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.opp-impl p {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+/* Tab 3 — Assets */
+.asset-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.asset-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 28px;
+  cursor: pointer;
+}
+.asset-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(27,75,122,0.3), rgba(27,75,122,0.1));
+  border: 1px solid rgba(27,75,122,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.asset-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+}
+.asset-toggle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(139,164,196,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 14px;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.asset-card.open .asset-toggle { transform: rotate(180deg); color: var(--gold); }
+.asset-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.asset-card.open .asset-body { max-height: 5000px; }
+.asset-body-inner {
+  padding: 0 28px 28px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+}
+.asset-body-inner p, .asset-body-inner li {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.asset-body-inner strong { color: var(--text); }
+.asset-body-inner h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold);
+  margin: 20px 0 10px;
+}
+.asset-body-inner h4:first-child { margin-top: 0; }
+
+.copyable {
+  background: rgba(15,25,35,0.7);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 12px 0 16px;
+  position: relative;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(212,168,83,0.15);
+  border: 1px solid rgba(212,168,83,0.3);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s;
+}
+.copy-btn:hover { background: rgba(212,168,83,0.25); }
+
+/* Pricing table */
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 16px;
+  font-size: 13px;
+}
+.pricing-table th {
+  background: rgba(15,25,35,0.6);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--gold);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(30,58,95,0.3);
+  color: var(--muted);
+}
+.pricing-table tr:last-child td { border-bottom: none; }
+.pricing-table .highlight { color: var(--success); font-weight: 600; }
+
+/* Seasonal grid */
+.seasonal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+@media (max-width: 600px) { .seasonal-grid { grid-template-columns: 1fr; } }
+.seasonal-item {
+  background: rgba(15,25,35,0.5);
+  border: 1px solid rgba(30,58,95,0.4);
+  border-radius: 8px;
+  padding: 16px;
+}
+.seasonal-item h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.seasonal-item .s-date {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.seasonal-item p {
+  font-size: 13px;
+  margin-bottom: 0 !important;
+}
+
+/* Newsletter template */
+.newsletter-section {
+  background: rgba(15,25,35,0.5);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 8px 0;
+}
+.newsletter-section h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.newsletter-section p {
+  font-size: 13px;
+  margin-bottom: 0 !important;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+.footer-line {
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.6;
+}
+.footer-line a { color: var(--gold); text-decoration: none; }
+.footer-line a:hover { text-decoration: underline; }
+
+/* Scroll to top */
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 100;
+}
+.scroll-top.visible { opacity: 1; }
+.scroll-top:hover { background: var(--gold); color: var(--dark-bg); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-badge">Revenue Growth Plan</div>
+  <h1>Blue's Micro Pub <span>Revenue Opportunities</span></h1>
+  <p class="header-sub">Unlocking the full commercial potential of CAMRA Pub of the Year 2026</p>
+  <p class="header-location">Whitburn, South Tyneside</p>
+</div>
+
+<!-- Tabs -->
+<div class="tab-container">
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="found">
+      <span class="tab-num">1</span>What We Found
+    </button>
+    <button class="tab-btn" data-tab="opps">
+      <span class="tab-num">2</span>Your Opportunities
+    </button>
+    <button class="tab-btn" data-tab="assets">
+      <span class="tab-num">3</span>Ready-Made Assets
+    </button>
+  </div>
+
+  <!-- ==================== TAB 1: WHAT WE FOUND ==================== -->
+  <div class="tab-content active" id="tab-found">
+    <h2 class="section-title">Current vs Untapped Revenue</h2>
+    <p class="section-desc">Blue's is already doing a lot right. But there are significant revenue streams sitting completely untapped, especially with the CAMRA Pub of the Year momentum behind you.</p>
+
+    <div class="stream-grid">
+      <!-- Active Streams -->
+      <div class="stream-card stream-active">
+        <h3><span style="font-size:20px;">&#10003;</span> Currently Active</h3>
+        <div class="stream-item">
+          <div class="stream-icon">&#10003;</div>
+          <div class="stream-item-text">
+            <strong>Bar Sales</strong>
+            <span>Cask ales, ciders, keg beers — your core business and it's strong</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#10003;</div>
+          <div class="stream-item-text">
+            <strong>Whisky Club</strong>
+            <span>1st Monday of the month — premium pricing, dedicated following</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#10003;</div>
+          <div class="stream-item-text">
+            <strong>Pie &amp; Pint Thursday</strong>
+            <span>Food + drink combo — drives midweek footfall</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#10003;</div>
+          <div class="stream-item-text">
+            <strong>Games Room</strong>
+            <span>Upstairs space — increases dwell time and spend per head</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Untapped Streams -->
+      <div class="stream-card stream-untapped">
+        <h3><span style="font-size:20px;">&#9733;</span> Untapped Potential</h3>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Merchandise</strong>
+            <span>CAMRA Pub of the Year 2026 branded goods</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Events &amp; Tickets</strong>
+            <span>Paid tastings, brewery tap takeovers, meet-the-brewer nights</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Private Bookings</strong>
+            <span>Small venue = premium private hire for special occasions</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Online Shop</strong>
+            <span>Square already supports this — sell merch, gift cards, hampers</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Gift Cards &amp; Vouchers</strong>
+            <span>"A pint at Britain's best pub" as a gift concept</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Food Expansion</strong>
+            <span>Cheese boards, bar snacks, daily pie offering beyond Thursday</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Beer Festival</strong>
+            <span>Annual "Blues Fest" or summer beer/cider festival</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Collaboration Brews</strong>
+            <span>Co-branded beers with local North East breweries</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Loyalty Programme</strong>
+            <span>Digital stamp card — buy 9 pints, 10th free</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Tourism Packages</strong>
+            <span>Visit South Tyneside, beer trails, coastal walk partnerships</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Corporate Experiences</strong>
+            <span>Craft beer tasting experiences for team building</span>
+          </div>
+        </div>
+        <div class="stream-item">
+          <div class="stream-icon">&#9733;</div>
+          <div class="stream-item-text">
+            <strong>Newsletter Offers</strong>
+            <span>Exclusive deals and events for email subscribers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue Potential Chart -->
+    <div class="chart-section">
+      <h3>Revenue Mix: Now vs Potential</h3>
+      <p>Estimated breakdown of where revenue comes from today, compared to what the mix could look like with new streams activated.</p>
+
+      <div class="chart-row">
+        <div class="chart-col">
+          <h4>Current Revenue Mix</h4>
+          <div class="bar-item">
+            <div class="bar-label"><span>Bar Sales</span><span>88%</span></div>
+            <div class="bar-track"><div class="bar-fill current" style="width:88%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Whisky Club</span><span>5%</span></div>
+            <div class="bar-track"><div class="bar-fill current" style="width:5%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Pie &amp; Pint Thursday</span><span>5%</span></div>
+            <div class="bar-track"><div class="bar-fill current" style="width:5%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Games Room (indirect)</span><span>2%</span></div>
+            <div class="bar-track"><div class="bar-fill current" style="width:2%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Everything Else</span><span>0%</span></div>
+            <div class="bar-track"><div class="bar-fill current" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div class="chart-col">
+          <h4>Potential Revenue Mix</h4>
+          <div class="bar-item">
+            <div class="bar-label"><span>Bar Sales</span><span>60%</span></div>
+            <div class="bar-track"><div class="bar-fill potential" style="width:60%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Events &amp; Experiences</span><span>12%</span></div>
+            <div class="bar-track"><div class="bar-fill potential" style="width:12%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Food (Expanded)</span><span>10%</span></div>
+            <div class="bar-track"><div class="bar-fill potential" style="width:10%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Merch, Gift Cards &amp; Online</span><span>8%</span></div>
+            <div class="bar-track"><div class="bar-fill potential" style="width:8%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Festivals &amp; Collabs</span><span>5%</span></div>
+            <div class="bar-track"><div class="bar-fill potential" style="width:5%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Bookings &amp; Corporate</span><span>3%</span></div>
+            <div class="bar-track"><div class="bar-fill potential" style="width:3%"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>Loyalty &amp; Tourism</span><span>2%</span></div>
+            <div class="bar-track"><div class="bar-fill potential" style="width:2%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-summary">
+        <div class="chart-stat">
+          <div class="chart-stat-val">4</div>
+          <div class="chart-stat-label">Active Revenue Streams</div>
+        </div>
+        <div class="chart-stat">
+          <div class="chart-stat-val">12</div>
+          <div class="chart-stat-label">Untapped Opportunities</div>
+        </div>
+        <div class="chart-stat">
+          <div class="chart-stat-val">+30%</div>
+          <div class="chart-stat-label">Estimated Revenue Uplift</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: YOUR OPPORTUNITIES ==================== -->
+  <div class="tab-content" id="tab-opps">
+    <h2 class="section-title">12 Revenue Opportunities</h2>
+    <p class="section-desc">Each opportunity includes estimated revenue, difficulty rating, and practical implementation notes. Click any card to expand the full detail.</p>
+
+    <!-- 1. Merchandise -->
+    <div class="opp-card open">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">1</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Merchandise</div>
+            <div class="opp-subtitle">CAMRA Pub of the Year branded goods</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;200 - &#163;500/mo</div>
+          <div class="opp-difficulty diff-easy">Easy</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>The CAMRA Pub of the Year win makes this a no-brainer. People want a memento from visiting Britain's best pub. Every visitor is a potential merch customer.</p>
+          <p><strong>Product ideas and pricing:</strong></p>
+          <ul class="opp-list">
+            <li>Branded pint glasses — &#163;8-12 each</li>
+            <li>"I drank at Britain's best pub" t-shirts — &#163;15-20</li>
+            <li>Tote bags with Blue's branding — &#163;8-10</li>
+            <li>Beer mats / coasters — sell packs of 4 for &#163;5</li>
+            <li>Branded bottle opener keyrings — &#163;5</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Design artwork &#8594; Source print supplier &#8594; Order initial stock &#8594; Display in pub &#8594; Add to Square online shop. Start with t-shirts and glasses as they have the highest margins and demand.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Gift Cards -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">2</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Gift Cards &amp; Vouchers</div>
+            <div class="opp-subtitle">"A round at Britain's best pub"</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;100 - &#163;300/mo</div>
+          <div class="opp-difficulty diff-easy">Easy</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>Position gift cards as the perfect present: <strong>"A round at Britain's best pub."</strong> Offer &#163;10, &#163;20, and &#163;50 denominations, available in the pub and online.</p>
+          <p>Square already supports digital gift cards — this is a matter of activating the feature and promoting it.</p>
+          <p><strong>Peak selling periods:</strong></p>
+          <ul class="opp-list">
+            <li>Christmas — biggest gift-buying season</li>
+            <li>Father's Day — "buy dad a round at the best pub in Britain"</li>
+            <li>Birthdays — year-round steady seller</li>
+            <li>Valentine's Day — couples' experience gift</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Activate Square digital gift cards &#8594; Design branded physical card for in-pub sales &#8594; Create promotional signage &#8594; Push on social media before peak periods. Virtually zero setup cost.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Tasting Events -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">3</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Tasting Events</div>
+            <div class="opp-subtitle">Premium monthly ticketed experiences</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;200 - &#163;400/mo</div>
+          <div class="opp-difficulty diff-medium">Medium</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>Monthly premium ticketed events that attract enthusiasts and generate higher spend per head than a regular session. The Whisky Club already proves this model works.</p>
+          <p><strong>Event concepts:</strong></p>
+          <ul class="opp-list">
+            <li>Cider tasting masterclass — 6 ciders, &#163;15-20pp, max 20 people</li>
+            <li>Whisky evening — premium malts, &#163;25-30pp, max 15 people</li>
+            <li>Meet the Brewer nights — local brewery partnership, &#163;10-15pp</li>
+            <li>Seasonal specials — Christmas ales, summer ciders, harvest beers</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Choose first event type &#8594; Set date and capacity &#8594; Create event listing &#8594; Sell tickets via Square or Eventbrite &#8594; Promote via social media and newsletter &#8594; Run event &#8594; Collect feedback and repeat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Beer Festival -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">4</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Beer Festival</div>
+            <div class="opp-subtitle">Annual "Blues Fest" weekend celebration</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;2,000 - &#163;5,000/yr</div>
+          <div class="opp-difficulty diff-hard">Hard</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>An annual weekend celebration that becomes a calendar highlight. Think of it as the flagship event that generates buzz, press coverage, and significant revenue in a concentrated period.</p>
+          <p><strong>Blues Fest concept:</strong></p>
+          <ul class="opp-list">
+            <li>20+ guest ales and ciders from across the UK</li>
+            <li>Live music in the beer garden</li>
+            <li>Food stalls — partner with local street food vendors</li>
+            <li>Ticketed entry: &#163;5-10, includes first pint + commemorative glass</li>
+            <li>Timing: Late summer when the beer garden is at its best</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Plan 3-4 months ahead &#8594; Book breweries and musicians &#8594; Arrange food partners &#8594; Apply for temporary events licence if needed &#8594; Sell advance tickets &#8594; Promote heavily through all channels. Consider starting smaller in year one and growing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Collaboration Brews -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">5</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Collaboration Brews</div>
+            <div class="opp-subtitle">Co-branded beers with local breweries</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">Variable</div>
+          <div class="opp-difficulty diff-medium">Medium</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>Partner with North East breweries to create exclusive beers that can only be found at Blue's. This creates a unique selling point and a reason for beer enthusiasts to visit.</p>
+          <p><strong>Collaboration ideas:</strong></p>
+          <ul class="opp-list">
+            <li>"Blue's Best" — a signature house ale brewed to your specification</li>
+            <li>"Whitburn Gold" — a golden ale celebrating the village</li>
+            <li>Sold exclusively at Blue's = unique selling point and destination driver</li>
+            <li>Bottles and cans for takeaway = additional revenue stream</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Approach 2-3 local breweries &#8594; Agree on beer style and branding &#8594; Brew a small batch &#8594; Launch with a "Meet the Brewer" evening &#8594; Sell on tap and in bottles/cans for takeaway. The CAMRA win makes Blue's an attractive partner for any brewery.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Food Expansion -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">6</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Food Expansion</div>
+            <div class="opp-subtitle">Beyond pies — no kitchen required</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;300 - &#163;600/mo</div>
+          <div class="opp-difficulty diff-medium">Medium</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>Currently offering pies on Thursday and a free cheeseboard on Sunday. The opportunity is to expand the food offering without investing in a commercial kitchen by partnering with local suppliers.</p>
+          <p><strong>Expansion opportunities:</strong></p>
+          <ul class="opp-list">
+            <li>Partner with a local baker for a daily pie offering (not just Thursday)</li>
+            <li>Charcuterie boards — &#163;8-12, available daily</li>
+            <li>Scotch eggs and pork pies from local suppliers</li>
+            <li>Cheese boards available to purchase (not just free on Sunday)</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Identify local food suppliers &#8594; Agree on wholesale pricing and delivery schedule &#8594; Create a simple bar snacks menu &#8594; Display on chalkboard or printed menu &#8594; Track what sells and adjust. Food keeps people in the pub longer and increases spend per visit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Private Experiences -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">7</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Private Experiences</div>
+            <div class="opp-subtitle">Intimate venue for special occasions</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;100 - &#163;300/mo</div>
+          <div class="opp-difficulty diff-easy">Easy</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>A small venue is actually an advantage for private bookings — it feels exclusive and intimate. Position the pub (or the upstairs games room) as a premium private hire space.</p>
+          <p><strong>Booking types:</strong></p>
+          <ul class="opp-list">
+            <li>Birthday celebrations — minimum spend requirement, reserved area</li>
+            <li>Work leaving dos and retirement parties</li>
+            <li>Anniversary celebrations</li>
+            <li>Corporate team building — craft beer tasting + cheese pairing experience</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Define available times and spaces &#8594; Set minimum spend thresholds &#8594; Create a simple booking enquiry process &#8594; Add "Private Hire" page to website &#8594; Promote on social media and local community groups.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Online Shop -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">8</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Online Shop</div>
+            <div class="opp-subtitle">Square-powered e-commerce</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;100 - &#163;200/mo</div>
+          <div class="opp-difficulty diff-easy">Easy</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>Square already supports online selling — this is about activating the feature and stocking it with desirable products. The online shop extends your reach far beyond Whitburn.</p>
+          <p><strong>Products to sell online:</strong></p>
+          <ul class="opp-list">
+            <li>Digital gift cards — instant delivery, zero fulfilment cost</li>
+            <li>Merchandise — t-shirts, glasses, keyrings shipped to customers</li>
+            <li>Quarterly "Blues Box" — curated selection of 4 ales/ciders + tasting notes, shipped nationwide</li>
+            <li>CAMRA Pub of the Year commemorative items — limited edition</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Activate Square Online &#8594; Add gift cards first (instant win, no shipping) &#8594; Add merchandise with photos and descriptions &#8594; Set up shipping rates &#8594; Promote on social media and in the pub. Start simple, grow from there.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Loyalty Programme -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">9</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Loyalty Programme</div>
+            <div class="opp-subtitle">Digital stamp card via Square Loyalty</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">Drives Retention</div>
+          <div class="opp-difficulty diff-easy">Easy</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>A digital loyalty programme that rewards regular customers and collects valuable data. Square Loyalty is a free feature already built into the system you use.</p>
+          <p><strong>Programme structure:</strong></p>
+          <ul class="opp-list">
+            <li>Buy 10 pints, get 1 free — simple and easy to understand</li>
+            <li>Cask Club members get double stamps — rewards your best customers</li>
+            <li>Automatic tracking through Square — no physical cards to lose</li>
+            <li>Drives repeat visits and builds a customer database for marketing</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Activate Square Loyalty (free) &#8594; Set reward threshold &#8594; Train staff on enrolment process &#8594; Promote at the bar with signage &#8594; Mention in newsletter. The data collected is as valuable as the loyalty itself.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Tourism Partnerships -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">10</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Tourism Partnerships</div>
+            <div class="opp-subtitle">Beer trails, coastal walks, local accommodation</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">Long-term Growth</div>
+          <div class="opp-difficulty diff-medium">Medium</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>As CAMRA Pub of the Year, Blue's is now a destination. Leverage this by integrating with local tourism infrastructure to capture visitors who are already in the area.</p>
+          <p><strong>Partnership opportunities:</strong></p>
+          <ul class="opp-list">
+            <li>Register with Visit South Tyneside as a visitor attraction</li>
+            <li>Beer tourism trail with other North East micropubs</li>
+            <li>Coastal walk marketing — position Blue's as the perfect pit stop on Whitburn walking routes</li>
+            <li>Accommodation partnerships — local B&amp;Bs and hotels recommending the pub to guests</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Contact Visit South Tyneside for listing &#8594; Reach out to nearby micropubs about a joint beer trail &#8594; Create leaflets for local B&amp;Bs &#8594; Add walking route info to social media. This builds over time but compounds significantly with the CAMRA award.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Newsletter Monetisation -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">11</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Newsletter Monetisation</div>
+            <div class="opp-subtitle">"The Blues Brief" — your monthly bulletin</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">Drives All Revenue</div>
+          <div class="opp-difficulty diff-easy">Easy</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>A monthly newsletter doesn't generate revenue directly — it amplifies everything else. It drives ticket sales, promotes merch, announces events, and keeps Blue's front of mind.</p>
+          <p><strong>Newsletter content:</strong></p>
+          <ul class="opp-list">
+            <li>Feature upcoming events to drive ticket sales</li>
+            <li>Exclusive subscriber-only offers and early access</li>
+            <li>New beer previews and what's coming on tap</li>
+            <li>Community stories and behind-the-scenes content</li>
+            <li>Free via Mailchimp up to 500 subscribers</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Set up Mailchimp free account &#8594; Create a sign-up form for the website and a QR code for in-pub &#8594; Send first edition &#8594; Collect emails at every opportunity (loyalty sign-up, events, Wi-Fi login). Consistency matters more than polish.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Seasonal Specials -->
+    <div class="opp-card">
+      <div class="opp-header" onclick="toggleOpp(this)">
+        <div class="opp-header-left">
+          <div class="opp-num">12</div>
+          <div class="opp-title-group">
+            <div class="opp-title">Seasonal Specials</div>
+            <div class="opp-subtitle">Calendar of themed events year-round</div>
+          </div>
+        </div>
+        <div class="opp-meta">
+          <div class="opp-revenue">&#163;100 - &#163;500/event</div>
+          <div class="opp-difficulty diff-medium">Medium</div>
+        </div>
+        <div class="opp-toggle">&#9660;</div>
+      </div>
+      <div class="opp-body">
+        <div class="opp-body-inner">
+          <p>A calendar of themed events throughout the year creates anticipation, drives repeat visits, and gives you fresh content for social media and the newsletter.</p>
+          <p><strong>Seasonal concepts:</strong></p>
+          <ul class="opp-list">
+            <li><strong>December:</strong> "12 Ales of Christmas" — a different guest ale each day for 12 days</li>
+            <li><strong>Valentine's Day:</strong> Couples' tasting evening — beer + cheese pairing for two</li>
+            <li><strong>Father's Day:</strong> Gift packages — pint glass + gift card + branded opener</li>
+            <li><strong>Summer:</strong> Extended beer garden hours, BBQ events, outdoor sessions</li>
+            <li><strong>Halloween:</strong> Dark ales and cider night — stouts, porters, dark fruit ciders</li>
+            <li><strong>Burns Night:</strong> Whisky special — partner with the Whisky Club for a premium evening</li>
+          </ul>
+          <div class="opp-impl">
+            <div class="opp-impl-title">Implementation Path</div>
+            <p>Map out the full year's calendar now &#8594; Plan each event 4-6 weeks ahead &#8594; Create social media assets &#8594; Promote through newsletter &#8594; Review what worked and repeat. The calendar itself becomes marketing content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: READY-MADE ASSETS ==================== -->
+  <div class="tab-content" id="tab-assets">
+    <h2 class="section-title">Ready-Made Assets</h2>
+    <p class="section-desc">Templates, copy, and tools ready to use. Click each asset to expand, then use the copy button to grab the text you need.</p>
+
+    <!-- Asset 1: Gift Card Promo Text -->
+    <div class="asset-card open">
+      <div class="asset-header" onclick="toggleAsset(this)">
+        <div class="asset-icon">&#127873;</div>
+        <div class="asset-title">Gift Card Promotional Text</div>
+        <div class="asset-toggle">&#9660;</div>
+      </div>
+      <div class="asset-body">
+        <div class="asset-body-inner">
+          <h4>Version 1: Social Media Post</h4>
+          <div class="copyable" id="gift-social">Know someone who deserves a pint at Britain's best pub? Blue's Micro Pub gift cards are now available from &#163;10.
+
+CAMRA Pub of the Year 2026 — and you can give someone the experience.
+
+&#127866; Available in &#163;10, &#163;20 &amp; &#163;50
+&#127873; Buy in the pub or online
+&#128230; Digital delivery — instant gifting
+
+Perfect for birthdays, Father's Day, or just because. Link in bio.
+
+#BluesMicroPub #Whitburn #CAMRAPubOfTheYear #GiftCard #RealAle<button class="copy-btn" onclick="event.stopPropagation();copyText('gift-social')">Copy</button></div>
+
+          <h4>Version 2: In-Pub Signage</h4>
+          <div class="copyable" id="gift-signage">GIVE THE GIFT OF GREAT BEER
+
+Blue's Micro Pub Gift Cards
+
+CAMRA Pub of the Year 2026
+
+"A round at Britain's best pub"
+
+Available in &#163;10 | &#163;20 | &#163;50
+
+Ask at the bar or buy online at [website]
+
+The perfect gift for any beer lover.<button class="copy-btn" onclick="event.stopPropagation();copyText('gift-signage')">Copy</button></div>
+
+          <h4>Version 3: Website / Online Shop</h4>
+          <div class="copyable" id="gift-web">Blue's Micro Pub Gift Cards
+
+Give someone special a taste of Britain's best pub. Blue's Micro Pub has been crowned CAMRA Pub of the Year 2026, and now you can share the experience with a gift card.
+
+Choose your amount:
+&#8226; &#163;10 — A pint and change
+&#8226; &#163;20 — A session sorted
+&#8226; &#163;50 — The full experience
+
+Digital gift cards delivered instantly by email. Physical cards available in the pub.
+
+Redeemable on all drinks and food at Blue's Micro Pub, Whitburn.<button class="copy-btn" onclick="event.stopPropagation();copyText('gift-web')">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset 2: Tasting Event Template -->
+    <div class="asset-card">
+      <div class="asset-header" onclick="toggleAsset(this)">
+        <div class="asset-icon">&#127864;</div>
+        <div class="asset-title">Tasting Event Template</div>
+        <div class="asset-toggle">&#9660;</div>
+      </div>
+      <div class="asset-body">
+        <div class="asset-body-inner">
+          <p>Use this template for any tasting event listing — adapt the details for cider, whisky, or beer events.</p>
+          <div class="copyable" id="event-template">[EVENT NAME] at Blue's Micro Pub
+CAMRA Pub of the Year 2026
+
+Date: [DAY, DATE MONTH YEAR]
+Time: [START TIME] — [END TIME]
+Price: &#163;[PRICE] per person
+Capacity: Limited to [NUMBER] places
+
+What to Expect:
+&#8226; Guided tasting of [NUMBER] carefully selected [BEER TYPE/SPIRITS]
+&#8226; Tasting notes and background on each selection
+&#8226; [Optional: food pairing / cheese board / snacks included]
+&#8226; Expert-led by [HOST NAME / BREWERY NAME]
+&#8226; Relaxed, informal atmosphere in Whitburn's award-winning micropub
+
+What's Included:
+&#8226; All [NUMBER] tasting measures
+&#8226; [Tasting notes card / souvenir glass / other]
+&#8226; [Food element if applicable]
+
+How to Book:
+&#8226; Online: [BOOKING LINK]
+&#8226; In person: Ask at the bar
+&#8226; Phone: [PHONE NUMBER]
+
+Spaces are limited — book early to avoid disappointment.
+
+Blue's Micro Pub | [ADDRESS] | Whitburn<button class="copy-btn" onclick="event.stopPropagation();copyText('event-template')">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset 3: Blues Fest Concept -->
+    <div class="asset-card">
+      <div class="asset-header" onclick="toggleAsset(this)">
+        <div class="asset-icon">&#127926;</div>
+        <div class="asset-title">Blues Fest Concept Outline</div>
+        <div class="asset-toggle">&#9660;</div>
+      </div>
+      <div class="asset-body">
+        <div class="asset-body-inner">
+          <div class="copyable" id="fest-concept">BLUES FEST — Annual Beer &amp; Cider Festival
+Blue's Micro Pub, Whitburn
+
+THE CONCEPT
+A weekend celebration of real ale, cider, and community — hosted by CAMRA's Pub of the Year 2026. A ticketed event that showcases the best of British brewing.
+
+WHEN: Late August bank holiday weekend (Saturday &amp; Sunday)
+
+FORMAT
+&#8226; 20+ guest ales and ciders from across the UK
+&#8226; Live acoustic music throughout the weekend
+&#8226; Local street food stalls in the beer garden
+&#8226; Commemorative festival glass for all ticket holders
+
+TICKETS
+&#8226; Day pass: &#163;8 (includes entry + first pint + glass)
+&#8226; Weekend pass: &#163;12 (includes entry both days + first pint each day + glass)
+&#8226; Early bird discount: &#163;6 / &#163;10 if booked 4+ weeks ahead
+
+CAPACITY
+&#8226; Inside: Regular pub capacity
+&#8226; Beer garden: Extended with temporary marquee/gazebo
+&#8226; Target: 150-200 attendees across the weekend
+
+REVENUE PROJECTIONS (Conservative)
+&#8226; Ticket sales: 150 x &#163;8 avg = &#163;1,200
+&#8226; Beer/cider sales: &#163;2,000-3,000 across weekend
+&#8226; Food stall commission: &#163;200-300
+&#8226; Merch sales: &#163;300-500
+&#8226; Total estimated: &#163;3,700 - &#163;5,000
+
+COSTS TO PLAN FOR
+&#8226; Additional beer/cider stock
+&#8226; Musician fees (&#163;200-400)
+&#8226; Festival glasses (bulk order)
+&#8226; Marketing / printing
+&#8226; Temporary events licence (if needed for extended hours/area)
+&#8226; Marquee/gazebo hire
+
+MARKETING
+&#8226; Announce 8 weeks before
+&#8226; Push early bird tickets for 4 weeks
+&#8226; Social media countdown
+&#8226; Newsletter feature
+&#8226; Local press release (CAMRA Pub of Year angle)
+&#8226; CAMRA branch promotion
+
+TIMELINE
+12 weeks out: Confirm date, book breweries
+8 weeks out: Launch tickets, begin promotion
+4 weeks out: Confirm food vendors, book musicians
+2 weeks out: Final promotion push
+1 week out: Logistics — stock delivery, setup plan
+Day of: Enjoy it<button class="copy-btn" onclick="event.stopPropagation();copyText('fest-concept')">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset 4: Merchandise Pricing Calculator -->
+    <div class="asset-card">
+      <div class="asset-header" onclick="toggleAsset(this)">
+        <div class="asset-icon">&#128200;</div>
+        <div class="asset-title">Merchandise Pricing Calculator</div>
+        <div class="asset-toggle">&#9660;</div>
+      </div>
+      <div class="asset-body">
+        <div class="asset-body-inner">
+          <p>Estimated costs, retail prices, and margins for key merchandise items. Actual costs will vary by supplier and order quantity.</p>
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Est. Cost</th>
+                <th>Retail Price</th>
+                <th>Margin</th>
+                <th>Margin %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Branded Pint Glass</td>
+                <td>&#163;2.50 - &#163;3.50</td>
+                <td>&#163;10.00</td>
+                <td class="highlight">&#163;6.50 - &#163;7.50</td>
+                <td class="highlight">65 - 75%</td>
+              </tr>
+              <tr>
+                <td>T-Shirt</td>
+                <td>&#163;5.00 - &#163;7.00</td>
+                <td>&#163;18.00</td>
+                <td class="highlight">&#163;11.00 - &#163;13.00</td>
+                <td class="highlight">61 - 72%</td>
+              </tr>
+              <tr>
+                <td>Tote Bag</td>
+                <td>&#163;2.00 - &#163;3.00</td>
+                <td>&#163;9.00</td>
+                <td class="highlight">&#163;6.00 - &#163;7.00</td>
+                <td class="highlight">67 - 78%</td>
+              </tr>
+              <tr>
+                <td>Coasters (pack of 4)</td>
+                <td>&#163;1.00 - &#163;1.50</td>
+                <td>&#163;5.00</td>
+                <td class="highlight">&#163;3.50 - &#163;4.00</td>
+                <td class="highlight">70 - 80%</td>
+              </tr>
+              <tr>
+                <td>Bottle Opener Keyring</td>
+                <td>&#163;1.50 - &#163;2.50</td>
+                <td>&#163;5.00</td>
+                <td class="highlight">&#163;2.50 - &#163;3.50</td>
+                <td class="highlight">50 - 70%</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top:16px;"><strong>Tip:</strong> Order in bulk for lower unit costs. Start with a small run of 50-100 units per item to test demand, then scale up. T-shirts and pint glasses typically have the strongest demand.</p>
+          <p><strong>Initial investment estimate:</strong> &#163;500 - &#163;800 for a starter range across all items. Expected to recoup within 4-6 weeks based on conservative sales estimates.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset 5: Loyalty Card Rules -->
+    <div class="asset-card">
+      <div class="asset-header" onclick="toggleAsset(this)">
+        <div class="asset-icon">&#11088;</div>
+        <div class="asset-title">Loyalty Programme Rules Text</div>
+        <div class="asset-toggle">&#9660;</div>
+      </div>
+      <div class="asset-body">
+        <div class="asset-body-inner">
+          <div class="copyable" id="loyalty-rules">BLUE'S LOYALTY CLUB
+Rewarding our regulars at Britain's best pub
+
+HOW IT WORKS
+1. Sign up for free at the bar — just give us your name and phone number
+2. Every qualifying drink earns you 1 stamp (automatically tracked via Square)
+3. Collect 10 stamps and your next pint is on us
+
+QUALIFYING DRINKS
+&#8226; Any cask ale, cider, or keg beer purchased at full price
+&#8226; Whisky Club purchases count as double stamps
+
+BONUS STAMPS
+&#8226; Cask Club members earn double stamps on all qualifying drinks
+&#8226; Attend a ticketed tasting event = 3 bonus stamps
+
+REDEEMING YOUR REWARD
+&#8226; Your free pint can be any cask ale or cider on tap
+&#8226; Just let the bar staff know when you're ready to redeem
+&#8226; Rewards do not expire
+
+THE SMALL PRINT
+&#8226; One loyalty account per person
+&#8226; Stamps cannot be transferred between accounts
+&#8226; Free pint is for cask ales and ciders up to the value of &#163;5.00
+&#8226; Blue's Micro Pub reserves the right to amend or withdraw the loyalty programme at any time
+&#8226; Must be 18+ to participate<button class="copy-btn" onclick="event.stopPropagation();copyText('loyalty-rules')">Copy</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset 6: Newsletter Template Structure -->
+    <div class="asset-card">
+      <div class="asset-header" onclick="toggleAsset(this)">
+        <div class="asset-icon">&#128231;</div>
+        <div class="asset-title">Monthly Newsletter Template</div>
+        <div class="asset-toggle">&#9660;</div>
+      </div>
+      <div class="asset-body">
+        <div class="asset-body-inner">
+          <p><strong>"The Blues Brief"</strong> — your monthly newsletter structure. Use this as a template in Mailchimp or any email platform.</p>
+
+          <div class="newsletter-section">
+            <h5>Section 1: What's On This Month</h5>
+            <p>List all upcoming events, themed nights, and specials for the coming month. Include dates, times, and booking links. This is your primary revenue-driving section.</p>
+          </div>
+          <div class="newsletter-section">
+            <h5>Section 2: Beer of the Month</h5>
+            <p>Spotlight one ale or cider currently on tap. Include tasting notes, the brewery story, and why you chose it. Makes readers want to visit and try it before it's gone.</p>
+          </div>
+          <div class="newsletter-section">
+            <h5>Section 3: Event Recap</h5>
+            <p>A brief look back at last month's highlights. Include 1-2 photos if possible. Creates FOMO for those who missed out and validates those who attended.</p>
+          </div>
+          <div class="newsletter-section">
+            <h5>Section 4: Exclusive Offer</h5>
+            <p>A subscriber-only deal. Could be early-bird event access, a discount code for the online shop, or a free half-pint with a meal. This is what makes people stay subscribed.</p>
+          </div>
+          <div class="newsletter-section">
+            <h5>Section 5: From the Team</h5>
+            <p>A personal note from the pub. What you're excited about, a thank you to customers, or a behind-the-scenes story. Keeps it human and builds community.</p>
+          </div>
+
+          <p style="margin-top:20px;"><strong>Sending schedule:</strong> First week of each month. Keep it concise — aim for 3-5 minutes reading time. Free via Mailchimp up to 500 subscribers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset 7: Seasonal Event Concepts -->
+    <div class="asset-card">
+      <div class="asset-header" onclick="toggleAsset(this)">
+        <div class="asset-icon">&#128197;</div>
+        <div class="asset-title">6 Seasonal Event Concepts</div>
+        <div class="asset-toggle">&#9660;</div>
+      </div>
+      <div class="asset-body">
+        <div class="asset-body-inner">
+          <p>A ready-made calendar of seasonal events with dates, themes, and format suggestions.</p>
+
+          <div class="seasonal-grid">
+            <div class="seasonal-item">
+              <h5>Burns Night Whisky Special</h5>
+              <div class="s-date">25th January</div>
+              <p>Partner with the Whisky Club for a premium Burns Night evening. Haggis, neeps, and tatties paired with Scottish single malts. &#163;25-30pp, max 15 people. Recite the Address to a Haggis.</p>
+            </div>
+            <div class="seasonal-item">
+              <h5>Valentine's Couples' Tasting</h5>
+              <div class="s-date">14th February</div>
+              <p>An intimate evening for couples. 4 beers paired with 4 artisan cheeses, served as a shared board. &#163;20pp / &#163;35 per couple. Candlelit setting. Max 10 couples.</p>
+            </div>
+            <div class="seasonal-item">
+              <h5>Father's Day Gift &amp; Pint</h5>
+              <div class="s-date">Third Sunday in June</div>
+              <p>Pre-packaged gift sets: branded glass + gift card + bottle opener in a gift box (&#163;25-30). Promote online 3 weeks ahead. In-pub, offer a "Dad's First Pint Free" with any gift set purchase.</p>
+            </div>
+            <div class="seasonal-item">
+              <h5>Summer Beer Garden Sessions</h5>
+              <div class="s-date">July - August (weekends)</div>
+              <p>Extended weekend hours in the beer garden. Rotating guest ciders. Optional BBQ partnership with a local vendor. Live acoustic music on Saturdays. No ticket needed — just show up.</p>
+            </div>
+            <div class="seasonal-item">
+              <h5>Halloween Dark Ales Night</h5>
+              <div class="s-date">31st October</div>
+              <p>All taps go dark: stouts, porters, dark fruit ciders, and black IPAs. Themed decorations. "Trick or Treat" — mystery half-pint pours at a set price. Fancy dress encouraged.</p>
+            </div>
+            <div class="seasonal-item">
+              <h5>12 Ales of Christmas</h5>
+              <div class="s-date">13th - 24th December</div>
+              <p>A different featured guest ale each day for 12 days. Tasting card — collect all 12 for a reward (free pint or merch discount). Daily reveals on social media. Creates a reason to visit every day.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end tab-assets -->
+
+</div><!-- end tab-container -->
+
+<!-- Footer -->
+<div class="footer">
+  <p class="footer-line">A gift from Pink House Trading | <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
+</div>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// Opportunity card toggle
+function toggleOpp(header) {
+  header.closest('.opp-card').classList.toggle('open');
+}
+
+// Asset card toggle
+function toggleAsset(header) {
+  header.closest('.asset-card').classList.toggle('open');
+}
+
+// Copy to clipboard
+function copyText(id) {
+  var el = document.getElementById(id);
+  var text = el.innerText || el.textContent;
+  // Remove the "Copy" button text from the end
+  text = text.replace(/Copy\s*$/, '').trim();
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = el.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+// Scroll to top button visibility
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scrollTop');
+  if (window.scrollY > 400) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+</script>
+</body>
+</html>
