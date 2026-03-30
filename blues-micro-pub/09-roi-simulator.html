@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROI Simulator — Blue's Micro Pub, Whitburn</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --primary: #1B4B7A;
+  --gold: #D4A853;
+  --dark-bg: #0F1923;
+  --card-bg: #152535;
+  --border: #1E3A5F;
+  --text: #E8EDF3;
+  --muted: #8BA4C4;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --pint-price: 5;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--dark-bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 48px 24px 32px;
+  background: linear-gradient(180deg, #0a1118 0%, var(--dark-bg) 100%);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(212,168,83,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));
+  border: 1px solid rgba(212,168,83,0.3);
+  border-radius: 40px;
+  padding: 8px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.header h1 {
+  font-size: clamp(26px, 5vw, 44px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.header h1 span { color: var(--gold); }
+.header-sub {
+  font-size: 17px;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 6px;
+}
+.header-location {
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  background: #0a1118;
+  border-bottom: 2px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 14px 20px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s;
+  white-space: nowrap;
+  text-align: center;
+}
+.tab-btn:hover { color: var(--text); background: rgba(27,75,122,0.15); }
+.tab-btn.active {
+  color: var(--gold);
+  background: rgba(212,168,83,0.08);
+}
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold);
+}
+.tab-icon { margin-right: 6px; }
+
+/* Tab content */
+.tab-content { display: none; padding: 32px 24px 60px; max-width: 900px; margin: 0 auto; }
+.tab-content.active { display: block; }
+
+/* Cards and form groups */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.card-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group.full-width { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group input,
+.form-group select {
+  background: #0d1a27;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+.form-group select { cursor: pointer; }
+.form-group select option { background: #0d1a27; color: var(--text); }
+.form-group .hint {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* Results */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.result-box {
+  background: #0d1a27;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.2s;
+}
+.result-box:hover { transform: translateY(-1px); }
+.result-box .label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.result-box .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.result-box .value.negative { color: var(--danger); }
+.result-box .value.neutral { color: var(--muted); }
+.result-box.highlight {
+  border-color: var(--gold);
+  background: rgba(212,168,83,0.06);
+}
+.pint-equiv {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(212,168,83,0.1), rgba(27,75,122,0.15));
+  border: 1px solid rgba(212,168,83,0.25);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--text);
+}
+.pint-equiv strong { color: var(--gold); }
+
+/* Scenarios */
+.scenarios { margin-bottom: 24px; }
+.scenarios h4 {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.scenario-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.scenario-btn {
+  background: rgba(27,75,122,0.2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+.scenario-btn:hover {
+  border-color: var(--gold);
+  background: rgba(212,168,83,0.1);
+  color: var(--gold);
+}
+
+/* Save button */
+.save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gold), #c49a42);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  color: #0F1923;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 16px;
+}
+.save-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,168,83,0.3); }
+.save-btn:active { transform: translateY(0); }
+.save-confirmation {
+  display: inline-block;
+  margin-left: 12px;
+  color: var(--success);
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.save-confirmation.show { opacity: 1; }
+
+/* Dashboard bar chart */
+.chart-container { margin-top: 20px; }
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.bar-label {
+  min-width: 120px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  text-align: right;
+}
+.bar-track {
+  flex: 1;
+  height: 36px;
+  background: #0d1a27;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  min-width: 60px;
+  transition: width 0.6s ease;
+}
+.bar-fill.events { background: linear-gradient(135deg, #1B4B7A, #2a6baa); }
+.bar-fill.merch { background: linear-gradient(135deg, #7c3aed, #9b5de5); }
+.bar-fill.giftcards { background: linear-gradient(135deg, #059669, #10B981); }
+.bar-fill.total { background: linear-gradient(135deg, var(--gold), #c49a42); color: #0F1923; }
+
+/* Dashboard summary cards */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.dash-card {
+  background: #0d1a27;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.dash-card .icon { font-size: 28px; margin-bottom: 8px; }
+.dash-card .amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.dash-card .desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.dash-card.grand {
+  border-color: var(--gold);
+  background: rgba(212,168,83,0.06);
+  grid-column: 1 / -1;
+}
+.dash-card.grand .amount { font-size: 36px; }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+.empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
+.empty-state p { font-size: 15px; max-width: 400px; margin: 0 auto; }
+
+/* Saved items list */
+.saved-list { margin-top: 16px; }
+.saved-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #0d1a27;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.saved-item .name { color: var(--text); font-weight: 500; }
+.saved-item .profit { color: var(--gold); font-weight: 700; }
+.saved-item .remove {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.saved-item .remove:hover { opacity: 1; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+.footer a { color: var(--gold); text-decoration: none; }
+
+/* Estimate note */
+.estimate-note {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.6;
+  font-style: italic;
+  margin-top: 12px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-badge">Decision Tool</div>
+  <h1>ROI <span>Simulator</span></h1>
+  <div class="header-sub">Blue's Micro Pub, Whitburn</div>
+  <div class="header-location">Run the numbers before you commit</div>
+</div>
+
+<!-- Tab Bar -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('events')">
+    <span class="tab-icon">&#127915;</span>Events
+  </button>
+  <button class="tab-btn" onclick="switchTab('merch')">
+    <span class="tab-icon">&#128085;</span>Merch
+  </button>
+  <button class="tab-btn" onclick="switchTab('giftcards')">
+    <span class="tab-icon">&#127873;</span>Gift Cards
+  </button>
+  <button class="tab-btn" onclick="switchTab('dashboard')">
+    <span class="tab-icon">&#128202;</span>Dashboard
+  </button>
+</div>
+
+<!-- TAB 1: Event Simulator -->
+<div id="tab-events" class="tab-content active">
+  <div class="scenarios">
+    <h4>Quick Scenarios</h4>
+    <div class="scenario-btns">
+      <button class="scenario-btn" onclick="loadEventScenario('whisky')">
+        Whisky Tasting<br><small>12 people, &pound;25/head, &pound;8 cost</small>
+      </button>
+      <button class="scenario-btn" onclick="loadEventScenario('games')">
+        Private Games Room<br><small>8 people, &pound;15/head, &pound;3 cost</small>
+      </button>
+      <button class="scenario-btn" onclick="loadEventScenario('beer')">
+        Monthly Beer Tasting<br><small>15 people, &pound;20/head, &pound;6 cost</small>
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Event Simulator</h3>
+    <p class="card-subtitle">Model any event to see if the numbers work</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Event Type</label>
+        <select id="evt-type" oninput="calcEvents()">
+          <option>Whisky Tasting</option>
+          <option>Beer Tasting</option>
+          <option>Cider Night</option>
+          <option>Pie &amp; Pint Special</option>
+          <option>Games Night</option>
+          <option>Private Hire</option>
+          <option>Custom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Frequency</label>
+        <select id="evt-freq" oninput="calcEvents()">
+          <option value="0">One-off</option>
+          <option value="52">Weekly</option>
+          <option value="12" selected>Monthly</option>
+          <option value="4">Quarterly</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ticket Price (per person)</label>
+        <input type="number" id="evt-price" value="25" min="0" step="0.50" oninput="calcEvents()">
+      </div>
+      <div class="form-group">
+        <label>Expected Attendees</label>
+        <input type="number" id="evt-attendees" value="12" min="0" oninput="calcEvents()">
+      </div>
+      <div class="form-group">
+        <label>Cost per Head (food/drink)</label>
+        <input type="number" id="evt-cph" value="8" min="0" step="0.50" oninput="calcEvents()">
+      </div>
+      <div class="form-group">
+        <label>Additional Costs</label>
+        <input type="number" id="evt-addcost" value="0" min="0" step="1" oninput="calcEvents()">
+        <span class="hint">Entertainment, special stock, etc.</span>
+      </div>
+    </div>
+
+    <div class="results-grid" id="evt-results">
+      <div class="result-box">
+        <div class="label">Revenue / Event</div>
+        <div class="value" id="evt-rev">&pound;300</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Cost / Event</div>
+        <div class="value neutral" id="evt-cost">&pound;96</div>
+      </div>
+      <div class="result-box highlight">
+        <div class="label">Profit / Event</div>
+        <div class="value" id="evt-profit">&pound;204</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Annual Profit</div>
+        <div class="value" id="evt-annual">&pound;2,448</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Break-even Attendees</div>
+        <div class="value neutral" id="evt-breakeven">0</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Profit Margin</div>
+        <div class="value" id="evt-margin">68%</div>
+      </div>
+    </div>
+    <div class="pint-equiv" id="evt-pints"></div>
+    <div style="text-align:center; margin-top: 16px;">
+      <button class="save-btn" onclick="saveEvent()">Save to Dashboard</button>
+      <span class="save-confirmation" id="evt-saved">Saved</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-size:15px; margin-bottom:10px;">Saved Event Simulations</h4>
+    <div id="evt-saved-list" class="saved-list"></div>
+  </div>
+</div>
+
+<!-- TAB 2: Merchandise Calculator -->
+<div id="tab-merch" class="tab-content">
+  <div class="card">
+    <h3 class="card-title">Merchandise Calculator</h3>
+    <p class="card-subtitle">Work out if a merch run is worth the investment</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Product Type</label>
+        <select id="merch-type" oninput="onMerchTypeChange()">
+          <option value="tshirt">T-shirt</option>
+          <option value="glass">Pint Glass</option>
+          <option value="tote">Tote Bag</option>
+          <option value="opener">Bottle Opener</option>
+          <option value="cap">Cap</option>
+          <option value="sticker">Sticker Pack</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Unit Cost</label>
+        <input type="number" id="merch-unitcost" value="7" min="0" step="0.50" oninput="calcMerch()">
+      </div>
+      <div class="form-group">
+        <label>Order Quantity</label>
+        <input type="number" id="merch-qty" value="50" min="1" oninput="calcMerch()">
+      </div>
+      <div class="form-group">
+        <label>Retail Price</label>
+        <input type="number" id="merch-retail" value="18" min="0" step="0.50" oninput="calcMerch()">
+      </div>
+      <div class="form-group">
+        <label>Expected Sell-through (%)</label>
+        <input type="number" id="merch-sellthru" value="75" min="0" max="100" oninput="calcMerch()">
+      </div>
+      <div class="form-group">
+        <label>Est. Weekly Sales</label>
+        <input type="number" id="merch-weeklysales" value="3" min="1" oninput="calcMerch()">
+        <span class="hint">Units sold per week (estimate)</span>
+      </div>
+    </div>
+
+    <div class="results-grid" id="merch-results">
+      <div class="result-box">
+        <div class="label">Total Investment</div>
+        <div class="value neutral" id="merch-invest">&pound;350</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Revenue (100% sold)</div>
+        <div class="value" id="merch-rev100">&pound;900</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Revenue (sell-through)</div>
+        <div class="value" id="merch-revst">&pound;675</div>
+      </div>
+      <div class="result-box highlight">
+        <div class="label">Profit (sell-through)</div>
+        <div class="value" id="merch-profit">&pound;325</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Profit / Unit</div>
+        <div class="value" id="merch-ppu">&pound;11</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Break-even Units</div>
+        <div class="value neutral" id="merch-breakeven">32</div>
+      </div>
+    </div>
+    <div class="pint-equiv" id="merch-pints"></div>
+    <div class="result-box" style="margin-top:14px; text-align:center;">
+      <div class="label">Time to Sell Through</div>
+      <div class="value neutral" id="merch-time">13 weeks</div>
+    </div>
+    <div style="text-align:center; margin-top: 16px;">
+      <button class="save-btn" onclick="saveMerch()">Save to Dashboard</button>
+      <span class="save-confirmation" id="merch-saved">Saved</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4 style="font-size:15px; margin-bottom:10px;">Saved Merch Simulations</h4>
+    <div id="merch-saved-list" class="saved-list"></div>
+  </div>
+</div>
+
+<!-- TAB 3: Gift Card Projector -->
+<div id="tab-giftcards" class="tab-content">
+  <div class="card">
+    <h3 class="card-title">Gift Card Projector</h3>
+    <p class="card-subtitle">Forecast the hidden value of a gift card programme</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Average Card Value</label>
+        <input type="number" id="gc-value" value="20" min="1" step="1" oninput="calcGiftCards()">
+      </div>
+      <div class="form-group">
+        <label>Cards Sold / Month</label>
+        <input type="number" id="gc-monthly" value="15" min="0" oninput="calcGiftCards()">
+      </div>
+      <div class="form-group">
+        <label>Overspend Rate (%)</label>
+        <input type="number" id="gc-overspend" value="20" min="0" max="100" oninput="calcGiftCards()">
+        <span class="hint">% customers spend above card value</span>
+      </div>
+      <div class="form-group">
+        <label>Non-redemption Rate (%)</label>
+        <input type="number" id="gc-nonredeem" value="10" min="0" max="100" oninput="calcGiftCards()">
+        <span class="hint">% of cards never redeemed</span>
+      </div>
+    </div>
+
+    <div class="results-grid" id="gc-results">
+      <div class="result-box">
+        <div class="label">Monthly Card Sales</div>
+        <div class="value" id="gc-monthrev">&pound;300</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Annual Card Sales</div>
+        <div class="value" id="gc-annualrev">&pound;3,600</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Overspend Revenue</div>
+        <div class="value" id="gc-overspendrev">&pound;720</div>
+      </div>
+      <div class="result-box">
+        <div class="label">Non-redemption Margin</div>
+        <div class="value" id="gc-nonredeemrev">&pound;360</div>
+      </div>
+      <div class="result-box highlight" style="grid-column: 1 / -1;">
+        <div class="label">Total Annual Value of Gift Card Programme</div>
+        <div class="value" id="gc-total">&pound;4,680</div>
+      </div>
+    </div>
+    <div class="pint-equiv" id="gc-pints"></div>
+    <div style="text-align:center; margin-top: 16px;">
+      <button class="save-btn" onclick="saveGiftCards()">Save to Dashboard</button>
+      <span class="save-confirmation" id="gc-saved">Saved</span>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: Revenue Dashboard -->
+<div id="tab-dashboard" class="tab-content">
+  <div id="dash-empty" class="empty-state" style="display:none;">
+    <div class="icon">&#128202;</div>
+    <p>No simulations saved yet. Run scenarios in the Events, Merch, or Gift Cards tabs, then click "Save to Dashboard" to build your revenue picture.</p>
+  </div>
+  <div id="dash-content">
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="icon">&#127915;</div>
+        <div class="amount" id="dash-events">&pound;0</div>
+        <div class="desc">Annual Event Revenue</div>
+      </div>
+      <div class="dash-card">
+        <div class="icon">&#128085;</div>
+        <div class="amount" id="dash-merch">&pound;0</div>
+        <div class="desc">Merch Profit</div>
+      </div>
+      <div class="dash-card">
+        <div class="icon">&#127873;</div>
+        <div class="amount" id="dash-gc">&pound;0</div>
+        <div class="desc">Gift Card Programme</div>
+      </div>
+      <div class="dash-card grand">
+        <div class="icon">&#128176;</div>
+        <div class="amount" id="dash-total">&pound;0</div>
+        <div class="desc">Total Projected Additional Annual Revenue</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Revenue Comparison</h3>
+      <p class="card-subtitle">Current bar sales vs. projected diversified revenue</p>
+      <div class="chart-container" id="dash-chart"></div>
+      <p class="estimate-note">Pint price estimated at ~&pound;5 (typical NE micropub). Adjust scenarios to refine.</p>
+    </div>
+
+    <div class="card">
+      <h4 style="font-size:15px; margin-bottom:10px;">All Saved Simulations</h4>
+      <div id="dash-all-items" class="saved-list"></div>
+      <div style="text-align:center; margin-top: 16px;">
+        <button class="save-btn" style="background:linear-gradient(135deg, var(--danger), #dc2626);" onclick="clearAllSaved()">Clear All Saved Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  A Pink House Trading Product | <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a>
+</div>
+
+<script>
+const PINT_PRICE = 5;
+const STORAGE_KEY = 'blues_roi_simulator';
+
+// --- LocalStorage ---
+function loadData() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { events: [], merch: [], giftcards: null };
+  } catch { return { events: [], merch: [], giftcards: null }; }
+}
+function saveData(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+// --- Tab switching ---
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  const tabs = ['events', 'merch', 'giftcards', 'dashboard'];
+  document.querySelectorAll('.tab-btn')[tabs.indexOf(tab)].classList.add('active');
+  if (tab === 'dashboard') refreshDashboard();
+}
+
+// --- Formatting ---
+function fmt(n) {
+  if (n < 0) return '-\u00A3' + Math.abs(n).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  return '\u00A3' + n.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+function fmtDec(n) {
+  if (n < 0) return '-\u00A3' + Math.abs(n).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return '\u00A3' + n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// --- EVENT SIMULATOR ---
+function calcEvents() {
+  const price = parseFloat(document.getElementById('evt-price').value) || 0;
+  const attendees = parseInt(document.getElementById('evt-attendees').value) || 0;
+  const cph = parseFloat(document.getElementById('evt-cph').value) || 0;
+  const addCost = parseFloat(document.getElementById('evt-addcost').value) || 0;
+  const freqVal = parseInt(document.getElementById('evt-freq').value) || 0;
+
+  const revenue = price * attendees;
+  const cost = (cph * attendees) + addCost;
+  const profit = revenue - cost;
+  const annual = freqVal > 0 ? profit * freqVal : profit;
+  const breakeven = price > cph ? Math.ceil(addCost / (price - cph)) : (addCost > 0 ? '&#8734;' : 0);
+  const margin = revenue > 0 ? ((profit / revenue) * 100).toFixed(1) : 0;
+  const pintEquiv = Math.round(profit / PINT_PRICE);
+
+  document.getElementById('evt-rev').textContent = fmt(revenue);
+  document.getElementById('evt-cost').textContent = fmt(cost);
+
+  const profitEl = document.getElementById('evt-profit');
+  profitEl.textContent = fmt(profit);
+  profitEl.className = 'value' + (profit < 0 ? ' negative' : '');
+
+  const annualEl = document.getElementById('evt-annual');
+  annualEl.textContent = fmt(annual);
+  annualEl.className = 'value' + (annual < 0 ? ' negative' : '');
+
+  const beEl = document.getElementById('evt-breakeven');
+  beEl.innerHTML = typeof breakeven === 'string' ? breakeven : breakeven.toString();
+
+  const marginEl = document.getElementById('evt-margin');
+  marginEl.textContent = margin + '%';
+  marginEl.className = 'value' + (profit < 0 ? ' negative' : '');
+
+  const freqLabel = freqVal === 0 ? '' : freqVal === 52 ? ' per week' : freqVal === 12 ? ' per month' : ' per quarter';
+  document.getElementById('evt-pints').innerHTML = profit >= 0
+    ? 'This is equivalent to selling <strong>' + pintEquiv + ' extra pints</strong>' + freqLabel + ' at ~\u00A35 each'
+    : 'This event would <strong>lose money</strong> \u2014 you\'d need to charge more or cut costs';
+}
+
+function loadEventScenario(type) {
+  const scenarios = {
+    whisky: { type: 'Whisky Tasting', price: 25, attendees: 12, cph: 8, addCost: 0, freq: '12' },
+    games: { type: 'Private Hire', price: 15, attendees: 8, cph: 3, addCost: 0, freq: '12' },
+    beer: { type: 'Beer Tasting', price: 20, attendees: 15, cph: 6, addCost: 0, freq: '12' }
+  };
+  const s = scenarios[type];
+  document.getElementById('evt-type').value = s.type;
+  document.getElementById('evt-price').value = s.price;
+  document.getElementById('evt-attendees').value = s.attendees;
+  document.getElementById('evt-cph').value = s.cph;
+  document.getElementById('evt-addcost').value = s.addCost;
+  document.getElementById('evt-freq').value = s.freq;
+  calcEvents();
+}
+
+function saveEvent() {
+  const data = loadData();
+  const name = document.getElementById('evt-type').value;
+  const price = parseFloat(document.getElementById('evt-price').value) || 0;
+  const attendees = parseInt(document.getElementById('evt-attendees').value) || 0;
+  const cph = parseFloat(document.getElementById('evt-cph').value) || 0;
+  const addCost = parseFloat(document.getElementById('evt-addcost').value) || 0;
+  const freqVal = parseInt(document.getElementById('evt-freq').value) || 0;
+  const revenue = price * attendees;
+  const cost = (cph * attendees) + addCost;
+  const profit = revenue - cost;
+  const annual = freqVal > 0 ? profit * freqVal : profit;
+
+  data.events.push({ id: Date.now(), name, price, attendees, cph, addCost, freq: freqVal, profitPerEvent: profit, annualProfit: annual });
+  saveData(data);
+  renderEventSavedList();
+  showConfirmation('evt-saved');
+}
+
+function removeEvent(id) {
+  const data = loadData();
+  data.events = data.events.filter(e => e.id !== id);
+  saveData(data);
+  renderEventSavedList();
+}
+
+function renderEventSavedList() {
+  const data = loadData();
+  const container = document.getElementById('evt-saved-list');
+  if (!data.events.length) {
+    container.innerHTML = '<p style="color:var(--muted); font-size:13px; text-align:center; padding:12px;">No events saved yet</p>';
+    return;
+  }
+  container.innerHTML = data.events.map(e =>
+    '<div class="saved-item"><span class="name">' + e.name + ' (' + e.attendees + ' ppl, ' + fmt(e.price) + '/head)</span><span class="profit">' + fmt(e.annualProfit) + '/yr</span><button class="remove" onclick="removeEvent(' + e.id + ')" title="Remove">&times;</button></div>'
+  ).join('');
+}
+
+// --- MERCH CALCULATOR ---
+const merchDefaults = {
+  tshirt: { cost: 7, retail: 18 },
+  glass: { cost: 3.50, retail: 10 },
+  tote: { cost: 4, retail: 12 },
+  opener: { cost: 2, retail: 6 },
+  cap: { cost: 6, retail: 16 },
+  sticker: { cost: 1.50, retail: 5 },
+  custom: { cost: 5, retail: 15 }
+};
+
+function onMerchTypeChange() {
+  const type = document.getElementById('merch-type').value;
+  const def = merchDefaults[type];
+  document.getElementById('merch-unitcost').value = def.cost;
+  document.getElementById('merch-retail').value = def.retail;
+  calcMerch();
+}
+
+function calcMerch() {
+  const unitCost = parseFloat(document.getElementById('merch-unitcost').value) || 0;
+  const qty = parseInt(document.getElementById('merch-qty').value) || 0;
+  const retail = parseFloat(document.getElementById('merch-retail').value) || 0;
+  const sellThru = (parseFloat(document.getElementById('merch-sellthru').value) || 0) / 100;
+  const weeklySales = parseInt(document.getElementById('merch-weeklysales').value) || 1;
+
+  const investment = unitCost * qty;
+  const rev100 = retail * qty;
+  const revST = retail * qty * sellThru;
+  const profit = revST - investment;
+  const ppu = retail - unitCost;
+  const breakeven = ppu > 0 ? Math.ceil(investment / ppu) : '&#8734;';
+  const unitsSold = Math.round(qty * sellThru);
+  const weeks = weeklySales > 0 ? Math.ceil(unitsSold / weeklySales) : 0;
+
+  document.getElementById('merch-invest').textContent = fmt(investment);
+  document.getElementById('merch-rev100').textContent = fmt(rev100);
+  document.getElementById('merch-revst').textContent = fmt(Math.round(revST));
+
+  const profitEl = document.getElementById('merch-profit');
+  profitEl.textContent = fmt(Math.round(profit));
+  profitEl.className = 'value' + (profit < 0 ? ' negative' : '');
+
+  document.getElementById('merch-ppu').textContent = fmtDec(ppu);
+  document.getElementById('merch-breakeven').innerHTML = typeof breakeven === 'string' ? breakeven : breakeven.toString();
+
+  const pintEquiv = Math.round(profit / PINT_PRICE);
+  document.getElementById('merch-pints').innerHTML = profit >= 0
+    ? 'Profit equivalent to <strong>' + pintEquiv + ' extra pints</strong> sold at ~\u00A35 each'
+    : 'This run would <strong>lose money</strong> \u2014 raise the price or improve sell-through';
+
+  document.getElementById('merch-time').textContent = weeks > 0 ? weeks + (weeks === 1 ? ' week' : ' weeks') : '\u2014';
+}
+
+function saveMerch() {
+  const data = loadData();
+  const type = document.getElementById('merch-type');
+  const name = type.options[type.selectedIndex].text;
+  const unitCost = parseFloat(document.getElementById('merch-unitcost').value) || 0;
+  const qty = parseInt(document.getElementById('merch-qty').value) || 0;
+  const retail = parseFloat(document.getElementById('merch-retail').value) || 0;
+  const sellThru = (parseFloat(document.getElementById('merch-sellthru').value) || 0) / 100;
+  const investment = unitCost * qty;
+  const revST = retail * qty * sellThru;
+  const profit = Math.round(revST - investment);
+
+  data.merch.push({ id: Date.now(), name, qty, retail, profit });
+  saveData(data);
+  renderMerchSavedList();
+  showConfirmation('merch-saved');
+}
+
+function removeMerch(id) {
+  const data = loadData();
+  data.merch = data.merch.filter(e => e.id !== id);
+  saveData(data);
+  renderMerchSavedList();
+}
+
+function renderMerchSavedList() {
+  const data = loadData();
+  const container = document.getElementById('merch-saved-list');
+  if (!data.merch.length) {
+    container.innerHTML = '<p style="color:var(--muted); font-size:13px; text-align:center; padding:12px;">No merch runs saved yet</p>';
+    return;
+  }
+  container.innerHTML = data.merch.map(e =>
+    '<div class="saved-item"><span class="name">' + e.name + ' (' + e.qty + ' units at ' + fmt(e.retail) + ')</span><span class="profit">' + fmt(e.profit) + '</span><button class="remove" onclick="removeMerch(' + e.id + ')" title="Remove">&times;</button></div>'
+  ).join('');
+}
+
+// --- GIFT CARD PROJECTOR ---
+function calcGiftCards() {
+  const cardValue = parseFloat(document.getElementById('gc-value').value) || 0;
+  const monthly = parseInt(document.getElementById('gc-monthly').value) || 0;
+  const overspendRate = (parseFloat(document.getElementById('gc-overspend').value) || 0) / 100;
+  const nonRedeemRate = (parseFloat(document.getElementById('gc-nonredeem').value) || 0) / 100;
+
+  const monthRev = cardValue * monthly;
+  const annualRev = monthRev * 12;
+  const overspendRev = annualRev * overspendRate;
+  const nonRedeemRev = annualRev * nonRedeemRate;
+  const total = annualRev + overspendRev + nonRedeemRev;
+
+  document.getElementById('gc-monthrev').textContent = fmt(monthRev);
+  document.getElementById('gc-annualrev').textContent = fmt(annualRev);
+  document.getElementById('gc-overspendrev').textContent = fmt(Math.round(overspendRev));
+  document.getElementById('gc-nonredeemrev').textContent = fmt(Math.round(nonRedeemRev));
+  document.getElementById('gc-total').textContent = fmt(Math.round(total));
+
+  const pintEquiv = Math.round(total / PINT_PRICE);
+  document.getElementById('gc-pints').innerHTML = 'Total programme value equivalent to <strong>' + pintEquiv + ' extra pints</strong> per year';
+}
+
+function saveGiftCards() {
+  const data = loadData();
+  const cardValue = parseFloat(document.getElementById('gc-value').value) || 0;
+  const monthly = parseInt(document.getElementById('gc-monthly').value) || 0;
+  const overspendRate = (parseFloat(document.getElementById('gc-overspend').value) || 0) / 100;
+  const nonRedeemRate = (parseFloat(document.getElementById('gc-nonredeem').value) || 0) / 100;
+  const monthRev = cardValue * monthly;
+  const annualRev = monthRev * 12;
+  const total = Math.round(annualRev + (annualRev * overspendRate) + (annualRev * nonRedeemRate));
+
+  data.giftcards = { cardValue, monthly, overspendRate, nonRedeemRate, total };
+  saveData(data);
+  showConfirmation('gc-saved');
+}
+
+// --- DASHBOARD ---
+function refreshDashboard() {
+  const data = loadData();
+  const eventTotal = data.events.reduce((sum, e) => sum + e.annualProfit, 0);
+  const merchTotal = data.merch.reduce((sum, e) => sum + e.profit, 0);
+  const gcTotal = data.giftcards ? data.giftcards.total : 0;
+  const grandTotal = eventTotal + merchTotal + gcTotal;
+  const hasData = data.events.length || data.merch.length || data.giftcards;
+
+  document.getElementById('dash-empty').style.display = hasData ? 'none' : 'block';
+  document.getElementById('dash-content').style.display = hasData ? 'block' : 'none';
+
+  document.getElementById('dash-events').textContent = fmt(eventTotal);
+  document.getElementById('dash-merch').textContent = fmt(merchTotal);
+  document.getElementById('dash-gc').textContent = fmt(gcTotal);
+  document.getElementById('dash-total').textContent = fmt(grandTotal);
+
+  // Bar chart
+  const maxVal = Math.max(eventTotal, merchTotal, gcTotal, grandTotal, 1);
+  const chartHTML = [
+    { label: 'Events', val: eventTotal, cls: 'events' },
+    { label: 'Merchandise', val: merchTotal, cls: 'merch' },
+    { label: 'Gift Cards', val: gcTotal, cls: 'giftcards' },
+    { label: 'TOTAL', val: grandTotal, cls: 'total' }
+  ].map(b => {
+    const pct = Math.max((b.val / maxVal) * 100, b.val > 0 ? 8 : 2);
+    return '<div class="bar-row"><div class="bar-label">' + b.label + '</div><div class="bar-track"><div class="bar-fill ' + b.cls + '" style="width:' + pct + '%">' + fmt(b.val) + '</div></div></div>';
+  }).join('');
+  document.getElementById('dash-chart').innerHTML = chartHTML;
+
+  // All items list
+  const allItems = [];
+  data.events.forEach(e => allItems.push({ name: 'Event: ' + e.name, value: fmt(e.annualProfit) + '/yr', type: 'event', id: e.id }));
+  data.merch.forEach(e => allItems.push({ name: 'Merch: ' + e.name, value: fmt(e.profit), type: 'merch', id: e.id }));
+  if (data.giftcards) allItems.push({ name: 'Gift Card Programme', value: fmt(data.giftcards.total) + '/yr', type: 'gc', id: 0 });
+
+  const listContainer = document.getElementById('dash-all-items');
+  if (!allItems.length) {
+    listContainer.innerHTML = '<p style="color:var(--muted); font-size:13px; text-align:center; padding:12px;">No simulations saved</p>';
+  } else {
+    listContainer.innerHTML = allItems.map(item =>
+      '<div class="saved-item"><span class="name">' + item.name + '</span><span class="profit">' + item.value + '</span></div>'
+    ).join('');
+  }
+}
+
+function clearAllSaved() {
+  if (confirm('Clear all saved simulations? This cannot be undone.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    renderEventSavedList();
+    renderMerchSavedList();
+    refreshDashboard();
+  }
+}
+
+// --- Confirmation animation ---
+function showConfirmation(id) {
+  const el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// --- Init ---
+calcEvents();
+calcMerch();
+calcGiftCards();
+renderEventSavedList();
+renderMerchSavedList();
+</script>
+</body>
+</html>

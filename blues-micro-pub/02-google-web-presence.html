@@ -73,46 +73,32 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   font-weight: 400;
 }
 
-/* Overall Score */
-.score-banner {
+/* Strength Banner */
+.strength-banner {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(239,68,68,0.03));
-  border: 1px solid rgba(239,68,68,0.2);
+  background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(212,168,83,0.06));
+  border: 1px solid rgba(16,185,129,0.25);
   border-radius: 12px;
   padding: 1.2rem 2rem;
-  max-width: 700px;
+  max-width: 760px;
   margin: 1.5rem auto 0;
 }
-.score-circle {
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  background: conic-gradient(var(--critical) 0% 30%, rgba(239,68,68,0.15) 30% 100%);
-  display: flex; align-items: center; justify-content: center;
+.strength-star {
+  font-size: 2.8rem;
   flex-shrink: 0;
-  position: relative;
 }
-.score-circle-inner {
-  width: 50px; height: 50px;
-  border-radius: 50%;
-  background: var(--dark-bg);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--critical);
-}
-.score-text h3 {
-  font-size: 1rem;
-  color: var(--critical);
+.strength-text h3 {
+  font-size: 1.05rem;
+  color: var(--gold);
   margin-bottom: 0.15rem;
 }
-.score-text p {
-  font-size: 0.8rem;
+.strength-text p {
+  font-size: 0.82rem;
   color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* Tabs */
@@ -223,25 +209,68 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   border-radius: 50%;
   background: var(--gold);
 }
-.competitor-note {
-  background: rgba(239,68,68,0.06);
-  border-left: 3px solid var(--critical);
+.benchmark-note {
+  background: rgba(27,75,122,0.1);
+  border-left: 3px solid var(--primary);
   padding: 0.6rem 0.9rem;
   border-radius: 0 6px 6px 0;
   margin-top: 0.6rem;
   font-size: 0.82rem;
   color: var(--muted);
 }
-.competitor-note strong { color: var(--critical); }
-.checklist-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 0.85rem;
+.benchmark-note strong { color: var(--primary); }
+.gap-note {
+  background: rgba(245,158,11,0.06);
+  border-left: 3px solid var(--warning);
+  padding: 0.6rem 0.9rem;
+  border-radius: 0 6px 6px 0;
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
   color: var(--muted);
-  padding: 0.3rem 0;
 }
-.checklist-icon { color: var(--warning); flex-shrink: 0; margin-top: 2px; }
+.gap-note strong { color: var(--warning); }
+
+/* Section Headers */
+.section-header {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-header .sh-icon { color: var(--gold); }
+
+/* Comparison Table */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8rem 0;
+  font-size: 0.83rem;
+}
+.compare-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.compare-table td {
+  padding: 0.5rem 0.8rem;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(30,58,95,0.4);
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table .win { color: var(--success); font-weight: 600; }
+.compare-table .lose { color: var(--muted); }
 
 /* Tab 2 — Action Plan */
 .action-item {
@@ -293,7 +322,13 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   border-radius: 50%;
   background: var(--gold);
 }
-.priority-high {
+.action-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.meta-tag {
   display: inline-block;
   font-size: 0.6rem;
   font-weight: 700;
@@ -301,12 +336,12 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   text-transform: uppercase;
   padding: 0.15rem 0.5rem;
   border-radius: 10px;
-  margin-left: 0.4rem;
-  vertical-align: middle;
 }
-.p-critical { background: rgba(239,68,68,0.12); color: var(--critical); }
-.p-high { background: rgba(245,158,11,0.12); color: var(--warning); }
-.p-medium { background: rgba(16,185,129,0.12); color: var(--success); }
+.meta-time { background: rgba(27,75,122,0.2); color: var(--primary); }
+.meta-cost { background: rgba(16,185,129,0.12); color: var(--success); }
+.meta-priority-1 { background: rgba(239,68,68,0.12); color: var(--critical); }
+.meta-priority-2 { background: rgba(245,158,11,0.12); color: var(--warning); }
+.meta-priority-3 { background: rgba(27,75,122,0.15); color: #5B9BD5; }
 
 /* Tab 3 — Assets */
 .asset-block {
@@ -334,6 +369,18 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   gap: 0.5rem;
 }
 .asset-header h3 .asset-icon { color: var(--gold); }
+.asset-tier {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  background: rgba(212,168,83,0.12);
+  color: var(--gold);
+  border: 1px solid rgba(212,168,83,0.25);
+}
 .asset-toggle {
   color: var(--muted);
   font-size: 1.2rem;
@@ -347,7 +394,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   padding: 0 1.4rem;
 }
 .asset-block.open .asset-body {
-  max-height: 5000px;
+  max-height: 8000px;
   padding: 0 1.4rem 1.4rem;
 }
 .copy-box {
@@ -380,6 +427,190 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
 }
 .copy-btn:hover { background: #24608f; }
 .copy-btn.copied { background: var(--success); }
+
+/* Printable Card Designs */
+.print-card {
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  max-width: 360px;
+  margin: 1rem auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  overflow: hidden;
+  position: relative;
+}
+.print-card-top {
+  background: linear-gradient(135deg, #1B4B7A, #24608f);
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  color: #fff;
+}
+.print-card-top h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+  color: #fff;
+}
+.print-card-top .card-subtitle {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  font-family: 'Inter', sans-serif;
+}
+.print-card-body {
+  padding: 1.2rem 1.5rem 1rem;
+  text-align: center;
+}
+.print-card-body .stars { font-size: 1.5rem; color: #D4A853; margin: 0.3rem 0 0.8rem; letter-spacing: 2px; }
+.print-card-body .step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  text-align: left;
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+  color: #444;
+  line-height: 1.45;
+}
+.print-card-body .step-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: #1B4B7A;
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+}
+.print-card-body .qr-placeholder {
+  width: 110px; height: 110px;
+  background: #f5f5f5;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; color: #999;
+  margin: 0.8rem auto;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  line-height: 1.3;
+  padding: 0.5rem;
+}
+.print-card-footer {
+  background: #f8f8f8;
+  border-top: 1px solid #eee;
+  padding: 0.6rem 1.5rem;
+  text-align: center;
+  font-size: 0.65rem;
+  color: #999;
+  font-family: 'Inter', sans-serif;
+}
+.print-card-footer strong { color: #1B4B7A; }
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+  background: var(--gold);
+  border: none;
+  color: #0F1923;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.print-btn:hover { background: #c49a48; transform: translateY(-1px); }
+.print-instructions {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Find Us Online Card */
+.findus-card {
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  max-width: 380px;
+  margin: 1rem auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+.findus-top {
+  background: linear-gradient(135deg, #1B4B7A, #24608f);
+  padding: 1rem 1.5rem;
+  text-align: center;
+  color: #fff;
+}
+.findus-top h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 0.15rem;
+}
+.findus-top .card-subtitle { font-size: 0.72rem; color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; }
+.findus-body { padding: 1rem 1.5rem; }
+.findus-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.findus-row:last-child { border-bottom: none; }
+.findus-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+.findus-icon.google { background: #f0f7ff; color: #4285f4; }
+.findus-icon.trip { background: #f0fff0; color: #00af87; }
+.findus-icon.insta { background: #fff0f5; color: #e1306c; }
+.findus-icon.fb { background: #f0f4ff; color: #1877f2; }
+.findus-icon.web { background: #f5f0ff; color: #6b5ce7; }
+.findus-icon.untappd { background: #fff8e6; color: #ffb700; }
+.findus-info { flex: 1; }
+.findus-info .platform-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #333;
+}
+.findus-info .platform-handle {
+  font-size: 0.72rem;
+  color: #888;
+}
+.findus-qr {
+  width: 50px; height: 50px;
+  background: #f5f5f5;
+  border: 1px dashed #ddd;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.5rem;
+  color: #bbb;
+  text-align: center;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+.findus-footer {
+  background: #f8f8f8;
+  border-top: 1px solid #eee;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  font-size: 0.62rem;
+  color: #999;
+}
+.findus-footer strong { color: #1B4B7A; }
+
+/* Post Cards */
 .post-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -391,7 +622,8 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   background: rgba(15,25,35,0.5);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0.8rem;
+  padding: 0.9rem;
+  position: relative;
 }
 .post-card .post-week {
   font-size: 0.65rem;
@@ -400,628 +632,745 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
   letter-spacing: 1.5px;
   color: var(--gold);
   margin-bottom: 0.3rem;
+  font-family: 'Inter', sans-serif;
 }
-.post-card .post-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.85rem;
+.post-card .post-cta {
+  font-size: 0.62rem;
   font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--success);
+  margin-top: 0.4rem;
+  font-family: 'Inter', sans-serif;
 }
 .post-card .post-body {
   font-size: 0.78rem;
   color: var(--muted);
   line-height: 1.55;
 }
-.keyword-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
+.post-card .post-chars {
+  font-size: 0.6rem;
+  color: rgba(139,164,196,0.5);
+  font-family: 'Inter', sans-serif;
+  margin-top: 0.3rem;
 }
-.keyword-tag {
-  background: rgba(27,75,122,0.2);
-  border: 1px solid rgba(27,75,122,0.35);
-  color: var(--muted);
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.3rem 0.7rem;
-  border-radius: 20px;
+.post-card .copy-btn {
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem;
 }
-.sitemap-block {
-  margin-top: 0.5rem;
-}
-.sitemap-page {
-  background: rgba(15,25,35,0.5);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  margin-bottom: 0.5rem;
-}
-.sitemap-page h4 {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 0.25rem;
-}
-.sitemap-page p {
-  font-size: 0.78rem;
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-/* Review Card Preview */
-.review-card-preview {
-  background: #fff;
-  color: #222;
-  border-radius: 10px;
-  padding: 1.5rem;
-  text-align: center;
-  max-width: 340px;
-  margin: 0.5rem auto;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-.review-card-preview h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  color: #1B4B7A;
-  margin-bottom: 0.4rem;
-}
-.review-card-preview p {
-  font-size: 0.82rem;
-  color: #555;
-  line-height: 1.5;
-  margin-bottom: 0.3rem;
-}
-.review-card-preview .stars { font-size: 1.3rem; color: #D4A853; margin: 0.4rem 0; }
-.review-card-preview .qr-placeholder {
-  width: 100px; height: 100px;
-  background: #f0f0f0;
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.65rem; color: #999;
-  margin: 0.6rem auto;
-}
-.review-card-preview .small-text { font-size: 0.7rem; color: #888; }
-
-/* Section Headers */
-.section-header {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.section-header .sh-accent { color: var(--gold); }
 
 /* Footer */
 .footer {
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 1rem;
   border-top: 1px solid var(--border);
-  font-size: 0.78rem;
+  margin-top: 1rem;
+}
+.footer p {
+  font-size: 0.75rem;
   color: var(--muted);
 }
 .footer a { color: var(--gold); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
 
+/* Print Styles */
+@media print {
+  body { background: #fff; color: #222; }
+  .tab-nav { display: none; }
+  .tab-panel { display: block !important; page-break-inside: avoid; }
+  .print-card { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+}
+
 /* Responsive */
 @media (max-width: 640px) {
   .header h1 { font-size: 1.6rem; }
-  .tab-btn { font-size: 0.75rem; padding: 0.7rem 0.5rem; }
-  .tab-btn .tab-text-full { display: none; }
-  .tab-btn .tab-text-short { display: inline; }
-  .score-banner { flex-direction: column; text-align: center; }
-  .action-item { flex-direction: column; }
-  .post-grid { grid-template-columns: 1fr; }
-}
-@media (min-width: 641px) {
-  .tab-btn .tab-text-short { display: none; }
+  .strength-banner { flex-direction: column; text-align: center; gap: 0.8rem; padding: 1rem; }
+  .tab-btn { font-size: 0.72rem; padding: 0.65rem 0.5rem; }
+  .tab-panel { padding: 1.2rem 1rem; }
+  .action-item { flex-direction: column; gap: 0.5rem; }
+  .compare-table { font-size: 0.75rem; }
+  .print-card { max-width: 300px; }
+  .findus-card { max-width: 320px; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-label">Digital Presence Audit</div>
-  <h1>Blue's Micro Pub <span>Whitburn</span></h1>
-  <p class="header-sub">Google & Web Presence Review &mdash; March 2026</p>
-  <div class="score-banner">
-    <div class="score-circle">
-      <div class="score-circle-inner">3/10</div>
-    </div>
-    <div class="score-text">
-      <h3>Overall Web Presence Score</h3>
-      <p>CAMRA Pub of the Year quality &mdash; but almost invisible online. Huge upside waiting to be unlocked.</p>
+<!-- Header -->
+<div class="header">
+  <div class="header-label">Digital Marketing Toolkit</div>
+  <h1>Google & <span>Web Presence</span> Audit</h1>
+  <p class="header-sub">Blue's Micro Pub &mdash; Whitburn, SR6 7EW</p>
+
+  <div class="strength-banner">
+    <div class="strength-star">&#11088;</div>
+    <div class="strength-text">
+      <h3>4.9 Stars on Google &mdash; Among the Highest-Rated Pubs in the Region</h3>
+      <p>With 119+ reviews and a near-perfect rating, Blue's has an exceptional foundation. Most pubs sit between 4.2&ndash;4.5. This audit identifies the quick wins that will turn that outstanding reputation into wider visibility.</p>
     </div>
   </div>
-</header>
+</div>
 
-<!-- TABS -->
+<!-- Tabs -->
 <div class="tab-container">
-  <nav class="tab-nav">
-    <button class="tab-btn active" data-tab="found">
-      <span class="tab-icon">&#128269;</span>
-      <span class="tab-text-full">What We Found</span>
-      <span class="tab-text-short">Findings</span>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab(0)">
+      <span class="tab-icon">&#128270;</span> What We Found
     </button>
-    <button class="tab-btn" data-tab="plan">
-      <span class="tab-icon">&#9889;</span>
-      <span class="tab-text-full">Your Action Plan</span>
-      <span class="tab-text-short">Actions</span>
+    <button class="tab-btn" onclick="switchTab(1)">
+      <span class="tab-icon">&#9889;</span> Action Plan
     </button>
-    <button class="tab-btn" data-tab="assets">
-      <span class="tab-icon">&#128230;</span>
-      <span class="tab-text-full">Ready-Made Assets</span>
-      <span class="tab-text-short">Assets</span>
+    <button class="tab-btn" onclick="switchTab(2)">
+      <span class="tab-icon">&#127873;</span> Ready-Made Assets
     </button>
-  </nav>
+  </div>
 
   <div class="tab-content-wrapper">
 
     <!-- TAB 1: WHAT WE FOUND -->
-    <div class="tab-panel active" id="tab-found">
+    <div class="tab-panel active" id="tab-0">
 
-      <h2 class="section-header"><span class="sh-accent">&#9679;</span> Platform-by-Platform Audit</h2>
+      <h2 class="section-header"><span class="sh-icon">&#11088;</span> Your Strengths</h2>
 
       <!-- Google Business Profile -->
       <div class="audit-card">
         <div class="card-header">
           <h3>&#127758; Google Business Profile</h3>
-          <span class="rating-badge rating-warning">Warning</span>
+          <span class="rating-badge rating-ok">Excellent</span>
         </div>
         <div class="card-body">
-          <p><strong>4.9 stars from 119 reviews</strong> &mdash; the quality is exceptional. But for a CAMRA National Pub of the Year, the volume needs to be much higher. This is your most important digital shopfront.</p>
-          <div class="competitor-note">
-            <strong>Competitor benchmark:</strong> Tamworth Tap has 858 Facebook reviews and extensive TripAdvisor coverage. Blue's review count needs to grow significantly to match this visibility.
+          <p><strong>4.9 stars from 119+ reviews</strong> &mdash; this is an outstanding rating. For context, fewer than 1 in 100 pubs in the UK sustain a 4.9 rating over 100+ reviews. Customers are clearly having great experiences and saying so publicly.</p>
+          <ul>
+            <li>Profile is live and discoverable on Google Search and Maps</li>
+            <li>2026 CAMRA Branch Pub of the Year and Branch Cider Pub of the Year awards provide strong credibility signals</li>
+            <li>The rating alone puts Blue's ahead of the vast majority of competitors in search results</li>
+          </ul>
+          <div class="benchmark-note">
+            <strong>Benchmark:</strong> Tamworth Tap (three-time CAMRA National POTY) has 4.8 stars from 619 reviews. Blue's rating is higher per review &mdash; the opportunity is in growing review volume.
           </div>
-          <p style="margin-top: 0.8rem; font-weight: 600; color: var(--text); font-size: 0.85rem;">Items to verify:</p>
-          <div class="checklist-item"><span class="checklist-icon">&#9744;</span> Opening hours correct? Wed-Thu 4-10pm, Fri 3-10:30pm, Sat 12:30-10:30pm, Sun 12:30-9pm, Closed Mon-Tue (except 1st Mon Whisky Club)</div>
-          <div class="checklist-item"><span class="checklist-icon">&#9744;</span> Photos uploaded? Interior, beer selection, events, beer garden, snug room</div>
-          <div class="checklist-item"><span class="checklist-icon">&#9744;</span> CAMRA Pub of the Year 2026 mentioned in description?</div>
-          <div class="checklist-item"><span class="checklist-icon">&#9744;</span> All business categories added? (Micropub, Bar, Craft Beer Bar)</div>
-          <div class="checklist-item"><span class="checklist-icon">&#9744;</span> Google Posts being used for events and news?</div>
+        </div>
+      </div>
+
+      <!-- Instagram -->
+      <div class="audit-card">
+        <div class="card-header">
+          <h3>&#128247; Instagram</h3>
+          <span class="rating-badge rating-ok">Strong</span>
+        </div>
+        <div class="card-body">
+          <p><strong>2,200 followers and 1,745 posts</strong> &mdash; for a two-person micropub, this is remarkable output. Blue's has 23% more followers than the three-time CAMRA National Pub of the Year, and posts 53 times more content.</p>
+          <ul>
+            <li>@bluesmicropub is an active, well-maintained channel</li>
+            <li>High post volume shows consistency and audience engagement</li>
+            <li>This is your strongest digital asset &mdash; protect and build on it</li>
+          </ul>
         </div>
       </div>
 
       <!-- Website -->
       <div class="audit-card">
         <div class="card-header">
-          <h3>&#128187; Website</h3>
-          <span class="rating-badge rating-critical">Critical</span>
+          <h3>&#127760; Website</h3>
+          <span class="rating-badge rating-warning">Functional</span>
         </div>
         <div class="card-body">
-          <p>Current site: <strong>bluesmicropub.square.site</strong> &mdash; a basic Square storefront template. No events page, no about section, no beer board, and no awards showcase. This is completely inadequate for a CAMRA National Pub of the Year.</p>
+          <p><strong>bluesmicropub.square.site</strong> &mdash; the site exists and is accessible. Square provides a reliable, low-maintenance hosting platform that works well for a two-person operation.</p>
           <ul>
-            <li>No events calendar for Cask Club, Pie & Pint, Whisky Club, Running Club</li>
-            <li>No "About Cal & Alice" story &mdash; your story is one of your biggest assets</li>
-            <li>No current beer/cider board &mdash; a key draw for beer tourists</li>
-            <li>No CAMRA award prominently displayed</li>
-            <li>No SEO &mdash; you're essentially invisible to search engines</li>
+            <li>Site is live and indexed by Google</li>
+            <li>Basic information is available to visitors</li>
           </ul>
-          <div class="competitor-note">
-            <strong>Competitor benchmark:</strong> Tamworth Tap runs a professional site with beer finder, virtual tour, newsletter signup, events calendar, food menu, and sustainability page. That's the standard for a national award-winner.
+          <div class="gap-note">
+            <strong>Opportunity:</strong> A custom domain (e.g. bluesmicropub.co.uk) would look more professional and strengthen search rankings, but Square works fine for now.
           </div>
         </div>
       </div>
+
+      <h2 class="section-header" style="margin-top: 1.5rem;"><span class="sh-icon">&#128269;</span> Growth Opportunities</h2>
 
       <!-- TripAdvisor -->
       <div class="audit-card">
         <div class="card-header">
-          <h3>&#127757; TripAdvisor</h3>
-          <span class="rating-badge rating-critical">Critical</span>
+          <h3>&#128220; TripAdvisor</h3>
+          <span class="rating-badge rating-warning">Quick Win</span>
         </div>
         <div class="card-body">
-          <p>Blue's is listed on TripAdvisor but likely has minimal reviews and limited presence. Beer tourists actively use TripAdvisor when planning visits to an area. This is a massive missed opportunity.</p>
-          <div class="competitor-note">
-            <strong>Competitor benchmark:</strong> Tamworth Tap has extensive five-star TripAdvisor coverage. Beer tourists researching "things to do in South Tyneside" will find competitors first.
+          <p><strong>8 reviews</strong> &mdash; listed and ranked #12 of 45 Nightlife in Sunderland. The low review count is actually an opportunity: even 10&ndash;15 more reviews could move Blue's significantly up the rankings.</p>
+          <ul>
+            <li>Profile exists and is discoverable</li>
+            <li>Low review count means each new review has outsized impact on ranking</li>
+            <li>TripAdvisor is a key discovery platform for visitors to Whitburn and the coast</li>
+          </ul>
+          <div class="benchmark-note">
+            <strong>Benchmark:</strong> Tamworth Tap has 91 TripAdvisor reviews with a 4.4 rating. Blue's doesn't need 91 &mdash; even reaching 25&ndash;30 quality reviews would dramatically improve visibility.
           </div>
-        </div>
-      </div>
-
-      <!-- CAMRA / WhatPub -->
-      <div class="audit-card">
-        <div class="card-header">
-          <h3>&#127866; CAMRA & WhatPub</h3>
-          <span class="rating-badge rating-ok">OK</span>
-        </div>
-        <div class="card-body">
-          <p>Blue's is listed on both CAMRA and WhatPub directories. As the reigning Pub of the Year, these listings are present and correct. CAMRA members will find you here.</p>
         </div>
       </div>
 
       <!-- Untappd -->
       <div class="audit-card">
         <div class="card-header">
-          <h3>&#127867; Untappd</h3>
-          <span class="rating-badge rating-ok">OK</span>
+          <h3>&#127866; Untappd</h3>
+          <span class="rating-badge rating-critical">Unclaimed</span>
         </div>
         <div class="card-body">
-          <p>Listed on Untappd (untappd.com/v/blue-s-micro-pub/9812911). An important platform for craft beer discovery. Ensure current taps are kept up to date and encourage check-ins from visitors.</p>
+          <p><strong>Venue listed but unverified</strong> &mdash; Blue's exists on Untappd (untappd.com/v/blue-s-micro-pub/9812911) but the venue has not been claimed by the owners. This means someone else created the listing, and Blue's has no control over it.</p>
+          <ul>
+            <li>Claiming is free and takes about 5 minutes</li>
+            <li>A verified venue can update beer menus, respond to check-ins, and appear in "nearby" searches</li>
+            <li>Untappd users are exactly Blue's target audience &mdash; craft beer enthusiasts</li>
+          </ul>
         </div>
       </div>
 
-      <!-- Search Visibility -->
+      <!-- Facebook -->
       <div class="audit-card">
         <div class="card-header">
-          <h3>&#128270; Search Visibility</h3>
-          <span class="rating-badge rating-critical">Critical</span>
+          <h3>&#128220; Facebook</h3>
+          <span class="rating-badge rating-warning">Partial Data</span>
         </div>
         <div class="card-body">
-          <p>When someone searches for <strong>"best pub Whitburn"</strong>, <strong>"micropub near Sunderland"</strong>, or <strong>"CAMRA pub of the year"</strong> &mdash; does Blue's appear prominently? Without a proper website with SEO, you're relying entirely on Google Business Profile and third-party listings.</p>
-          <p>A proper website targeting the right keywords would massively improve search visibility and drive new visitors through the door.</p>
+          <p><strong>Page exists at /Bluesmicropub</strong> &mdash; confirmed live, but follower count and review data were not accessible during this audit due to privacy settings.</p>
+          <div class="gap-note">
+            <strong>Data gap:</strong> We could not retrieve Facebook follower count or review data. Cal and Alice can share these figures to complete the picture.
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-header" style="margin-top: 1.5rem;"><span class="sh-icon">&#128200;</span> Head-to-Head: Blues vs. National Champion</h2>
+
+      <div class="audit-card">
+        <div class="card-header">
+          <h3>Tamworth Tap Comparison</h3>
+        </div>
+        <div class="card-body">
+          <p>Tamworth Tap is the three-time CAMRA National Pub of the Year (2022, 2023, 2025). Blue's holds the Branch-level award &mdash; but competes surprisingly well on digital metrics.</p>
+          <p style="margin-top:0.6rem"><strong>Quick summary:</strong> Blues wins on Google rating (4.9 vs 4.8) and Instagram (2,200 followers vs 1,792; 1,745 posts vs 33). Tamworth leads on review volume (619 Google reviews vs 119; 91 TripAdvisor reviews vs 8) and has a custom website.</p>
+          <div class="benchmark-note">
+            <strong>Key takeaway:</strong> Blue's already wins on Google rating and Instagram. The gap is in review volume &mdash; and that's fixable with consistent effort, not budget. See the full head-to-head table in <strong>Document 04 &mdash; Competitor Benchmark</strong>.
+          </div>
         </div>
       </div>
 
     </div>
 
     <!-- TAB 2: ACTION PLAN -->
-    <div class="tab-panel" id="tab-plan">
+    <div class="tab-panel" id="tab-1">
 
-      <h2 class="section-header"><span class="sh-accent">&#9679;</span> 10-Point Action Plan</h2>
+      <h2 class="section-header"><span class="sh-icon">&#9889;</span> 6-Step Action Plan</h2>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem;">Designed for two people. No step requires a budget. Priority order matters &mdash; start at the top.</p>
 
       <div class="action-item">
         <div class="action-number">1</div>
         <div class="action-content">
-          <h4>Claim & Optimise Google Business Profile <span class="priority-high p-critical">Urgent</span></h4>
-          <p>This is the single most impactful thing you can do. Ensure your Google listing is fully optimised:</p>
-          <ul>
-            <li>Add ALL relevant categories: Micropub, Bar, Craft Beer Bar</li>
-            <li>Upload 20+ photos: interior, beer selection, events, beer garden, snug, CAMRA award</li>
-            <li>Add "CAMRA Pub of the Year 2026" prominently in your description</li>
-            <li>Double-check all opening hours including Whisky Club first Mondays</li>
-            <li>Add all recurring events as Google Posts</li>
-          </ul>
+          <h4>Claim Your Untappd Venue</h4>
+          <p>Visit untappd.com/venue/claim and search for "Blue's Micro Pub". Verify ownership with your business details. Once claimed, you can update your live beer menu, respond to check-ins, and appear in "nearby venues" for every Untappd user visiting the coast.</p>
+          <div class="action-meta">
+            <span class="meta-tag meta-priority-1">Priority 1</span>
+            <span class="meta-tag meta-time">5 minutes</span>
+            <span class="meta-tag meta-cost">Free</span>
+          </div>
         </div>
       </div>
 
       <div class="action-item">
         <div class="action-number">2</div>
         <div class="action-content">
-          <h4>Weekly Google Posts <span class="priority-high p-critical">Urgent</span></h4>
-          <p>Google Business Posts appear directly in search results and Google Maps. Post weekly about events, beer highlights, and award news. We've written 12 weeks of posts for you in the Assets tab.</p>
+          <h4>Grow TripAdvisor Reviews to 25+</h4>
+          <p>With only 8 reviews, every new one moves the needle. Place the TripAdvisor review card (see Assets tab) by the till. Mention TripAdvisor when tourists or coast walkers visit &mdash; they're the most likely to leave reviews. A target of 25 reviews over the next 3 months would transform your ranking.</p>
+          <ul>
+            <li>Focus on visitors and tourists (locals tend to use Google)</li>
+            <li>Never offer incentives for reviews &mdash; just ask genuinely</li>
+            <li>Respond to every review, even short ones</li>
+          </ul>
+          <div class="action-meta">
+            <span class="meta-tag meta-priority-1">Priority 2</span>
+            <span class="meta-tag meta-time">Ongoing</span>
+            <span class="meta-tag meta-cost">Free</span>
+          </div>
         </div>
       </div>
 
       <div class="action-item">
         <div class="action-number">3</div>
         <div class="action-content">
-          <h4>Launch a Review Generation Strategy <span class="priority-high p-critical">Urgent</span></h4>
-          <p>Print a small card for the bar with a QR code linking to your Google review page. Target: <strong>250+ reviews within 6 months</strong>. We've designed the card text for you in the Assets tab.</p>
+          <h4>Start Google Posts (1 per Week)</h4>
+          <p>Google Posts appear directly in your Business Profile when people search for you. They boost your SEO, show Google you're an active business, and give searchers a reason to visit. We've pre-written 6 weeks of posts in the Assets tab &mdash; just copy, paste, and publish.</p>
+          <ul>
+            <li>Log into Google Business Profile, click "Add update"</li>
+            <li>Paste the post text, add a photo, select the CTA button</li>
+            <li>Posts expire after 7 days, so weekly is the right rhythm</li>
+          </ul>
+          <div class="action-meta">
+            <span class="meta-tag meta-priority-2">Priority 3</span>
+            <span class="meta-tag meta-time">10 min/week</span>
+            <span class="meta-tag meta-cost">Free</span>
+          </div>
         </div>
       </div>
 
       <div class="action-item">
         <div class="action-number">4</div>
         <div class="action-content">
-          <h4>Claim & Build TripAdvisor <span class="priority-high p-high">High</span></h4>
-          <p>Claim your TripAdvisor listing if not already done. Add professional photos, respond to all reviews, and ensure you appear under "Things to Do in South Tyneside." Beer tourists rely on this platform.</p>
+          <h4>Update Google Business Description</h4>
+          <p>Your Google Business Profile description is the first thing many people read about Blue's. A well-written, keyword-rich description helps you appear in more searches. We've written one for you in the Assets tab &mdash; just copy and paste it into your profile settings.</p>
+          <div class="action-meta">
+            <span class="meta-tag meta-priority-2">Priority 4</span>
+            <span class="meta-tag meta-time">5 minutes</span>
+            <span class="meta-tag meta-cost">Free</span>
+          </div>
         </div>
       </div>
 
       <div class="action-item">
         <div class="action-number">5</div>
         <div class="action-content">
-          <h4>Upgrade Your Website <span class="priority-high p-critical">Urgent</span></h4>
-          <p>The Square site needs a significant upgrade or replacement. Two options:</p>
-          <ul>
-            <li><strong>Option A:</strong> Upgrade the existing Square site with a better template, add events, about, beer board pages</li>
-            <li><strong>Option B:</strong> Move to Squarespace or WordPress for more flexibility and SEO control</li>
-            <li><strong>Minimum pages needed:</strong> Home, About, What's On (events), Beer Board (current taps), Find Us, Awards</li>
-          </ul>
+          <h4>Update TripAdvisor Description</h4>
+          <p>Same principle as Google. A strong TripAdvisor description helps with discoverability, especially for tourists planning coastal walks or day trips. Copy-paste version is in the Assets tab.</p>
+          <div class="action-meta">
+            <span class="meta-tag meta-priority-3">Priority 5</span>
+            <span class="meta-tag meta-time">5 minutes</span>
+            <span class="meta-tag meta-cost">Free</span>
+          </div>
         </div>
       </div>
 
       <div class="action-item">
         <div class="action-number">6</div>
         <div class="action-content">
-          <h4>SEO Quick Wins <span class="priority-high p-high">High</span></h4>
-          <p>Add proper meta titles and descriptions targeting local keywords. We've listed 16 target keywords in the Assets tab. This alone will dramatically improve how you appear in search results.</p>
-        </div>
-      </div>
-
-      <div class="action-item">
-        <div class="action-number">7</div>
-        <div class="action-content">
-          <h4>Optimise Untappd <span class="priority-high p-medium">Medium</span></h4>
-          <p>Keep all current taps updated on Untappd. Add venue photos. Encourage check-ins from visitors &mdash; it builds visibility with the craft beer community worldwide.</p>
-        </div>
-      </div>
-
-      <div class="action-item">
-        <div class="action-number">8</div>
-        <div class="action-content">
-          <h4>Clean Up Local Directory Listings <span class="priority-high p-high">High</span></h4>
-          <p>Ensure consistent NAP (Name, Address, Phone) across every directory:</p>
+          <h4>Keep Growing Google Reviews</h4>
+          <p>119 reviews at 4.9 stars is outstanding, but growing toward 200+ reviews would make Blue's dominant in local search. The "Leave us a Google Review" card (Assets tab) does the heavy lifting &mdash; place it by the till and let it work passively.</p>
           <ul>
-            <li>Google, Facebook, TripAdvisor, CAMRA, WhatPub</li>
-            <li>Untappd, UK Micropubs directory, Pubs Galore</li>
-            <li>Inconsistent details confuse Google and hurt your ranking</li>
+            <li>Respond to every Google review (positive and negative)</li>
+            <li>Aim for 2&ndash;3 new reviews per week</li>
+            <li>Never buy reviews or offer incentives &mdash; they get flagged and removed</li>
           </ul>
-        </div>
-      </div>
-
-      <div class="action-item">
-        <div class="action-number">9</div>
-        <div class="action-content">
-          <h4>Crowdsource Google Maps Photos <span class="priority-high p-medium">Medium</span></h4>
-          <p>Ask regulars to upload photos via Google Maps when they visit. More photos means more visibility in Google search and Maps. A quick mention at the bar or a small sign can drive this.</p>
-        </div>
-      </div>
-
-      <div class="action-item">
-        <div class="action-number">10</div>
-        <div class="action-content">
-          <h4>Leverage Press Coverage for SEO <span class="priority-high p-medium">Medium</span></h4>
-          <p>The Shields Gazette and Sunderland Echo articles about your CAMRA wins are gold for SEO. Link to them from your website. If you can get the journalists to link back to you, even better &mdash; that's high-quality backlink juice.</p>
+          <div class="action-meta">
+            <span class="meta-tag meta-priority-3">Priority 6</span>
+            <span class="meta-tag meta-time">Ongoing</span>
+            <span class="meta-tag meta-cost">Free</span>
+          </div>
         </div>
       </div>
 
     </div>
 
     <!-- TAB 3: READY-MADE ASSETS -->
-    <div class="tab-panel" id="tab-assets">
+    <div class="tab-panel" id="tab-2">
 
-      <h2 class="section-header"><span class="sh-accent">&#9679;</span> Copy, Paste & Go</h2>
+      <h2 class="section-header"><span class="sh-icon">&#127873;</span> Ready-Made Assets</h2>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem;">Print-ready cards, copy-paste descriptions, and 6 weeks of Google Posts. Everything is designed for Blue's branding and ready to use today.</p>
 
-      <!-- Asset 1: Google Business Description -->
+      <!-- ASSET 1: Google Review Card -->
       <div class="asset-block open">
         <div class="asset-header" onclick="toggleAsset(this)">
-          <h3><span class="asset-icon">&#9733;</span> Optimised Google Business Description</h3>
-          <span class="asset-toggle">&#9660;</span>
+          <h3><span class="asset-icon">&#11088;</span> Printable Google Review Card</h3>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span class="asset-tier">Tier 1</span>
+            <span class="asset-toggle">&#9660;</span>
+          </div>
         </div>
         <div class="asset-body">
-          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.6rem;">Copy and paste this directly into your Google Business Profile description:</p>
-          <div class="copy-box" id="gbp-desc">
-            <button class="copy-btn" onclick="copyText(this, 'gbp-desc-text')">Copy</button>
-            <p id="gbp-desc-text">Blue's Micro Pub &mdash; CAMRA Pub of the Year 2026 &amp; Cider Pub of the Year 2026. A friendly micropub in the heart of Whitburn village, serving up to 5 cask ales, 6 real ciders, and 9 keg beers. Weekly events include Cask Club (Wed/Thu/Sun), Pie &amp; Pint Thursday, Running Club Thursday, and Whisky Club (first Monday). Beer garden and snug room. Dog-friendly. Card payments only. Owned and run by Cal &amp; Alice Watson since 2020.</p>
+          <p style="font-size: 0.83rem; color: var(--muted); margin-bottom: 0.8rem;">Print this card and place it by the till, on tables, or near the exit. It walks customers through leaving a Google review step by step.</p>
+
+          <div class="print-card" id="google-review-card">
+            <div class="print-card-top">
+              <h4>Blue's Micro Pub</h4>
+              <div class="card-subtitle">Whitburn's Award-Winning Micropub</div>
+            </div>
+            <div class="print-card-body">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p style="font-size: 0.88rem; font-weight: 600; color: #1B4B7A; margin-bottom: 0.8rem;">Enjoyed your visit? Tell Google!</p>
+              <div class="step">
+                <span class="step-num">1</span>
+                <span>Open your phone camera and scan the QR code below</span>
+              </div>
+              <div class="step">
+                <span class="step-num">2</span>
+                <span>Tap the link that appears &mdash; it goes straight to our Google page</span>
+              </div>
+              <div class="step">
+                <span class="step-num">3</span>
+                <span>Tap the stars to rate us, then write a few words about your experience</span>
+              </div>
+              <div class="step">
+                <span class="step-num">4</span>
+                <span>Hit "Post" &mdash; done! Thank you, it genuinely helps us</span>
+              </div>
+              <div class="qr-placeholder" style="border:none;background:none;width:auto;height:auto;padding:0.4rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 21 21" shape-rendering="crispEdges">
+                  <rect width="21" height="21" fill="#fff"/>
+                  <rect x="0" y="0" width="7" height="7" fill="none" stroke="#1B4B7A" stroke-width="0.6"/>
+                  <rect x="1" y="1" width="5" height="5" fill="none" stroke="#1B4B7A" stroke-width="0.4"/>
+                  <rect x="2" y="2" width="3" height="3" fill="#1B4B7A"/>
+                  <rect x="14" y="0" width="7" height="7" fill="none" stroke="#1B4B7A" stroke-width="0.6"/>
+                  <rect x="15" y="1" width="5" height="5" fill="none" stroke="#1B4B7A" stroke-width="0.4"/>
+                  <rect x="16" y="2" width="3" height="3" fill="#1B4B7A"/>
+                  <rect x="0" y="14" width="7" height="7" fill="none" stroke="#1B4B7A" stroke-width="0.6"/>
+                  <rect x="1" y="15" width="5" height="5" fill="none" stroke="#1B4B7A" stroke-width="0.4"/>
+                  <rect x="2" y="16" width="3" height="3" fill="#1B4B7A"/>
+                  <rect x="8" y="2" width="1" height="1" fill="#1B4B7A"/><rect x="10" y="3" width="1" height="1" fill="#1B4B7A"/><rect x="9" y="5" width="1" height="1" fill="#1B4B7A"/><rect x="11" y="1" width="1" height="1" fill="#1B4B7A"/><rect x="8" y="8" width="1" height="1" fill="#1B4B7A"/><rect x="10" y="8" width="1" height="1" fill="#1B4B7A"/><rect x="12" y="8" width="1" height="1" fill="#1B4B7A"/><rect x="9" y="10" width="1" height="1" fill="#1B4B7A"/><rect x="11" y="10" width="1" height="1" fill="#1B4B7A"/><rect x="8" y="12" width="1" height="1" fill="#1B4B7A"/><rect x="10" y="12" width="1" height="1" fill="#1B4B7A"/><rect x="12" y="12" width="1" height="1" fill="#1B4B7A"/><rect x="14" y="9" width="1" height="1" fill="#1B4B7A"/><rect x="16" y="10" width="1" height="1" fill="#1B4B7A"/><rect x="18" y="9" width="1" height="1" fill="#1B4B7A"/><rect x="15" y="12" width="1" height="1" fill="#1B4B7A"/><rect x="17" y="11" width="1" height="1" fill="#1B4B7A"/><rect x="19" y="12" width="1" height="1" fill="#1B4B7A"/><rect x="9" y="14" width="1" height="1" fill="#1B4B7A"/><rect x="11" y="15" width="1" height="1" fill="#1B4B7A"/><rect x="9" y="17" width="1" height="1" fill="#1B4B7A"/><rect x="14" y="14" width="1" height="1" fill="#1B4B7A"/><rect x="16" y="15" width="1" height="1" fill="#1B4B7A"/><rect x="18" y="14" width="1" height="1" fill="#1B4B7A"/><rect x="15" y="17" width="1" height="1" fill="#1B4B7A"/><rect x="17" y="18" width="1" height="1" fill="#1B4B7A"/><rect x="19" y="16" width="1" height="1" fill="#1B4B7A"/>
+                </svg>
+                <div style="font-size:0.55rem;font-weight:600;color:#1B4B7A;margin-top:4px">YOUR GOOGLE REVIEW QR</div>
+                <div style="font-size:0.5rem;color:#999">Generate free at qr-code-generator.com</div>
+              </div>
+            </div>
+            <div class="print-card-footer">
+              <strong>Blue's Micro Pub</strong> &bull; 1a Percy Terrace, Whitburn SR6 7EW
+            </div>
           </div>
+
+          <div style="text-align:center;">
+            <button class="print-btn" onclick="printCard('google-review-card')">&#128424; Print This Card</button>
+          </div>
+          <p class="print-instructions">Prints at roughly credit-card size. Generate your QR code free at qr-code-generator.com using your Google review link.</p>
         </div>
       </div>
 
-      <!-- Asset 2: Google Posts -->
+      <!-- ASSET 2: TripAdvisor Review Card -->
       <div class="asset-block">
         <div class="asset-header" onclick="toggleAsset(this)">
-          <h3><span class="asset-icon">&#128221;</span> 12 Weekly Google Posts</h3>
-          <span class="asset-toggle">&#9660;</span>
+          <h3><span class="asset-icon">&#128220;</span> Printable TripAdvisor Review Card</h3>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span class="asset-tier">Tier 1</span>
+            <span class="asset-toggle">&#9660;</span>
+          </div>
         </div>
         <div class="asset-body">
-          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.6rem;">Post one per week via your Google Business Profile. Each appears in search results and Maps.</p>
+          <p style="font-size: 0.83rem; color: var(--muted); margin-bottom: 0.8rem;">Same concept as the Google card, but for TripAdvisor. Especially useful for tourists and visitors walking the coast path.</p>
+
+          <div class="print-card" id="tripadvisor-review-card">
+            <div class="print-card-top" style="background: linear-gradient(135deg, #00af87, #00c899);">
+              <h4>Blue's Micro Pub</h4>
+              <div class="card-subtitle">Whitburn's Award-Winning Micropub</div>
+            </div>
+            <div class="print-card-body">
+              <p style="font-size: 0.88rem; font-weight: 600; color: #00af87; margin-bottom: 0.8rem;">Visiting the coast? Share your experience!</p>
+              <div class="step">
+                <span class="step-num" style="background:#00af87;">1</span>
+                <span>Scan the QR code below with your phone camera</span>
+              </div>
+              <div class="step">
+                <span class="step-num" style="background:#00af87;">2</span>
+                <span>Tap the link to open our TripAdvisor page</span>
+              </div>
+              <div class="step">
+                <span class="step-num" style="background:#00af87;">3</span>
+                <span>Tap "Write a Review" and share what you enjoyed</span>
+              </div>
+              <div class="step">
+                <span class="step-num" style="background:#00af87;">4</span>
+                <span>Submit &mdash; thank you! Every review helps travellers find us</span>
+              </div>
+              <div class="qr-placeholder" style="border:none;background:none;width:auto;height:auto;padding:0.4rem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 21 21" shape-rendering="crispEdges">
+                  <rect width="21" height="21" fill="#fff"/>
+                  <rect x="0" y="0" width="7" height="7" fill="none" stroke="#00af87" stroke-width="0.6"/>
+                  <rect x="1" y="1" width="5" height="5" fill="none" stroke="#00af87" stroke-width="0.4"/>
+                  <rect x="2" y="2" width="3" height="3" fill="#00af87"/>
+                  <rect x="14" y="0" width="7" height="7" fill="none" stroke="#00af87" stroke-width="0.6"/>
+                  <rect x="15" y="1" width="5" height="5" fill="none" stroke="#00af87" stroke-width="0.4"/>
+                  <rect x="16" y="2" width="3" height="3" fill="#00af87"/>
+                  <rect x="0" y="14" width="7" height="7" fill="none" stroke="#00af87" stroke-width="0.6"/>
+                  <rect x="1" y="15" width="5" height="5" fill="none" stroke="#00af87" stroke-width="0.4"/>
+                  <rect x="2" y="16" width="3" height="3" fill="#00af87"/>
+                  <rect x="8" y="2" width="1" height="1" fill="#00af87"/><rect x="10" y="3" width="1" height="1" fill="#00af87"/><rect x="9" y="5" width="1" height="1" fill="#00af87"/><rect x="11" y="1" width="1" height="1" fill="#00af87"/><rect x="8" y="8" width="1" height="1" fill="#00af87"/><rect x="10" y="8" width="1" height="1" fill="#00af87"/><rect x="12" y="8" width="1" height="1" fill="#00af87"/><rect x="9" y="10" width="1" height="1" fill="#00af87"/><rect x="11" y="10" width="1" height="1" fill="#00af87"/><rect x="8" y="12" width="1" height="1" fill="#00af87"/><rect x="10" y="12" width="1" height="1" fill="#00af87"/><rect x="12" y="12" width="1" height="1" fill="#00af87"/><rect x="14" y="9" width="1" height="1" fill="#00af87"/><rect x="16" y="10" width="1" height="1" fill="#00af87"/><rect x="18" y="9" width="1" height="1" fill="#00af87"/><rect x="15" y="12" width="1" height="1" fill="#00af87"/><rect x="17" y="11" width="1" height="1" fill="#00af87"/><rect x="19" y="12" width="1" height="1" fill="#00af87"/><rect x="9" y="14" width="1" height="1" fill="#00af87"/><rect x="11" y="15" width="1" height="1" fill="#00af87"/><rect x="9" y="17" width="1" height="1" fill="#00af87"/><rect x="14" y="14" width="1" height="1" fill="#00af87"/><rect x="16" y="15" width="1" height="1" fill="#00af87"/><rect x="18" y="14" width="1" height="1" fill="#00af87"/><rect x="15" y="17" width="1" height="1" fill="#00af87"/><rect x="17" y="18" width="1" height="1" fill="#00af87"/><rect x="19" y="16" width="1" height="1" fill="#00af87"/>
+                </svg>
+                <div style="font-size:0.55rem;font-weight:600;color:#00af87;margin-top:4px">YOUR TRIPADVISOR QR</div>
+                <div style="font-size:0.5rem;color:#999">Generate free at qr-code-generator.com</div>
+              </div>
+            </div>
+            <div class="print-card-footer">
+              <strong style="color:#00af87;">Blue's Micro Pub</strong> &bull; 1a Percy Terrace, Whitburn SR6 7EW
+            </div>
+          </div>
+
+          <div style="text-align:center;">
+            <button class="print-btn" onclick="printCard('tripadvisor-review-card')">&#128424; Print This Card</button>
+          </div>
+          <p class="print-instructions">Generate QR from your TripAdvisor listing URL at qr-code-generator.com</p>
+        </div>
+      </div>
+
+      <!-- Your Best Reviews guidance -->
+      <div style="background:rgba(212,168,83,0.06);border:1px solid rgba(212,168,83,0.2);border-left:3px solid var(--accent);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem">
+        <h4 style="color:var(--accent);font-size:0.85rem;margin-bottom:0.5rem">&#11088; Your Best Reviews &mdash; Use Them Everywhere</h4>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem">You have <strong style="color:var(--text)">4.9 stars from 119+ Google reviews</strong>. Pull 3&ndash;4 of your favourite customer quotes and use them across your marketing. Real customer words are more powerful than anything we could write.</p>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem"><strong style="color:var(--text)">Where to find them:</strong> Google Maps &rarr; search "Blue's Micro Pub Whitburn" &rarr; click your listing &rarr; scroll to reviews. Sort by "Newest" or "Highest".</p>
+        <p style="font-size:0.82rem;color:var(--muted)"><strong style="color:var(--text)">Where to use them:</strong> Google Business posts (below), review cards, Instagram Stories, Instagram bio, and your website. A short customer quote on the review tent card adds social proof that encourages others to leave their own review.</p>
+      </div>
+
+      <!-- ASSET 3: 6 Google Posts -->
+      <div class="asset-block">
+        <div class="asset-header" onclick="toggleAsset(this)">
+          <h3><span class="asset-icon">&#128221;</span> 6 Pre-Written Google Posts</h3>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span class="asset-tier">Tier 1</span>
+            <span class="asset-toggle">&#9660;</span>
+          </div>
+        </div>
+        <div class="asset-body">
+          <p style="font-size: 0.83rem; color: var(--muted); margin-bottom: 0.5rem;">Copy and paste these into Google Business Profile &rarr; "Add update". Add a photo and select the specified CTA button. Each post is under 1,500 characters (Google's limit).</p>
+
           <div class="post-grid">
+
             <div class="post-card">
               <div class="post-week">Week 1</div>
-              <div class="post-title">We're CAMRA's Pub of the Year!</div>
-              <div class="post-body">Blue's Micro Pub has been named CAMRA National Pub of the Year 2026 AND Cider Pub of the Year. Come see what all the fuss is about. 5 cask ales, 6 real ciders, 9 keg lines. Whitburn village.</div>
+              <div class="copy-box" style="margin:0; border:none; background:transparent; padding:0;">
+                <div class="post-body" id="gpost-1">Award-winning ales in the heart of Whitburn. Blue's Micro Pub has just been named Sunderland &amp; South Tyneside CAMRA Pub of the Year AND Cider Pub of the Year 2026. Come and see what the judges loved &mdash; up to four cask ales on rotation, six real ciders, and a warm welcome from Cal and Alice. Open Wednesday to Sunday. Walk in, pull up a stool, and discover your new local.</div>
+                <button class="copy-btn" onclick="copyText('gpost-1', this)">Copy</button>
+              </div>
+              <div class="post-cta">CTA: Learn More</div>
+              <div class="post-chars">~430 chars</div>
             </div>
+
             <div class="post-card">
               <div class="post-week">Week 2</div>
-              <div class="post-title">Cask Club This Week</div>
-              <div class="post-body">Join us for Cask Club &mdash; available Wed, Thu &amp; Sun. Explore rotating cask ales hand-picked by Cal. Perfect for discovering your new favourite pint. No booking needed.</div>
+              <div class="copy-box" style="margin:0; border:none; background:transparent; padding:0;">
+                <div class="post-body" id="gpost-2">What's on tap this week? We rotate our beers constantly so there's always something new to try. Right now we're pouring cask ales from some of the North East's finest independent breweries alongside a cider selection you won't find anywhere else in Whitburn. No bookings needed, no fuss &mdash; just great beer, good company, and a pub that puts the drink first. Pop in and see what's pouring.</div>
+                <button class="copy-btn" onclick="copyText('gpost-2', this)">Copy</button>
+              </div>
+              <div class="post-cta">CTA: Call Now</div>
+              <div class="post-chars">~440 chars</div>
             </div>
+
             <div class="post-card">
               <div class="post-week">Week 3</div>
-              <div class="post-title">Pie &amp; Pint Thursdays</div>
-              <div class="post-body">The best midweek treat in Whitburn. Grab a pie and a perfectly pulled pint every Thursday at Blue's. Proper pub grub, proper cask ale. See you from 4pm.</div>
+              <div class="copy-box" style="margin:0; border:none; background:transparent; padding:0;">
+                <div class="post-body" id="gpost-3">Walking the coast path? Blue's Micro Pub is a two-minute detour from Whitburn village, right on the route between Roker and Souter Lighthouse. Warm up with a proper pint after your cliff walk. We're compact, friendly, and serve some of the best cask ale on the North East coast. Dogs welcome, muddy boots no problem. Check us out on Google Maps for directions.</div>
+                <button class="copy-btn" onclick="copyText('gpost-3', this)">Copy</button>
+              </div>
+              <div class="post-cta">CTA: Get Directions</div>
+              <div class="post-chars">~410 chars</div>
             </div>
+
             <div class="post-card">
               <div class="post-week">Week 4</div>
-              <div class="post-title">Meet Our Cider Range</div>
-              <div class="post-body">CAMRA Cider Pub of the Year 2026 &mdash; and for good reason. We serve 6 real ciders, always rotating, always from independent producers. If you think you don't like cider, let us change your mind.</div>
+              <div class="copy-box" style="margin:0; border:none; background:transparent; padding:0;">
+                <div class="post-body" id="gpost-4">Why do 119 reviewers give us 4.9 stars? Maybe it's the five constantly rotating cask ales. Maybe it's the six real ciders you can't get elsewhere. Maybe it's just the feeling of a proper pub where the people who serve you are the people who built it. Whatever it is, come find out for yourself. Blue's Micro Pub, Whitburn &mdash; small pub, big heart.</div>
+                <button class="copy-btn" onclick="copyText('gpost-4', this)">Copy</button>
+              </div>
+              <div class="post-cta">CTA: Learn More</div>
+              <div class="post-chars">~400 chars</div>
             </div>
+
             <div class="post-card">
               <div class="post-week">Week 5</div>
-              <div class="post-title">Whisky Club &mdash; First Monday</div>
-              <div class="post-body">Our monthly Whisky Club meets the first Monday of every month. An evening of rare drams, tasting notes, and great conversation. All levels welcome. One night we open our doors on a Monday.</div>
+              <div class="copy-box" style="margin:0; border:none; background:transparent; padding:0;">
+                <div class="post-body" id="gpost-5">Real cider lovers, this one's for you. Blue's was named CAMRA Cider Pub of the Year 2026 for Sunderland &amp; South Tyneside &mdash; and with six real ciders on at any time, we take that title seriously. From dry and tannic to sweet and fruity, there's something for every palate. Not sure what to try? Ask Cal &mdash; he'll find your perfect pour.</div>
+                <button class="copy-btn" onclick="copyText('gpost-5', this)">Copy</button>
+              </div>
+              <div class="post-cta">CTA: Call Now</div>
+              <div class="post-chars">~400 chars</div>
             </div>
+
             <div class="post-card">
               <div class="post-week">Week 6</div>
-              <div class="post-title">Dog-Friendly in Whitburn</div>
-              <div class="post-body">Four legs welcome at Blue's! Bring your best friend for a walk through Whitburn village and pop in for a pint. Water bowls and treats available. Dog-friendly every session.</div>
+              <div class="copy-box" style="margin:0; border:none; background:transparent; padding:0;">
+                <div class="post-body" id="gpost-6">Whitburn's best-kept secret? Not for long. Blue's Micro Pub sits on Percy Terrace in the heart of the village, and we're proud to serve some of the finest cask ales and real ciders in the North East. Whether you're a local looking for a proper local or a visitor exploring the coast, there's a stool and a pint with your name on it. See you soon.</div>
+                <button class="copy-btn" onclick="copyText('gpost-6', this)">Copy</button>
+              </div>
+              <div class="post-cta">CTA: Get Directions</div>
+              <div class="post-chars">~390 chars</div>
             </div>
-            <div class="post-card">
-              <div class="post-week">Week 7</div>
-              <div class="post-title">Our Beer Garden Is Open</div>
-              <div class="post-body">Spring sunshine and a fresh pint in our beer garden. The perfect Whitburn afternoon. Join us from Friday through Sunday &mdash; or midweek from 4pm Wed-Thu.</div>
-            </div>
-            <div class="post-card">
-              <div class="post-week">Week 8</div>
-              <div class="post-title">Running Club Thursdays</div>
-              <div class="post-body">Lace up and join Blue's Running Club every Thursday. All paces welcome. Followed by well-earned pints and Pie &amp; Pint night. The best post-run recovery in the North East.</div>
-            </div>
-            <div class="post-card">
-              <div class="post-week">Week 9</div>
-              <div class="post-title">What's On Tap This Weekend</div>
-              <div class="post-body">5 cask ales, 6 real ciders, 9 keg lines &mdash; all rotating. This weekend's lineup is our best yet. Pop in from 12:30 Saturday or Sunday and let Cal talk you through the board.</div>
-            </div>
-            <div class="post-card">
-              <div class="post-week">Week 10</div>
-              <div class="post-title">The Snug Room</div>
-              <div class="post-body">Our cosy snug room is the perfect spot for a quiet pint with friends. Intimate, warm, and away from the crowd. A micropub within a micropub. Come discover it.</div>
-            </div>
-            <div class="post-card">
-              <div class="post-week">Week 11</div>
-              <div class="post-title">Cal &amp; Alice's Story</div>
-              <div class="post-body">Blue's was born in 2020 when Cal &amp; Alice Watson turned their dream into Whitburn's micropub. Five years on: CAMRA Pub of the Year. Every pint is chosen with care, every visitor is a friend.</div>
-            </div>
-            <div class="post-card">
-              <div class="post-week">Week 12</div>
-              <div class="post-title">Visit the Award Winner</div>
-              <div class="post-body">Planning a trip to the North East? Blue's Micro Pub in Whitburn village is CAMRA's Pub &amp; Cider Pub of the Year 2026. A must-visit for any beer lover. Card payments only. See you soon.</div>
-            </div>
+
           </div>
         </div>
       </div>
 
-      <!-- Asset 3: Review Card -->
+      <!-- ASSET 4: Find Us Online Card -->
       <div class="asset-block">
         <div class="asset-header" onclick="toggleAsset(this)">
-          <h3><span class="asset-icon">&#11088;</span> Review Request Card</h3>
-          <span class="asset-toggle">&#9660;</span>
+          <h3><span class="asset-icon">&#127760;</span> Printable "Find Us Online" Card</h3>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span class="asset-tier">Tier 2</span>
+            <span class="asset-toggle">&#9660;</span>
+          </div>
         </div>
         <div class="asset-body">
-          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.8rem;">Print these as small cards to leave at the bar or hand out with the bill. Add a QR code linking to your Google review page.</p>
-          <div class="review-card-preview">
-            <h4>Thanks for visiting Blue's!</h4>
-            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p>If you enjoyed your time with us,<br>we'd love a Google review.</p>
-            <div class="qr-placeholder">QR CODE<br>HERE</div>
-            <p>Search <strong>"Blues Micro Pub Whitburn"</strong> on Google</p>
-            <p class="small-text">We're at 4.9 stars &mdash; help us stay there!</p>
+          <p style="font-size: 0.83rem; color: var(--muted); margin-bottom: 0.8rem;">One card by the till showing customers every platform where they can find, follow, and review Blue's. Add QR codes for Google and TripAdvisor reviews.</p>
+
+          <div class="findus-card" id="findus-card">
+            <div class="findus-top">
+              <h4>Find Us Online</h4>
+              <div class="card-subtitle">Blue's Micro Pub &bull; Whitburn</div>
+            </div>
+            <div class="findus-body">
+              <div class="findus-row">
+                <div class="findus-icon google">G</div>
+                <div class="findus-info">
+                  <div class="platform-name">Google</div>
+                  <div class="platform-handle">Search "Blue's Micro Pub Whitburn"</div>
+                </div>
+                <div class="findus-qr" title="Generate at qr-code-generator.com"><svg width="28" height="28" viewBox="0 0 7 7" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="7" height="7" fill="#fff"/><rect x="0" y="0" width="3" height="3" fill="none" stroke="#1B4B7A" stroke-width="0.4"/><rect x="1" y="1" width="1" height="1" fill="#1B4B7A"/><rect x="4" y="0" width="3" height="3" fill="none" stroke="#1B4B7A" stroke-width="0.4"/><rect x="5" y="1" width="1" height="1" fill="#1B4B7A"/><rect x="0" y="4" width="3" height="3" fill="none" stroke="#1B4B7A" stroke-width="0.4"/><rect x="1" y="5" width="1" height="1" fill="#1B4B7A"/><rect x="3" y="3" width="1" height="1" fill="#1B4B7A"/><rect x="5" y="5" width="1" height="1" fill="#1B4B7A"/><rect x="4" y="4" width="1" height="1" fill="#1B4B7A"/><rect x="6" y="6" width="1" height="1" fill="#1B4B7A"/></svg></div>
+              </div>
+              <div class="findus-row">
+                <div class="findus-icon trip">TA</div>
+                <div class="findus-info">
+                  <div class="platform-name">TripAdvisor</div>
+                  <div class="platform-handle">Search "Blue's Micro Pub"</div>
+                </div>
+                <div class="findus-qr" title="Generate at qr-code-generator.com"><svg width="28" height="28" viewBox="0 0 7 7" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="7" height="7" fill="#fff"/><rect x="0" y="0" width="3" height="3" fill="none" stroke="#00af87" stroke-width="0.4"/><rect x="1" y="1" width="1" height="1" fill="#00af87"/><rect x="4" y="0" width="3" height="3" fill="none" stroke="#00af87" stroke-width="0.4"/><rect x="5" y="1" width="1" height="1" fill="#00af87"/><rect x="0" y="4" width="3" height="3" fill="none" stroke="#00af87" stroke-width="0.4"/><rect x="1" y="5" width="1" height="1" fill="#00af87"/><rect x="3" y="3" width="1" height="1" fill="#00af87"/><rect x="5" y="5" width="1" height="1" fill="#00af87"/><rect x="4" y="4" width="1" height="1" fill="#00af87"/><rect x="6" y="6" width="1" height="1" fill="#00af87"/></svg></div>
+              </div>
+              <div class="findus-row">
+                <div class="findus-icon insta">IG</div>
+                <div class="findus-info">
+                  <div class="platform-name">Instagram</div>
+                  <div class="platform-handle">@bluesmicropub</div>
+                </div>
+                <div class="findus-qr" title="Generate at qr-code-generator.com"><svg width="28" height="28" viewBox="0 0 7 7" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="7" height="7" fill="#fff"/><rect x="0" y="0" width="3" height="3" fill="none" stroke="#E1306C" stroke-width="0.4"/><rect x="1" y="1" width="1" height="1" fill="#E1306C"/><rect x="4" y="0" width="3" height="3" fill="none" stroke="#E1306C" stroke-width="0.4"/><rect x="5" y="1" width="1" height="1" fill="#E1306C"/><rect x="0" y="4" width="3" height="3" fill="none" stroke="#E1306C" stroke-width="0.4"/><rect x="1" y="5" width="1" height="1" fill="#E1306C"/><rect x="3" y="3" width="1" height="1" fill="#E1306C"/><rect x="5" y="5" width="1" height="1" fill="#E1306C"/><rect x="4" y="4" width="1" height="1" fill="#E1306C"/><rect x="6" y="6" width="1" height="1" fill="#E1306C"/></svg></div>
+              </div>
+              <div class="findus-row">
+                <div class="findus-icon fb">fb</div>
+                <div class="findus-info">
+                  <div class="platform-name">Facebook</div>
+                  <div class="platform-handle">/Bluesmicropub</div>
+                </div>
+                <div class="findus-qr" title="Generate at qr-code-generator.com"><svg width="28" height="28" viewBox="0 0 7 7" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="7" height="7" fill="#fff"/><rect x="0" y="0" width="3" height="3" fill="none" stroke="#1877F2" stroke-width="0.4"/><rect x="1" y="1" width="1" height="1" fill="#1877F2"/><rect x="4" y="0" width="3" height="3" fill="none" stroke="#1877F2" stroke-width="0.4"/><rect x="5" y="1" width="1" height="1" fill="#1877F2"/><rect x="0" y="4" width="3" height="3" fill="none" stroke="#1877F2" stroke-width="0.4"/><rect x="1" y="5" width="1" height="1" fill="#1877F2"/><rect x="3" y="3" width="1" height="1" fill="#1877F2"/><rect x="5" y="5" width="1" height="1" fill="#1877F2"/><rect x="4" y="4" width="1" height="1" fill="#1877F2"/><rect x="6" y="6" width="1" height="1" fill="#1877F2"/></svg></div>
+              </div>
+              <div class="findus-row">
+                <div class="findus-icon untappd">U</div>
+                <div class="findus-info">
+                  <div class="platform-name">Untappd</div>
+                  <div class="platform-handle">Blue's Micro Pub</div>
+                </div>
+                <div class="findus-qr" title="Generate at qr-code-generator.com"><svg width="28" height="28" viewBox="0 0 7 7" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="7" height="7" fill="#fff"/><rect x="0" y="0" width="3" height="3" fill="none" stroke="#FFC000" stroke-width="0.4"/><rect x="1" y="1" width="1" height="1" fill="#FFC000"/><rect x="4" y="0" width="3" height="3" fill="none" stroke="#FFC000" stroke-width="0.4"/><rect x="5" y="1" width="1" height="1" fill="#FFC000"/><rect x="0" y="4" width="3" height="3" fill="none" stroke="#FFC000" stroke-width="0.4"/><rect x="1" y="5" width="1" height="1" fill="#FFC000"/><rect x="3" y="3" width="1" height="1" fill="#FFC000"/><rect x="5" y="5" width="1" height="1" fill="#FFC000"/><rect x="4" y="4" width="1" height="1" fill="#FFC000"/><rect x="6" y="6" width="1" height="1" fill="#FFC000"/></svg></div>
+              </div>
+              <div class="findus-row">
+                <div class="findus-icon web">W</div>
+                <div class="findus-info">
+                  <div class="platform-name">Website</div>
+                  <div class="platform-handle">bluesmicropub.square.site</div>
+                </div>
+                <div class="findus-qr" title="Generate at qr-code-generator.com"><svg width="28" height="28" viewBox="0 0 7 7" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="7" height="7" fill="#fff"/><rect x="0" y="0" width="3" height="3" fill="none" stroke="#1B4B7A" stroke-width="0.4"/><rect x="1" y="1" width="1" height="1" fill="#1B4B7A"/><rect x="4" y="0" width="3" height="3" fill="none" stroke="#1B4B7A" stroke-width="0.4"/><rect x="5" y="1" width="1" height="1" fill="#1B4B7A"/><rect x="0" y="4" width="3" height="3" fill="none" stroke="#1B4B7A" stroke-width="0.4"/><rect x="1" y="5" width="1" height="1" fill="#1B4B7A"/><rect x="3" y="3" width="1" height="1" fill="#1B4B7A"/><rect x="5" y="5" width="1" height="1" fill="#1B4B7A"/><rect x="4" y="4" width="1" height="1" fill="#1B4B7A"/><rect x="6" y="6" width="1" height="1" fill="#1B4B7A"/></svg></div>
+              </div>
+            </div>
+            <div class="findus-footer">
+              <strong>Blue's Micro Pub</strong> &bull; 1a Percy Terrace, Whitburn SR6 7EW &bull; CAMRA Pub of the Year 2026
+            </div>
           </div>
-          <div class="copy-box" style="margin-top:0.8rem;">
-            <button class="copy-btn" onclick="copyText(this, 'review-card-text')">Copy</button>
-            <p id="review-card-text">Thanks for visiting Blue's!
 
-If you enjoyed your time with us, we'd love a Google review.
-
-[QR CODE &mdash; link to Google review page]
-
-Search "Blues Micro Pub Whitburn" on Google
-
-We're at 4.9 stars &mdash; help us stay there!</p>
+          <div style="text-align:center;">
+            <button class="print-btn" onclick="printCard('findus-card')">&#128424; Print This Card</button>
           </div>
+          <p class="print-instructions">Print on card stock and place by the till. Generate QR codes at qr-code-generator.com for each platform URL.</p>
         </div>
       </div>
 
-      <!-- Asset 4: TripAdvisor Description -->
+      <!-- ASSET 5: Google Business Description -->
       <div class="asset-block">
         <div class="asset-header" onclick="toggleAsset(this)">
-          <h3><span class="asset-icon">&#127757;</span> TripAdvisor Description</h3>
-          <span class="asset-toggle">&#9660;</span>
+          <h3><span class="asset-icon">&#128196;</span> Google Business Profile Description</h3>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span class="asset-tier">Tier 2</span>
+            <span class="asset-toggle">&#9660;</span>
+          </div>
         </div>
         <div class="asset-body">
-          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.6rem;">Copy and paste this into your TripAdvisor listing:</p>
+          <p style="font-size: 0.83rem; color: var(--muted); margin-bottom: 0.5rem;">Copy and paste this into your Google Business Profile &rarr; Info &rarr; Business description. Written with local SEO keywords for maximum search visibility. Max 750 characters.</p>
+
           <div class="copy-box">
-            <button class="copy-btn" onclick="copyText(this, 'ta-desc-text')">Copy</button>
-            <p id="ta-desc-text">Blue's Micro Pub is an award-winning micropub in the heart of Whitburn village, South Tyneside. Named CAMRA National Pub of the Year 2026 and CAMRA Cider Pub of the Year 2026, we serve a carefully curated selection of up to 5 cask ales, 6 real ciders, and 9 keg beers &mdash; all from independent breweries and producers.
-
-Owned and run by Cal and Alice Watson since 2020, Blue's offers a warm, welcoming atmosphere with a cosy snug room and outdoor beer garden. We're dog-friendly, card payments only, and proud to be part of the Whitburn community.
-
-Weekly events: Cask Club (Wed, Thu &amp; Sun), Pie &amp; Pint Thursday, Running Club Thursday, and Whisky Club on the first Monday of each month.
-
-Opening hours: Wed-Thu 4-10pm, Fri 3-10:30pm, Sat 12:30-10:30pm, Sun 12:30-9pm. Closed Mon-Tue (except first Monday for Whisky Club).</p>
+            <button class="copy-btn" onclick="copyText('gbp-desc', this)">Copy</button>
+            <p id="gbp-desc">Blue's Micro Pub is an award-winning micropub in Whitburn village, South Tyneside. Named Sunderland &amp; South Tyneside CAMRA Pub of the Year and Cider Pub of the Year 2026, we serve five rotating cask ales, six real ciders, and nine keg beers in a warm, welcoming setting. Run by Cal and Alice, Blue's is a proper community pub where the beer comes first. Whether you're a local, a coast path walker, or a craft beer enthusiast exploring the North East, you'll find something special on tap. No bookings needed &mdash; just walk in. 1a Percy Terrace, Whitburn, SR6 7EW.</p>
+          </div>
+          <div class="gap-note" style="margin-top: 0;">
+            <strong>Note:</strong> Beer and cider counts are based on unverified data. Confirm with Cal and Alice before publishing.
           </div>
         </div>
       </div>
 
-      <!-- Asset 5: Website Structure -->
+      <!-- ASSET 6: TripAdvisor Description -->
       <div class="asset-block">
         <div class="asset-header" onclick="toggleAsset(this)">
-          <h3><span class="asset-icon">&#128196;</span> Suggested Website Structure</h3>
-          <span class="asset-toggle">&#9660;</span>
-        </div>
-        <div class="asset-body">
-          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.6rem;">If you upgrade or rebuild the site, here's the minimum page structure with content guidance:</p>
-          <div class="sitemap-block">
-            <div class="sitemap-page">
-              <h4>Home</h4>
-              <p>Hero image with CAMRA Pub of the Year 2026 badge. Tagline. Quick snapshot of what's on tap today. Next upcoming event. Opening hours. Link to Google Maps.</p>
-            </div>
-            <div class="sitemap-page">
-              <h4>About Us</h4>
-              <p>Cal and Alice's story &mdash; how Blue's was born in 2020, the journey to CAMRA Pub of the Year. The micropub philosophy: independent beer, community spirit, friendly welcome. Photos of the team.</p>
-            </div>
-            <div class="sitemap-page">
-              <h4>What's On</h4>
-              <p>Events calendar: Cask Club (Wed/Thu/Sun), Pie &amp; Pint Thursday, Running Club Thursday, Whisky Club (1st Monday). Seasonal events and one-offs. Each event with description, time, and what to expect.</p>
-            </div>
-            <div class="sitemap-page">
-              <h4>Beer Board</h4>
-              <p>Current taps &mdash; updated regularly. 5 cask ales, 6 real ciders, 9 keg lines. Brewery names, beer styles, ABV. Could integrate with Untappd. A reason for people to check your site before visiting.</p>
-            </div>
-            <div class="sitemap-page">
-              <h4>Find Us</h4>
-              <p>Embedded Google Map. Full address. Opening hours (with Whisky Club exception). "Card payments only" notice. Parking tips. Public transport options. Nearby walking routes.</p>
-            </div>
-            <div class="sitemap-page">
-              <h4>Awards</h4>
-              <p>CAMRA Pub of the Year 2026. CAMRA Cider Pub of the Year 2026. Any regional wins. Press coverage links (Shields Gazette, Sunderland Echo). Photos from award ceremonies.</p>
-            </div>
+          <h3><span class="asset-icon">&#128196;</span> TripAdvisor Description</h3>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span class="asset-tier">Tier 2</span>
+            <span class="asset-toggle">&#9660;</span>
           </div>
         </div>
-      </div>
-
-      <!-- Asset 6: SEO Keywords -->
-      <div class="asset-block">
-        <div class="asset-header" onclick="toggleAsset(this)">
-          <h3><span class="asset-icon">&#128273;</span> 16 Local SEO Keywords</h3>
-          <span class="asset-toggle">&#9660;</span>
-        </div>
         <div class="asset-body">
-          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.6rem;">Target these keywords across your website, Google Business Profile, and directory listings:</p>
-          <div class="keyword-grid">
-            <span class="keyword-tag">micropub whitburn</span>
-            <span class="keyword-tag">blues micro pub</span>
-            <span class="keyword-tag">camra pub of the year 2026</span>
-            <span class="keyword-tag">camra cider pub of the year</span>
-            <span class="keyword-tag">craft beer south tyneside</span>
-            <span class="keyword-tag">real ale sunderland</span>
-            <span class="keyword-tag">cider pub north east</span>
-            <span class="keyword-tag">best pub whitburn</span>
-            <span class="keyword-tag">micropub near sunderland</span>
-            <span class="keyword-tag">craft beer whitburn village</span>
-            <span class="keyword-tag">dog friendly pub whitburn</span>
-            <span class="keyword-tag">beer garden south tyneside</span>
-            <span class="keyword-tag">cask ale north east england</span>
-            <span class="keyword-tag">things to do whitburn</span>
-            <span class="keyword-tag">whisky club north east</span>
-            <span class="keyword-tag">micropub near me sunderland</span>
+          <p style="font-size: 0.83rem; color: var(--muted); margin-bottom: 0.5rem;">Copy and paste into your TripAdvisor listing &rarr; Manage Listing &rarr; Description. Tailored for tourists and visitors discovering Whitburn.</p>
+
+          <div class="copy-box">
+            <button class="copy-btn" onclick="copyText('ta-desc', this)">Copy</button>
+            <p id="ta-desc">Blue's Micro Pub is Whitburn's award-winning micropub, just minutes from the coast path between Roker and Souter Lighthouse. Winner of the 2026 CAMRA Pub of the Year and Cider Pub of the Year for Sunderland &amp; South Tyneside, Blue's serves a rotating selection of cask ales, real ciders, and keg beers in a cosy, friendly setting. Run by Cal and Alice, it's the perfect stop after a cliff walk or a reason to visit Whitburn in its own right. No bookings, no pretension &mdash; just brilliant beer and great company. Walk-ins welcome.</p>
+          </div>
+          <div class="gap-note" style="margin-top: 0;">
+            <strong>Note:</strong> Confirm that "minutes from the coast path" is accurate and adjust if needed.
           </div>
         </div>
       </div>
 
     </div>
 
-  </div><!-- /tab-content-wrapper -->
-</div><!-- /tab-container -->
+  </div><!-- end tab-content-wrapper -->
+</div><!-- end tab-container -->
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p>A gift from <strong>Pink House Trading</strong> | <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
-</footer>
+<!-- Footer -->
+<div class="footer">
+  <p>A <strong>Pink House Trading</strong> Product &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
+  <p style="font-size: 0.65rem; margin-top: 0.3rem; color: rgba(139,164,196,0.5);">Data verified 30 March 2026. Google rating: 4.9/119+ reviews (source: Shields Gazette, June 2025). All metrics are point-in-time snapshots.</p>
+</div>
 
 <script>
-// Tab switching
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+function switchTab(index) {
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
   });
-});
-
-// Asset accordion toggle
-function toggleAsset(header) {
-  const block = header.parentElement;
-  block.classList.toggle('open');
+  document.querySelectorAll('.tab-panel').forEach((panel, i) => {
+    panel.classList.toggle('active', i === index);
+  });
 }
 
-// Copy to clipboard
-function copyText(btn, id) {
+function toggleAsset(header) {
+  header.closest('.asset-block').classList.toggle('open');
+}
+
+function copyText(id, btn) {
   const el = document.getElementById(id);
-  if (!el) {
-    // Fallback: copy all text from the copy-box
-    const box = btn.closest('.copy-box');
-    const text = box ? box.innerText.replace('Copy', '').trim() : '';
-    navigator.clipboard.writeText(text);
-  } else {
-    navigator.clipboard.writeText(el.innerText);
-  }
-  btn.textContent = 'Copied!';
-  btn.classList.add('copied');
-  setTimeout(() => {
-    btn.textContent = 'Copy';
-    btn.classList.remove('copied');
-  }, 2000);
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function printCard(cardId) {
+  const card = document.getElementById(cardId);
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Print Card</title>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; }
+        ${document.querySelector('style').textContent}
+        .print-card, .findus-card { box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+        @media print {
+          body { min-height: auto; }
+          .print-card, .findus-card { box-shadow: none; border: 1px solid #ddd; }
+        }
+      </style>
+    </head>
+    <body>
+      ${card.outerHTML}
+    </body>
+    </html>
+  `);
+  printWindow.document.close();
+  printWindow.onload = function() {
+    printWindow.print();
+  };
 }
 </script>
+
 </body>
 </html>

@@ -135,7 +135,7 @@
     font-family: 'Playfair Display', serif;
     font-size: 4.5rem;
     font-weight: 700;
-    color: var(--critical);
+    color: var(--warning);
     line-height: 1;
   }
   .score-number span { color: var(--muted); font-size: 2.5rem; }
@@ -157,11 +157,57 @@
   }
   .score-bar-fill {
     height: 100%;
-    width: 30%;
-    background: linear-gradient(90deg, var(--critical), #F59E0B);
+    width: 50%;
+    background: linear-gradient(90deg, var(--warning), var(--gold));
     border-radius: 99px;
     transition: width 1s ease;
   }
+
+  /* METHODOLOGY BOX */
+  .methodology {
+    background: rgba(27,75,122,0.1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.25rem;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+  .methodology summary {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--gold);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .methodology p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 0.75rem;
+  }
+  .methodology table {
+    width: 100%;
+    margin-top: 0.75rem;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+  .methodology th {
+    text-align: left;
+    color: var(--gold);
+    font-weight: 600;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .methodology td {
+    color: var(--muted);
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid rgba(30,58,95,0.3);
+  }
+  .methodology td:last-child { text-align: center; }
 
   /* SECTION TITLES */
   .section-title {
@@ -227,6 +273,42 @@
   }
   .brand-equity strong { color: var(--gold); }
 
+  /* STRENGTHS CALLOUT */
+  .strengths-box {
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .strengths-box h3 {
+    font-size: 1.1rem;
+    color: var(--success);
+    margin-bottom: 1rem;
+  }
+  .strengths-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .strengths-box li {
+    position: relative;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    border-bottom: 1px solid rgba(16,185,129,0.12);
+    line-height: 1.6;
+  }
+  .strengths-box li:last-child { border-bottom: none; }
+  .strengths-box li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    color: var(--success);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
   /* TRAFFIC LIGHT CARDS */
   .tl-grid {
     display: flex;
@@ -289,28 +371,38 @@
     color: var(--muted);
     margin-bottom: 1.25rem;
   }
-  .competitor-list {
-    list-style: none;
-    padding: 0;
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
   }
-  .competitor-list li {
-    position: relative;
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    font-size: 0.88rem;
+  .comp-table th {
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--gold);
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .comp-table td {
+    padding: 0.55rem 0.75rem;
     color: var(--text);
-    border-bottom: 1px solid rgba(30,58,95,0.35);
+    border-bottom: 1px solid rgba(30,58,95,0.3);
   }
-  .competitor-list li:last-child { border-bottom: none; }
-  .competitor-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.85rem;
-    width: 8px;
-    height: 8px;
-    background: var(--success);
-    border-radius: 50%;
+  .comp-table .win { color: var(--success); font-weight: 600; }
+  .comp-table .lose { color: var(--muted); }
+  .comp-takeaway {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding: 0.75rem 0 0;
+    border-top: 1px solid var(--border);
   }
+  .comp-takeaway strong { color: var(--text); }
 
   /* ACTION PLAN */
   .action-card {
@@ -333,7 +425,6 @@
   .action-card.urgent::before { background: var(--critical); }
   .action-card.high::before { background: var(--warning); }
   .action-card.medium::before { background: var(--primary); }
-  .action-card.low::before { background: var(--muted); }
   .action-header {
     display: flex;
     align-items: center;
@@ -353,7 +444,6 @@
   .action-priority.urgent { background: rgba(239,68,68,0.15); color: var(--critical); }
   .action-priority.high { background: rgba(245,158,11,0.15); color: var(--warning); }
   .action-priority.medium { background: rgba(27,75,122,0.3); color: #6BA3D6; }
-  .action-priority.low { background: rgba(139,164,196,0.15); color: var(--muted); }
   .action-number {
     font-family: 'Playfair Display', serif;
     font-size: 0.85rem;
@@ -444,6 +534,56 @@
   }
   .swatch-copied.show { opacity: 1; }
 
+  /* TYPOGRAPHY PREVIEW */
+  .type-preview {
+    background: #0d1820;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 0.75rem;
+  }
+  .type-sample-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .type-sample-sub {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .type-sample-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 540px;
+  }
+  .type-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .type-meta-item {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .type-meta-item strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.82rem;
+    margin-bottom: 0.15rem;
+  }
+
   /* COPY BLOCKS */
   .copy-block {
     background: #0d1820;
@@ -498,6 +638,14 @@
   }
   .do-col li::before { content: '+'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
   .dont-col li::before { content: '\2013'; position: absolute; left: 0; color: var(--critical); font-weight: 700; }
+  .voice-example {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    padding-left: 1.25rem;
+    margin-top: -0.1rem;
+    margin-bottom: 0.5rem;
+  }
 
   /* TAGLINE CARDS */
   .tagline-grid {
@@ -549,6 +697,14 @@
     color: var(--gold);
     margin-bottom: 0.4rem;
   }
+  .char-count {
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 0.5rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
 
   /* PRIORITY MATRIX LEGEND */
   .priority-legend {
@@ -575,6 +731,95 @@
     flex-shrink: 0;
   }
 
+  /* BRAND CARD */
+  .brand-card-preview {
+    background: #fff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 396px;
+    aspect-ratio: 148 / 105;
+    margin: 0.75rem auto 0;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    color: #1a1a1a;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .brand-card-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #1B4B7A, #D4A853);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .bc-header {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1B4B7A;
+    margin-top: 0.25rem;
+  }
+  .bc-header span { color: #D4A853; }
+  .bc-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    color: #666;
+    margin-top: 0.15rem;
+    font-style: italic;
+  }
+  .bc-section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.52rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+    margin-bottom: 0.25rem;
+  }
+  .bc-swatches {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+  .bc-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .bc-fonts {
+    font-size: 0.58rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+  .bc-fonts span {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+  }
+  .bc-tone {
+    font-size: 0.55rem;
+    color: #777;
+    line-height: 1.4;
+  }
+  .bc-footer {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.48rem;
+    color: #aaa;
+    text-align: right;
+    margin-top: auto;
+  }
+
   /* FOOTER */
   .footer {
     text-align: center;
@@ -590,10 +835,12 @@
   @media print {
     body { background: #fff; color: #1a1a1a; }
     .tab-bar { display: none; }
-    .tab-content { display: block !important; opacity: 1 !important; max-width: 100%; }
+    .tab-content { display: block !important; opacity: 1 !important; max-width: 100%; page-break-before: always; }
+    .tab-content:first-of-type { page-break-before: auto; }
     .header { background: #fff; border-bottom-color: #ddd; }
     .header h1 { color: #1a1a1a; }
-    .swatch-colour, .colour-chip { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .swatch-colour, .colour-chip, .bc-swatch, .brand-card-preview::before { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .brand-card-preview { border: 1px solid #ccc; }
   }
 
   /* RESPONSIVE */
@@ -605,6 +852,8 @@
     .brand-detail { flex-direction: column; gap: 0.2rem; }
     .brand-detail-label { min-width: auto; }
     .header-meta { gap: 1rem; }
+    .type-meta { grid-template-columns: 1fr; }
+    .comp-table { font-size: 0.75rem; }
   }
 </style>
 </head>
@@ -617,14 +866,14 @@
   <p class="header-sub">Whitburn, Tyne and Wear</p>
   <div class="header-meta">
     <span>Prepared <strong>March 2026</strong></span>
-    <span>CAMRA Pub of the Year <strong>2026</strong></span>
+    <span>CAMRA Branch Pub of the Year <strong>2026</strong></span>
   </div>
 </header>
 
 <!-- TAB BAR -->
 <nav class="tab-bar">
   <button class="tab-btn active" data-tab="findings">What We Found</button>
-  <button class="tab-btn" data-tab="actions">Your Action Plan</button>
+  <button class="tab-btn" data-tab="actions">Action Plan</button>
   <button class="tab-btn" data-tab="assets">Ready-Made Assets</button>
 </nav>
 
@@ -633,115 +882,140 @@
 <!-- ============================================================ -->
 <section class="tab-content active" id="tab-findings">
 
+  <!-- Data Sources Note -->
+  <div style="background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:var(--muted);line-height:1.6;">
+    <strong style="color:var(--gold);">Data Sources</strong> &mdash; This assessment is based on publicly visible brand touchpoints: your Instagram feed (2,200 followers, 1,745 posts), Google Business listing (4.9&#9733; from 119 reviews), Facebook page, Untappd presence, and physical signage visible in posted photography. Logo, colour palette, and typography were assessed from your social media posts and Google listing imagery. Competitor comparison uses equivalent public data from Tamworth Tap.
+  </div>
+
   <!-- Overall Score -->
   <div class="score-hero">
-    <div class="score-number">3<span>/10</span></div>
-    <div class="score-label">Overall Brand Score</div>
+    <div class="score-number">5<span>/10</span></div>
+    <div class="score-label">Brand System Consistency Score</div>
     <div class="score-bar-track"><div class="score-bar-fill"></div></div>
+    <div class="methodology">
+      <details>
+        <summary>How we scored this</summary>
+        <p>This score measures <strong style="color:var(--text);">brand system consistency</strong> &mdash; whether your visual identity, typography, colours, and presentation work together as a unified system across every platform. It does <em>not</em> measure brand appeal, customer loyalty, or business quality. Blue's clearly has a brand that resonates: 2,200 Instagram followers, a 4.9-star Google rating, and two CAMRA branch awards prove that. This score identifies where the <em>system</em> behind the brand can be tightened up.</p>
+        <table>
+          <tr><th>Component</th><th>Weight</th><th>Score</th></tr>
+          <tr><td>Logo (scalable, professional format)</td><td>20%</td><td>2/10</td></tr>
+          <tr><td>Colour palette (defined, consistent)</td><td>15%</td><td>4/10</td></tr>
+          <tr><td>Typography (brand fonts, consistent use)</td><td>15%</td><td>3/10</td></tr>
+          <tr><td>Cross-platform consistency</td><td>20%</td><td>4/10</td></tr>
+          <tr><td>Tone of voice</td><td>15%</td><td>8/10</td></tr>
+          <tr><td>Award/credential visibility</td><td>15%</td><td>4/10</td></tr>
+        </table>
+      </details>
+    </div>
+  </div>
+
+  <!-- What's Already Working -->
+  <h2 class="section-title">What's Already Working</h2>
+  <p class="section-subtitle">These are genuine strengths to build on &mdash; not starting from scratch.</p>
+
+  <div class="strengths-box">
+    <h3>Your Brand Has Real Equity</h3>
+    <ul>
+      <li><strong>The name "Blue's" is distinctive and memorable.</strong> It's personal, it's a colour, and it immediately suggests character. Most pubs would pay good money for a name this strong.</li>
+      <li><strong>2,200 Instagram followers &mdash; more than the national CAMRA winner.</strong> Tamworth Tap, a three-time National Pub of the Year with its own brewery, has 1,792. Your two-person operation outperforms them by 23%. That's remarkable.</li>
+      <li><strong>1,745 Instagram posts show sustained commitment.</strong> This isn't a social media account that was set up and abandoned. You're consistently present and your audience is engaged.</li>
+      <li><strong>4.9 stars on Google (119 reviews) is near-perfect.</strong> Your reputation is excellent. People already love what you do.</li>
+      <li><strong>Your tone of voice is authentic and right.</strong> Friendly, unpretentious, warm. You sound like a great pub should sound &mdash; and that's harder to get right than most people think. Protect this.</li>
+      <li><strong>Double CAMRA branch awards in one year.</strong> Pub of the Year and Cider Pub of the Year 2026. That's a marketing asset that most pubs never earn.</li>
+    </ul>
   </div>
 
   <!-- Current Branding -->
-  <h2 class="section-title">Current Branding</h2>
-  <p class="section-subtitle">What you have right now and where it sits.</p>
+  <h2 class="section-title">Where the System Needs Polish</h2>
+  <p class="section-subtitle">The brand works. The system behind it needs tidying up.</p>
 
   <div class="current-brand">
     <h3>Identity Snapshot</h3>
     <div class="brand-detail">
       <span class="brand-detail-label">Business Name</span>
-      <span class="brand-detail-value">Blue's Micro Pub</span>
+      <span class="brand-detail-value">Blue's Micro Pub &mdash; strong, distinctive, personal</span>
     </div>
     <div class="brand-detail">
       <span class="brand-detail-label">Brand Colour</span>
-      <span class="brand-detail-value"><span class="colour-chip" style="background:#5d97c9;"></span>#5d97c9 (mid-blue, from Square site)</span>
+      <span class="brand-detail-value"><span class="colour-chip" style="background:#5d97c9;"></span>#5d97c9 (mid-blue, from Square site) &mdash; usable but no defined palette</span>
     </div>
     <div class="brand-detail">
       <span class="brand-detail-label">Logo</span>
-      <span class="brand-detail-value">Animated GIF — not professional, not scalable for print or signage</span>
+      <span class="brand-detail-value">Current logo &mdash; works online in a fun way, but may not scale to print, signage, or merch</span>
     </div>
     <div class="brand-detail">
       <span class="brand-detail-label">Website</span>
-      <span class="brand-detail-value">Basic Square template with default styling</span>
+      <span class="brand-detail-value">Square template &mdash; functional but using default fonts and styling</span>
     </div>
     <div class="brand-detail">
-      <span class="brand-detail-label">Visual Identity</span>
-      <span class="brand-detail-value">No consistent identity across platforms</span>
+      <span class="brand-detail-label">Cross-Platform</span>
+      <span class="brand-detail-value">Different look on Facebook, Instagram, Square site &mdash; no unified visual thread</span>
     </div>
     <div class="brand-equity">
-      <strong>Natural Brand Equity:</strong> The name "Blue's" is a genuine asset. Blue is the colour, it's memorable, it's personal. This gives you a head start that most businesses would envy — you just need the visual system to match.
+      <strong>The bottom line:</strong> You don't need a rebrand. You need brand polish. The personality, the name, the audience, and the reputation are all in place. What's missing is the visual system that ties it all together and makes Blue's look as good on paper as it feels in person.
     </div>
   </div>
 
   <!-- Traffic Light Assessments -->
   <h2 class="section-title">Area-by-Area Assessment</h2>
-  <p class="section-subtitle">Traffic-light ratings across seven core brand areas.</p>
+  <p class="section-subtitle">Traffic-light ratings across six core brand areas.</p>
 
   <div class="tl-grid">
     <div class="tl-card">
-      <span class="tl-badge critical">Critical</span>
-      <div>
-        <div class="tl-title">Logo</div>
-        <div class="tl-desc">Animated GIF, not a proper logo. Cannot be used on print, signage, or merchandise. A logo must work at any size, on any background, in any medium.</div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <span class="tl-badge warning">Warning</span>
-      <div>
-        <div class="tl-title">Colour Palette</div>
-        <div class="tl-desc">#5d97c9 is acceptable but lacks depth and personality. No secondary colours defined, no system in place for consistent usage.</div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <span class="tl-badge critical">Critical</span>
-      <div>
-        <div class="tl-title">Typography</div>
-        <div class="tl-desc">Default Square template fonts with no brand typography. Fonts are a huge part of personality — right now, you look like every other Square site.</div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <span class="tl-badge warning">Warning</span>
-      <div>
-        <div class="tl-title">Photography</div>
-        <div class="tl-desc">Relying on customer photos. No professional shots of the venue, beer selection, or owners. Your pub has character — your photos should show it.</div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <span class="tl-badge ok">OK</span>
+      <span class="tl-badge ok">Strong</span>
       <div>
         <div class="tl-title">Tone of Voice</div>
-        <div class="tl-desc">Friendly, authentic, unpretentious. This is a genuine strength. The way you talk online already sounds like a great pub should sound. Protect this.</div>
+        <div class="tl-desc">Friendly, authentic, unpretentious. This is your biggest brand asset after the name itself. The way you communicate online already sounds like a great pub should. Don't change this &mdash; just document it so it stays consistent.</div>
       </div>
     </div>
     <div class="tl-card">
-      <span class="tl-badge critical">Critical</span>
+      <span class="tl-badge ok">Strong</span>
       <div>
-        <div class="tl-title">Consistency</div>
-        <div class="tl-desc">Different look on Facebook, Instagram, and the Square site. No unified identity tying it all together. Customers should recognise you instantly, everywhere.</div>
+        <div class="tl-title">Social Engagement</div>
+        <div class="tl-desc">2,200 Instagram followers and 1,745 posts is outstanding for a two-person micropub. You're outperforming venues with professional marketing teams. This is a genuine competitive advantage.</div>
       </div>
     </div>
     <div class="tl-card">
-      <span class="tl-badge critical">Critical</span>
+      <span class="tl-badge warning">Needs Polish</span>
       <div>
-        <div class="tl-title">Award Integration</div>
-        <div class="tl-desc">CAMRA Pub of the Year 2026 should be front and centre everywhere. It's barely visible. This is the most powerful marketing asset you have right now.</div>
+        <div class="tl-title">Logo Format</div>
+        <div class="tl-desc">The existing logo mark has character, but it may not be production-ready. You need a version of your mark that works everywhere &mdash; on a glass, a business card, and a sign &mdash; alongside whatever you already use online.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge warning">Needs Polish</span>
+      <div>
+        <div class="tl-title">Colour Palette</div>
+        <div class="tl-desc">The blue from your Square site works but it's just one colour with no supporting palette. A defined set of colours &mdash; a richer blue, a gold accent, light and dark backgrounds &mdash; would give everything you produce a consistent, polished look.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge warning">Needs Polish</span>
+      <div>
+        <div class="tl-title">Typography</div>
+        <div class="tl-desc">Currently using Square's default fonts. Choosing two brand fonts (a serif for headings, a sans-serif for body) would immediately elevate menus, social graphics, and your website without any other changes.</div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <span class="tl-badge warning">Needs Polish</span>
+      <div>
+        <div class="tl-title">Cross-Platform Consistency</div>
+        <div class="tl-desc">Facebook, Instagram, and your website each look like different businesses. Consistent colours, fonts, and a defined logo would make Blue's instantly recognisable everywhere &mdash; and make the CAMRA awards more visible.</div>
       </div>
     </div>
   </div>
 
-  <!-- Competitor Comparison -->
-  <h2 class="section-title">Competitor Benchmark</h2>
-  <p class="section-subtitle">What the previous CAMRA Pub of the Year winner does well.</p>
+  <!-- Benchmark Comparison -->
+  <h2 class="section-title">Benchmark: Blue's vs Tamworth Tap</h2>
+  <p class="section-subtitle">A fair comparison against the three-time CAMRA National Pub of the Year.</p>
 
   <div class="competitor-panel">
-    <h3>Tamworth Tap</h3>
-    <p class="competitor-sub">CAMRA National Pub of the Year &mdash; what good looks like.</p>
-    <ul class="competitor-list">
-      <li>Professional branding with CAMRA badges prominently displayed across all touchpoints</li>
-      <li>Consistent visual identity across website, Facebook (14K followers), Instagram, and all platforms</li>
-      <li>Professional photography throughout — venue, products, team, events</li>
-      <li>Clear brand story: 16th century building, own brewery, sustainability narrative</li>
-      <li>"The Tap Times" branded newsletter — turns customers into a community</li>
-      <li>Merchandise-ready brand identity: everything works on a glass, a t-shirt, or a sign</li>
-    </ul>
+    <h3>Head-to-Head</h3>
+    <p class="competitor-sub">Tamworth Tap has professional branding, its own brewery, and 3 national POTY awards. But the numbers tell a more nuanced story.</p>
+    <p style="margin:0.8rem 0;font-size:0.9rem;color:var(--text)"><strong>Quick summary:</strong> Blues wins on Instagram (2,200 followers vs 1,792; 1,745 posts vs 33) and Google rating (4.9 vs 4.8). Tamworth leads on review volume, website, newsletter, and has a multi-floor brewery operation with a full team behind it.</p>
+    <div class="comp-takeaway">
+      <strong>The takeaway:</strong> Tamworth Tap has a professional brand system with consistent identity across every channel. Blue's has stronger Instagram engagement and a higher Google rating, achieved with a fraction of the resources. The gap isn't in brand appeal &mdash; it's in brand system consistency. Polish the system and you close that gap without changing what makes Blue's special. See the full comparison table in <strong>Document 04 &mdash; Competitor Benchmark</strong>.
+    </div>
   </div>
 
 </section>
@@ -751,14 +1025,13 @@
 <!-- ============================================================ -->
 <section class="tab-content" id="tab-actions">
 
-  <h2 class="section-title">Your Action Plan</h2>
-  <p class="section-subtitle">Eight recommendations, prioritised by impact and urgency.</p>
+  <h2 class="section-title">Action Plan</h2>
+  <p class="section-subtitle">Six recommendations to polish what's already working. Not a rebrand &mdash; a brand tidy-up.</p>
 
   <div class="priority-legend">
-    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--critical)"></span> Urgent — do this week</div>
-    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--warning)"></span> High — this month</div>
-    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--primary)"></span> Medium — next 3 months</div>
-    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--muted)"></span> Low — when ready</div>
+    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--critical)"></span> Urgent &mdash; do this week</div>
+    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--warning)"></span> High &mdash; this month</div>
+    <div class="priority-legend-item"><span class="priority-dot" style="background:var(--primary)"></span> Medium &mdash; next 3 months</div>
   </div>
 
   <!-- 1 -->
@@ -766,10 +1039,10 @@
     <div class="action-header">
       <span class="action-priority urgent">Urgent</span>
       <span class="action-number">#1</span>
-      <span class="action-title">Professional Logo</span>
+      <span class="action-title">Get a Print-Ready Logo</span>
     </div>
     <div class="action-body">
-      Commission a proper logo that incorporates the name <strong>"Blue's"</strong> with character. Consider: a beer tap or handle silhouette in blue, or a simple wordmark with a pint glass dot on the apostrophe. It must work at all sizes, on dark and light backgrounds, and in both print and digital. The animated GIF cannot serve as your logo — it fails on signage, merchandise, menus, and business cards.
+      Keep the current logo for social media &mdash; it has personality. But commission a <strong>clean, scalable version</strong> of your mark that works on a pint glass, a business card, a menu, a window sticker, and at 16px as a favicon. It doesn't need to be a totally new design. It just needs to be a proper file (SVG and PNG) that scales to any size. Think of it as the "official" version of what you already have.
     </div>
   </div>
 
@@ -778,27 +1051,22 @@
     <div class="action-header">
       <span class="action-priority urgent">Urgent</span>
       <span class="action-number">#2</span>
-      <span class="action-title">Colour Palette</span>
+      <span class="action-title">Put CAMRA Front and Centre</span>
     </div>
     <div class="action-body">
-      Upgrade from a single blue to a full brand palette:<br><br>
-      <strong><span class="colour-chip" style="background:#1B4B7A"></span>#1B4B7A Deep Pub Blue</strong> — primary, richer and more confident<br>
-      <strong><span class="colour-chip" style="background:#D4A853"></span>#D4A853 Ale Gold</strong> — warmth, craft, premium feel<br>
-      <strong><span class="colour-chip" style="background:#F5F1E8"></span>#F5F1E8 Warm Cream</strong> — for light backgrounds<br>
-      <strong><span class="colour-chip" style="background:#0F1923"></span>#0F1923 Midnight</strong> — for dark contexts<br>
-      <strong><span class="colour-chip" style="background:#2E7D6B"></span>#2E7D6B Hop Green</strong> — highlights, cider connection
+      Two branch awards in one year is a serious achievement. Make it visible <strong>everywhere</strong>: Facebook cover photo, Instagram bio and highlights, website hero section, Google Business photos, window sticker, menu boards, and every printed material. Tamworth Tap displays their CAMRA badges prominently across all touchpoints &mdash; you should do the same. This is the most powerful marketing asset you currently have. Use it.
     </div>
   </div>
 
   <!-- 3 -->
-  <div class="action-card urgent">
+  <div class="action-card high">
     <div class="action-header">
-      <span class="action-priority urgent">Urgent</span>
+      <span class="action-priority high">High</span>
       <span class="action-number">#3</span>
-      <span class="action-title">CAMRA Badge Integration</span>
+      <span class="action-title">Adopt Your Brand Colours and Fonts</span>
     </div>
     <div class="action-body">
-      The Pub of the Year 2026 badge should be visible on <strong>every single touchpoint</strong>: Facebook cover photo, Instagram highlight, website hero section, window sticker, menu boards, Google Business photos, and every social post header. This is the most powerful marketing asset you currently have. Use it relentlessly.
+      Move from one undefined blue to a complete palette (see the Ready-Made Assets tab &mdash; it's already built for you). Pick up <strong>Playfair Display</strong> for headings and <strong>Inter</strong> for body text &mdash; both free from Google Fonts. Apply these consistently to your Square site, social graphics, menus, and any printed materials. This single change makes everything look intentional and cohesive.
     </div>
   </div>
 
@@ -807,25 +1075,22 @@
     <div class="action-header">
       <span class="action-priority high">High</span>
       <span class="action-number">#4</span>
-      <span class="action-title">Professional Photography</span>
+      <span class="action-title">Unify Your Platform Profiles</span>
     </div>
     <div class="action-body">
-      Book a half-day shoot covering: <strong>venue exterior and interior</strong>, beer taps and selection, Cal and Alice behind the bar, events in action, the beer garden, and food (pies, cheeseboard). Professional photos transform every platform you're on — website, social media, Google Business, TripAdvisor, press coverage.
+      Use the same profile photo, the same bio structure, and the same colour scheme across <strong>Facebook, Instagram, Google Business, and TripAdvisor</strong>. Platform-specific bios are in the Assets tab, already formatted for each platform's character limits. Same visual, same voice, same story &mdash; everywhere someone finds you. This is the fastest way to look polished.
     </div>
   </div>
 
   <!-- 5 -->
-  <div class="action-card high">
+  <div class="action-card medium">
     <div class="action-header">
-      <span class="action-priority high">High</span>
+      <span class="action-priority medium">Medium</span>
       <span class="action-number">#5</span>
-      <span class="action-title">Brand Fonts</span>
+      <span class="action-title">Professional Photography Session</span>
     </div>
     <div class="action-body">
-      Adopt two brand fonts, both free from Google Fonts:<br><br>
-      <strong style="font-family:'Playfair Display',serif; font-size:1.1rem;">Playfair Display</strong> for headings — classic, with a pub heritage feel<br>
-      <strong style="font-family:'Inter',sans-serif;">Inter</strong> for body text — clean, modern readability<br><br>
-      Use these consistently across your website, social media graphics, menus, and any printed materials.
+      Book a half-day shoot covering: <strong>the pub exterior and interior</strong>, beer taps and selection, Cal and Alice behind the bar, food offerings, and the upstairs games room. Professional photos will transform your Google Business listing, website, and social profiles. One good shoot gives you months of content. Your Instagram output is already excellent &mdash; professional photos will elevate it further.
     </div>
   </div>
 
@@ -834,34 +1099,10 @@
     <div class="action-header">
       <span class="action-priority medium">Medium</span>
       <span class="action-number">#6</span>
-      <span class="action-title">Brand Story</span>
+      <span class="action-title">Write Your Brand Story</span>
     </div>
     <div class="action-body">
-      Every great pub has a story. Yours is a good one: opened in February 2020, built by Cal and Alice Watson as a labour of love. A tiny pub with a big heart, founded on real ale, real cider, and real conversation. Five years later — CAMRA's Pub of the Year. <strong>The story writes itself.</strong> Ready-to-use versions are in the Assets tab.
-    </div>
-  </div>
-
-  <!-- 7 -->
-  <div class="action-card medium">
-    <div class="action-header">
-      <span class="action-priority medium">Medium</span>
-      <span class="action-number">#7</span>
-      <span class="action-title">Merchandise</span>
-    </div>
-    <div class="action-body">
-      The CAMRA win makes merchandise viable and desirable. Start with: <strong>branded pint glasses</strong>, t-shirts ("I drank at Britain's best pub"), tote bags, coasters, and beer mats. Merchandise turns your customers into walking ambassadors and creates a secondary revenue stream. Get the logo right first (Recommendation #1), then the merch follows naturally.
-    </div>
-  </div>
-
-  <!-- 8 -->
-  <div class="action-card low">
-    <div class="action-header">
-      <span class="action-priority low">Low</span>
-      <span class="action-number">#8</span>
-      <span class="action-title">Signage Refresh</span>
-    </div>
-    <div class="action-body">
-      Once the new logo and colour palette are in place, update your external signage to match. The pub front is the first impression for every walk-in — it should reflect the quality of what's inside. Coordinate with the new brand identity for a cohesive, professional look from the street.
+      The story already exists &mdash; it just needs to be told consistently. Opened February 2020 by Cal and Alice. A tiny pub built on real ale, real cider, and real conversation. Six years later: CAMRA's best in the branch. <strong>Three ready-to-use versions</strong> (short, medium, and long) are in the Assets tab. Copy, paste, use.
     </div>
   </div>
 
@@ -877,8 +1118,8 @@
 
   <!-- 1. COLOUR PALETTE -->
   <div class="asset-section">
-    <h3>Colour Palette</h3>
-    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Click any swatch to copy the hex code.</p>
+    <h3>1. Colour Palette</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Six brand colours. Click any swatch to copy the hex code.</p>
     <div class="swatch-grid">
       <div class="swatch" onclick="copySwatch(this, '#1B4B7A')">
         <div class="swatch-colour" style="background:#1B4B7A;"></div>
@@ -931,57 +1172,90 @@
     </div>
   </div>
 
-  <!-- 2. ABOUT US TEXT -->
+  <!-- 2. TYPOGRAPHY PAIRING -->
   <div class="asset-section">
-    <h3>About Us Text</h3>
+    <h3>2. Typography Pairing</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Both fonts are free from Google Fonts. Use them everywhere.</p>
+    <div class="type-preview">
+      <div class="type-sample-heading">Blue's Micro Pub</div>
+      <div class="type-sample-sub">Whitburn's finest. Real ale, real cider, real conversation.</div>
+      <div class="type-sample-body">We opened in February 2020 with a simple idea: up to four handpulls of real ale, six real ciders, and a warm welcome in the heart of Whitburn village. Six years later, we're proud to be CAMRA's Branch Pub of the Year.</div>
+      <div class="type-meta">
+        <div class="type-meta-item">
+          <strong>Headings: Playfair Display</strong>
+          Classic serif with a pub heritage feel. Use for pub name, section titles, menu headings, and signage.
+        </div>
+        <div class="type-meta-item">
+          <strong>Body: Inter</strong>
+          Clean, modern readability. Use for descriptions, social posts, website body text, and printed materials.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ABOUT US TEXT -->
+  <div class="asset-section">
+    <h3>3. About Us Text</h3>
     <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.5rem;">Three lengths. Click to copy.</p>
 
     <h4>Short (Social Bios, Listings)</h4>
     <div class="copy-block" onclick="copyBlock(this)">
       <span class="copy-hint">Click to copy</span>
-      Blue's Micro Pub is Whitburn's neighbourhood pub, run by Cal and Alice Watson. Real ale, real cider, real conversation. Proudly named CAMRA Pub of the Year 2026. A tiny pub with a big heart.
+      Blue's Micro Pub is Whitburn's neighbourhood pub, run by Cal and Alice. Real ale, real cider, real conversation. CAMRA Branch Pub of the Year &amp; Cider Pub of the Year 2026. A tiny pub with a big heart.
     </div>
 
     <h4>Medium (Website, Directories)</h4>
     <div class="copy-block" onclick="copyBlock(this)">
       <span class="copy-hint">Click to copy</span>
-      Blue's Micro Pub opened its doors in February 2020 — a labour of love by Cal and Alice Watson in the heart of Whitburn village. With five handpulls of real ale and six real ciders on tap, Blue's quickly became the kind of pub that brings a community together. No gimmicks, no big screens, just great beer and great company. In 2026, that simple philosophy earned the highest honour in British pub culture: CAMRA Pub of the Year. The secret? We just love what we do.
+      Blue's Micro Pub opened its doors in February 2020 &mdash; a labour of love by Cal and Alice in the heart of Whitburn village. With five handpulls of real ale and six real ciders on rotation, Blue's quickly became the kind of pub that brings a community together. No gimmicks, no big screens &mdash; just great beer and great company. In 2026, that philosophy earned two CAMRA branch honours: Sunderland &amp; South Tyneside Pub of the Year and Cider Pub of the Year. The secret? We just love what we do.
     </div>
 
     <h4>Long (Press, Features, Print)</h4>
     <div class="copy-block" onclick="copyBlock(this)">
       <span class="copy-hint">Click to copy</span>
-      When Cal and Alice Watson opened Blue's Micro Pub in February 2020, the idea was simple: create a space where people could enjoy properly kept real ale and real cider in good company. No televisions, no fruit machines, no pretence — just five handpulls, six ciders, and conversation. Tucked into the heart of Whitburn village in Tyne and Wear, Blue's quickly became more than a pub. It became a gathering place. Regulars mixed with curious visitors. Pies and cheeseboards accompanied pints. Events brought the community through the door, and the warmth of the welcome kept them coming back.<br><br>Five years later, that dedication to doing things properly has been recognised at the highest level. In 2026, Blue's Micro Pub was named CAMRA Pub of the Year — the most prestigious award in British pub culture, celebrating the very best of real ale and community-focused hospitality. For Cal and Alice, the award belongs to everyone who has walked through the door and made Blue's what it is. A tiny pub with a big heart, and now, officially, one of the finest in Britain.
+      When Cal and Alice opened Blue's Micro Pub in February 2020, the idea was simple: create a space where people could enjoy properly kept real ale and real cider in good company. No televisions, no fruit machines, no pretence &mdash; just up to four handpulls, six ciders, and conversation. Tucked into the heart of Whitburn village in Tyne and Wear, Blue's quickly became more than a pub. It became a gathering place. Regulars mixed with curious visitors. Pies and cheeseboards accompanied pints. Events brought the community through the door, and the warmth of the welcome kept them coming back.<br><br>Six years on, that dedication to doing things properly has been recognised. In 2026, Blue's was named CAMRA Sunderland &amp; South Tyneside Branch Pub of the Year &mdash; and Branch Cider Pub of the Year in the same year. Winning both awards simultaneously is a remarkable achievement for any pub, let alone a two-person operation. For Cal and Alice, the honours belong to everyone who has walked through the door and made Blue's what it is. A tiny pub with a big heart, and now, officially, the finest in the branch.
     </div>
   </div>
 
-  <!-- 3. BRAND VOICE GUIDELINES -->
+  <!-- 4. BRAND VOICE GUIDE -->
   <div class="asset-section">
-    <h3>Brand Voice Guidelines</h3>
-    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">How Blue's should sound — everywhere.</p>
+    <h3>4. Brand Voice Guide</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">How Blue's should sound &mdash; with examples specific to a micropub.</p>
     <div class="do-dont-grid">
       <div class="do-col">
         <h4>Do</h4>
         <ul>
-          <li>Be friendly and warm</li>
-          <li>Be personal — use first names</li>
-          <li>Be proud of what you do</li>
+          <li>Be warm and welcoming</li>
+          <div class="voice-example">"Come and try the new Thornbridge pale &mdash; it's a belter."</div>
+          <li>Use first names &mdash; it's personal</li>
+          <div class="voice-example">"Cal's pick of the week is on tap 3."</div>
           <li>Sound like a real person, not a brand</li>
-          <li>Celebrate your community</li>
-          <li>Be local — mention Whitburn</li>
-          <li>Be enthusiastic about beer and cider</li>
+          <div class="voice-example">"Quiet one tonight. Perfect for a proper chat over a pint."</div>
+          <li>Be proud of your awards</li>
+          <div class="voice-example">"Still buzzing from the CAMRA news. Thank you all."</div>
+          <li>Celebrate your regulars and community</li>
+          <div class="voice-example">"Cheeseboard Sunday was rammed. You lot are brilliant."</div>
+          <li>Be specific about what's on tap</li>
+          <div class="voice-example">"Three new ciders this week, including a cracking perry from Herefordshire."</div>
           <li>Keep it short and punchy</li>
+          <li>Mention Whitburn &mdash; own your village</li>
         </ul>
       </div>
       <div class="dont-col">
         <h4>Don't</h4>
         <ul>
           <li>Sound corporate or formal</li>
+          <div class="voice-example">"We are delighted to announce our latest beverage offerings."</div>
           <li>Use salesy language or hard sells</li>
+          <div class="voice-example">"LIMITED TIME ONLY! Don't miss out on our incredible deals!"</div>
           <li>Be pretentious about beer</li>
+          <div class="voice-example">"Notes of stone fruit with a lingering biscuit malt backbone."</div>
           <li>Sound like a chain pub</li>
+          <div class="voice-example">"Join us for our Two-for-One Tuesday promotion!"</div>
           <li>Overuse hashtags or emojis</li>
+          <div class="voice-example">"Best night EVER!! #micropub #realale #camra #beer #whitburn #pub"</div>
           <li>Use generic hospitality phrases</li>
+          <div class="voice-example">"We pride ourselves on delivering an exceptional customer experience."</div>
           <li>Apologise for being small</li>
           <li>Copy what bigger venues do</li>
         </ul>
@@ -989,68 +1263,92 @@
     </div>
   </div>
 
-  <!-- 4. TAGLINES -->
+  <!-- 5. TAGLINES -->
   <div class="asset-section">
-    <h3>Suggested Taglines</h3>
+    <h3>5. Tagline Options</h3>
     <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Five options. Click to copy.</p>
     <div class="tagline-grid">
-      <div class="tagline-card" onclick="copyBlock(this)">"Whitburn's finest. Britain's best."<span class="copy-hint">Click to copy</span></div>
       <div class="tagline-card" onclick="copyBlock(this)">"Real ale. Real cider. Real conversation."<span class="copy-hint">Click to copy</span></div>
-      <div class="tagline-card" onclick="copyBlock(this)">"The best pub in Britain. In a village."<span class="copy-hint">Click to copy</span></div>
+      <div class="tagline-card" onclick="copyBlock(this)">"Whitburn's finest. Officially."<span class="copy-hint">Click to copy</span></div>
+      <div class="tagline-card" onclick="copyBlock(this)">"A tiny pub with a big heart."<span class="copy-hint">Click to copy</span></div>
       <div class="tagline-card" onclick="copyBlock(this)">"Where Whitburn drinks."<span class="copy-hint">Click to copy</span></div>
-      <div class="tagline-card" onclick="copyBlock(this)">"Five handpulls. Six ciders. One award."<span class="copy-hint">Click to copy</span></div>
+      <div class="tagline-card" onclick="copyBlock(this)">"Five handpulls. Six ciders. Two awards."<span class="copy-hint">Click to copy</span></div>
     </div>
   </div>
 
-  <!-- 5. SOCIAL MEDIA BIOS -->
+  <!-- 6. SOCIAL MEDIA BIOS -->
   <div class="asset-section">
-    <h3>Social Media Bios</h3>
-    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Ready to paste into each platform.</p>
+    <h3>6. Platform-Specific Bios</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Formatted for each platform's character limits. Ready to paste.</p>
 
     <div class="social-bio-block">
-      <div class="social-platform">Facebook</div>
+      <div class="social-platform">Facebook <span class="char-count">About section &mdash; 255 characters max</span></div>
       <div class="copy-block" onclick="copyBlock(this)">
         <span class="copy-hint">Click to copy</span>
-        Blue's Micro Pub — Whitburn's neighbourhood pub. Five handpulls of real ale, six real ciders, and the warmest welcome in the North East. CAMRA Pub of the Year 2026. Run with love by Cal &amp; Alice Watson. Open [your hours]. No bookings needed, just turn up.
+        Whitburn's neighbourhood micro pub. Real ale, real cider, real conversation. CAMRA Branch Pub of the Year &amp; Cider Pub of the Year 2026. Run with love by Cal &amp; Alice. Card only. No bookings needed &mdash; just turn up.
       </div>
     </div>
 
     <div class="social-bio-block">
-      <div class="social-platform">Instagram</div>
+      <div class="social-platform">Instagram <span class="char-count">Bio &mdash; 150 characters max</span></div>
       <div class="copy-block" onclick="copyBlock(this)">
         <span class="copy-hint">Click to copy</span>
-        Whitburn's micro pub. Real ale. Real cider. Real conversation. CAMRA Pub of the Year 2026. Run by Cal &amp; Alice.
+        Whitburn's micro pub. Real ale. Real cider. Real conversation. CAMRA Branch POTY &amp; Cider POTY 2026. Run by Cal &amp; Alice.
       </div>
     </div>
 
     <div class="social-bio-block">
-      <div class="social-platform">TripAdvisor</div>
+      <div class="social-platform">TripAdvisor <span class="char-count">Description &mdash; up to 1,000 characters</span></div>
       <div class="copy-block" onclick="copyBlock(this)">
         <span class="copy-hint">Click to copy</span>
-        Blue's Micro Pub is an award-winning micro pub in the heart of Whitburn village, Tyne and Wear. Proudly named CAMRA Pub of the Year 2026, we serve five rotating real ales and six real ciders in a friendly, intimate setting. No televisions, no fruit machines — just great beer and great company. Pies, cheeseboards, and bar snacks available. Run by Cal and Alice Watson since February 2020.
+        Blue's Micro Pub is an award-winning micro pub in the heart of Whitburn village, Tyne and Wear. Named CAMRA Sunderland &amp; South Tyneside Branch Pub of the Year 2026 and Branch Cider Pub of the Year 2026, we serve five rotating real ales and six real ciders in a friendly, intimate setting. No televisions, no fruit machines &mdash; just great beer and great company. Pies, cheeseboards, and bar snacks available. Upstairs games room. Card payments only. Run by Cal and Alice since February 2020.
+      </div>
+    </div>
+
+    <div class="social-bio-block">
+      <div class="social-platform">Google Business Profile <span class="char-count">Description &mdash; 750 characters max</span></div>
+      <div class="copy-block" onclick="copyBlock(this)">
+        <span class="copy-hint">Click to copy</span>
+        Blue's Micro Pub is Whitburn's award-winning neighbourhood pub, proudly named CAMRA Sunderland &amp; South Tyneside Branch Pub of the Year and Cider Pub of the Year 2026. We serve five rotating real ales and six real ciders in a warm, welcoming setting in the heart of the village. No televisions, no fruit machines &mdash; just properly kept beer, real conversation, and a genuine community atmosphere. Weekly events include Pie &amp; Pint Thursday, Whisky Club, Running Club, and Free Cheeseboard Sunday. Card payments only. Run with love by Cal and Alice since February 2020.
       </div>
     </div>
   </div>
 
-  <!-- 6. CAMRA ANNOUNCEMENT -->
+  <!-- 7. PRINTABLE BRAND CARD -->
   <div class="asset-section">
-    <h3>CAMRA Award Announcement</h3>
-    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Print-ready text for press releases, social posts, or in-pub display.</p>
+    <h3>7. Brand Reference Card</h3>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">A6 size (105 &times; 148mm). Print this and pin it above the bar. Quick reference for your colours, fonts, tagline, and tone.</p>
 
-    <div class="copy-block" onclick="copyBlock(this)">
-      <span class="copy-hint">Click to copy</span>
-      <strong style="color:var(--gold); font-family:'Playfair Display',serif; font-size:1.05rem;">Blue's Micro Pub — CAMRA Pub of the Year 2026</strong><br><br>
-      Blue's Micro Pub in Whitburn, Tyne and Wear, has been named the Campaign for Real Ale (CAMRA) Pub of the Year 2026 — the most prestigious award in British pub culture.<br><br>
-      Opened in February 2020 by Cal and Alice Watson, Blue's has earned the honour through its dedication to expertly kept real ale, real cider, and the kind of genuine hospitality that makes a great British pub.<br><br>
-      With five handpulls and six real ciders on tap, Blue's proves that you don't need to be big to be the best. For enquiries, please contact [your contact details].
+    <div class="brand-card-preview" id="brandCard">
+      <div>
+        <div class="bc-header">Blue's <span>Micro Pub</span></div>
+        <div class="bc-tagline">Real ale. Real cider. Real conversation.</div>
+      </div>
+      <div>
+        <div class="bc-section-label">Brand Colours</div>
+        <div class="bc-swatches">
+          <div class="bc-swatch" style="background:#1B4B7A;" title="#1B4B7A Deep Pub Blue"></div>
+          <div class="bc-swatch" style="background:#D4A853;" title="#D4A853 Ale Gold"></div>
+          <div class="bc-swatch" style="background:#F5F1E8;" title="#F5F1E8 Warm Cream"></div>
+          <div class="bc-swatch" style="background:#0F1923;" title="#0F1923 Midnight"></div>
+          <div class="bc-swatch" style="background:#2E7D6B;" title="#2E7D6B Hop Green"></div>
+          <div class="bc-swatch" style="background:#E8EDF3; border-color:#ccc;" title="#E8EDF3 Soft White"></div>
+        </div>
+        <div class="bc-section-label">Fonts</div>
+        <div class="bc-fonts"><span>Playfair Display</span> (headings) &nbsp;|&nbsp; Inter (body text) &nbsp;|&nbsp; Both free on Google Fonts</div>
+        <div class="bc-section-label">Tone of Voice</div>
+        <div class="bc-tone">Warm, friendly, personal, proud, unpretentious. Sound like a great pub, not a brand. Use first names. Celebrate the community. Be specific about what's on tap.</div>
+      </div>
+      <div class="bc-footer">Blue's Micro Pub &mdash; Whitburn &mdash; CAMRA Branch POTY 2026</div>
     </div>
+    <p style="font-size:0.78rem; color:var(--muted); margin-top:0.75rem; text-align:center;">To print: right-click the card above, select "Print", and set paper size to A6 (105 &times; 148mm). Or print this whole page &mdash; the card will render at the correct proportions.</p>
   </div>
 
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  A gift from Pink House Trading &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a>
+  A Pink House Trading Product &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a>
 </footer>
 
 <script>

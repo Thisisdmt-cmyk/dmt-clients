@@ -47,10 +47,19 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 .badge-ok{background:rgba(16,185,129,.12);color:var(--success);border:1px solid rgba(16,185,129,.25)}
 .badge-warning{background:rgba(245,158,11,.12);color:var(--warning);border:1px solid rgba(245,158,11,.25)}
 .badge-critical{background:rgba(239,68,68,.12);color:var(--critical);border:1px solid rgba(239,68,68,.25)}
+.badge-gold{background:rgba(212,168,83,.12);color:var(--gold);border:1px solid rgba(212,168,83,.25)}
 .badge-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 .badge-ok .badge-dot{background:var(--success)}
 .badge-warning .badge-dot{background:var(--warning)}
 .badge-critical .badge-dot{background:var(--critical)}
+.badge-gold .badge-dot{background:var(--gold)}
+
+/* Win Banner */
+.win-banner{background:linear-gradient(135deg,rgba(212,168,83,.1),rgba(27,75,122,.15));border:1px solid rgba(212,168,83,.3);border-radius:14px;padding:32px;margin-bottom:24px;text-align:center;position:relative;overflow:hidden}
+.win-banner::before{content:'';position:absolute;top:-30%;right:-10%;width:200px;height:200px;background:radial-gradient(circle,rgba(212,168,83,.08) 0%,transparent 70%);pointer-events:none}
+.win-banner h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);margin-bottom:10px}
+.win-banner p{color:var(--text);font-size:15px;line-height:1.7;max-width:680px;margin:0 auto}
+.win-banner .win-stat{display:inline-block;background:rgba(212,168,83,.12);border:1px solid rgba(212,168,83,.25);border-radius:8px;padding:4px 14px;font-size:14px;font-weight:600;color:var(--gold);margin:4px}
 
 /* Score Ring */
 .score-section{text-align:center;margin-bottom:36px}
@@ -58,7 +67,7 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 .score-ring svg{transform:rotate(-90deg)}
 .score-ring circle{fill:none;stroke-width:10}
 .score-ring .track{stroke:var(--border)}
-.score-ring .fill{stroke:var(--warning);stroke-linecap:round;stroke-dasharray:471;stroke-dashoffset:283;transition:stroke-dashoffset 1.5s ease}
+.score-ring .fill{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:471;stroke-dashoffset:471;transition:stroke-dashoffset 1.5s ease}
 .score-value{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
 .score-value .num{font-family:'Playfair Display',serif;font-size:48px;font-weight:800;color:var(--gold);line-height:1}
 .score-value .label{font-size:13px;color:var(--muted);margin-top:2px}
@@ -69,13 +78,16 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 .bench-table th{text-align:left;padding:10px 12px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border)}
 .bench-table td{padding:10px 12px;border-bottom:1px solid rgba(30,58,95,.3);font-size:14px}
 .bench-table tr:last-child td{border-bottom:none}
-.bench-table .col-metric{width:40%}
-.bench-table .col-blues{width:30%;text-align:center}
-.bench-table .col-comp{width:30%;text-align:center}
+.bench-table .col-metric{width:35%}
+.bench-table .col-blues{width:25%;text-align:center}
+.bench-table .col-comp{width:25%;text-align:center}
+.bench-table .col-edge{width:15%;text-align:center}
 .val-unknown{color:var(--muted);font-style:italic}
 .val-yes{color:var(--success);font-weight:600}
 .val-no{color:var(--critical);font-weight:600}
 .val-strong{color:var(--gold);font-weight:600}
+.val-win{color:var(--success);font-weight:600;font-size:12px}
+.val-lose{color:var(--muted);font-size:12px}
 
 /* Platform Cards */
 .platform-icon{font-size:24px;margin-right:10px}
@@ -90,6 +102,10 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 .step-num{flex-shrink:0;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#26618f);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold)}
 .step-body h4{font-family:'Playfair Display',serif;font-size:17px;color:var(--text);margin-bottom:6px}
 .step-body p{font-size:14px;color:var(--muted);line-height:1.7}
+.step-meta{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
+.step-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:6px}
+.tag-time{background:rgba(27,75,122,.2);color:var(--primary);border:1px solid var(--border);color:#6BA3D6}
+.tag-payoff{background:rgba(16,185,129,.1);color:var(--success);border:1px solid rgba(16,185,129,.2)}
 .step-priority{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:middle}
 .priority-high{background:rgba(239,68,68,.12);color:var(--critical)}
 .priority-med{background:rgba(245,158,11,.12);color:var(--warning)}
@@ -104,13 +120,20 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 .copy-btn.copied{background:var(--success)}
 .copy-text{font-size:15px;line-height:1.8;color:var(--text);white-space:pre-wrap}
 
-/* Calendar */
-.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:16px}
-.cal-head{text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:8px 4px}
-.cal-day{background:rgba(21,37,53,.6);border:1px solid var(--border);border-radius:8px;padding:8px 6px;min-height:80px;font-size:11px}
-.cal-day .day-num{font-weight:700;color:var(--muted);margin-bottom:4px}
-.cal-day .day-post{font-size:10px;line-height:1.3;color:var(--gold);background:rgba(212,168,83,.08);padding:3px 5px;border-radius:4px;margin-top:3px;display:block}
-.cal-day.empty{opacity:.2;border-color:transparent}
+/* Weekly Planner */
+.planner{margin-top:16px}
+.planner-week{margin-bottom:24px}
+.planner-week h4{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.planner-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(30,58,95,.2)}
+.planner-row:last-child{border-bottom:none}
+.planner-check{flex-shrink:0;width:22px;height:22px;appearance:none;-webkit-appearance:none;border:2px solid var(--border);border-radius:6px;cursor:pointer;background:transparent;margin-top:2px;position:relative;transition:all .2s}
+.planner-check:checked{background:var(--success);border-color:var(--success)}
+.planner-check:checked::after{content:'';position:absolute;top:3px;left:6px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.planner-day{flex-shrink:0;width:36px;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--gold);padding-top:3px}
+.planner-detail{flex:1}
+.planner-platform{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:2px}
+.planner-task{font-size:13px;color:var(--text);line-height:1.5}
+.planner-task em{color:var(--muted);font-style:normal}
 
 /* Hashtag Bank */
 .hashtag-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
@@ -121,19 +144,111 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 .section-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--text);margin-bottom:6px}
 .section-sub{color:var(--muted);font-size:14px;margin-bottom:24px}
 
+/* Printable Collateral */
+.print-frame{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:24px;box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.print-label{background:var(--card);border:1px solid var(--border);border-bottom:none;border-radius:12px 12px 0 0;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.print-label span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold)}
+.print-label .print-size{font-size:11px;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0}
+.print-btn{background:var(--primary);color:#fff;border:none;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif}
+.print-btn:hover{background:#26618f}
+
+/* Tent Card */
+.tent-card{width:100%;max-width:420px;margin:0 auto;padding:48px 36px;text-align:center;font-family:'Inter',sans-serif;background:linear-gradient(180deg,#0F1923 0%,#152535 100%);color:#E8EDF3;position:relative}
+.tent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#D4A853,#b8912e,#D4A853)}
+.tent-card .tc-stars{font-size:28px;color:#D4A853;letter-spacing:4px;margin-bottom:8px}
+.tent-card .tc-headline{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#D4A853;margin-bottom:6px;line-height:1.2}
+.tent-card .tc-sub{font-size:14px;color:#8BA4C4;margin-bottom:28px;line-height:1.5}
+.tent-card .tc-qr{width:140px;height:140px;background:#fff;border-radius:12px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#666;border:3px solid #D4A853;flex-direction:column;gap:4px}
+.tent-card .tc-qr-icon{font-size:36px;color:#999;line-height:1}
+.tent-card .tc-instruction{font-size:13px;color:#8BA4C4;line-height:1.6;margin-bottom:16px}
+.tent-card .tc-rating{font-size:15px;color:#D4A853;font-weight:600;margin-bottom:20px}
+.tent-card .tc-logo{font-family:'Playfair Display',serif;font-size:16px;color:#D4A853;border-top:1px solid rgba(212,168,83,.2);padding-top:16px;margin-top:8px}
+
+/* Event Flyer */
+.event-flyer{width:100%;max-width:420px;margin:0 auto;padding:0;font-family:'Inter',sans-serif;background:#0F1923;color:#E8EDF3;position:relative;overflow:hidden}
+.event-flyer .ef-top{background:linear-gradient(135deg,#1B4B7A,#0F1923);padding:36px 32px 24px;position:relative}
+.event-flyer .ef-top::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#D4A853,transparent)}
+.event-flyer .ef-badge{display:inline-block;background:rgba(212,168,83,.15);border:1px solid rgba(212,168,83,.3);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D4A853;margin-bottom:14px}
+.event-flyer .ef-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:#D4A853;line-height:1.15;margin-bottom:8px}
+.event-flyer .ef-subtitle{font-size:15px;color:#8BA4C4;line-height:1.5}
+.event-flyer .ef-body{padding:28px 32px}
+.event-flyer .ef-details{list-style:none;margin-bottom:24px}
+.event-flyer .ef-details li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(30,58,95,.4);font-size:14px;color:#E8EDF3}
+.event-flyer .ef-details li:last-child{border-bottom:none}
+.event-flyer .ef-details .ef-icon{flex-shrink:0;width:32px;height:32px;background:rgba(27,75,122,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.event-flyer .ef-cta{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#D4A853,#b8912e);color:#0F1923;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;border:none;border-radius:10px;text-align:center;cursor:default}
+.event-flyer .ef-footer{text-align:center;padding:20px 32px 28px}
+.event-flyer .ef-pub{font-family:'Playfair Display',serif;font-size:15px;color:#D4A853}
+.event-flyer .ef-addr{font-size:12px;color:#8BA4C4;margin-top:4px}
+
+/* Social Templates */
+.social-template{width:100%;max-width:540px;margin:0 auto;aspect-ratio:1/1;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
+.st-beer-board{background:linear-gradient(160deg,#0F1923 0%,#152535 40%,#1B4B7A 100%);display:flex;flex-direction:column;padding:40px}
+.st-beer-board .st-header{margin-bottom:auto}
+.st-beer-board .st-pub{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#D4A853;margin-bottom:10px}
+.st-beer-board .st-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:800;color:#E8EDF3;line-height:1.1;margin-bottom:6px}
+.st-beer-board .st-date{font-size:13px;color:#8BA4C4;margin-bottom:24px}
+.st-beer-board .st-list{list-style:none;flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.st-beer-board .st-list li{background:rgba(255,255,255,.06);border:1px solid rgba(212,168,83,.15);border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.st-beer-board .st-list .st-beer{font-size:15px;font-weight:600;color:#E8EDF3}
+.st-beer-board .st-list .st-style{font-size:12px;color:#8BA4C4}
+.st-beer-board .st-list .st-abv{font-size:13px;font-weight:700;color:#D4A853}
+.st-beer-board .st-footer-bar{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:20px;border-top:1px solid rgba(212,168,83,.2)}
+.st-beer-board .st-footer-bar span{font-size:11px;color:#8BA4C4}
+.st-beer-board .st-footer-bar .st-camra{color:#D4A853;font-weight:600}
+
+.st-event{background:linear-gradient(180deg,#0F1923 0%,#1B4B7A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 40px;position:relative}
+.st-event::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#D4A853,#b8912e,#D4A853)}
+.st-event::after{content:'';position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#D4A853,#b8912e,#D4A853)}
+.st-event .st-pub{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#D4A853;margin-bottom:24px}
+.st-event .st-event-type{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#8BA4C4;margin-bottom:12px}
+.st-event .st-title{font-family:'Playfair Display',serif;font-size:42px;font-weight:800;color:#E8EDF3;line-height:1.1;margin-bottom:16px}
+.st-event .st-desc{font-size:15px;color:#8BA4C4;line-height:1.6;max-width:360px;margin-bottom:28px}
+.st-event .st-when{background:rgba(212,168,83,.12);border:1px solid rgba(212,168,83,.3);border-radius:10px;padding:14px 28px;display:inline-block}
+.st-event .st-when .st-day{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#D4A853}
+.st-event .st-when .st-time{font-size:13px;color:#8BA4C4;margin-top:2px}
+.st-event .st-addr{font-size:12px;color:#8BA4C4;margin-top:20px;opacity:.7}
+
+.st-award{background:radial-gradient(ellipse at 50% 30%,#1B4B7A 0%,#0F1923 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 40px;position:relative}
+.st-award .st-trophy{font-size:64px;margin-bottom:20px;filter:drop-shadow(0 4px 24px rgba(212,168,83,.3))}
+.st-award .st-pub{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#D4A853;margin-bottom:16px}
+.st-award .st-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:#E8EDF3;line-height:1.15;margin-bottom:10px}
+.st-award .st-year{font-family:'Playfair Display',serif;font-size:56px;font-weight:800;color:#D4A853;line-height:1;margin-bottom:12px;text-shadow:0 4px 24px rgba(212,168,83,.3)}
+.st-award .st-desc{font-size:14px;color:#8BA4C4;line-height:1.6;max-width:340px;margin-bottom:24px}
+.st-award .st-badge-row{display:flex;gap:10px}
+.st-award .st-badge-item{background:rgba(212,168,83,.1);border:1px solid rgba(212,168,83,.25);border-radius:8px;padding:8px 16px;font-size:11px;font-weight:600;color:#D4A853;text-transform:uppercase;letter-spacing:.5px}
+
 /* Footer */
 .footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);margin-top:40px}
 .footer p{color:var(--muted);font-size:13px}
 .footer a{color:var(--gold);text-decoration:none}
+
+/* Methodology */
+.methodology{background:rgba(27,75,122,.08);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-top:24px;font-size:12px;color:var(--muted);line-height:1.7}
+.methodology strong{color:var(--text);font-weight:600}
 
 /* Responsive */
 @media(max-width:640px){
   .tab-btn{font-size:12px;padding:10px 8px}
   .step{flex-direction:column;gap:12px}
   .bench-table{font-size:12px}
-  .calendar{grid-template-columns:repeat(7,1fr);gap:2px}
-  .cal-day{padding:4px;min-height:60px}
-  .cal-day .day-post{font-size:9px}
+  .tent-card{padding:32px 24px}
+  .tent-card .tc-headline{font-size:22px}
+  .event-flyer .ef-title{font-size:26px}
+  .social-template{max-width:100%}
+  .st-beer-board{padding:24px}
+  .st-beer-board .st-title{font-size:26px}
+  .st-event .st-title{font-size:30px}
+  .st-award .st-title{font-size:24px}
+  .st-award .st-year{font-size:40px}
+  .planner-row{gap:8px}
+}
+
+@media print{
+  body{background:#fff;color:#000}
+  .tab-nav,.hero,.footer,.print-label,.print-btn,.copy-btn{display:none}
+  .tab-content{display:block!important}
+  .card,.step,.copy-card{break-inside:avoid}
 }
 </style>
 </head>
@@ -143,7 +258,7 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 <header class="hero">
   <div class="hero-badge">Social Media Audit</div>
   <h1>Blue's <span>Micro Pub</span></h1>
-  <p>Whitburn Village &mdash; CAMRA Pub of the Year 2026</p>
+  <p>Whitburn Village &mdash; CAMRA Branch Pub of the Year 2026</p>
   <div class="hero-date">Prepared 30 March 2026</div>
 </header>
 
@@ -159,6 +274,16 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 <!-- ============================== TAB 1: WHAT WE FOUND ============================== -->
 <div id="tab-found" class="tab-content active">
 
+  <!-- Lead with the Win -->
+  <div class="win-banner">
+    <h3>You're Already Beating the National Champion on Instagram</h3>
+    <p>Tamworth Tap is the three-time CAMRA National Pub of the Year. They have a brewery, three floors, medieval cellars, and a full marketing team. You're two people in a village micropub &mdash; and you've got <strong>more Instagram followers and 53 times more posts</strong> than they do. That's remarkable. This audit builds on that strength.</p>
+    <div style="margin-top:16px">
+      <span class="win-stat">2,200 followers vs their 1,792</span>
+      <span class="win-stat">1,745 posts vs their 33</span>
+    </div>
+  </div>
+
   <!-- Overall Score -->
   <div class="score-section">
     <div class="score-ring">
@@ -167,75 +292,69 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
         <circle class="fill" cx="90" cy="90" r="75"></circle>
       </svg>
       <div class="score-value">
-        <div class="num">4</div>
+        <div class="num">5</div>
         <div class="label">out of 10</div>
       </div>
     </div>
-    <p class="score-subtitle">Your pub is <strong style="color:var(--gold)">award-winning</strong>. Your socials aren't telling that story yet.</p>
-  </div>
-
-  <!-- Facebook -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title"><span class="platform-icon">f</span> Facebook</span>
-      <span class="badge badge-warning"><span class="badge-dot"></span> Needs Work</span>
-    </div>
-    <p class="finding-text">Your Facebook page (@Bluesmicropub) exists but appears to have visibility issues &mdash; it's not loading publicly. This could be a privacy settings problem preventing potential customers from finding you.</p>
-    <ul class="finding-list">
-      <li>Page may not be set to Public &mdash; this must be fixed immediately</li>
-      <li>Follower count and review count are significantly below what a CAMRA Pub of the Year should have</li>
-      <li>Your biggest competitor has 14,000 followers and 858 reviews &mdash; all recommending them</li>
-      <li>The CAMRA win should be everywhere on this page &mdash; pinned post, cover photo, bio</li>
-    </ul>
+    <p class="score-subtitle">Strong foundations on Instagram &mdash; now let's fill the gaps on other platforms.</p>
+    <p style="font-size:12px;color:var(--muted);max-width:560px;margin:12px auto 0;line-height:1.6;font-style:italic;">Digital Visibility Score. Measures platform presence, profile completeness, and content activity across all major channels. Your 4.9-star Google rating and CAMRA wins reflect exceptional product quality &mdash; this score measures online discoverability only. See methodology note below.</p>
   </div>
 
   <!-- Instagram -->
   <div class="card">
     <div class="card-header">
-      <span class="card-title"><span class="platform-icon">ig</span> Instagram</span>
-      <span class="badge badge-warning"><span class="badge-dot"></span> Needs Work</span>
+      <span class="card-title"><span class="platform-icon">&#128247;</span> Instagram</span>
+      <span class="badge badge-ok"><span class="badge-dot"></span> Strong</span>
     </div>
-    <p class="finding-text">Your Instagram account (@bluesmicropub) exists, which is a good start. However, your competitor has 1,792 followers and an active presence. Instagram is where beer lovers discover new pubs through beautiful photography and Reels.</p>
+    <p class="finding-text"><strong style="color:var(--gold)">2,200 followers and 1,745 posts</strong> &mdash; this is your standout platform. You're outperforming the three-time CAMRA National Pub of the Year (Tamworth Tap: 1,792 followers, 33 posts). Your consistency here proves you can create content. The opportunity now is to sharpen what you're already doing.</p>
     <ul class="finding-list">
-      <li>Account exists but likely has significantly fewer followers than competitors</li>
-      <li>Cask ales, cider selection, and pub atmosphere are incredibly visual &mdash; this is your platform</li>
-      <li>Reels of fresh cask pours get huge engagement in the pub space</li>
+      <li>You have 23% more followers and 53x more posts than the national champion</li>
+      <li>This volume of content is rare for a two-person operation &mdash; it shows genuine engagement with your audience</li>
+      <li>Next level: Reels (short video) to extend reach beyond current followers</li>
+    </ul>
+  </div>
+
+  <!-- Facebook -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title"><span class="platform-icon">&#128100;</span> Facebook</span>
+      <span class="badge badge-good"><span class="badge-dot"></span> Strong Foundation</span>
+    </div>
+    <p class="finding-text">Your Facebook page has <strong style="color:var(--gold);">4,000 followers</strong> &mdash; a strong base for a village micropub. Your page is age-gated (standard for alcohol businesses), which limits casual discovery but does not affect your existing audience. Your Whisky Club post on 30 March 2026 received 15 reactions and 2 comments within 4 hours, showing genuine engagement from real people.</p>
+    <ul class="finding-list">
+      <li><strong>4,000 followers</strong> (verified 30 March 2026) &mdash; excellent for a two-person micropub in a village of ~7,170 residents</li>
+      <li>For context: Tamworth Tap has ~14,000 Facebook followers &mdash; 3.5x more, but they have a multi-floor brewery, onsite brewing, and three national CAMRA awards driving visibility</li>
+      <li>Your page bio is clear and authentic: <em>&ldquo;A friendly micro pub in the heart of Whitburn Village&rdquo;</em></li>
+      <li>Facebook is your strongest platform for reaching the 35+ local demographic (44% of Whitburn residents are retired). Instagram leads on content volume; Facebook leads on local reach</li>
+      <li>The CAMRA branch wins should be more prominent: update cover photo, pin an awards post, and add to the About section</li>
     </ul>
   </div>
 
   <!-- TikTok -->
   <div class="card">
     <div class="card-header">
-      <span class="card-title"><span class="platform-icon">tk</span> TikTok</span>
-      <span class="badge badge-critical"><span class="badge-dot"></span> Missing</span>
+      <span class="card-title"><span class="platform-icon">&#127916;</span> TikTok</span>
+      <span class="badge badge-critical"><span class="badge-dot"></span> No Account</span>
     </div>
-    <p class="finding-text">No TikTok presence found. This is your biggest missed opportunity right now. Short-form video of cask ales being poured, your cider selection, and that cosy pub atmosphere is <strong style="color:var(--text)">massive</strong> for pubs on TikTok. Your competitor already has one.</p>
+    <p class="finding-text">No TikTok presence found. This is a future opportunity rather than an urgent gap &mdash; given your two-person team, it makes sense to strengthen existing platforms first and add TikTok when you're ready.</p>
     <ul class="finding-list">
-      <li>TikTok is where new, younger audiences discover pubs &mdash; you're invisible to them</li>
-      <li>A single "CAMRA Pub of the Year" video could go viral and drive serious footfall</li>
-      <li>Authentic, unpolished content performs best &mdash; you don't need a videographer</li>
+      <li>Short-form video of cask pours, cider selection, and pub atmosphere performs well for pubs on TikTok</li>
+      <li>Content can be cross-posted to Instagram Reels, giving you double value from each video</li>
+      <li>Recommended only when existing platforms are running smoothly (see Action Plan)</li>
     </ul>
   </div>
 
-  <!-- YouTube -->
+  <!-- Review Platforms -->
   <div class="card">
     <div class="card-header">
-      <span class="card-title"><span class="platform-icon">yt</span> YouTube</span>
-      <span class="badge badge-critical"><span class="badge-dot"></span> Missing</span>
+      <span class="card-title"><span class="platform-icon">&#11088;</span> Review Platforms</span>
+      <span class="badge badge-gold"><span class="badge-dot"></span> Mixed</span>
     </div>
-    <p class="finding-text">No YouTube presence found. While not the highest priority, YouTube Shorts uses the same vertical video as TikTok and Instagram Reels &mdash; one video can be posted across all three with minimal extra effort. Your competitor is already there.</p>
-  </div>
-
-  <!-- Untappd -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title"><span class="platform-icon">ut</span> Untappd</span>
-      <span class="badge badge-ok"><span class="badge-dot"></span> Present</span>
-    </div>
-    <p class="finding-text">You're listed on Untappd, which is important for craft beer discovery. Beer enthusiasts actively use this platform to find pubs and log their drinks. This is a solid foundation to build on.</p>
+    <p class="finding-text">Strong Google presence. TripAdvisor and Untappd listings exist but have room to grow.</p>
     <ul class="finding-list">
-      <li>Listed at untappd.com &mdash; good for craft beer tourists and CAMRA members</li>
-      <li>Keep your beer list updated here to drive visits from dedicated ale lovers</li>
+      <li><strong style="color:var(--text)">Google:</strong> 4.9 stars from 119 reviews (as of June 2025) &mdash; outstanding quality rating. Tamworth Tap has 4.8 stars from 619 reviews for comparison</li>
+      <li><strong style="color:var(--text)">TripAdvisor:</strong> 8 reviews, ranked #12 of 45 Nightlife in Sunderland. Tamworth Tap has 91 reviews. Growing this helps with tourism and visitors</li>
+      <li><strong style="color:var(--text)">Untappd:</strong> Listed but currently an "unverified venue" &mdash; claiming and verifying this takes minutes and helps beer enthusiasts find you</li>
     </ul>
   </div>
 
@@ -244,54 +363,14 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
     <div class="card-header">
       <span class="card-title">Benchmark: Blues vs Tamworth Tap</span>
     </div>
-    <p class="finding-text" style="margin-bottom:16px">The Tamworth Tap is one of the strongest micropub social media presences in the UK. Here's how you compare &mdash; and where the gap sits.</p>
-    <table class="bench-table">
-      <thead>
-        <tr>
-          <th class="col-metric">Platform</th>
-          <th class="col-blues">Blue's Micro Pub</th>
-          <th class="col-comp">Tamworth Tap</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Facebook Followers</td>
-          <td class="val-unknown" style="text-align:center">Unknown *</td>
-          <td class="val-strong" style="text-align:center">14,000+</td>
-        </tr>
-        <tr>
-          <td>Facebook Reviews</td>
-          <td class="val-unknown" style="text-align:center">Unknown *</td>
-          <td class="val-strong" style="text-align:center">858 (100%)</td>
-        </tr>
-        <tr>
-          <td>Instagram Followers</td>
-          <td class="val-unknown" style="text-align:center">Unknown *</td>
-          <td class="val-strong" style="text-align:center">1,792</td>
-        </tr>
-        <tr>
-          <td>TikTok</td>
-          <td class="val-no" style="text-align:center">&#10007; Not present</td>
-          <td class="val-yes" style="text-align:center">&#10003; Active</td>
-        </tr>
-        <tr>
-          <td>YouTube</td>
-          <td class="val-no" style="text-align:center">&#10007; Not present</td>
-          <td class="val-yes" style="text-align:center">&#10003; Active</td>
-        </tr>
-        <tr>
-          <td>Twitter / X</td>
-          <td class="val-no" style="text-align:center">&#10007; Not present</td>
-          <td class="val-yes" style="text-align:center">&#10003; Active</td>
-        </tr>
-        <tr>
-          <td>Untappd</td>
-          <td class="val-yes" style="text-align:center">&#10003; Listed</td>
-          <td class="val-yes" style="text-align:center">&#10003; Listed</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="finding-text" style="margin-top:16px;font-size:12px">* Page visibility issues prevented accurate data collection. Fixing privacy settings is step one.</p>
+    <p class="finding-text" style="margin-bottom:8px">Tamworth Tap holds the CAMRA National Pub of the Year 2025 (their third win). They're the ceiling-level comparison &mdash; and you're already ahead on Instagram.</p>
+    <p class="finding-text" style="margin-bottom:8px"><strong style="color:var(--gold)">Quick summary:</strong> Blues wins on Instagram followers (+23%), Instagram content (53x more posts), and Google rating (4.9 vs 4.8). Tamworth leads on Google review volume (619 vs 119), TripAdvisor reviews (91 vs 8), and has a custom website plus its own brewery.</p>
+    <p class="finding-text" style="font-size:13px;font-style:italic;color:var(--muted)">See the full head-to-head comparison table in <strong>Document 04 &mdash; Competitor Benchmark</strong>.</p>
+  </div>
+
+  <!-- Methodology -->
+  <div class="methodology">
+    <strong>Methodology note:</strong> The Digital Visibility Score (5/10) is a weighted assessment of: platform presence (do accounts exist on each major channel?), profile completeness (are bios, contact details, and branding filled in?), content recency and volume, and review platform coverage. It does not measure content quality, audience engagement rate, or business performance. Instagram strength is offset by gaps on Facebook visibility, TikTok absence, and low TripAdvisor review volume. All data points are verified snapshots from 30 March 2026.
   </div>
 
 </div>
@@ -299,87 +378,121 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 <!-- ============================== TAB 2: ACTION PLAN ============================== -->
 <div id="tab-plan" class="tab-content">
 
-  <h2 class="section-title">Your 10-Step Action Plan</h2>
-  <p class="section-sub">Prioritised steps to turn your CAMRA win into social media momentum.</p>
+  <h2 class="section-title">Your 6-Step Action Plan</h2>
+  <p class="section-sub">Realistic steps for a two-person team. Each one tells you what to do, how long it takes, and what the payoff is.</p>
 
   <div class="step">
     <div class="step-num">1</div>
     <div class="step-body">
-      <h4>Facebook Page Health Check <span class="step-priority priority-high">Urgent</span></h4>
-      <p>Ensure your Facebook page is set to <strong>Public</strong> so customers can actually find you. Complete every info field: address, opening hours, phone, website. Add your CAMRA Pub of the Year 2026 award to the bio and About section. Update the cover photo to something that screams "award-winning pub." This takes 20 minutes and is the single most important thing you can do today.</p>
+      <h4>Facebook Health Check <span class="step-priority priority-high">This Week</span></h4>
+      <p>Check your Facebook page is set to <strong>Public</strong> so customers can find you. Complete every field: address, opening hours, phone number, website link. Update the cover photo with something that shows off the pub. Add your CAMRA Branch Pub of the Year 2026 and Branch Cider Pub of the Year 2026 wins to the bio, About section, and a pinned post.</p>
+      <div class="step-meta">
+        <span class="step-tag tag-time">&#9201; 30 minutes</span>
+        <span class="step-tag tag-payoff">&#127919; Unlocks visibility to every local searching for you</span>
+      </div>
     </div>
   </div>
 
   <div class="step">
     <div class="step-num">2</div>
     <div class="step-body">
-      <h4>Facebook Content Strategy <span class="step-priority priority-high">Urgent</span></h4>
-      <p>Post 4&ndash;5 times per week minimum. Your content pillars: beer board updates (what's on tap), event announcements (Cask Club, Pie Night, Whisky Club), behind-the-scenes with Cal &amp; Alice, customer stories, and community posts about Whitburn village. Consistency is everything &mdash; a quiet Facebook page tells people you're closed.</p>
+      <h4>Consistent Facebook Posting <span class="step-priority priority-high">Start This Week</span></h4>
+      <p>Post 3&ndash;4 times per week on Facebook. Your content pillars: beer board updates (what's on tap today), event announcements (Whisky Club, Pie &amp; Pint, Running Club, Cheeseboard Sunday), behind-the-scenes with Cal &amp; Alice, and the CAMRA wins. Cross-post your best Instagram content &mdash; don't reinvent the wheel. Use the weekly planner in Tab 3.</p>
+      <div class="step-meta">
+        <span class="step-tag tag-time">&#9201; 15-20 min/week</span>
+        <span class="step-tag tag-payoff">&#127919; Active page = trust signal for new customers</span>
+      </div>
     </div>
   </div>
 
   <div class="step">
     <div class="step-num">3</div>
     <div class="step-body">
-      <h4>Pin the CAMRA Win <span class="step-priority priority-high">Urgent</span></h4>
-      <p>Create a pinned post celebrating your Pub of the Year 2026 win. This is your single biggest marketing asset &mdash; possibly ever. Pin it to the top of Facebook, make it your Instagram highlight, put it in every bio. When someone visits your page, this is the first thing they should see. Use the ready-made post from Tab 3.</p>
+      <h4>Sharpen Your Instagram <span class="step-priority priority-med">This Month</span></h4>
+      <p>You're already strong here with 2,200 followers and 1,745 posts. Keep posting 2&ndash;3 times per week on the feed. The next level: start creating short Reels (15&ndash;30 seconds). A cask pour, the cider lineup, the pub filling up on a Thursday night. Reels are how Instagram pushes your content to people who don't follow you yet. One good Reel can reach 10x your follower count. Add the CAMRA wins to your bio if they're not there already.</p>
+      <div class="step-meta">
+        <span class="step-tag tag-time">&#9201; 20 min/week (what you're already doing)</span>
+        <span class="step-tag tag-payoff">&#127919; Reels unlock new audiences beyond your 2,200 followers</span>
+      </div>
     </div>
   </div>
 
   <div class="step">
     <div class="step-num">4</div>
     <div class="step-body">
-      <h4>Instagram Content Calendar <span class="step-priority priority-high">Urgent</span></h4>
-      <p>Daily Instagram Stories showing what's on tap. Three feed posts per week minimum. Start creating Reels &mdash; short clips of cask ales being poured, your six ciders on the bar, the snug room, the beer garden. Reels are how Instagram pushes your content to new audiences. One good Reel can reach 10x your follower count.</p>
+      <h4>Google Reviews Push <span class="step-priority priority-med">This Month</span></h4>
+      <p>You have 4.9 stars &mdash; outstanding. The goal now is volume. Print the "Review Us" tent card from Tab 3 (add your Google review QR code &mdash; generate one free at qr-code-generator.com) and put it on the bar. Mention it at the end of events. Every review improves your ranking in local search results. Target: 200+ reviews within 6 months. The tent card takes 2 minutes to set up and works 24/7.</p>
+      <div class="step-meta">
+        <span class="step-tag tag-time">&#9201; 10 min to print &amp; place tent card</span>
+        <span class="step-tag tag-payoff">&#127919; More reviews = higher Google ranking = more walk-ins</span>
+      </div>
     </div>
   </div>
 
   <div class="step">
     <div class="step-num">5</div>
     <div class="step-body">
-      <h4>Launch TikTok <span class="step-priority priority-high">Urgent</span></h4>
-      <p>Set up @bluesmicropub on TikTok today. Your first video: <em>"We just won CAMRA Pub of the Year 2026. Here's why."</em> Walk through the pub. Show the cask ales. Show the ciders. Show the beer garden. Keep it short, authentic, and proud. You don't need fancy editing &mdash; authenticity wins on TikTok. Cross-post every TikTok to Instagram Reels and YouTube Shorts.</p>
+      <h4>Claim Untappd &amp; Grow TripAdvisor <span class="step-priority priority-med">This Month</span></h4>
+      <p>Verify your Untappd venue listing at untappd.com &mdash; it takes a few minutes and lets beer tourists find you. For TripAdvisor, encourage visitors to leave reviews (especially tourists and CAMRA members who travel for pubs). You have 8 reviews vs Tamworth Tap's 91 &mdash; this is a quick win waiting to happen.</p>
+      <div class="step-meta">
+        <span class="step-tag tag-time">&#9201; 15 min to claim Untappd; ongoing for reviews</span>
+        <span class="step-tag tag-payoff">&#127919; Beer tourists use these platforms to plan visits</span>
+      </div>
     </div>
   </div>
 
   <div class="step">
     <div class="step-num">6</div>
     <div class="step-body">
-      <h4>Google Reviews Push <span class="step-priority priority-med">This Month</span></h4>
-      <p>You have 4.9 stars from 119 reviews &mdash; outstanding quality, but the volume needs to grow. Target: 250+ reviews within 6 months. Print a small card or table tent with a QR code linking to your Google review page. Ask every happy customer. Mention it at the end of events. Every review builds your visibility in local search results.</p>
+      <h4>TikTok (When You're Ready) <span class="step-priority priority-low">Next Quarter</span></h4>
+      <p>Only when steps 1&ndash;5 are humming. Set up @bluesmicropub on TikTok. Post 1 video per week &mdash; cross-post every TikTok to Instagram Reels. Your first video idea: "We just won CAMRA Branch Pub of the Year. Here's our little micropub in Whitburn." Walk through the pub. Show the ales. Keep it authentic. You don't need fancy editing.</p>
+      <div class="step-meta">
+        <span class="step-tag tag-time">&#9201; 20 min/week for 1 video</span>
+        <span class="step-tag tag-payoff">&#127919; Reaches younger audiences who don't use Facebook</span>
+      </div>
     </div>
   </div>
 
-  <div class="step">
-    <div class="step-num">7</div>
-    <div class="step-body">
-      <h4>TripAdvisor Setup <span class="step-priority priority-med">This Month</span></h4>
-      <p>Create or claim your TripAdvisor listing. Beer tourists &mdash; especially international visitors &mdash; use TripAdvisor to find pubs. As CAMRA Pub of the Year, you'll attract visitors from across the UK and beyond. You must be discoverable where they're looking. Add photos, opening hours, and your CAMRA credentials.</p>
+  <!-- Posting Frequency Summary -->
+  <div class="card" style="margin-top:12px">
+    <div class="card-header">
+      <span class="card-title">Weekly Posting Guide</span>
     </div>
+    <table class="bench-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Platform</th>
+          <th style="width:25%;text-align:center">Frequency</th>
+          <th style="width:45%">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--text)">Facebook</strong></td>
+          <td style="text-align:center;color:var(--gold);font-weight:600">3&ndash;4 / week</td>
+          <td style="color:var(--muted);font-size:13px">Events, beer boards, behind-the-scenes</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--text)">Instagram</strong></td>
+          <td style="text-align:center;color:var(--gold);font-weight:600">2&ndash;3 / week</td>
+          <td style="color:var(--muted);font-size:13px">You're already active &mdash; add Reels when comfortable</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--text)">TikTok</strong></td>
+          <td style="text-align:center;color:var(--gold);font-weight:600">1 / week</td>
+          <td style="color:var(--muted);font-size:13px">Only after steps 1&ndash;5 are running; cross-post to Reels</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--text)">Stories</strong></td>
+          <td style="text-align:center;color:var(--gold);font-weight:600">Daily-ish</td>
+          <td style="color:var(--muted);font-size:13px">Casual, in-the-moment &mdash; takes 30 seconds each</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="step">
-    <div class="step-num">8</div>
-    <div class="step-body">
-      <h4>Cross-Platform Hashtag Strategy <span class="step-priority priority-med">This Month</span></h4>
-      <p>Use a consistent set of hashtags across every post on every platform. Your core set: #BluesMicroPub #WhitburnVillage #CAMRAPubOfTheYear #RealAle #CraftCider #Micropub #CaskAle. Add situational ones for events, beer styles, and seasons. See the hashtag bank in Tab 3 for the full list.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="step-num">9</div>
-    <div class="step-body">
-      <h4>Event Promotion System <span class="step-priority priority-med">This Month</span></h4>
-      <p>Every recurring event &mdash; Cask Club Wednesday, Pie &amp; Pint Thursday, Whisky Club, Running Club &mdash; should have a Facebook Event, an Instagram Story, and a TikTok. Create once, reuse the template weekly, just swap the details. Events are how Facebook pushes your content to non-followers. Use the ready-made templates from Tab 3.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="step-num">10</div>
-    <div class="step-body">
-      <h4>Newsletter: "The Blues Brief" <span class="step-priority priority-low">Next Quarter</span></h4>
-      <p>Set up a free Mailchimp account and create a monthly newsletter called <strong>"The Blues Brief"</strong>. Include: next month's events, beer highlights, and a personal note from Cal &amp; Alice. Collect emails with a sign-up sheet in the pub and a link in your bio. Your competitor runs "The Tap Times" &mdash; you need yours. Newsletters build a direct line to your most loyal customers that no algorithm can take away.</p>
-    </div>
+  <div class="methodology">
+    <strong>Methodology note:</strong> This plan is designed for a two-person team running a pub full-time. Total new time investment is approximately 1&ndash;2 hours per week across all platforms. Posting frequencies are based on platform algorithm best practices for small hospitality businesses, balanced against realistic capacity. Steps are ordered by impact-to-effort ratio. The Digital Visibility Score from Tab 1 uses a weighted assessment of platform presence (25%), profile completeness (25%), content activity (25%), and review platform coverage (25%).
   </div>
 
 </div>
@@ -387,145 +500,355 @@ h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;font-weight:700;line-height:
 <!-- ============================== TAB 3: READY-MADE ASSETS ============================== -->
 <div id="tab-assets" class="tab-content">
 
-  <h2 class="section-title">Ready-Made Social Posts</h2>
-  <p class="section-sub">Copy, paste, post. Tweak the details in [brackets] and you're live.</p>
+  <h2 class="section-title">Ready-Made Assets</h2>
+  <p class="section-sub">Print-ready designs, social media templates, a weekly planner, and copy-paste posts. Everything you need to hit the ground running.</p>
 
-  <!-- Post 1 -->
+  <!-- ===== SECTION: PRINTABLE COLLATERAL ===== -->
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);margin-bottom:6px;margin-top:8px">Printable Collateral</h3>
+  <p class="section-sub">Screenshot or print these designs. Replace placeholder text in [brackets] with your details.</p>
+
+  <!-- Tent Card -->
+  <div class="print-frame">
+    <div class="print-label">
+      <span>"Review Us" Tent Card <span class="print-size">&mdash; A5 portrait, print double-sided and fold</span></span>
+      <button class="print-btn" onclick="window.print()">Print</button>
+    </div>
+    <div class="tent-card">
+      <div class="tc-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="tc-headline">Enjoyed Your Visit?</div>
+      <div class="tc-sub">Help other ale lovers find us with a quick Google review.</div>
+      <div class="tc-qr" style="padding:8px;gap:6px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 21 21" shape-rendering="crispEdges">
+          <rect width="21" height="21" fill="#fff"/>
+          <rect x="0" y="0" width="7" height="7" fill="none" stroke="#222" stroke-width="0.6"/>
+          <rect x="1" y="1" width="5" height="5" fill="none" stroke="#222" stroke-width="0.4"/>
+          <rect x="2" y="2" width="3" height="3" fill="#222"/>
+          <rect x="14" y="0" width="7" height="7" fill="none" stroke="#222" stroke-width="0.6"/>
+          <rect x="15" y="1" width="5" height="5" fill="none" stroke="#222" stroke-width="0.4"/>
+          <rect x="16" y="2" width="3" height="3" fill="#222"/>
+          <rect x="0" y="14" width="7" height="7" fill="none" stroke="#222" stroke-width="0.6"/>
+          <rect x="1" y="15" width="5" height="5" fill="none" stroke="#222" stroke-width="0.4"/>
+          <rect x="2" y="16" width="3" height="3" fill="#222"/>
+          <rect x="8" y="2" width="1" height="1" fill="#222"/><rect x="10" y="3" width="1" height="1" fill="#222"/><rect x="9" y="5" width="1" height="1" fill="#222"/><rect x="11" y="1" width="1" height="1" fill="#222"/><rect x="8" y="8" width="1" height="1" fill="#222"/><rect x="10" y="8" width="1" height="1" fill="#222"/><rect x="12" y="8" width="1" height="1" fill="#222"/><rect x="9" y="10" width="1" height="1" fill="#222"/><rect x="11" y="10" width="1" height="1" fill="#222"/><rect x="8" y="12" width="1" height="1" fill="#222"/><rect x="10" y="12" width="1" height="1" fill="#222"/><rect x="12" y="12" width="1" height="1" fill="#222"/><rect x="14" y="9" width="1" height="1" fill="#222"/><rect x="16" y="10" width="1" height="1" fill="#222"/><rect x="18" y="9" width="1" height="1" fill="#222"/><rect x="15" y="12" width="1" height="1" fill="#222"/><rect x="17" y="11" width="1" height="1" fill="#222"/><rect x="19" y="12" width="1" height="1" fill="#222"/><rect x="9" y="14" width="1" height="1" fill="#222"/><rect x="11" y="15" width="1" height="1" fill="#222"/><rect x="9" y="17" width="1" height="1" fill="#222"/><rect x="14" y="14" width="1" height="1" fill="#222"/><rect x="16" y="15" width="1" height="1" fill="#222"/><rect x="18" y="14" width="1" height="1" fill="#222"/><rect x="15" y="17" width="1" height="1" fill="#222"/><rect x="17" y="18" width="1" height="1" fill="#222"/><rect x="19" y="16" width="1" height="1" fill="#222"/>
+        </svg>
+        <span style="font-size:9px;font-weight:600;color:#555;letter-spacing:0.3px">YOUR QR CODE HERE</span>
+        <span style="font-size:8px;color:#999">Free at qr-code-generator.com</span>
+      </div>
+      <div class="tc-instruction">Scan the code or search <strong style="color:#E8EDF3">"Blue's Micro Pub"</strong> on Google</div>
+      <div class="tc-rating">Currently rated 4.9 &#9733; &mdash; help us stay there!</div>
+      <div class="tc-logo">Blue's Micro Pub</div>
+      <div style="font-size:11px;color:#8BA4C4;margin-top:6px">CAMRA Branch Pub of the Year 2026</div>
+      <div style="font-size:10px;color:#8BA4C4;margin-top:2px">1a Percy Terrace, Whitburn SR6 7EW</div>
+    </div>
+  </div>
+
+  <!-- Event Flyer -->
+  <div class="print-frame">
+    <div class="print-label">
+      <span>Event Flyer Template <span class="print-size">&mdash; A5 portrait, edit event details and print</span></span>
+      <button class="print-btn" onclick="window.print()">Print</button>
+    </div>
+    <div class="event-flyer">
+      <div class="ef-top">
+        <div class="ef-badge">Blue's Micro Pub Presents</div>
+        <div class="ef-title">[Event Name]</div>
+        <div class="ef-subtitle">[One line description of the event]</div>
+      </div>
+      <div class="ef-body">
+        <ul class="ef-details">
+          <li>
+            <span class="ef-icon">&#128197;</span>
+            <span><strong style="color:#D4A853">[Day &amp; Date]</strong></span>
+          </li>
+          <li>
+            <span class="ef-icon">&#128336;</span>
+            <span><strong style="color:#D4A853">[Start Time]</strong> onwards</span>
+          </li>
+          <li>
+            <span class="ef-icon">&#127866;</span>
+            <span>[What's included &mdash; e.g. "Pie + any cask ale for [price]"]</span>
+          </li>
+          <li>
+            <span class="ef-icon">&#128176;</span>
+            <span>[Price or "Free entry"]</span>
+          </li>
+        </ul>
+        <div class="ef-cta">No Booking Required &mdash; Just Turn Up</div>
+      </div>
+      <div class="ef-footer">
+        <div class="ef-pub">Blue's Micro Pub</div>
+        <div class="ef-addr">1a Percy Terrace, Whitburn SR6 7EW &bull; @bluesmicropub</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION: SOCIAL MEDIA IMAGE TEMPLATES ===== -->
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);margin-bottom:6px;margin-top:36px">Social Media Image Templates</h3>
+  <p class="section-sub">Screenshot these at 1080x1080 for Instagram. Edit the text in [brackets] before screenshotting.</p>
+
+  <!-- Beer Board Template -->
+  <div class="print-frame">
+    <div class="print-label">
+      <span>Beer Board Template <span class="print-size">&mdash; 1080x1080 Instagram post</span></span>
+    </div>
+    <div class="social-template st-beer-board">
+      <div class="st-header">
+        <div class="st-pub">Blue's Micro Pub</div>
+        <div class="st-title">What's On Today</div>
+        <div class="st-date">[Day, Date]</div>
+      </div>
+      <ul class="st-list">
+        <li>
+          <div><span class="st-beer">[Beer Name 1]</span><br><span class="st-style">[Brewery] &bull; [Style]</span></div>
+          <span class="st-abv">[4.2%]</span>
+        </li>
+        <li>
+          <div><span class="st-beer">[Beer Name 2]</span><br><span class="st-style">[Brewery] &bull; [Style]</span></div>
+          <span class="st-abv">[5.0%]</span>
+        </li>
+        <li>
+          <div><span class="st-beer">[Beer Name 3]</span><br><span class="st-style">[Brewery] &bull; [Style]</span></div>
+          <span class="st-abv">[3.8%]</span>
+        </li>
+        <li>
+          <div><span class="st-beer">[Beer Name 4]</span><br><span class="st-style">[Brewery] &bull; [Style]</span></div>
+          <span class="st-abv">[4.5%]</span>
+        </li>
+        <li>
+          <div><span class="st-beer">[Beer Name 5]</span><br><span class="st-style">[Brewery] &bull; [Style]</span></div>
+          <span class="st-abv">[4.1%]</span>
+        </li>
+      </ul>
+      <div class="st-footer-bar">
+        <span>@bluesmicropub</span>
+        <span class="st-camra">CAMRA Branch POTY 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Announcement Template -->
+  <div class="print-frame">
+    <div class="print-label">
+      <span>Event Announcement Template <span class="print-size">&mdash; 1080x1080 Instagram post</span></span>
+    </div>
+    <div class="social-template st-event">
+      <div class="st-pub">Blue's Micro Pub</div>
+      <div class="st-event-type">[Event Type]</div>
+      <div class="st-title">[Event Name]</div>
+      <div class="st-desc">[Brief description of what happens &mdash; e.g. "A pie, a pint of cask ale, and proper conversation. The perfect Thursday."]</div>
+      <div class="st-when">
+        <div class="st-day">[Every Thursday]</div>
+        <div class="st-time">From [4pm]</div>
+      </div>
+      <div class="st-addr">1a Percy Terrace, Whitburn SR6 7EW</div>
+    </div>
+  </div>
+
+  <!-- Award Celebration Template -->
+  <div class="print-frame">
+    <div class="print-label">
+      <span>Award Celebration Template <span class="print-size">&mdash; 1080x1080 Instagram post</span></span>
+    </div>
+    <div class="social-template st-award">
+      <div class="st-trophy">&#127942;</div>
+      <div class="st-pub">Blue's Micro Pub</div>
+      <div class="st-title">CAMRA Branch<br>Pub of the Year</div>
+      <div class="st-year">2026</div>
+      <div class="st-desc">Sunderland &amp; South Tyneside Branch. From a tiny micropub in Whitburn village to the best in the branch.</div>
+      <div class="st-badge-row">
+        <span class="st-badge-item">Pub of the Year</span>
+        <span class="st-badge-item">Cider Pub of the Year</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION: WEEKLY PLANNER ===== -->
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);margin-bottom:6px;margin-top:36px">Weekly Content Planner</h3>
+  <p class="section-sub">Tick off each item as you post. Pre-populated with your recurring events. Reset each week.</p>
+
+  <div class="card">
+    <div class="planner">
+      <!-- Week Template -->
+      <div class="planner-week">
+        <h4>Week of [Date] &mdash; Template Week</h4>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Mon</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Facebook + Instagram</div>
+            <div class="planner-task">Whisky Club post <em>(1st Monday only)</em> &mdash; or community/behind-the-scenes post on other Mondays</div>
+          </div>
+        </div>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Tue</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Facebook</div>
+            <div class="planner-task">Beer board update &mdash; what's new on tap this week</div>
+          </div>
+        </div>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Wed</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Facebook + Instagram</div>
+            <div class="planner-task">Mid-week post: cider spotlight, customer shoutout, or pub atmosphere photo</div>
+          </div>
+        </div>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Thu</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Facebook + Instagram</div>
+            <div class="planner-task">Pie &amp; Pint Thursday + Running Club announcement</div>
+          </div>
+        </div>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Thu</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Instagram Stories</div>
+            <div class="planner-task">Live story from Pie &amp; Pint evening or Running Club gathering</div>
+          </div>
+        </div>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Fri</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Facebook</div>
+            <div class="planner-task">Weekend opener: "The weekend starts here" + beer board or atmosphere post</div>
+          </div>
+        </div>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Sat</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Instagram</div>
+            <div class="planner-task">Saturday Reel or photo: busy pub, happy customers, a beautiful pint</div>
+          </div>
+        </div>
+
+        <div class="planner-row">
+          <input type="checkbox" class="planner-check">
+          <div class="planner-day">Sun</div>
+          <div class="planner-detail">
+            <div class="planner-platform">Facebook + Instagram</div>
+            <div class="planner-task">Free Cheeseboard Sunday &mdash; post the spread</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;font-style:italic">This gives you approximately 3&ndash;4 Facebook posts and 2&ndash;3 Instagram posts per week, plus Stories. Adjust to what feels sustainable.</p>
+  </div>
+
+  <!-- ===== SECTION: COPY-PASTE POSTS ===== -->
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);margin-bottom:6px;margin-top:36px">Copy-Paste Posts</h3>
+  <p class="section-sub">Ready to go. Tweak the details in [brackets] and post.</p>
+
+  <div style="border:2px solid var(--gold);border-radius:12px;padding:18px 22px;background:rgba(212,168,83,0.06);margin:16px 0 20px;">
+      <p style="font-style:italic;color:var(--chalk-white,#F5F0E8);font-size:0.9rem;line-height:1.7;margin:0;">
+          <strong style="color:var(--gold);font-style:normal;">&#9997; A word on authenticity:</strong><br>
+          Your audience follows YOU, not a template. These posts give you structure and ideas &mdash; but always rewrite them in your own voice. Your natural posts consistently outperform polished ones. That&rsquo;s your superpower.
+      </p>
+  </div>
+
+  <!-- Post 1: CAMRA Win -->
   <div class="copy-card">
     <div class="copy-card-header">
       <span class="copy-card-label">CAMRA Win Announcement</span>
       <button class="copy-btn" onclick="copyPost(this)">Copy</button>
     </div>
-    <div class="copy-text">&#127942; We're CAMRA's Pub of the Year 2026!
+    <div class="copy-text">We're CAMRA Sunderland &amp; South Tyneside Branch Pub of the Year AND Cider Pub of the Year 2026.
 
-From a tiny micropub in Whitburn village to the best in Britain. Thank you to every single one of you who made this possible.
+From a tiny micropub in Whitburn village to the best in the branch. Thank you to every single one of you who made this possible.
 
-Cal &amp; Alice x</div>
+Cal &amp; Alice x
+
+#BluesMicroPub #CAMRAPubOfTheYear #WhitburnVillage #RealAle #CraftCider #Micropub</div>
   </div>
 
-  <!-- Post 2 -->
-  <div class="copy-card">
-    <div class="copy-card-header">
-      <span class="copy-card-label">Cask Club Wednesday</span>
-      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
-    </div>
-    <div class="copy-text">&#127866; Cask Club Wednesday
-
-It's that time again. Discounted cask ales all evening. What are you having?
-
-Drop in from 4pm.</div>
-  </div>
-
-  <!-- Post 3 -->
+  <!-- Post 2: Pie & Pint -->
   <div class="copy-card">
     <div class="copy-card-header">
       <span class="copy-card-label">Pie &amp; Pint Thursday</span>
       <button class="copy-btn" onclick="copyPost(this)">Copy</button>
     </div>
-    <div class="copy-text">&#129383;&#127866; Pie and a Pint Thursday
+    <div class="copy-text">Pie and a Pint Thursday.
 
 The perfect mid-week treat. Real ale. Real pie. Real conversation.
 
-From 4pm.</div>
+From [TIME] today.
+
+#BluesMicroPub #PieAndPint #WhitburnVillage #CaskAle #Micropub #NorthEastPubs</div>
   </div>
 
-  <!-- Post 4 -->
+  <!-- Post 3: Whisky Club -->
   <div class="copy-card">
     <div class="copy-card-header">
-      <span class="copy-card-label">Sunday Cheeseboard</span>
+      <span class="copy-card-label">Whisky Club (1st Monday)</span>
       <button class="copy-btn" onclick="copyPost(this)">Copy</button>
     </div>
-    <div class="copy-text">&#129472; Free cheeseboard Sunday
-
-Because nothing pairs better with a Sunday pint than proper cheese. Cask Club prices too.</div>
-  </div>
-
-  <!-- Post 5 -->
-  <div class="copy-card">
-    <div class="copy-card-header">
-      <span class="copy-card-label">Whisky Monday</span>
-      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
-    </div>
-    <div class="copy-text">&#129347; First Monday Whisky Club
+    <div class="copy-text">First Monday Whisky Club tonight.
 
 One unusual malt. One great pint. Both at a cracking price.
 
-Tonight from 4pm.</div>
+From [TIME].
+
+#BluesMicroPub #WhiskyClub #WhitburnVillage #Micropub</div>
   </div>
 
-  <!-- Post 6 -->
+  <!-- Post 4: Cheeseboard Sunday -->
   <div class="copy-card">
     <div class="copy-card-header">
-      <span class="copy-card-label">Running Club</span>
+      <span class="copy-card-label">Free Cheeseboard Sunday</span>
       <button class="copy-btn" onclick="copyPost(this)">Copy</button>
     </div>
-    <div class="copy-text">&#127939; Thursday Running Club
+    <div class="copy-text">Free cheeseboard Sunday.
+
+Because nothing pairs better with a Sunday pint than proper cheese.
+
+#BluesMicroPub #WhitburnVillage #SundaySession #Cheeseboard #RealAle #Micropub</div>
+  </div>
+
+  <!-- Post 5: Running Club -->
+  <div class="copy-card">
+    <div class="copy-card-header">
+      <span class="copy-card-label">Running Club Thursday</span>
+      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
+    </div>
+    <div class="copy-text">Thursday Running Club.
 
 Run first, pint after. The best incentive scheme in Whitburn.
 
-Meet at 6pm.</div>
+Meet at [TIME].
+
+#BluesMicroPub #RunningClub #WhitburnVillage #NorthEast #Micropub</div>
   </div>
 
-  <!-- Post 7 -->
+  <!-- Post 6: Beer Board -->
   <div class="copy-card">
     <div class="copy-card-header">
       <span class="copy-card-label">Beer Board Update</span>
       <button class="copy-btn" onclick="copyPost(this)">Copy</button>
     </div>
-    <div class="copy-text">&#128203; Fresh on the board today:
+    <div class="copy-text">Fresh on the board today:
 
-[LIST YOUR BEERS HERE]
+[LIST YOUR BEERS AND CIDERS HERE]
 
-Something for everyone. Open from [TIME].</div>
+Up to four cask ales. Six real ciders. Nine keg lines. All on rotation. Open from [TIME].
+
+#BluesMicroPub #CaskAle #RealCider #WhitburnVillage #Micropub #CAMRA</div>
   </div>
 
-  <!-- Post 8 -->
-  <div class="copy-card">
-    <div class="copy-card-header">
-      <span class="copy-card-label">Behind the Scenes</span>
-      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
-    </div>
-    <div class="copy-text">Behind the bar with Cal &amp; Alice &#127867;
-
-[ADD YOUR PHOTO OR STORY HERE]
-
-Five years ago we opened the doors. Now we're Britain's best pub. Still pinching ourselves.</div>
-  </div>
-
-  <!-- Post 9 -->
-  <div class="copy-card">
-    <div class="copy-card-header">
-      <span class="copy-card-label">Cider Spotlight</span>
-      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
-    </div>
-    <div class="copy-text">&#127822; Cider of the week: [NAME OF CIDER]
-
-We don't just do beer. We're CAMRA's Cider Pub of the Year too. Six real ciders on at all times.</div>
-  </div>
-
-  <!-- Post 10 -->
-  <div class="copy-card">
-    <div class="copy-card-header">
-      <span class="copy-card-label">Community Post</span>
-      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
-    </div>
-    <div class="copy-text">Whitburn village. Our home. Our community.
-
-Thank you for five incredible years. Here's to the next five. &#128153;</div>
-  </div>
-
-  <!-- Post 11 -->
-  <div class="copy-card">
-    <div class="copy-card-header">
-      <span class="copy-card-label">Beer Garden</span>
-      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
-    </div>
-    <div class="copy-text">&#9728;&#65039; The beer garden is calling.
-
-New snug room, new outdoor space, same brilliant ales. Perfect afternoon sorted.</div>
-  </div>
-
-  <!-- Post 12 -->
+  <!-- Post 7: Review Request -->
   <div class="copy-card">
     <div class="copy-card-header">
       <span class="copy-card-label">Review Request</span>
@@ -533,177 +856,60 @@ New snug room, new outdoor space, same brilliant ales. Perfect afternoon sorted.
     </div>
     <div class="copy-text">Loved your visit?
 
-A quick Google review helps other ale lovers find us. We're at 4.9&#9733; &mdash; help us stay there!
+A quick Google review helps other ale lovers find us. We're at 4.9 stars &mdash; help us stay there!
 
-[ADD YOUR GOOGLE REVIEW LINK]</div>
+[ADD YOUR GOOGLE REVIEW LINK]
+
+#BluesMicroPub #WhitburnVillage #SupportLocal</div>
   </div>
 
-  <!-- 30-Day Calendar -->
-  <h2 class="section-title" style="margin-top:40px">30-Day Content Calendar</h2>
-  <p class="section-sub">April 2026 &mdash; your first full month of consistent posting.</p>
-
-  <div class="card" style="overflow-x:auto">
-    <div class="calendar">
-      <div class="cal-head">Mon</div>
-      <div class="cal-head">Tue</div>
-      <div class="cal-head">Wed</div>
-      <div class="cal-head">Thu</div>
-      <div class="cal-head">Fri</div>
-      <div class="cal-head">Sat</div>
-      <div class="cal-head">Sun</div>
-
-      <!-- Week 1 -->
-      <div class="cal-day empty"></div>
-      <div class="cal-day empty"></div>
-      <div class="cal-day">
-        <div class="day-num">1</div>
-        <span class="day-post">Cask Club Wednesday</span>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">2</div>
-        <span class="day-post">Pie &amp; Pint Thursday</span>
-        <span class="day-post">Running Club</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">3</div>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">4</div>
-        <span class="day-post">Beer Garden Post</span>
-        <span class="day-post">Behind the Scenes</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">5</div>
-        <span class="day-post">Free Cheeseboard Sunday</span>
-      </div>
-
-      <!-- Week 2 -->
-      <div class="cal-day">
-        <div class="day-num">6</div>
-        <span class="day-post">Whisky Club Monday</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">7</div>
-        <span class="day-post">Community Post</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">8</div>
-        <span class="day-post">Cask Club Wednesday</span>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">9</div>
-        <span class="day-post">Pie &amp; Pint Thursday</span>
-        <span class="day-post">Running Club</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">10</div>
-        <span class="day-post">Cider Spotlight</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">11</div>
-        <span class="day-post">Beer Board Update</span>
-        <span class="day-post">Behind the Scenes</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">12</div>
-        <span class="day-post">Free Cheeseboard Sunday</span>
-      </div>
-
-      <!-- Week 3 -->
-      <div class="cal-day">
-        <div class="day-num">13</div>
-        <span class="day-post">CAMRA Win Reminder</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">14</div>
-        <span class="day-post">Review Request</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">15</div>
-        <span class="day-post">Cask Club Wednesday</span>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">16</div>
-        <span class="day-post">Pie &amp; Pint Thursday</span>
-        <span class="day-post">Running Club</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">17</div>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">18</div>
-        <span class="day-post">Beer Garden Post</span>
-        <span class="day-post">Behind the Scenes</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">19</div>
-        <span class="day-post">Free Cheeseboard Sunday</span>
-      </div>
-
-      <!-- Week 4 -->
-      <div class="cal-day">
-        <div class="day-num">20</div>
-        <span class="day-post">Community Post</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">21</div>
-        <span class="day-post">Cider Spotlight</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">22</div>
-        <span class="day-post">Cask Club Wednesday</span>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">23</div>
-        <span class="day-post">Pie &amp; Pint Thursday</span>
-        <span class="day-post">Running Club</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">24</div>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">25</div>
-        <span class="day-post">Behind the Scenes</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">26</div>
-        <span class="day-post">Free Cheeseboard Sunday</span>
-      </div>
-
-      <!-- Week 5 -->
-      <div class="cal-day">
-        <div class="day-num">27</div>
-        <span class="day-post">Review Request</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">28</div>
-        <span class="day-post">Beer Garden Post</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">29</div>
-        <span class="day-post">Cask Club Wednesday</span>
-        <span class="day-post">Beer Board Update</span>
-      </div>
-      <div class="cal-day">
-        <div class="day-num">30</div>
-        <span class="day-post">Pie &amp; Pint Thursday</span>
-        <span class="day-post">Running Club</span>
-      </div>
-      <div class="cal-day empty"></div>
-      <div class="cal-day empty"></div>
-      <div class="cal-day empty"></div>
+  <!-- Post 8: Behind the Scenes -->
+  <div class="copy-card">
+    <div class="copy-card-header">
+      <span class="copy-card-label">Behind the Scenes</span>
+      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
     </div>
+    <div class="copy-text">Behind the bar with Cal &amp; Alice.
+
+[ADD YOUR PHOTO OR STORY HERE]
+
+We opened in February 2020. Now we're CAMRA Branch Pub of the Year. Still pinching ourselves.
+
+#BluesMicroPub #WhitburnVillage #Micropub #PubLife #BehindTheBar</div>
   </div>
 
-  <!-- Hashtag Bank -->
-  <h2 class="section-title" style="margin-top:40px">Hashtag Bank</h2>
+  <!-- Post 9: Customer Quote -->
+  <div class="copy-card">
+    <div class="copy-card-header">
+      <span class="copy-card-label">Customer Quote</span>
+      <button class="copy-btn" onclick="copyPost(this)">Copy</button>
+    </div>
+    <div class="copy-text">What our customers say:
+
+"[PASTE A REAL GOOGLE REVIEW QUOTE HERE]"
+
+Thank you &mdash; reviews like this make it all worthwhile. If you've enjoyed a visit, a quick Google review helps others find us too.
+
+#BluesMicroPub #WhitburnVillage #CustomerLove #Micropub #SupportLocal</div>
+  </div>
+
+  <!-- Your Best Reviews -->
+  <div class="card" style="margin-top:20px;margin-bottom:20px;border-left:3px solid var(--gold);padding-left:20px">
+    <h4 style="color:var(--gold);font-size:14px;margin-bottom:8px">&#11088; Your Best Reviews &mdash; Use Them Everywhere</h4>
+    <p class="finding-text" style="margin-bottom:12px">You have <strong style="color:var(--text)">4.9 stars from 119+ Google reviews</strong>. Pull 3&ndash;4 of your favourite customer quotes and use them in these templates. Real customer words are more powerful than anything we could write.</p>
+    <p class="finding-text" style="margin-bottom:8px"><strong style="color:var(--text)">Where to find them:</strong> Open Google Maps, search "Blue's Micro Pub Whitburn", click your listing, and scroll to reviews. Sort by "Newest" or "Highest" and pick the ones that best capture what makes Blues special.</p>
+    <p class="finding-text" style="margin-bottom:8px"><strong style="color:var(--text)">How to use them:</strong></p>
+    <ul style="font-size:13px;color:var(--muted);line-height:1.8;padding-left:20px">
+      <li>Paste them into the <strong style="color:var(--text)">Customer Quote</strong> post template above</li>
+      <li>Feature one per week on Instagram Stories with a "Thank you" overlay</li>
+      <li>Add your best quote to your Instagram bio or highlights</li>
+      <li>Use them on the "Review Us" tent card as social proof</li>
+      <li>Include one in your Google Business Profile description</li>
+    </ul>
+  </div>
+
+  <!-- ===== SECTION: HASHTAG BANK ===== -->
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);margin-bottom:6px;margin-top:36px">Hashtag Bank</h3>
   <p class="section-sub">Click to copy. Use 5&ndash;8 per post. Mix core hashtags with situational ones.</p>
 
   <div class="card">
@@ -723,7 +929,6 @@ A quick Google review helps other ale lovers find us. We're at 4.9&#9733; &mdash
       <span class="hashtag" onclick="copyTag(this)">#CaskAle</span>
       <span class="hashtag" onclick="copyTag(this)">#RealCider</span>
       <span class="hashtag" onclick="copyTag(this)">#CraftBeer</span>
-      <span class="hashtag" onclick="copyTag(this)">#CaskClub</span>
       <span class="hashtag" onclick="copyTag(this)">#CAMRA</span>
       <span class="hashtag" onclick="copyTag(this)">#CiderPub</span>
       <span class="hashtag" onclick="copyTag(this)">#AleTrail</span>
@@ -762,7 +967,7 @@ A quick Google review helps other ale lovers find us. We're at 4.9&#9733; &mdash
 
 <!-- Footer -->
 <footer class="footer">
-  <p>A gift from <strong>Pink House Trading</strong> | <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
+  <p>A <strong>Pink House Trading</strong> Product | <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
 </footer>
 
 </div>
@@ -794,11 +999,29 @@ function copyTag(el){
   });
 }
 
-// Animate score ring on load
+// Animate score ring on load — 5/10 = 50%
 window.addEventListener('load',()=>{
   const fill=document.querySelector('.score-ring .fill');
-  // 4/10 = 40%, dashoffset = 471 - (471*0.4) = 282.6
-  setTimeout(()=>{fill.style.strokeDashoffset='282.6'},300);
+  // 5/10 = 50%, dashoffset = 471 - (471*0.5) = 235.5
+  setTimeout(()=>{fill.style.strokeDashoffset='235.5'},300);
+});
+
+// Planner: persist checkbox state in localStorage
+document.querySelectorAll('.planner-check').forEach((cb,i)=>{
+  const key='blues-planner-'+i;
+  cb.checked=localStorage.getItem(key)==='true';
+  cb.addEventListener('change',()=>{
+    localStorage.setItem(key,cb.checked);
+    // Strike-through effect
+    const task=cb.closest('.planner-row').querySelector('.planner-task');
+    if(task) task.style.textDecoration=cb.checked?'line-through':'none';
+    if(task) task.style.opacity=cb.checked?'0.5':'1';
+  });
+  // Apply initial state
+  if(cb.checked){
+    const task=cb.closest('.planner-row').querySelector('.planner-task');
+    if(task){task.style.textDecoration='line-through';task.style.opacity='0.5';}
+  }
 });
 </script>
 

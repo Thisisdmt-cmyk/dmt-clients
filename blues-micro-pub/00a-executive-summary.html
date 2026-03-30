@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue's Micro Pub — Digital Intelligence Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue-primary: #1B4B7A;
+            --blue-dark: #133658;
+            --blue-light: #2A6BAA;
+            --gold: #D4A853;
+            --gold-light: #E8C97A;
+            --bg: #FFFFFF;
+            --surface: #F6F8FB;
+            --border: #D8E2EE;
+            --text: #1A2332;
+            --text-secondary: #4A5E78;
+            --text-muted: #7A8FA8;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .page { box-shadow: none; page-break-inside: avoid; }
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #E8EDF3;
+            color: var(--text);
+            line-height: 1.5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            max-height: 297mm;
+            background: var(--bg);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: var(--blue-primary);
+            color: white;
+            padding: 20px 32px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .header-left .subtitle {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.7);
+            margin-top: 2px;
+        }
+
+        .header-date {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.6);
+            text-align: right;
+        }
+
+        /* ── Headline ── */
+        .headline {
+            background: linear-gradient(135deg, var(--surface) 0%, #EEF2F7 100%);
+            padding: 16px 32px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .headline p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--blue-primary);
+            font-style: italic;
+        }
+
+        /* ── Key Numbers ── */
+        .key-numbers {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .key-number {
+            padding: 14px 20px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+
+        .key-number:last-child {
+            border-right: none;
+        }
+
+        .key-number .value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--blue-primary);
+        }
+
+        .key-number .value .highlight {
+            color: var(--gold);
+        }
+
+        .key-number .label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 2px;
+        }
+
+        /* ── Priority Box ── */
+        .priority-box {
+            margin: 14px 32px;
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #FFF9EE 0%, #FFF5E0 100%);
+            border: 1.5px solid var(--gold);
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .priority-icon {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .priority-content .priority-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .priority-content .priority-text {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-top: 1px;
+        }
+
+        .priority-content .priority-detail {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 1px;
+        }
+
+        /* ── Content Grid ── */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            flex: 1;
+            padding: 0 32px;
+            margin-top: 10px;
+        }
+
+        .col {
+            padding-right: 20px;
+        }
+
+        .col:last-child {
+            padding-right: 0;
+            padding-left: 20px;
+            border-left: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--blue-primary);
+            margin-bottom: 6px;
+            padding-bottom: 4px;
+            border-bottom: 1.5px solid var(--blue-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-title .icon {
+            font-size: 0.75rem;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin-bottom: 14px;
+        }
+
+        .bullet-list li {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            padding: 3px 0 3px 14px;
+            position: relative;
+            line-height: 1.45;
+        }
+
+        .bullet-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .bullet-list.strengths li::before {
+            background: var(--blue-primary);
+        }
+
+        .bullet-list.gaps li::before {
+            background: var(--gold);
+        }
+
+        .bullet-list li strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ── 90-Day Plan ── */
+        .plan {
+            margin-bottom: 14px;
+        }
+
+        .plan-phase {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 5px 0;
+        }
+
+        .phase-badge {
+            flex-shrink: 0;
+            width: 64px;
+            padding: 2px 0;
+            text-align: center;
+            font-size: 0.55rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 3px;
+            color: white;
+            margin-top: 1px;
+        }
+
+        .phase-badge.p1 { background: var(--blue-primary); }
+        .phase-badge.p2 { background: var(--blue-light); }
+        .phase-badge.p3 { background: var(--gold); }
+
+        .phase-text {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .phase-text strong {
+            color: var(--text);
+        }
+
+        /* ── Pack Contents ── */
+        .pack-contents {
+            margin-bottom: 10px;
+        }
+
+        .pack-item {
+            display: flex;
+            gap: 8px;
+            padding: 2.5px 0;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        .pack-num {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            background: var(--surface);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.58rem;
+            color: var(--blue-primary);
+        }
+
+        .pack-label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 10px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .footer-left {
+            font-size: 0.62rem;
+            color: var(--text-muted);
+        }
+
+        .footer-right {
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--blue-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Blue's Micro Pub</h1>
+                <div class="subtitle">Digital Intelligence Summary</div>
+            </div>
+            <div class="header-date">Prepared March 2026<br>Whitburn, SR6 7EW</div>
+        </div>
+
+        <!-- Headline -->
+        <div class="headline">
+            <p>"You're already winning on Instagram. Here's how to win everywhere else."</p>
+        </div>
+
+        <!-- Key Numbers -->
+        <div class="key-numbers">
+            <div class="key-number">
+                <div class="value">4.9<span class="highlight">&#9733;</span> Google</div>
+                <div class="label">An exceptional rating for any UK pub</div>
+            </div>
+            <div class="key-number">
+                <div class="value">2,200 <span style="font-size:0.8rem;">followers</span></div>
+                <div class="label">Beats national POTY winner on Instagram</div>
+            </div>
+            <div class="key-number">
+                <div class="value">Branch CAMRA <span class="highlight">&times;2</span></div>
+                <div class="label">Pub + Cider Pub of the Year 2026</div>
+            </div>
+        </div>
+
+        <!-- Priority Box -->
+        <div class="priority-box">
+            <div class="priority-icon">#1</div>
+            <div class="priority-content">
+                <div class="priority-label">Your #1 Priority This Week</div>
+                <div class="priority-text">Claim your Untappd venue page</div>
+                <div class="priority-detail">5 minutes, free, immediate visibility boost to every craft beer drinker searching your area</div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div class="col">
+                <div class="section-title"><span class="icon">&#9650;</span> Where You're Strong</div>
+                <ul class="bullet-list strengths">
+                    <li><strong>Instagram excellence</strong> — 2,200 followers and 1,745 posts outperforms the three-time CAMRA National POTY by 23%</li>
+                    <li><strong>Google reputation</strong> — 4.9 stars from 119+ reviews puts you in the top tier nationally; organic trust you can't buy</li>
+                    <li><strong>CAMRA credibility</strong> — Double Branch award (Pub + Cider) gives third-party authority that competitors cannot replicate</li>
+                </ul>
+
+                <div class="section-title"><span class="icon">&#9660;</span> Where You're Missing Out</div>
+                <ul class="bullet-list gaps">
+                    <li><strong>TripAdvisor is almost empty</strong> — 8 reviews vs. the benchmark's 91. Tourists searching Whitburn won't find you</li>
+                    <li><strong>No email newsletter</strong> — The national POTY runs "The Tap Times." You have no owned channel to reach regulars directly</li>
+                    <li><strong>No merchandise or e-commerce</strong> — Your brand loyalty is high; you're leaving revenue on the table</li>
+                </ul>
+
+                <div class="section-title"><span class="icon">&#9654;</span> The 90-Day Plan</div>
+                <div class="plan">
+                    <div class="plan-phase">
+                        <div class="phase-badge p1">Days 1-30</div>
+                        <div class="phase-text"><strong>Quick wins</strong> — Claim Untappd, seed TripAdvisor, fix Google listing gaps</div>
+                    </div>
+                    <div class="plan-phase">
+                        <div class="phase-badge p2">Days 31-60</div>
+                        <div class="phase-text"><strong>Content rhythm</strong> — Launch newsletter, cross-post IG to Facebook, add event schema</div>
+                    </div>
+                    <div class="plan-phase">
+                        <div class="phase-badge p3">Days 61-90</div>
+                        <div class="phase-text"><strong>Growth</strong> — Merch store, Google review push, website upgrade scoping</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col">
+                <div class="section-title"><span class="icon">&#9824;</span> What's In This Pack</div>
+                <div class="pack-contents">
+                    <div class="pack-item">
+                        <div class="pack-num">01</div>
+                        <div><span class="pack-label">Social Media Audit</span> — Platform-by-platform breakdown of your digital presence with scores and actions</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">02</div>
+                        <div><span class="pack-label">Google &amp; Web Presence</span> — Search visibility, Google Business Profile health, and listing accuracy</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">03</div>
+                        <div><span class="pack-label">Brand Audit</span> — Visual identity consistency, tone of voice, and brand asset recommendations</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">04</div>
+                        <div><span class="pack-label">Competitor Benchmark</span> — Head-to-head vs. Tamworth Tap (CAMRA National POTY) across all digital channels</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">05</div>
+                        <div><span class="pack-label">Revenue Opportunities</span> — Untapped income streams from merchandise, events, and digital products</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">06</div>
+                        <div><span class="pack-label">Content &amp; Events Strategy</span> — Weekly content calendar and event promotion playbook</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">07</div>
+                        <div><span class="pack-label">Content Generator</span> — Create ready-to-post social content for beer boards, events and awards</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">08</div>
+                        <div><span class="pack-label">Review Response Assistant</span> — Paste any review, get a professional reply with sentiment analysis</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">09</div>
+                        <div><span class="pack-label">ROI Simulator</span> — Model revenue impact of events, merchandise and gift cards</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">10</div>
+                        <div><span class="pack-label">Brand Asset Generator</span> — Create social headers, email signatures, business cards and letterheads</div>
+                    </div>
+                    <div class="pack-item">
+                        <div class="pack-num">11</div>
+                        <div><span class="pack-label">QR Code Generator</span> — Print QR codes for Google reviews, social profiles and menus</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-left">
+                <span class="footer-brand">Pink House Trading</span> &mdash; A Pink House Trading Product
+            </div>
+            <div class="footer-right">
+                thisisdmt@icloud.com &bull; Prepared with verified data, March 2026
+            </div>
+        </div>
+    </div>
+</body>
+</html>

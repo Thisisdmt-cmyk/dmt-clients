@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue's Micro Pub — Review Response Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-primary: #1B4B7A;
+            --blue-light: #2A6BAA;
+            --gold: #D4A853;
+            --gold-light: #E8C97A;
+            --dark-bg: #0F1923;
+            --card-bg: #152535;
+            --card-bg-alt: #1A2D42;
+            --border: #1E3A5F;
+            --text: #E8EDF3;
+            --muted: #8BA4C4;
+            --positive: #4CAF50;
+            --mixed: #FF9800;
+            --negative: #E53935;
+            --radius: 12px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            padding: 40px 24px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* ── Layout ── */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 16px 100px;
+        }
+
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .icon {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+
+        /* ── Form Controls ── */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .form-row.full { grid-template-columns: 1fr; }
+        .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+        @media (max-width: 600px) {
+            .form-row, .form-row.three { grid-template-columns: 1fr; }
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea, select, input[type="text"] {
+            width: 100%;
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        textarea:focus, select:focus, input[type="text"]:focus {
+            border-color: var(--gold);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238BA4C4' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+
+        select option { background: var(--dark-bg); color: var(--text); }
+
+        /* ── Star Rating Picker ── */
+        .star-picker {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 1.7rem;
+            cursor: pointer;
+            color: var(--border);
+            transition: color 0.15s, transform 0.15s;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .star-btn.active { color: var(--gold); }
+        .star-btn:hover { transform: scale(1.15); }
+
+        .star-label {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-left: 8px;
+        }
+
+        /* ── Signer Toggle ── */
+        .signer-toggle {
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .signer-btn {
+            flex: 1;
+            background: var(--dark-bg);
+            border: none;
+            color: var(--muted);
+            padding: 10px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .signer-btn.active {
+            background: var(--blue-primary);
+            color: var(--text);
+        }
+
+        /* ── Generate Button ── */
+        .generate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s;
+            margin-top: 6px;
+        }
+
+        .generate-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(212,168,83,0.3); }
+        .generate-btn:active { transform: translateY(0); }
+
+        .generate-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ── Analysis Panel ── */
+        .analysis-panel {
+            display: none;
+        }
+
+        .analysis-panel.visible { display: block; }
+
+        .analysis-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .badge-positive { background: rgba(76,175,80,0.15); color: var(--positive); border: 1px solid rgba(76,175,80,0.3); }
+        .badge-mixed { background: rgba(255,152,0,0.15); color: var(--mixed); border: 1px solid rgba(255,152,0,0.3); }
+        .badge-negative { background: rgba(229,57,53,0.15); color: var(--negative); border: 1px solid rgba(229,57,53,0.3); }
+
+        .badge-tone {
+            background: rgba(27,75,122,0.3);
+            color: var(--blue-light);
+            border: 1px solid rgba(27,75,122,0.5);
+        }
+
+        .theme-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: rgba(212,168,83,0.1);
+            color: var(--gold);
+            border: 1px solid rgba(212,168,83,0.2);
+        }
+
+        .themes-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        /* ── Response Cards ── */
+        .responses-section { display: none; }
+        .responses-section.visible { display: block; }
+
+        .response-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .response-card:hover { border-color: rgba(212,168,83,0.3); }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: var(--card-bg-alt);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .response-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .response-label span {
+            color: var(--muted);
+            font-weight: 400;
+            font-size: 0.8rem;
+            margin-left: 6px;
+        }
+
+        .response-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .char-count {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .copy-btn {
+            background: var(--blue-primary);
+            border: none;
+            color: var(--text);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover { background: var(--blue-light); }
+
+        .copy-btn.copied {
+            background: var(--positive);
+        }
+
+        .response-body {
+            padding: 18px;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* ── History Section ── */
+        .history-section { margin-top: 36px; }
+
+        .history-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .history-item:hover { border-color: rgba(212,168,83,0.3); }
+
+        .history-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .history-stars { color: var(--gold); font-size: 0.8rem; white-space: nowrap; }
+
+        .history-preview {
+            font-size: 0.85rem;
+            color: var(--muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 400px;
+        }
+
+        @media (max-width: 600px) {
+            .history-preview { max-width: 160px; }
+        }
+
+        .history-item-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .history-platform {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--blue-light);
+            letter-spacing: 0.5px;
+        }
+
+        .history-date {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .history-delete {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: color 0.2s, background 0.2s;
+            line-height: 1;
+        }
+
+        .history-delete:hover { color: var(--negative); background: rgba(229,57,53,0.1); }
+
+        .clear-history-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .clear-history-btn:hover { color: var(--negative); border-color: var(--negative); }
+
+        .empty-state {
+            text-align: center;
+            padding: 32px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ── Utility ── */
+        .hidden { display: none !important; }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 16px 0;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .container { padding: 16px 12px 80px; }
+            .card { padding: 16px; }
+            .response-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .response-meta { width: 100%; justify-content: space-between; }
+            .header { padding: 28px 16px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Review Response Assistant</h1>
+    <p>Blue's Micro Pub &mdash; Craft the perfect reply, every time</p>
+</div>
+
+<div class="container">
+
+    <!-- ═══ INPUT SECTION ═══ -->
+    <div class="section">
+        <div class="section-title"><span class="icon">&#9998;</span> Paste the Review</div>
+        <div class="card">
+            <div class="form-row full">
+                <div class="form-group">
+                    <label>Review Text</label>
+                    <textarea id="reviewText" placeholder="Paste the customer's review here..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-row three">
+                <div class="form-group">
+                    <label>Platform</label>
+                    <select id="platform">
+                        <option value="google">Google</option>
+                        <option value="tripadvisor">TripAdvisor</option>
+                        <option value="facebook">Facebook</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Star Rating</label>
+                    <div class="star-picker" id="starPicker">
+                        <button class="star-btn" data-star="1">&#9733;</button>
+                        <button class="star-btn" data-star="2">&#9733;</button>
+                        <button class="star-btn" data-star="3">&#9733;</button>
+                        <button class="star-btn" data-star="4">&#9733;</button>
+                        <button class="star-btn" data-star="5">&#9733;</button>
+                        <span class="star-label" id="starLabel">Select</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Reviewer Name (optional)</label>
+                    <input type="text" id="reviewerName" placeholder="e.g. Sarah">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Sign as</label>
+                    <div class="signer-toggle">
+                        <button class="signer-btn active" data-signer="Cal" onclick="setSigner('Cal')">Cal</button>
+                        <button class="signer-btn" data-signer="Alice" onclick="setSigner('Alice')">Alice</button>
+                        <button class="signer-btn" data-signer="Cal & Alice" onclick="setSigner('Cal & Alice')">Cal &amp; Alice</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="generate-btn" id="generateBtn" onclick="generateResponses()">Generate Responses</button>
+        </div>
+    </div>
+
+    <!-- ═══ ANALYSIS SECTION ═══ -->
+    <div class="section analysis-panel" id="analysisPanel">
+        <div class="section-title"><span class="icon">&#128270;</span> Review Analysis</div>
+        <div class="card">
+            <div class="analysis-row">
+                <div id="sentimentBadge"></div>
+                <div id="toneBadge"></div>
+            </div>
+            <div class="themes-wrap" id="themesWrap"></div>
+        </div>
+    </div>
+
+    <!-- ═══ RESPONSES SECTION ═══ -->
+    <div class="section responses-section" id="responsesSection">
+        <div class="section-title"><span class="icon">&#128172;</span> Response Options</div>
+        <div id="responsesContainer"></div>
+    </div>
+
+    <!-- ═══ HISTORY SECTION ═══ -->
+    <div class="section history-section">
+        <div class="section-title"><span class="icon">&#128203;</span> Response History</div>
+        <div class="history-stats" id="historyStats"></div>
+        <div class="history-list" id="historyList"></div>
+    </div>
+
+</div>
+
+<div class="footer">
+    A Pink House Trading Product &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let currentStars = 0;
+let currentSigner = 'Cal';
+
+// ═══════════════════════════════════════════════
+// STAR PICKER
+// ═══════════════════════════════════════════════
+document.querySelectorAll('.star-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        currentStars = parseInt(btn.dataset.star);
+        updateStars();
+    });
+});
+
+function updateStars() {
+    const labels = ['', 'Terrible', 'Poor', 'Average', 'Great', 'Excellent'];
+    document.querySelectorAll('.star-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.star) <= currentStars);
+    });
+    document.getElementById('starLabel').textContent = currentStars > 0 ? `${currentStars} — ${labels[currentStars]}` : 'Select';
+}
+
+// ═══════════════════════════════════════════════
+// SIGNER TOGGLE
+// ═══════════════════════════════════════════════
+function setSigner(name) {
+    currentSigner = name;
+    document.querySelectorAll('.signer-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.signer === name);
+    });
+}
+
+// ═══════════════════════════════════════════════
+// THEME DETECTION
+// ═══════════════════════════════════════════════
+const THEMES = {
+    beer:       { keywords: ['beer', 'beers', 'ale', 'ales', 'ipa', 'stout', 'lager', 'cask', 'keg', 'pint', 'pints', 'draught', 'draft', 'brew', 'brews', 'hazy', 'bitter', 'pale ale'], label: 'Beer', icon: '&#127866;' },
+    cider:      { keywords: ['cider', 'ciders', 'perry', 'scrumpy', 'apple'], label: 'Cider', icon: '&#127823;' },
+    atmosphere: { keywords: ['atmosphere', 'vibe', 'vibes', 'cosy', 'cozy', 'warm', 'welcoming', 'intimate', 'charming', 'lovely', 'feel', 'ambience', 'ambient', 'decor', 'interior'], label: 'Atmosphere', icon: '&#10024;' },
+    staff:      { keywords: ['staff', 'service', 'bartender', 'served', 'friendly', 'helpful', 'knowledgeable', 'cal', 'alice', 'owner', 'owners', 'barman', 'barwoman', 'landlord', 'host'], label: 'Staff', icon: '&#128100;' },
+    food:       { keywords: ['food', 'pie', 'pies', 'cheese', 'cheeseboard', 'snack', 'snacks', 'nuts', 'crisps', 'eat', 'eating', 'hungry'], label: 'Food', icon: '&#127860;' },
+    value:      { keywords: ['price', 'prices', 'cheap', 'expensive', 'value', 'worth', 'affordable', 'cost', 'money', 'reasonable', 'overpriced', 'bargain'], label: 'Value', icon: '&#163;' },
+    location:   { keywords: ['location', 'whitburn', 'village', 'area', 'walk', 'walking', 'find', 'found', 'sea', 'coast', 'beach', 'percy terrace', 'nearby'], label: 'Location', icon: '&#128205;' },
+    events:     { keywords: ['event', 'events', 'whisky', 'whiskey', 'club', 'running', 'run club', 'quiz', 'night', 'live', 'thursday', 'monday'], label: 'Events', icon: '&#127881;' },
+    music:      { keywords: ['music', 'musician', 'band', 'bands', 'gig', 'gigs', 'live music', 'singer', 'acoustic', 'song', 'songs', 'playing', 'playlist', 'vinyl', 'records'], label: 'Music', icon: '&#127925;' }
+};
+
+function detectThemes(text) {
+    const lower = text.toLowerCase();
+    const found = [];
+    for (const [key, theme] of Object.entries(THEMES)) {
+        if (theme.keywords.some(kw => lower.includes(kw))) {
+            found.push({ key, ...theme });
+        }
+    }
+    return found;
+}
+
+function getSentiment(stars) {
+    if (stars >= 4) return { label: 'Positive', cls: 'badge-positive' };
+    if (stars === 3) return { label: 'Mixed', cls: 'badge-mixed' };
+    return { label: 'Negative', cls: 'badge-negative' };
+}
+
+function getSuggestedTone(stars) {
+    if (stars >= 4) return 'Grateful';
+    if (stars === 3) return 'Professional';
+    return 'Recovery';
+}
+
+// ═══════════════════════════════════════════════
+// RESPONSE TEMPLATES
+// ═══════════════════════════════════════════════
+
+function getGreeting(name) {
+    if (!name || !name.trim()) return '';
+    return name.trim();
+}
+
+function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Theme-specific response fragments
+const THEME_MENTIONS = {
+    beer: {
+        positive: [
+            "We're always hunting for the best cask and keg out there, so it's brilliant to hear the beer hit the spot",
+            "The beer selection is something we put a lot of love into — glad it showed",
+            "We're chuffed you enjoyed the beers — we've got some crackers lined up soon too"
+        ],
+        neutral: [
+            "We're always rotating our beers and trying new things on the taps",
+            "Our beer range changes regularly, so there's always something new to try"
+        ],
+        negative: [
+            "We hear you on the beer front and we're always looking to improve the range",
+            "Sorry the beer didn't quite hit the mark — we'd love to know what styles you prefer"
+        ]
+    },
+    cider: {
+        positive: [
+            "Our cider selection is something we're really proud of — great to hear you enjoyed it",
+            "We love our ciders here — glad they impressed you"
+        ],
+        neutral: ["We keep 6 real ciders on rotation, so there's always something different to try"],
+        negative: ["We're always updating our cider range and would love to hear what you'd like to see"]
+    },
+    atmosphere: {
+        positive: [
+            "Creating a warm, welcoming space is what it's all about for us",
+            "We work hard to make the place feel special — lovely to know it comes through",
+            "That cosy micropub feel is exactly what we're going for"
+        ],
+        neutral: ["We're a small space with a big heart — that's the micropub way"],
+        negative: ["We're always looking at ways to make the experience better for everyone"]
+    },
+    staff: {
+        positive: [
+            "We genuinely love chatting with our customers — it's the best part of the job",
+            "Kind words about the service mean the world to a small team like ours"
+        ],
+        neutral: ["We always try our best to make everyone feel welcome"],
+        negative: ["We're sorry the service didn't meet your expectations — that's not the standard we set for ourselves"]
+    },
+    food: {
+        positive: [
+            "Glad you enjoyed the food — our Pie & Pint Thursdays and Sunday cheeseboards are firm favourites",
+            "The food offering is something we've been building up and it's great to hear it's landing well"
+        ],
+        neutral: ["Our food offering keeps growing — keep an eye out for Pie & Pint Thursdays and our Sunday cheeseboard"],
+        negative: ["Thanks for the feedback on the food — we're always looking to improve what we offer"]
+    },
+    value: {
+        positive: [
+            "We try to keep things fair — quality beer at honest prices",
+            "Glad you felt it was good value — that's important to us"
+        ],
+        neutral: ["We always aim to offer great quality at fair prices"],
+        negative: ["We understand value matters — we try to balance quality with fair pricing and we'll take your feedback on board"]
+    },
+    location: {
+        positive: [
+            "Whitburn's a special little village and we're proud to be part of it",
+            "We love our spot in Whitburn — glad you found us"
+        ],
+        neutral: ["We're tucked away on Percy Terrace in Whitburn — small but worth the visit"],
+        negative: ["We know we're a bit tucked away, but we think it's worth the trip"]
+    },
+    events: {
+        positive: [
+            "Brilliant that you caught one of our events — we've got loads more planned",
+            "Our events are a big part of what makes this place tick"
+        ],
+        neutral: ["We run regular events including our Whisky Club and Pie & Pint Thursdays — hope to see you at one"],
+        negative: ["We're always working on our events calendar — keep an eye on our socials for what's coming up"]
+    },
+    music: {
+        positive: [
+            "The music is a huge part of the soul of this place — chuffed you enjoyed it",
+            "We love bringing live music into the pub — glad it added to your experience"
+        ],
+        neutral: ["We love our music here — live and on vinyl"],
+        negative: ["Sorry the music wasn't to your taste — we try to mix things up"]
+    }
+};
+
+const WARM_OPENERS = {
+    named: [
+        "Hi {name}! Thanks so much for taking the time to leave this lovely review.",
+        "Hey {name}! What a brilliant review — really made our day.",
+        "{name}, thank you! It's reviews like this that make all the hard work worth it.",
+        "Hi {name}, cheers for the kind words — we're absolutely buzzing reading this!",
+        "{name}! Thanks for this — really put a smile on our faces."
+    ],
+    unnamed: [
+        "Thank you so much for this lovely review — really made our day!",
+        "What a brilliant review — cheers for taking the time to write it!",
+        "Thanks for the kind words — we're absolutely buzzing reading this!",
+        "Thank you! Reviews like this make all the hard work worth it."
+    ]
+};
+
+const PROFESSIONAL_OPENERS = {
+    named: [
+        "Hi {name}, thank you for taking the time to share your experience with us.",
+        "{name}, thank you for your feedback — we really appreciate it.",
+        "Hi {name}, thanks for your review — we value every piece of feedback."
+    ],
+    unnamed: [
+        "Thank you for taking the time to share your experience with us.",
+        "Thank you for your feedback — we really appreciate it.",
+        "Thanks for your review — we value every piece of feedback we receive."
+    ]
+};
+
+const RECOVERY_OPENERS = {
+    named: [
+        "Hi {name}, thank you for being honest with us — we're sorry to hear your visit wasn't what you hoped for.",
+        "{name}, we appreciate you sharing this and we're genuinely sorry your experience fell short.",
+        "Hi {name}, thanks for letting us know — we're sorry we didn't meet the mark this time."
+    ],
+    unnamed: [
+        "Thank you for being honest with us — we're sorry to hear your visit wasn't what you hoped for.",
+        "We appreciate you sharing this and we're genuinely sorry your experience fell short.",
+        "Thanks for letting us know — we're sorry we didn't meet the mark this time."
+    ]
+};
+
+const WARM_CLOSERS = [
+    "We'd love to see you back soon — there's always something new on the taps!",
+    "Hope to see you again before long. First pint's waiting!",
+    "You're welcome back any time — we've got some exciting new beers landing soon.",
+    "Can't wait to welcome you back. Pop in any time!",
+    "See you again soon — the door's always open!"
+];
+
+const PROFESSIONAL_CLOSERS = [
+    "We hope to welcome you back again soon.",
+    "Thanks again, and we look forward to seeing you.",
+    "Your support means a lot — hope to see you again before long.",
+    "We appreciate your kind words and hope to welcome you back."
+];
+
+const RECOVERY_CLOSERS = [
+    "We'd genuinely love the chance to put this right. Please feel free to reach out to us directly through our Facebook page or pop in — we're always happy to chat.",
+    "If you'd like to discuss this further, please get in touch via our socials. We'd really appreciate the chance to make it up to you.",
+    "We'd welcome the opportunity to make your next visit a better one. Drop us a message any time."
+];
+
+const RECOVERY_MIDDLE = [
+    "We take feedback like this seriously and it's already been discussed.",
+    "Your feedback has been taken on board — it's how we get better.",
+    "We've had a conversation about this and we're making changes."
+];
+
+// Platform length guidance
+const PLATFORM_LIMITS = {
+    google: { ideal: 500, max: 4000, note: 'Google' },
+    tripadvisor: { ideal: 350, max: 2000, note: 'TripAdvisor' },
+    facebook: { ideal: 400, max: 3000, note: 'Facebook' }
+};
+
+function buildThemeSentence(themes, sentiment) {
+    if (themes.length === 0) return '';
+    const pool = sentiment === 'positive' ? 'positive' : (sentiment === 'negative' ? 'negative' : 'neutral');
+    const sentences = [];
+    // Pick up to 2 theme mentions
+    const selected = themes.slice(0, 2);
+    for (const theme of selected) {
+        const options = THEME_MENTIONS[theme.key]?.[pool];
+        if (options && options.length > 0) {
+            sentences.push(pickRandom(options));
+        }
+    }
+    return sentences.join('. ') + (sentences.length > 0 ? '.' : '');
+}
+
+function generateWarmResponse(name, themes, signer, platform) {
+    const openerPool = name ? WARM_OPENERS.named : WARM_OPENERS.unnamed;
+    let opener = pickRandom(openerPool);
+    if (name) opener = opener.replace('{name}', name);
+
+    const themePart = buildThemeSentence(themes, 'positive');
+    const closer = pickRandom(WARM_CLOSERS);
+    const signoff = `Cheers,\n${signer}`;
+
+    let response = opener;
+    if (themePart) response += '\n\n' + themePart;
+    response += '\n\n' + closer;
+    response += '\n\n' + signoff;
+
+    return response;
+}
+
+function generateProfessionalResponse(name, themes, stars, signer, platform) {
+    const openerPool = name ? PROFESSIONAL_OPENERS.named : PROFESSIONAL_OPENERS.unnamed;
+    let opener = pickRandom(openerPool);
+    if (name) opener = opener.replace('{name}', name);
+
+    const sentiment = stars >= 4 ? 'positive' : (stars === 3 ? 'neutral' : 'negative');
+    const themePart = buildThemeSentence(themes, sentiment);
+
+    let middle = '';
+    if (stars === 3 && themes.length > 0) {
+        middle = "We're always looking to improve and your feedback helps us do that.";
+    }
+
+    const closer = pickRandom(PROFESSIONAL_CLOSERS);
+    const signoff = `Best wishes,\n${signer}`;
+
+    let response = opener;
+    if (themePart) response += '\n\n' + themePart;
+    if (middle) response += ' ' + middle;
+    response += '\n\n' + closer;
+    response += '\n\n' + signoff;
+
+    return response;
+}
+
+function generateRecoveryResponse(name, themes, signer, platform) {
+    const openerPool = name ? RECOVERY_OPENERS.named : RECOVERY_OPENERS.unnamed;
+    let opener = pickRandom(openerPool);
+    if (name) opener = opener.replace('{name}', name);
+
+    const themePart = buildThemeSentence(themes, 'negative');
+    const middle = pickRandom(RECOVERY_MIDDLE);
+    const closer = pickRandom(RECOVERY_CLOSERS);
+    const signoff = `${signer}\nBlue's Micro Pub`;
+
+    let response = opener;
+    if (themePart) response += '\n\n' + themePart;
+    response += ' ' + middle;
+    response += '\n\n' + closer;
+    response += '\n\n' + signoff;
+
+    return response;
+}
+
+// ═══════════════════════════════════════════════
+// MAIN GENERATE
+// ═══════════════════════════════════════════════
+function generateResponses() {
+    const text = document.getElementById('reviewText').value.trim();
+    const platform = document.getElementById('platform').value;
+    const name = getGreeting(document.getElementById('reviewerName').value);
+
+    if (!text || currentStars === 0) {
+        alert('Please paste a review and select a star rating.');
+        return;
+    }
+
+    // Analysis
+    const themes = detectThemes(text);
+    const sentiment = getSentiment(currentStars);
+    const tone = getSuggestedTone(currentStars);
+
+    // Show analysis
+    const panel = document.getElementById('analysisPanel');
+    panel.classList.add('visible');
+
+    document.getElementById('sentimentBadge').innerHTML = `<span class="badge ${sentiment.cls}">${sentiment.label}</span>`;
+    document.getElementById('toneBadge').innerHTML = `<span class="badge badge-tone">Suggested tone: ${tone}</span>`;
+
+    const themesWrap = document.getElementById('themesWrap');
+    if (themes.length > 0) {
+        themesWrap.innerHTML = themes.map(t => `<span class="theme-tag">${t.icon} ${t.label}</span>`).join('');
+    } else {
+        themesWrap.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">No specific themes detected</span>';
+    }
+
+    // Generate 3 responses
+    const warmResp = generateWarmResponse(name, themes, currentSigner, platform);
+    const proResp = generateProfessionalResponse(name, themes, currentStars, currentSigner, platform);
+    const recoveryResp = generateRecoveryResponse(name, themes, currentSigner, platform);
+
+    const limits = PLATFORM_LIMITS[platform];
+
+    const options = [
+        {
+            id: 'warm',
+            label: 'Option A: Warm & Personal',
+            desc: 'Best for 4-5 star reviews',
+            text: warmResp
+        },
+        {
+            id: 'professional',
+            label: 'Option B: Professional & Grateful',
+            desc: 'Good for 3-4 star reviews',
+            text: proResp
+        },
+        {
+            id: 'recovery',
+            label: 'Option C: Recovery & Care',
+            desc: 'For 1-3 star reviews',
+            text: recoveryResp
+        }
+    ];
+
+    // Highlight recommended option
+    let recommended = 'warm';
+    if (currentStars <= 2) recommended = 'recovery';
+    else if (currentStars === 3) recommended = 'professional';
+
+    const container = document.getElementById('responsesContainer');
+    container.innerHTML = options.map(opt => {
+        const isRec = opt.id === recommended;
+        const charLen = opt.text.length;
+        const charWarning = charLen > limits.max ? ' (over limit!)' : '';
+        return `
+            <div class="response-card" style="${isRec ? 'border-color: var(--gold);' : ''}">
+                <div class="response-header">
+                    <div class="response-label">
+                        ${opt.label}
+                        ${isRec ? '<span style="color:var(--gold);">&#9733; Recommended</span>' : `<span>${opt.desc}</span>`}
+                    </div>
+                    <div class="response-meta">
+                        <span class="char-count">${charLen} chars${charWarning} &middot; ${limits.note}</span>
+                        <button class="copy-btn" onclick="copyResponse(this, '${opt.id}')">Copy</button>
+                    </div>
+                </div>
+                <div class="response-body" id="response-${opt.id}">${escapeHtml(opt.text)}</div>
+            </div>
+        `;
+    }).join('');
+
+    document.getElementById('responsesSection').classList.add('visible');
+
+    // Scroll to responses
+    document.getElementById('responsesSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Store generated text for copy
+    window._generatedResponses = {
+        warm: warmResp,
+        professional: proResp,
+        recovery: recoveryResp
+    };
+}
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// ═══════════════════════════════════════════════
+// COPY & SAVE
+// ═══════════════════════════════════════════════
+function copyResponse(btn, optionId) {
+    const text = window._generatedResponses[optionId];
+    navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 2000);
+
+        // Save to history
+        saveToHistory(optionId);
+    }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+        saveToHistory(optionId);
+    });
+}
+
+// ═══════════════════════════════════════════════
+// HISTORY (localStorage)
+// ═══════════════════════════════════════════════
+const STORAGE_KEY = 'blues_review_history';
+const MAX_HISTORY = 20;
+
+function getHistory() {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch { return []; }
+}
+
+function saveToHistory(optionUsed) {
+    const history = getHistory();
+    const entry = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        reviewText: document.getElementById('reviewText').value.trim().substring(0, 200),
+        platform: document.getElementById('platform').value,
+        stars: currentStars,
+        reviewerName: document.getElementById('reviewerName').value.trim(),
+        signer: currentSigner,
+        optionUsed: optionUsed,
+        responseText: window._generatedResponses[optionUsed]
+    };
+
+    history.unshift(entry);
+    if (history.length > MAX_HISTORY) history.length = MAX_HISTORY;
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    renderHistory();
+}
+
+function deleteHistoryItem(id) {
+    let history = getHistory();
+    history = history.filter(h => h.id !== id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    renderHistory();
+}
+
+function clearHistory() {
+    if (confirm('Clear all response history? This cannot be undone.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        renderHistory();
+    }
+}
+
+function loadHistoryItem(id) {
+    const history = getHistory();
+    const item = history.find(h => h.id === id);
+    if (!item) return;
+
+    document.getElementById('reviewText').value = item.reviewText;
+    document.getElementById('platform').value = item.platform;
+    document.getElementById('reviewerName').value = item.reviewerName || '';
+    currentStars = item.stars;
+    updateStars();
+    setSigner(item.signer || 'Cal');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderHistory() {
+    const history = getHistory();
+    const statsEl = document.getElementById('historyStats');
+    const listEl = document.getElementById('historyList');
+
+    // Stats
+    const total = history.length;
+    const platformCounts = {};
+    history.forEach(h => { platformCounts[h.platform] = (platformCounts[h.platform] || 0) + 1; });
+    const avgStars = total > 0 ? (history.reduce((s, h) => s + h.stars, 0) / total).toFixed(1) : '—';
+
+    // Determine most-responded-to platform
+    let topPlatform = '—';
+    let topCount = 0;
+    for (const [p, c] of Object.entries(platformCounts)) {
+        if (c > topCount) { topPlatform = p; topCount = c; }
+    }
+
+    if (total === 0) {
+        statsEl.innerHTML = '';
+        listEl.innerHTML = '<div class="empty-state">No responses saved yet. Generate a response and copy it to start building your history.</div>';
+        return;
+    }
+
+    statsEl.innerHTML = `
+        <div class="stat-card">
+            <div class="stat-value">${total}</div>
+            <div class="stat-label">Reviews Responded</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">${avgStars}</div>
+            <div class="stat-label">Avg Star Rating</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="font-size:1.3rem;text-transform:capitalize;">${topPlatform}</div>
+            <div class="stat-label">Top Platform</div>
+        </div>
+    `;
+
+    listEl.innerHTML = history.map(h => {
+        const stars = '&#9733;'.repeat(h.stars) + '<span style="opacity:0.2;">' + '&#9733;'.repeat(5 - h.stars) + '</span>';
+        const date = new Date(h.date);
+        const dateStr = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+        const preview = h.reviewText.length > 60 ? h.reviewText.substring(0, 60) + '...' : h.reviewText;
+        return `
+            <div class="history-item" onclick="loadHistoryItem(${h.id})">
+                <div class="history-item-left">
+                    <span class="history-stars">${stars}</span>
+                    <span class="history-preview">${escapeHtml(preview)}</span>
+                </div>
+                <div class="history-item-right">
+                    <span class="history-platform">${h.platform}</span>
+                    <span class="history-date">${dateStr}</span>
+                    <button class="history-delete" onclick="event.stopPropagation(); deleteHistoryItem(${h.id})" title="Delete">&times;</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    listEl.innerHTML += '<button class="clear-history-btn" onclick="clearHistory()">Clear All History</button>';
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+renderHistory();
+</script>
+
+</body>
+</html>

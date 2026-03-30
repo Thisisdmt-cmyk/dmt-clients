@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue's Micro Pub — Content Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-primary: #1B4B7A;
+            --blue-light: #2563A0;
+            --gold: #D4A853;
+            --gold-light: #E8C97A;
+            --dark-bg: #0F1923;
+            --card-bg: #152535;
+            --card-bg-hover: #1a2d42;
+            --input-bg: #0c1219;
+            --border: #1E3A5F;
+            --text: #E8EDF3;
+            --muted: #8BA4C4;
+            --success: #10B981;
+            --danger: #EF4444;
+            --chalk-white: #F5F0E8;
+            --chalk-muted: #C4B8A8;
+            --board-bg: #1a1a1a;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            background: linear-gradient(180deg, rgba(27,75,122,0.25) 0%, var(--dark-bg) 100%);
+            position: relative;
+        }
+        .header::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .header-badge {
+            display: inline-block;
+            padding: 5px 16px;
+            border: 1px solid var(--gold);
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        .header h1 {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+        .header h1 span { color: var(--gold); }
+        .header p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ── Template Tabs ── */
+        .tabs-wrapper {
+            max-width: 900px;
+            margin: 24px auto 0;
+            padding: 0 16px;
+        }
+        .tab-nav {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+        }
+        .tab-nav::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            flex-shrink: 0;
+            padding: 10px 18px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { color: var(--text); background: var(--card-bg-hover); }
+        .tab-btn.active {
+            background: var(--card-bg);
+            color: var(--gold);
+            border-color: var(--gold);
+            border-bottom: 1px solid var(--card-bg);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── Main Content ── */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 16px 60px;
+        }
+        .template-panel {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 0 12px 12px 12px;
+            padding: 24px;
+        }
+        .template-panel.active { display: block; }
+
+        /* ── Form Elements ── */
+        .form-section {
+            margin-bottom: 24px;
+        }
+        .form-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-section-title .icon { font-size: 1.2rem; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .form-row.triple {
+            grid-template-columns: 1fr 1fr auto;
+        }
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-row.triple { grid-template-columns: 1fr; }
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        input::placeholder, textarea::placeholder {
+            color: #4a6585;
+        }
+        textarea { resize: vertical; min-height: 60px; }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .checkbox-row input[type="checkbox"] {
+            width: 18px; height: 18px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+        .checkbox-row label {
+            margin: 0;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.85rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .beer-entry {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .beer-entry .entry-number {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.7rem;
+            color: #3a5575;
+            font-weight: 700;
+        }
+        .beer-entry .form-row { margin-bottom: 4px; }
+        .beer-flags {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+
+        /* ── Generate Button ── */
+        .generate-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--gold) 0%, #c49a42 100%);
+            border: none;
+            border-radius: 12px;
+            color: #0F1923;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+        }
+        .generate-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(212,168,83,0.3);
+        }
+        .generate-btn:active { transform: translateY(0); }
+
+        /* ── Output Section ── */
+        .output-section {
+            margin-top: 32px;
+            display: none;
+        }
+        .output-section.visible { display: block; }
+
+        .output-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .output-tabs::-webkit-scrollbar { display: none; }
+        .output-tab {
+            flex-shrink: 0;
+            padding: 10px 18px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .output-tab:hover { color: var(--text); }
+        .output-tab.active {
+            background: var(--input-bg);
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .output-panel {
+            display: none;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 0 10px 10px 10px;
+            padding: 20px;
+        }
+        .output-panel.active { display: block; }
+
+        /* ── Copy Button ── */
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: var(--blue-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+        .copy-btn:hover { background: var(--blue-light); }
+        .copy-btn.copied {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .caption-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: var(--text);
+            margin-top: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* ── Visual Preview Container ── */
+        .preview-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+        }
+        .visual-preview {
+            width: 1080px;
+            height: 1080px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            transform-origin: top left;
+        }
+        .visual-preview.story {
+            width: 1080px;
+            height: 1920px;
+        }
+        .preview-scale-wrapper {
+            display: inline-block;
+        }
+        .preview-hint {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        /* ── Beer Board Visual (1080x1080) ── */
+        .bb-post {
+            width: 1080px;
+            height: 1080px;
+            background: #111111;
+            font-family: 'Playfair Display', serif;
+            color: var(--chalk-white);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .bb-post::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 20%, rgba(27,75,122,0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(212,168,83,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .bb-post .bb-border {
+            position: absolute;
+            inset: 20px;
+            border: 2px solid rgba(212,168,83,0.35);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        .bb-post .bb-corner {
+            position: absolute;
+            width: 30px; height: 30px;
+            border-color: var(--gold);
+            border-style: solid;
+        }
+        .bb-post .bb-corner.tl { top: 16px; left: 16px; border-width: 3px 0 0 3px; }
+        .bb-post .bb-corner.tr { top: 16px; right: 16px; border-width: 3px 3px 0 0; }
+        .bb-post .bb-corner.bl { bottom: 16px; left: 16px; border-width: 0 0 3px 3px; }
+        .bb-post .bb-corner.br { bottom: 16px; right: 16px; border-width: 0 3px 3px 0; }
+
+        .bb-post .bb-header {
+            text-align: center;
+            padding: 48px 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .bb-post .bb-pub-name {
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--chalk-white);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .bb-post .bb-tagline {
+            font-size: 18px;
+            color: var(--gold);
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        .bb-post .bb-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: var(--chalk-muted);
+            margin-top: 8px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .bb-post .bb-divider {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 12px auto;
+        }
+
+        .bb-post .bb-body {
+            flex: 1;
+            padding: 0 60px;
+            display: flex;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .bb-post .bb-column {
+            flex: 1;
+            min-width: 0;
+        }
+        .bb-post .bb-col-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(212,168,83,0.3);
+        }
+        .bb-post .bb-item {
+            margin-bottom: 14px;
+        }
+        .bb-post .bb-item-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--chalk-white);
+            line-height: 1.3;
+        }
+        .bb-post .bb-item-name.staff-pick {
+            color: var(--gold-light);
+        }
+        .bb-post .bb-item-brewery {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--chalk-muted);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+        .bb-post .bb-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .bb-post .bb-badge.new {
+            background: rgba(212,168,83,0.2);
+            color: var(--gold);
+            border: 1px solid rgba(212,168,83,0.4);
+        }
+        .bb-post .bb-badge.pick {
+            background: rgba(16,185,129,0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+
+        .bb-post .bb-footer {
+            text-align: center;
+            padding: 16px 40px 36px;
+            position: relative;
+            z-index: 1;
+        }
+        .bb-post .bb-footer-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--chalk-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .bb-post .bb-footer-loc {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #6a7a8a;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* ── Beer Board Story (1080x1920) ── */
+        .bb-story {
+            width: 1080px;
+            height: 1920px;
+            background: #111111;
+            font-family: 'Playfair Display', serif;
+            color: var(--chalk-white);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .bb-story::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 10%, rgba(27,75,122,0.2) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 90%, rgba(212,168,83,0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        .bb-story .bb-border {
+            position: absolute;
+            inset: 24px;
+            border: 2px solid rgba(212,168,83,0.3);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        .bb-story .st-header {
+            text-align: center;
+            padding: 80px 50px 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .bb-story .st-pub-name {
+            font-size: 58px;
+            font-weight: 700;
+            color: var(--chalk-white);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .bb-story .st-tagline {
+            font-size: 22px;
+            color: var(--gold);
+            font-style: italic;
+            margin-top: 6px;
+        }
+        .bb-story .st-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--chalk-muted);
+            margin-top: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .bb-story .bb-divider {
+            width: 240px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 20px auto;
+        }
+        .bb-story .st-body {
+            flex: 1;
+            padding: 10px 70px;
+            position: relative;
+            z-index: 1;
+        }
+        .bb-story .st-section {
+            margin-bottom: 36px;
+        }
+        .bb-story .st-section-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212,168,83,0.3);
+        }
+        .bb-story .st-item {
+            margin-bottom: 16px;
+        }
+        .bb-story .st-item-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--chalk-white);
+            line-height: 1.3;
+        }
+        .bb-story .st-item-name.staff-pick { color: var(--gold-light); }
+        .bb-story .st-item-brewery {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--chalk-muted);
+            margin-top: 2px;
+        }
+        .bb-story .bb-badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .bb-story .bb-badge.new {
+            background: rgba(212,168,83,0.2);
+            color: var(--gold);
+            border: 1px solid rgba(212,168,83,0.4);
+        }
+        .bb-story .bb-badge.pick {
+            background: rgba(16,185,129,0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+        .bb-story .st-footer {
+            text-align: center;
+            padding: 24px 50px 70px;
+            position: relative;
+            z-index: 1;
+        }
+        .bb-story .st-footer-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--chalk-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .bb-story .st-footer-camra {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #5a6a7a;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ── Event Visual (1080x1080) ── */
+        .ev-post {
+            width: 1080px;
+            height: 1080px;
+            background: linear-gradient(160deg, #0a1929 0%, #0f2440 40%, #122a4a 100%);
+            font-family: 'Playfair Display', serif;
+            color: var(--chalk-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .ev-post::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(212,168,83,0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .ev-post .bb-border {
+            position: absolute;
+            inset: 24px;
+            border: 2px solid rgba(212,168,83,0.3);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        .ev-post .bb-corner { position: absolute; width: 30px; height: 30px; border-color: var(--gold); border-style: solid; }
+        .ev-post .bb-corner.tl { top: 20px; left: 20px; border-width: 3px 0 0 3px; }
+        .ev-post .bb-corner.tr { top: 20px; right: 20px; border-width: 3px 3px 0 0; }
+        .ev-post .bb-corner.bl { bottom: 20px; left: 20px; border-width: 0 0 3px 3px; }
+        .ev-post .bb-corner.br { bottom: 20px; right: 20px; border-width: 0 3px 3px 0; }
+        .ev-post .ev-content {
+            position: relative;
+            z-index: 1;
+            padding: 60px;
+            max-width: 900px;
+        }
+        .ev-post .ev-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        .ev-post .ev-name {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--chalk-white);
+            line-height: 1.15;
+            margin-bottom: 28px;
+        }
+        .ev-post .ev-divider {
+            width: 160px;
+            height: 2px;
+            background: var(--gold);
+            margin: 0 auto 28px;
+        }
+        .ev-post .ev-datetime {
+            font-family: 'Inter', sans-serif;
+            font-size: 26px;
+            color: var(--gold-light);
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+        .ev-post .ev-desc {
+            font-size: 24px;
+            color: var(--chalk-muted);
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        .ev-post .ev-price {
+            font-family: 'Inter', sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .ev-post .ev-booking {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--chalk-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .ev-post .ev-footer {
+            position: absolute;
+            bottom: 44px;
+            left: 0; right: 0;
+            text-align: center;
+        }
+        .ev-post .ev-footer-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--chalk-white);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .ev-post .ev-footer-loc {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #5a6a7a;
+            margin-top: 4px;
+            letter-spacing: 1.5px;
+        }
+
+        /* ── Event Story (1080x1920) ── */
+        .ev-story {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(180deg, #0a1929 0%, #0f2440 50%, #122a4a 100%);
+            font-family: 'Playfair Display', serif;
+            color: var(--chalk-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .ev-story::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(212,168,83,0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .ev-story .bb-border {
+            position: absolute;
+            inset: 30px;
+            border: 2px solid rgba(212,168,83,0.3);
+            pointer-events: none;
+        }
+        .ev-story .ev-content {
+            position: relative;
+            z-index: 1;
+            padding: 80px;
+            max-width: 940px;
+        }
+        .ev-story .ev-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+        }
+        .ev-story .ev-name {
+            font-size: 84px;
+            font-weight: 700;
+            color: var(--chalk-white);
+            line-height: 1.15;
+            margin-bottom: 40px;
+        }
+        .ev-story .ev-divider {
+            width: 200px;
+            height: 2px;
+            background: var(--gold);
+            margin: 0 auto 40px;
+        }
+        .ev-story .ev-datetime {
+            font-family: 'Inter', sans-serif;
+            font-size: 32px;
+            color: var(--gold-light);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .ev-story .ev-desc {
+            font-size: 30px;
+            color: var(--chalk-muted);
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 36px;
+        }
+        .ev-story .ev-price {
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        .ev-story .ev-booking {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            color: var(--chalk-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .ev-story .ev-footer {
+            position: absolute;
+            bottom: 70px;
+            left: 0; right: 0;
+            text-align: center;
+        }
+        .ev-story .ev-footer-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--chalk-white);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .ev-story .ev-footer-loc {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #5a6a7a;
+            margin-top: 6px;
+            letter-spacing: 1.5px;
+        }
+
+        /* ── Award Visual ── */
+        .aw-post {
+            width: 1080px;
+            height: 1080px;
+            background: linear-gradient(160deg, #0a1420 0%, #0f1f33 40%, #162a42 100%);
+            font-family: 'Playfair Display', serif;
+            color: var(--chalk-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .aw-post::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 40%, rgba(212,168,83,0.18) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .aw-post .bb-border { position: absolute; inset: 24px; border: 2px solid rgba(212,168,83,0.4); pointer-events: none; }
+        .aw-post .aw-content { position: relative; z-index: 1; padding: 60px; }
+        .aw-post .aw-trophy { font-size: 80px; margin-bottom: 24px; }
+        .aw-post .aw-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .aw-post .aw-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--chalk-white);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .aw-post .aw-award-name {
+            font-size: 30px;
+            color: var(--gold-light);
+            font-style: italic;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        .aw-post .aw-year {
+            font-family: 'Inter', sans-serif;
+            font-size: 22px;
+            color: var(--chalk-muted);
+            letter-spacing: 3px;
+        }
+        .aw-post .ev-footer { position: absolute; bottom: 44px; left: 0; right: 0; text-align: center; }
+        .aw-post .ev-footer-name { font-size: 20px; font-weight: 700; color: var(--chalk-white); letter-spacing: 3px; text-transform: uppercase; }
+        .aw-post .ev-footer-loc { font-family: 'Inter', sans-serif; font-size: 13px; color: #5a6a7a; margin-top: 4px; letter-spacing: 1.5px; }
+
+        /* ── Review Visual ── */
+        .rv-post {
+            width: 1080px;
+            height: 1080px;
+            background: linear-gradient(160deg, #0a1420 0%, #0f1f33 40%, #142840 100%);
+            font-family: 'Playfair Display', serif;
+            color: var(--chalk-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .rv-post::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(27,75,122,0.15) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .rv-post .bb-border { position: absolute; inset: 24px; border: 2px solid rgba(212,168,83,0.3); pointer-events: none; }
+        .rv-post .rv-content { position: relative; z-index: 1; padding: 80px; max-width: 920px; }
+        .rv-post .rv-stars { font-size: 48px; margin-bottom: 30px; letter-spacing: 8px; }
+        .rv-post .rv-quote {
+            font-size: 42px;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--chalk-white);
+            line-height: 1.45;
+            margin-bottom: 30px;
+        }
+        .rv-post .rv-divider { width: 120px; height: 2px; background: var(--gold); margin: 0 auto 24px; }
+        .rv-post .rv-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .rv-post .rv-platform {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: var(--chalk-muted);
+            margin-top: 6px;
+        }
+        .rv-post .ev-footer { position: absolute; bottom: 44px; left: 0; right: 0; text-align: center; }
+        .rv-post .ev-footer-name { font-size: 20px; font-weight: 700; color: var(--chalk-white); letter-spacing: 3px; text-transform: uppercase; }
+
+        /* ── BTS Visual ── */
+        .bts-post {
+            width: 1080px;
+            height: 1080px;
+            background: linear-gradient(160deg, #0f1923 0%, #152535 50%, #1a2d42 100%);
+            font-family: 'Playfair Display', serif;
+            color: var(--chalk-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .bts-post::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 40%, rgba(27,75,122,0.18) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .bts-post .bb-border { position: absolute; inset: 24px; border: 2px solid rgba(212,168,83,0.3); pointer-events: none; }
+        .bts-post .bts-content { position: relative; z-index: 1; padding: 80px; max-width: 900px; }
+        .bts-post .bts-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 700;
+            color: var(--gold); letter-spacing: 5px;
+            text-transform: uppercase; margin-bottom: 30px;
+        }
+        .bts-post .bts-title {
+            font-size: 58px; font-weight: 700;
+            color: var(--chalk-white); line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        .bts-post .bts-divider { width: 140px; height: 2px; background: var(--gold); margin: 0 auto 24px; }
+        .bts-post .bts-desc {
+            font-size: 28px;
+            color: var(--chalk-muted);
+            font-style: italic;
+            line-height: 1.5;
+        }
+        .bts-post .ev-footer { position: absolute; bottom: 44px; left: 0; right: 0; text-align: center; }
+        .bts-post .ev-footer-name { font-size: 20px; font-weight: 700; color: var(--chalk-white); letter-spacing: 3px; text-transform: uppercase; }
+
+        /* ── Footer ── */
+        .site-footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer p {
+            font-size: 0.78rem;
+            color: #4a6585;
+        }
+        .site-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ── Utilities ── */
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+        .clear-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+        .clear-btn:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        @media (max-width: 600px) {
+            .header { padding: 30px 16px 16px; }
+            .template-panel { padding: 16px; }
+            .beer-entry { padding: 10px; }
+            .form-section-title { font-size: 1rem; }
+            .output-panel { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-badge">Content Generator</div>
+    <h1>Blue's <span>Micro Pub</span></h1>
+    <p>Generate ready-to-post content for Instagram, Facebook, Google &amp; Stories</p>
+</div>
+
+<!-- ── Authenticity Note ── -->
+<div style="max-width:900px;margin:24px auto 0;padding:0 16px;">
+    <div style="border:2px solid var(--gold);border-radius:12px;padding:20px 24px;background:rgba(212,168,83,0.06);margin-bottom:8px;">
+        <p style="font-style:italic;color:var(--chalk-white);font-size:0.95rem;line-height:1.7;margin:0;">
+            <strong style="color:var(--gold);font-style:normal;">&#9997; A note before you start:</strong><br>
+            These templates are starting points, not finished posts. Your natural voice always gets more engagement than any template. Use these for structure and ideas &mdash; then rewrite in YOUR words. The best post is the one that sounds like Cal and Alice, not like a marketing agency.
+        </p>
+    </div>
+</div>
+
+<!-- ── Template Tabs ── -->
+<div class="tabs-wrapper">
+    <div class="tab-nav" id="mainTabs">
+        <button class="tab-btn active" data-tab="beer">Beer Board</button>
+        <button class="tab-btn" data-tab="event">Event</button>
+        <button class="tab-btn" data-tab="award">Award</button>
+        <button class="tab-btn" data-tab="review">Review Share</button>
+        <button class="tab-btn" data-tab="bts">Behind The Scenes</button>
+    </div>
+</div>
+
+<div class="main-container">
+
+    <!-- ═══════════ BEER BOARD ═══════════ -->
+    <div class="template-panel active" id="panel-beer">
+        <div class="form-section">
+            <div class="form-section-title"><span class="icon">&#127866;</span> Beer Board</div>
+            <div style="margin-bottom:12px">
+                <label for="bb-date">Date</label>
+                <input type="date" id="bb-date" style="max-width:220px">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-title">Cask Ales (up to 5)</div>
+            <div id="cask-entries"></div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-title">Ciders (up to 3)</div>
+            <div id="cider-entries"></div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-title">Keg Lines (up to 5)</div>
+            <div id="keg-entries"></div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-section-title"><span class="icon">&#11088;</span> Staff Pick</div>
+            <div class="form-row">
+                <div>
+                    <label for="bb-staffpick">Which beer/cider is today's staff pick?</label>
+                    <input type="text" id="bb-staffpick" placeholder="e.g. Jaipur">
+                </div>
+                <div>
+                    <label for="bb-staffnote">Quick note (optional)</label>
+                    <input type="text" id="bb-staffnote" placeholder="e.g. Perfect session ale">
+                </div>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateBeerBoard()">Generate Beer Board Content</button>
+        <button class="clear-btn" onclick="clearForm('beer')">Clear All Fields</button>
+
+        <div class="output-section" id="output-beer">
+            <h3 style="font-size:1.2rem;color:var(--gold);margin-bottom:16px;margin-top:8px;">Generated Content</h3>
+            <div class="output-tabs" id="beerOutputTabs">
+                <button class="output-tab active" data-out="bb-ig">Instagram Post</button>
+                <button class="output-tab" data-out="bb-fb">Facebook</button>
+                <button class="output-tab" data-out="bb-goog">Google</button>
+                <button class="output-tab" data-out="bb-story">Story</button>
+            </div>
+
+            <div class="output-panel active" id="out-bb-ig">
+                <p class="preview-hint">Screenshot this preview or right-click > Save Image. The preview is 1080x1080px.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="bb-post-wrapper">
+                        <div id="bb-post-preview"></div>
+                    </div>
+                </div>
+                <h4 style="margin:20px 0 8px;font-size:0.95rem;color:var(--gold);">Caption</h4>
+                <button class="copy-btn" onclick="copyText('bb-ig-caption')">Copy Caption</button>
+                <div class="caption-box" id="bb-ig-caption"></div>
+            </div>
+
+            <div class="output-panel" id="out-bb-fb">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Facebook Post</h4>
+                <button class="copy-btn" onclick="copyText('bb-fb-text')">Copy Text</button>
+                <div class="caption-box" id="bb-fb-text"></div>
+            </div>
+
+            <div class="output-panel" id="out-bb-goog">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Google Post</h4>
+                <button class="copy-btn" onclick="copyText('bb-goog-text')">Copy Text</button>
+                <div class="caption-box" id="bb-goog-text"></div>
+                <p style="margin-top:8px;font-size:0.75rem;color:var(--muted);">CTA Button: "Learn more" linking to your Google Maps listing</p>
+            </div>
+
+            <div class="output-panel" id="out-bb-story">
+                <p class="preview-hint">Screenshot this preview. The preview is 1080x1920px (9:16 story format).</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="bb-story-wrapper">
+                        <div id="bb-story-preview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ EVENT ═══════════ -->
+    <div class="template-panel" id="panel-event">
+        <div class="form-section">
+            <div class="form-section-title"><span class="icon">&#127915;</span> Event Details</div>
+            <div style="margin-bottom:10px">
+                <label for="ev-name">Event Name</label>
+                <input type="text" id="ev-name" placeholder="e.g. Whisky Club Night">
+            </div>
+            <div class="form-row">
+                <div>
+                    <label for="ev-date">Date</label>
+                    <input type="date" id="ev-date">
+                </div>
+                <div>
+                    <label for="ev-time">Time</label>
+                    <input type="time" id="ev-time">
+                </div>
+            </div>
+            <div style="margin-bottom:10px;margin-top:10px">
+                <label for="ev-desc">Description (1-2 lines)</label>
+                <textarea id="ev-desc" rows="2" placeholder="e.g. Tasting flight of 5 single malts with cheese pairings"></textarea>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label for="ev-price">Price</label>
+                    <input type="text" id="ev-price" placeholder="e.g. £15 or Free">
+                </div>
+                <div>
+                    <label for="ev-booking">Booking Required?</label>
+                    <select id="ev-booking">
+                        <option value="yes">Yes</option>
+                        <option value="no">No — Just turn up</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateEvent()">Generate Event Content</button>
+        <button class="clear-btn" onclick="clearForm('event')">Clear All Fields</button>
+
+        <div class="output-section" id="output-event">
+            <h3 style="font-size:1.2rem;color:var(--gold);margin-bottom:16px;margin-top:8px;">Generated Content</h3>
+            <div class="output-tabs" id="eventOutputTabs">
+                <button class="output-tab active" data-out="ev-ig">Instagram Post</button>
+                <button class="output-tab" data-out="ev-fb">Facebook</button>
+                <button class="output-tab" data-out="ev-goog">Google</button>
+                <button class="output-tab" data-out="ev-st">Story</button>
+            </div>
+            <div class="output-panel active" id="out-ev-ig">
+                <p class="preview-hint">Screenshot this preview. 1080x1080px.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="ev-post-wrapper">
+                        <div id="ev-post-preview"></div>
+                    </div>
+                </div>
+                <h4 style="margin:20px 0 8px;font-size:0.95rem;color:var(--gold);">Caption</h4>
+                <button class="copy-btn" onclick="copyText('ev-ig-caption')">Copy Caption</button>
+                <div class="caption-box" id="ev-ig-caption"></div>
+            </div>
+            <div class="output-panel" id="out-ev-fb">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Facebook Post</h4>
+                <button class="copy-btn" onclick="copyText('ev-fb-text')">Copy Text</button>
+                <div class="caption-box" id="ev-fb-text"></div>
+            </div>
+            <div class="output-panel" id="out-ev-goog">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Google Post</h4>
+                <button class="copy-btn" onclick="copyText('ev-goog-text')">Copy Text</button>
+                <div class="caption-box" id="ev-goog-text"></div>
+                <p style="margin-top:8px;font-size:0.75rem;color:var(--muted);">CTA Button: "Learn more" or "Call now"</p>
+            </div>
+            <div class="output-panel" id="out-ev-st">
+                <p class="preview-hint">Screenshot this preview. 1080x1920px story format.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="ev-story-wrapper">
+                        <div id="ev-story-preview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ AWARD ═══════════ -->
+    <div class="template-panel" id="panel-award">
+        <div class="form-section">
+            <div class="form-section-title"><span class="icon">&#127942;</span> Award Details</div>
+            <div style="margin-bottom:10px">
+                <label for="aw-name">Award Name</label>
+                <input type="text" id="aw-name" placeholder="e.g. CAMRA Pub of the Year" value="CAMRA Pub of the Year">
+            </div>
+            <div class="form-row">
+                <div>
+                    <label for="aw-body">Awarding Body</label>
+                    <input type="text" id="aw-body" placeholder="e.g. Sunderland & South Tyneside CAMRA" value="Sunderland & South Tyneside CAMRA">
+                </div>
+                <div>
+                    <label for="aw-year">Year</label>
+                    <input type="text" id="aw-year" placeholder="e.g. 2026" value="2026">
+                </div>
+            </div>
+            <div style="margin-bottom:10px;margin-top:10px">
+                <label for="aw-quote">Optional: Your reaction quote</label>
+                <textarea id="aw-quote" rows="2" placeholder="e.g. Absolutely over the moon! Massive thanks to everyone who's supported us..."></textarea>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateAward()">Generate Award Content</button>
+        <button class="clear-btn" onclick="clearForm('award')">Clear All Fields</button>
+
+        <div class="output-section" id="output-award">
+            <h3 style="font-size:1.2rem;color:var(--gold);margin-bottom:16px;margin-top:8px;">Generated Content</h3>
+            <div class="output-tabs" id="awardOutputTabs">
+                <button class="output-tab active" data-out="aw-ig">Instagram Post</button>
+                <button class="output-tab" data-out="aw-fb">Facebook</button>
+                <button class="output-tab" data-out="aw-goog">Google</button>
+                <button class="output-tab" data-out="aw-st">Story</button>
+            </div>
+            <div class="output-panel active" id="out-aw-ig">
+                <p class="preview-hint">Screenshot this preview. 1080x1080px.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="aw-post-wrapper"><div id="aw-post-preview"></div></div>
+                </div>
+                <h4 style="margin:20px 0 8px;font-size:0.95rem;color:var(--gold);">Caption</h4>
+                <button class="copy-btn" onclick="copyText('aw-ig-caption')">Copy Caption</button>
+                <div class="caption-box" id="aw-ig-caption"></div>
+            </div>
+            <div class="output-panel" id="out-aw-fb">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Facebook Post</h4>
+                <button class="copy-btn" onclick="copyText('aw-fb-text')">Copy Text</button>
+                <div class="caption-box" id="aw-fb-text"></div>
+            </div>
+            <div class="output-panel" id="out-aw-goog">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Google Post</h4>
+                <button class="copy-btn" onclick="copyText('aw-goog-text')">Copy Text</button>
+                <div class="caption-box" id="aw-goog-text"></div>
+            </div>
+            <div class="output-panel" id="out-aw-st">
+                <p class="preview-hint">Screenshot this preview. 1080x1920px story format.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="aw-story-wrapper"><div id="aw-story-preview"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ REVIEW ═══════════ -->
+    <div class="template-panel" id="panel-review">
+        <div class="form-section">
+            <div class="form-section-title"><span class="icon">&#11088;</span> Customer Review</div>
+            <div style="margin-bottom:10px">
+                <label for="rv-text">Review Text</label>
+                <textarea id="rv-text" rows="3" placeholder="Paste the review here..."></textarea>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label for="rv-author">Reviewer Name</label>
+                    <input type="text" id="rv-author" placeholder="e.g. Sarah T.">
+                </div>
+                <div>
+                    <label for="rv-platform">Platform</label>
+                    <select id="rv-platform">
+                        <option value="Google">Google</option>
+                        <option value="TripAdvisor">TripAdvisor</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Untappd">Untappd</option>
+                    </select>
+                </div>
+            </div>
+            <div style="margin-top:10px">
+                <label for="rv-stars">Star Rating</label>
+                <select id="rv-stars" style="max-width:120px">
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateReview()">Generate Review Content</button>
+        <button class="clear-btn" onclick="clearForm('review')">Clear All Fields</button>
+
+        <div class="output-section" id="output-review">
+            <h3 style="font-size:1.2rem;color:var(--gold);margin-bottom:16px;margin-top:8px;">Generated Content</h3>
+            <div class="output-tabs" id="reviewOutputTabs">
+                <button class="output-tab active" data-out="rv-ig">Instagram Post</button>
+                <button class="output-tab" data-out="rv-fb">Facebook</button>
+                <button class="output-tab" data-out="rv-goog">Google</button>
+                <button class="output-tab" data-out="rv-st">Story</button>
+            </div>
+            <div class="output-panel active" id="out-rv-ig">
+                <p class="preview-hint">Screenshot this preview. 1080x1080px.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="rv-post-wrapper"><div id="rv-post-preview"></div></div>
+                </div>
+                <h4 style="margin:20px 0 8px;font-size:0.95rem;color:var(--gold);">Caption</h4>
+                <button class="copy-btn" onclick="copyText('rv-ig-caption')">Copy Caption</button>
+                <div class="caption-box" id="rv-ig-caption"></div>
+            </div>
+            <div class="output-panel" id="out-rv-fb">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Facebook Post</h4>
+                <button class="copy-btn" onclick="copyText('rv-fb-text')">Copy Text</button>
+                <div class="caption-box" id="rv-fb-text"></div>
+            </div>
+            <div class="output-panel" id="out-rv-goog">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Google Post</h4>
+                <button class="copy-btn" onclick="copyText('rv-goog-text')">Copy Text</button>
+                <div class="caption-box" id="rv-goog-text"></div>
+            </div>
+            <div class="output-panel" id="out-rv-st">
+                <p class="preview-hint">Screenshot this preview. 1080x1920px story format.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="rv-story-wrapper"><div id="rv-story-preview"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ BEHIND THE SCENES ═══════════ -->
+    <div class="template-panel" id="panel-bts">
+        <div class="form-section">
+            <div class="form-section-title"><span class="icon">&#127909;</span> Behind The Scenes</div>
+            <div style="margin-bottom:10px">
+                <label for="bts-title">Moment Title</label>
+                <input type="text" id="bts-title" placeholder="e.g. Cask Delivery Day">
+            </div>
+            <div style="margin-bottom:10px">
+                <label for="bts-desc">What's happening? (1-2 sentences)</label>
+                <textarea id="bts-desc" rows="2" placeholder="e.g. Fresh casks rolling in from Fyne Ales this morning. Can't wait to tap these..."></textarea>
+            </div>
+            <div>
+                <label for="bts-mood">Mood / Vibe</label>
+                <select id="bts-mood">
+                    <option value="excited">Excited / Buzzing</option>
+                    <option value="cosy">Cosy / Relaxed</option>
+                    <option value="proud">Proud / Milestone</option>
+                    <option value="funny">Funny / Lighthearted</option>
+                    <option value="hardwork">Hard Work / Graft</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateBTS()">Generate Behind The Scenes Content</button>
+        <button class="clear-btn" onclick="clearForm('bts')">Clear All Fields</button>
+
+        <div class="output-section" id="output-bts">
+            <h3 style="font-size:1.2rem;color:var(--gold);margin-bottom:16px;margin-top:8px;">Generated Content</h3>
+            <div class="output-tabs" id="btsOutputTabs">
+                <button class="output-tab active" data-out="bts-ig">Instagram Post</button>
+                <button class="output-tab" data-out="bts-fb">Facebook</button>
+                <button class="output-tab" data-out="bts-goog">Google</button>
+                <button class="output-tab" data-out="bts-st">Story</button>
+            </div>
+            <div class="output-panel active" id="out-bts-ig">
+                <p class="preview-hint">Screenshot this preview. 1080x1080px.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="bts-post-wrapper"><div id="bts-post-preview"></div></div>
+                </div>
+                <h4 style="margin:20px 0 8px;font-size:0.95rem;color:var(--gold);">Caption</h4>
+                <button class="copy-btn" onclick="copyText('bts-ig-caption')">Copy Caption</button>
+                <div class="caption-box" id="bts-ig-caption"></div>
+            </div>
+            <div class="output-panel" id="out-bts-fb">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Facebook Post</h4>
+                <button class="copy-btn" onclick="copyText('bts-fb-text')">Copy Text</button>
+                <div class="caption-box" id="bts-fb-text"></div>
+            </div>
+            <div class="output-panel" id="out-bts-goog">
+                <h4 style="margin:0 0 8px;font-size:0.95rem;color:var(--gold);">Google Post</h4>
+                <button class="copy-btn" onclick="copyText('bts-goog-text')">Copy Text</button>
+                <div class="caption-box" id="bts-goog-text"></div>
+            </div>
+            <div class="output-panel" id="out-bts-st">
+                <p class="preview-hint">Screenshot this preview. 1080x1920px story format.</p>
+                <div class="preview-scroll">
+                    <div class="preview-scale-wrapper" id="bts-story-wrapper"><div id="bts-story-preview"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer class="site-footer">
+    <p>A <strong>Pink House Trading</strong> Product | <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════
+// UTILITY FUNCTIONS
+// ═══════════════════════════════════════
+
+function esc(str) {
+    if (!str) return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatDateNice(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr + 'T12:00:00');
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+}
+
+function formatDateShort(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr + 'T12:00:00');
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+}
+
+function formatTime12(timeStr) {
+    if (!timeStr) return '';
+    const [h, m] = timeStr.split(':').map(Number);
+    const ampm = h >= 12 ? 'pm' : 'am';
+    const hour = h % 12 || 12;
+    return hour + (m > 0 ? ':' + String(m).padStart(2,'0') : '') + ampm;
+}
+
+function starsStr(n) {
+    return '\u2B50'.repeat(parseInt(n));
+}
+
+function copyText(id) {
+    const el = document.getElementById(id);
+    const text = el.innerText || el.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = el.previousElementSibling;
+        if (btn && btn.classList.contains('copy-btn')) {
+            btn.classList.add('copied');
+            btn.textContent = 'Copied!';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.textContent = btn.dataset.originalText || 'Copy';
+            }, 2000);
+        }
+    });
+}
+
+function scalePreview(wrapperId, width, height) {
+    const wrapper = document.getElementById(wrapperId);
+    if (!wrapper) return;
+    const container = wrapper.parentElement;
+    let availableWidth = container.clientWidth;
+    // If container has no width yet (display:none parent), use fallback
+    if (availableWidth <= 0) availableWidth = 800;
+    const scale = Math.min(1, availableWidth / width);
+    const child = wrapper.firstElementChild;
+    if (child) {
+        child.style.transform = 'scale(' + scale + ')';
+        child.style.transformOrigin = 'top left';
+        wrapper.style.width = (width * scale) + 'px';
+        wrapper.style.height = (height * scale) + 'px';
+        wrapper.style.overflow = 'hidden';
+    }
+}
+
+function scaleAllPreviews() {
+    const pairs = [
+        ['bb-post-wrapper', 1080, 1080], ['bb-story-wrapper', 1080, 1920],
+        ['ev-post-wrapper', 1080, 1080], ['ev-story-wrapper', 1080, 1920],
+        ['aw-post-wrapper', 1080, 1080], ['aw-story-wrapper', 1080, 1920],
+        ['rv-post-wrapper', 1080, 1080], ['rv-story-wrapper', 1080, 1920],
+        ['bts-post-wrapper', 1080, 1080], ['bts-story-wrapper', 1080, 1920]
+    ];
+    pairs.forEach(function(p) {
+        const el = document.getElementById(p[0]);
+        if (el && el.firstElementChild && el.firstElementChild.innerHTML) {
+            scalePreview(p[0], p[1], p[2]);
+        }
+    });
+}
+
+// ═══════════════════════════════════════
+// TAB SYSTEM
+// ═══════════════════════════════════════
+
+document.getElementById('mainTabs').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('tab-btn')) return;
+    this.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    document.querySelectorAll('.template-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + e.target.dataset.tab).classList.add('active');
+});
+
+// Output tab delegation
+document.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('output-tab')) return;
+    const parent = e.target.parentElement;
+    parent.querySelectorAll('.output-tab').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    // find sibling panels
+    const container = parent.parentElement;
+    container.querySelectorAll('.output-panel').forEach(p => p.classList.remove('active'));
+    container.querySelector('#out-' + e.target.dataset.out).classList.add('active');
+});
+
+// Store original copy btn text
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.dataset.originalText = btn.textContent;
+});
+
+// ═══════════════════════════════════════
+// BEER BOARD: BUILD ENTRY FIELDS
+// ═══════════════════════════════════════
+
+function buildBeerEntry(containerId, count, prefix, nameLabel) {
+    const c = document.getElementById(containerId);
+    let html = '';
+    for (let i = 0; i < count; i++) {
+        html += '<div class="beer-entry">' +
+            '<span class="entry-number">' + (i+1) + '</span>' +
+            '<div class="form-row">' +
+                '<div><label for="' + prefix + '-name-' + i + '">' + nameLabel + ' Name</label>' +
+                '<input type="text" id="' + prefix + '-name-' + i + '" placeholder="e.g. Jaipur"></div>' +
+                '<div><label for="' + prefix + '-brew-' + i + '">Brewery / Producer</label>' +
+                '<input type="text" id="' + prefix + '-brew-' + i + '" placeholder="e.g. Thornbridge"></div>' +
+            '</div>' +
+            '<div class="beer-flags">' +
+                '<div class="checkbox-row">' +
+                    '<input type="checkbox" id="' + prefix + '-new-' + i + '">' +
+                    '<label for="' + prefix + '-new-' + i + '">New this week</label>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+    }
+    c.innerHTML = html;
+}
+
+buildBeerEntry('cask-entries', 5, 'cask', 'Ale');
+buildBeerEntry('cider-entries', 3, 'cider', 'Cider');
+buildBeerEntry('keg-entries', 5, 'keg', 'Beer');
+
+// Set date to today
+document.getElementById('bb-date').valueAsDate = new Date();
+
+// ═══════════════════════════════════════
+// LOCALSTORAGE PERSISTENCE
+// ═══════════════════════════════════════
+
+const STORAGE_KEY = 'blues_content_gen';
+
+function saveToStorage() {
+    const data = {};
+    document.querySelectorAll('input[type="text"], input[type="date"], input[type="time"], textarea, select').forEach(el => {
+        if (el.id) data[el.id] = el.value;
+    });
+    document.querySelectorAll('input[type="checkbox"]').forEach(el => {
+        if (el.id) data[el.id] = el.checked;
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function loadFromStorage() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        Object.keys(data).forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (el.type === 'checkbox') {
+                el.checked = data[id];
+            } else {
+                el.value = data[id];
+            }
+        });
+    } catch(e) {}
+}
+
+loadFromStorage();
+
+// Auto-save on input
+document.addEventListener('input', function() {
+    clearTimeout(window._saveTimer);
+    window._saveTimer = setTimeout(saveToStorage, 500);
+});
+document.addEventListener('change', function() {
+    saveToStorage();
+});
+
+// ═══════════════════════════════════════
+// CLEAR FORM
+// ═══════════════════════════════════════
+
+function clearForm(type) {
+    const panel = document.getElementById('panel-' + type);
+    panel.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+    panel.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+    if (type === 'beer') {
+        document.getElementById('bb-date').valueAsDate = new Date();
+    }
+    saveToStorage();
+}
+
+// ═══════════════════════════════════════
+// GATHER BEER DATA
+// ═══════════════════════════════════════
+
+function gatherBeers(prefix, count) {
+    const items = [];
+    for (let i = 0; i < count; i++) {
+        const name = document.getElementById(prefix + '-name-' + i).value.trim();
+        const brew = document.getElementById(prefix + '-brew-' + i).value.trim();
+        const isNew = document.getElementById(prefix + '-new-' + i).checked;
+        if (name) items.push({ name, brew, isNew });
+    }
+    return items;
+}
+
+// ═══════════════════════════════════════
+// GENERATE: BEER BOARD
+// ═══════════════════════════════════════
+
+function generateBeerBoard() {
+    const dateVal = document.getElementById('bb-date').value;
+    const casks = gatherBeers('cask', 5);
+    const ciders = gatherBeers('cider', 3);
+    const kegs = gatherBeers('keg', 5);
+    const staffPick = document.getElementById('bb-staffpick').value.trim();
+    const staffNote = document.getElementById('bb-staffnote').value.trim();
+
+    if (casks.length === 0 && ciders.length === 0 && kegs.length === 0) {
+        alert('Add at least one beer or cider to generate content.');
+        return;
+    }
+
+    const dateNice = formatDateNice(dateVal);
+    const dateShort = formatDateShort(dateVal);
+
+    // ── Instagram Post Visual (1080x1080) ──
+    function renderItem(item, isStaffPick) {
+        const pickClass = isStaffPick ? ' staff-pick' : '';
+        let badges = '';
+        if (item.isNew) badges += '<span class="bb-badge new">NEW</span>';
+        if (isStaffPick) badges += '<span class="bb-badge pick">STAFF PICK</span>';
+        return '<div class="bb-item">' +
+            '<div class="bb-item-name' + pickClass + '">' + esc(item.name) + badges + '</div>' +
+            (item.brew ? '<div class="bb-item-brewery">' + esc(item.brew) + '</div>' : '') +
+        '</div>';
+    }
+
+    // Decide layout: if we have all 3 categories, use 3 columns. Otherwise 2.
+    const hasCasks = casks.length > 0;
+    const hasCiders = ciders.length > 0;
+    const hasKegs = kegs.length > 0;
+    const catCount = [hasCasks, hasCiders, hasKegs].filter(Boolean).length;
+
+    let bodyHtml = '';
+    if (hasCasks) {
+        bodyHtml += '<div class="bb-column"><div class="bb-col-title">Cask</div>';
+        casks.forEach(item => { bodyHtml += renderItem(item, staffPick && item.name.toLowerCase() === staffPick.toLowerCase()); });
+        bodyHtml += '</div>';
+    }
+    if (hasCiders) {
+        bodyHtml += '<div class="bb-column"><div class="bb-col-title">Cider</div>';
+        ciders.forEach(item => { bodyHtml += renderItem(item, staffPick && item.name.toLowerCase() === staffPick.toLowerCase()); });
+        bodyHtml += '</div>';
+    }
+    if (hasKegs) {
+        bodyHtml += '<div class="bb-column"><div class="bb-col-title">Keg</div>';
+        kegs.forEach(item => { bodyHtml += renderItem(item, staffPick && item.name.toLowerCase() === staffPick.toLowerCase()); });
+        bodyHtml += '</div>';
+    }
+
+    const postHtml = '<div class="bb-post">' +
+        '<div class="bb-border"></div>' +
+        '<div class="bb-corner tl"></div><div class="bb-corner tr"></div>' +
+        '<div class="bb-corner bl"></div><div class="bb-corner br"></div>' +
+        '<div class="bb-header">' +
+            '<div class="bb-pub-name">Blue\'s Micro Pub</div>' +
+            '<div class="bb-tagline">Today\'s Board</div>' +
+            '<div class="bb-date">' + esc(dateNice) + '</div>' +
+            '<div class="bb-divider"></div>' +
+        '</div>' +
+        '<div class="bb-body">' + bodyHtml + '</div>' +
+        '<div class="bb-footer">' +
+            (staffPick && staffNote ? '<div class="bb-footer-text" style="color:var(--gold-light);margin-bottom:8px;">\u2B50 Staff Pick: ' + esc(staffPick) + ' \u2014 ' + esc(staffNote) + '</div>' : '') +
+            '<div class="bb-footer-text">1a Percy Terrace, Whitburn</div>' +
+            '<div class="bb-footer-loc">CAMRA Pub of the Year 2026</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('bb-post-preview').innerHTML = postHtml;
+
+    // ── Instagram Story (1080x1920) ──
+    function renderStoryItem(item, isStaffPick) {
+        const pickClass = isStaffPick ? ' staff-pick' : '';
+        let badges = '';
+        if (item.isNew) badges += '<span class="bb-badge new">NEW</span>';
+        if (isStaffPick) badges += '<span class="bb-badge pick">STAFF PICK</span>';
+        return '<div class="st-item">' +
+            '<div class="st-item-name' + pickClass + '">' + esc(item.name) + badges + '</div>' +
+            (item.brew ? '<div class="st-item-brewery">' + esc(item.brew) + '</div>' : '') +
+        '</div>';
+    }
+
+    let storyBody = '';
+    if (hasCasks) {
+        storyBody += '<div class="st-section"><div class="st-section-title">Cask Ales</div>';
+        casks.forEach(item => { storyBody += renderStoryItem(item, staffPick && item.name.toLowerCase() === staffPick.toLowerCase()); });
+        storyBody += '</div>';
+    }
+    if (hasCiders) {
+        storyBody += '<div class="st-section"><div class="st-section-title">Ciders</div>';
+        ciders.forEach(item => { storyBody += renderStoryItem(item, staffPick && item.name.toLowerCase() === staffPick.toLowerCase()); });
+        storyBody += '</div>';
+    }
+    if (hasKegs) {
+        storyBody += '<div class="st-section"><div class="st-section-title">Keg Lines</div>';
+        kegs.forEach(item => { storyBody += renderStoryItem(item, staffPick && item.name.toLowerCase() === staffPick.toLowerCase()); });
+        storyBody += '</div>';
+    }
+
+    const storyHtml = '<div class="bb-story">' +
+        '<div class="bb-border"></div>' +
+        '<div class="st-header">' +
+            '<div class="st-pub-name">Blue\'s</div>' +
+            '<div class="st-tagline">Today\'s Board</div>' +
+            '<div class="st-date">' + esc(dateNice) + '</div>' +
+            '<div class="bb-divider"></div>' +
+        '</div>' +
+        '<div class="st-body">' + storyBody + '</div>' +
+        '<div class="st-footer">' +
+            '<div class="st-footer-text">1a Percy Terrace, Whitburn</div>' +
+            '<div class="st-footer-camra">CAMRA Pub of the Year 2026</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('bb-story-preview').innerHTML = storyHtml;
+
+    // ── Instagram Caption ──
+    let allItems = [...casks, ...ciders, ...kegs];
+    let newItems = allItems.filter(i => i.isNew);
+
+    let igCaption = '\uD83C\uDF7A Today\'s Board \u2014 ' + dateShort + '\n\n';
+    if (casks.length) {
+        igCaption += 'CASK\n';
+        casks.forEach(item => {
+            igCaption += '\u25AB\uFE0F ' + item.name + (item.brew ? ' (' + item.brew + ')' : '');
+            if (item.isNew) igCaption += ' \u2728 NEW';
+            igCaption += '\n';
+        });
+        igCaption += '\n';
+    }
+    if (ciders.length) {
+        igCaption += 'CIDER\n';
+        ciders.forEach(item => {
+            igCaption += '\uD83C\uDF4E ' + item.name + (item.brew ? ' (' + item.brew + ')' : '');
+            if (item.isNew) igCaption += ' \u2728 NEW';
+            igCaption += '\n';
+        });
+        igCaption += '\n';
+    }
+    if (kegs.length) {
+        igCaption += 'KEG\n';
+        kegs.forEach(item => {
+            igCaption += '\u25AB\uFE0F ' + item.name + (item.brew ? ' (' + item.brew + ')' : '');
+            if (item.isNew) igCaption += ' \u2728 NEW';
+            igCaption += '\n';
+        });
+        igCaption += '\n';
+    }
+    if (staffPick) {
+        igCaption += '\u2B50 Staff Pick: ' + staffPick;
+        if (staffNote) igCaption += ' \u2014 ' + staffNote;
+        igCaption += '\n\n';
+    }
+    igCaption += '\uD83D\uDCCD 1a Percy Terrace, Whitburn SR6 7EW\n';
+    igCaption += '\uD83C\uDFC6 CAMRA Pub of the Year 2026\n\n';
+    igCaption += '#BluesmicroPub #Whitburn #RealAle #CaskAle #Micropub #CAMRA #RealCider #SouthTyneside #BeerBoard #CraftBeer #PubOfTheYear';
+
+    document.getElementById('bb-ig-caption').textContent = igCaption;
+
+    // ── Facebook Post ──
+    let fbText = '\uD83C\uDF7A TODAY\'S BOARD \u2014 ' + dateNice + '\n\n';
+    if (casks.length) {
+        fbText += '\uD83C\uDF7B CASK ALES\n';
+        casks.forEach(item => {
+            fbText += '\u2022 ' + item.name + (item.brew ? ' \u2014 ' + item.brew : '');
+            if (item.isNew) fbText += ' \u2728 NEW!';
+            fbText += '\n';
+        });
+        fbText += '\n';
+    }
+    if (ciders.length) {
+        fbText += '\uD83C\uDF4E CIDERS\n';
+        ciders.forEach(item => {
+            fbText += '\u2022 ' + item.name + (item.brew ? ' \u2014 ' + item.brew : '');
+            if (item.isNew) fbText += ' \u2728 NEW!';
+            fbText += '\n';
+        });
+        fbText += '\n';
+    }
+    if (kegs.length) {
+        fbText += '\uD83C\uDF7A KEG LINES\n';
+        kegs.forEach(item => {
+            fbText += '\u2022 ' + item.name + (item.brew ? ' \u2014 ' + item.brew : '');
+            if (item.isNew) fbText += ' \u2728 NEW!';
+            fbText += '\n';
+        });
+        fbText += '\n';
+    }
+    if (staffPick) {
+        fbText += '\u2B50 Staff Pick: ' + staffPick;
+        if (staffNote) fbText += ' \u2014 "' + staffNote + '"';
+        fbText += '\n\n';
+    }
+    fbText += 'Pop in and see us! \uD83D\uDCCD 1a Percy Terrace, Whitburn\n';
+    fbText += '\uD83C\uDFC6 Sunderland & South Tyneside CAMRA Pub of the Year 2026\n\n';
+    fbText += '#BluesmicroPub #Whitburn #RealAle #CaskAle #CAMRA #Micropub';
+
+    document.getElementById('bb-fb-text').textContent = fbText;
+
+    // ── Google Post ──
+    let googText = 'Today\'s Board at Blue\'s Micro Pub \u2014 ' + dateNice + '\n\n';
+    allItems.forEach(item => {
+        googText += '\u2022 ' + item.name + (item.brew ? ' (' + item.brew + ')' : '');
+        if (item.isNew) googText += ' \u2014 NEW this week';
+        googText += '\n';
+    });
+    if (staffPick) {
+        googText += '\nStaff Pick: ' + staffPick;
+        if (staffNote) googText += ' \u2014 ' + staffNote;
+        googText += '\n';
+    }
+    googText += '\nFresh cask ales, real ciders, and keg lines \u2014 rotating weekly. Pop in and see what\'s pouring.\n\n';
+    googText += 'CAMRA Pub of the Year 2026 | 1a Percy Terrace, Whitburn SR6 7EW';
+
+    // Truncate to 1500 chars
+    if (googText.length > 1500) googText = googText.substring(0, 1497) + '...';
+
+    document.getElementById('bb-goog-text').textContent = googText;
+
+    // Show output first, then scale after layout
+    document.getElementById('output-beer').classList.add('visible');
+    requestAnimationFrame(function() {
+        scalePreview('bb-post-wrapper', 1080, 1080);
+        scalePreview('bb-story-wrapper', 1080, 1920);
+        document.getElementById('output-beer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// ═══════════════════════════════════════
+// GENERATE: EVENT
+// ═══════════════════════════════════════
+
+function generateEvent() {
+    const name = document.getElementById('ev-name').value.trim();
+    const dateVal = document.getElementById('ev-date').value;
+    const timeVal = document.getElementById('ev-time').value;
+    const desc = document.getElementById('ev-desc').value.trim();
+    const price = document.getElementById('ev-price').value.trim();
+    const booking = document.getElementById('ev-booking').value;
+
+    if (!name) { alert('Enter an event name.'); return; }
+
+    const dateNice = formatDateNice(dateVal);
+    const timeNice = formatTime12(timeVal);
+    const dateTimeStr = (dateNice ? dateNice : '') + (timeNice ? ' \u2014 ' + timeNice : '');
+    const bookingText = booking === 'yes' ? 'Booking required \u2014 DM or pop in' : 'No booking needed \u2014 just turn up!';
+
+    // ── Instagram Post Visual ──
+    const evPostHtml = '<div class="ev-post">' +
+        '<div class="bb-border"></div>' +
+        '<div class="bb-corner tl"></div><div class="bb-corner tr"></div>' +
+        '<div class="bb-corner bl"></div><div class="bb-corner br"></div>' +
+        '<div class="ev-content">' +
+            '<div class="ev-label">Upcoming Event</div>' +
+            '<div class="ev-name">' + esc(name) + '</div>' +
+            '<div class="ev-divider"></div>' +
+            (dateTimeStr ? '<div class="ev-datetime">' + esc(dateTimeStr) + '</div>' : '') +
+            (desc ? '<div class="ev-desc">' + esc(desc) + '</div>' : '') +
+            (price ? '<div class="ev-price">' + esc(price) + '</div>' : '') +
+            '<div class="ev-booking">' + esc(bookingText) + '</div>' +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+            '<div class="ev-footer-loc">1a Percy Terrace, Whitburn</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('ev-post-preview').innerHTML = evPostHtml;
+
+    // ── Event Story ──
+    const evStoryHtml = '<div class="ev-story">' +
+        '<div class="bb-border"></div>' +
+        '<div class="ev-content">' +
+            '<div class="ev-label">Upcoming Event</div>' +
+            '<div class="ev-name">' + esc(name) + '</div>' +
+            '<div class="ev-divider"></div>' +
+            (dateTimeStr ? '<div class="ev-datetime">' + esc(dateTimeStr) + '</div>' : '') +
+            (desc ? '<div class="ev-desc">' + esc(desc) + '</div>' : '') +
+            (price ? '<div class="ev-price">' + esc(price) + '</div>' : '') +
+            '<div class="ev-booking">' + esc(bookingText) + '</div>' +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+            '<div class="ev-footer-loc">1a Percy Terrace, Whitburn</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('ev-story-preview').innerHTML = evStoryHtml;
+
+    // ── Instagram Caption ──
+    let igCap = '\uD83C\uDF89 ' + name.toUpperCase() + '\n\n';
+    if (dateTimeStr) igCap += '\uD83D\uDCC5 ' + dateTimeStr + '\n';
+    if (desc) igCap += '\n' + desc + '\n';
+    if (price) igCap += '\n\uD83D\uDCB0 ' + price + '\n';
+    igCap += '\n' + (booking === 'yes' ? '\uD83D\uDCE9 Booking required \u2014 drop us a DM or pop in to reserve your spot!' : '\uD83D\uDEAA No booking needed \u2014 just turn up!') + '\n\n';
+    igCap += '\uD83D\uDCCD Blue\'s Micro Pub, 1a Percy Terrace, Whitburn\n\n';
+    igCap += '#BluesmicroPub #Whitburn #Micropub #' + name.replace(/[^a-zA-Z0-9]/g, '') + ' #SouthTyneside #CAMRA #PubEvents';
+
+    document.getElementById('ev-ig-caption').textContent = igCap;
+
+    // ── Facebook ──
+    let fbText = '\uD83C\uDF89 ' + name.toUpperCase() + '\n\n';
+    if (dateTimeStr) fbText += '\uD83D\uDCC5 ' + dateTimeStr + '\n\n';
+    if (desc) fbText += desc + '\n\n';
+    if (price) fbText += '\uD83D\uDCB0 ' + price + '\n\n';
+    fbText += booking === 'yes' ? '\uD83D\uDCE9 Booking required \u2014 drop us a message or pop in to book your spot!\n\n' : '\uD83D\uDEAA No booking needed \u2014 just turn up!\n\n';
+    fbText += '\uD83D\uDCCD Blue\'s Micro Pub, 1a Percy Terrace, Whitburn SR6 7EW\n';
+    fbText += '\uD83C\uDFC6 CAMRA Pub of the Year 2026\n\n';
+    fbText += '#BluesmicroPub #Whitburn #PubEvents #Micropub #CAMRA';
+
+    document.getElementById('ev-fb-text').textContent = fbText;
+
+    // ── Google ──
+    let gText = name + ' at Blue\'s Micro Pub\n\n';
+    if (dateTimeStr) gText += dateTimeStr + '\n\n';
+    if (desc) gText += desc + '\n\n';
+    if (price) gText += 'Price: ' + price + '\n';
+    gText += booking === 'yes' ? 'Booking required \u2014 get in touch to reserve your spot.\n\n' : 'No booking needed \u2014 just turn up!\n\n';
+    gText += 'Blue\'s Micro Pub | 1a Percy Terrace, Whitburn SR6 7EW | CAMRA Pub of the Year 2026';
+    if (gText.length > 1500) gText = gText.substring(0, 1497) + '...';
+
+    document.getElementById('ev-goog-text').textContent = gText;
+
+    document.getElementById('output-event').classList.add('visible');
+    requestAnimationFrame(function() {
+        scalePreview('ev-post-wrapper', 1080, 1080);
+        scalePreview('ev-story-wrapper', 1080, 1920);
+        document.getElementById('output-event').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// ═══════════════════════════════════════
+// GENERATE: AWARD
+// ═══════════════════════════════════════
+
+function generateAward() {
+    const awardName = document.getElementById('aw-name').value.trim();
+    const body = document.getElementById('aw-body').value.trim();
+    const year = document.getElementById('aw-year').value.trim();
+    const quote = document.getElementById('aw-quote').value.trim();
+
+    if (!awardName) { alert('Enter the award name.'); return; }
+
+    // ── Visual ──
+    const awPostHtml = '<div class="aw-post">' +
+        '<div class="bb-border"></div>' +
+        '<div class="aw-content">' +
+            '<div class="aw-trophy">\uD83C\uDFC6</div>' +
+            '<div class="aw-label">Award Winner</div>' +
+            '<div class="aw-title">Blue\'s Micro Pub</div>' +
+            '<div class="aw-award-name">' + esc(awardName) + '</div>' +
+            (body ? '<div class="aw-year">' + esc(body) + ' \u2022 ' + esc(year) + '</div>' : '<div class="aw-year">' + esc(year) + '</div>') +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+            '<div class="ev-footer-loc">1a Percy Terrace, Whitburn</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('aw-post-preview').innerHTML = awPostHtml;
+
+    // Story reuses same layout in story format
+    const awStoryHtml = '<div class="ev-story">' +
+        '<div class="bb-border"></div>' +
+        '<div class="ev-content">' +
+            '<div class="ev-label" style="font-size:20px;letter-spacing:6px;">\uD83C\uDFC6 AWARD WINNER</div>' +
+            '<div class="ev-name" style="font-size:76px;">Blue\'s Micro Pub</div>' +
+            '<div class="ev-divider"></div>' +
+            '<div class="ev-datetime" style="font-size:34px;">' + esc(awardName) + '</div>' +
+            (body ? '<div class="ev-desc" style="font-size:26px;">' + esc(body) + ' \u2022 ' + esc(year) + '</div>' : '<div class="ev-desc">' + esc(year) + '</div>') +
+            (quote ? '<div class="ev-booking" style="font-size:20px;font-style:italic;color:#c4b8a8;margin-top:30px;">\u201C' + esc(quote) + '\u201D</div>' : '') +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+            '<div class="ev-footer-loc">1a Percy Terrace, Whitburn</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('aw-story-preview').innerHTML = awStoryHtml;
+
+    // ── Captions ──
+    let igCap = '\uD83C\uDFC6 WE WON!\n\n';
+    igCap += 'Blue\'s Micro Pub has been named ' + awardName;
+    if (body) igCap += ' by ' + body;
+    if (year) igCap += ' ' + year;
+    igCap += '!\n\n';
+    if (quote) igCap += '\u201C' + quote + '\u201D\n\n';
+    igCap += 'Massive thank you to every single one of you who supports this little pub. This is YOUR award as much as ours.\n\n';
+    igCap += '\uD83D\uDCCD 1a Percy Terrace, Whitburn SR6 7EW\n\n';
+    igCap += '#BluesmicroPub #CAMRA #PubOfTheYear #Whitburn #RealAle #Micropub #CaskAle #SouthTyneside #Award';
+
+    document.getElementById('aw-ig-caption').textContent = igCap;
+
+    let fbText = '\uD83C\uDFC6 WE\'VE ONLY GONE AND WON IT!\n\n';
+    fbText += 'Blue\'s Micro Pub has been named ' + awardName;
+    if (body) fbText += ' by ' + body;
+    if (year) fbText += ' ' + year;
+    fbText += '!\n\n';
+    if (quote) fbText += '\u201C' + quote + '\u201D\n\n';
+    fbText += 'From the bottom of our hearts \u2014 thank you. This wouldn\'t be possible without every single one of you who walks through our door.\n\n';
+    fbText += '\uD83C\uDF7B Come celebrate with us! First cask ale\'s pouring now.\n\n';
+    fbText += '\uD83D\uDCCD 1a Percy Terrace, Whitburn SR6 7EW\n\n';
+    fbText += '#BluesmicroPub #CAMRA #PubOfTheYear #Whitburn #Micropub';
+
+    document.getElementById('aw-fb-text').textContent = fbText;
+
+    let gText = 'Blue\'s Micro Pub \u2014 ' + awardName;
+    if (year) gText += ' ' + year;
+    gText += '\n\n';
+    gText += 'We\'re proud to announce that Blue\'s Micro Pub has been named ' + awardName;
+    if (body) gText += ' by ' + body;
+    gText += '.\n\n';
+    if (quote) gText += '"' + quote + '"\n\n';
+    gText += 'Thank you to all our customers for your incredible support. Pop in and raise a glass with us!\n\n';
+    gText += '1a Percy Terrace, Whitburn SR6 7EW';
+    if (gText.length > 1500) gText = gText.substring(0, 1497) + '...';
+
+    document.getElementById('aw-goog-text').textContent = gText;
+
+    document.getElementById('output-award').classList.add('visible');
+    requestAnimationFrame(function() {
+        scalePreview('aw-post-wrapper', 1080, 1080);
+        scalePreview('aw-story-wrapper', 1080, 1920);
+        document.getElementById('output-award').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// ═══════════════════════════════════════
+// GENERATE: REVIEW
+// ═══════════════════════════════════════
+
+function generateReview() {
+    const text = document.getElementById('rv-text').value.trim();
+    const author = document.getElementById('rv-author').value.trim();
+    const platform = document.getElementById('rv-platform').value;
+    const stars = document.getElementById('rv-stars').value;
+
+    if (!text) { alert('Paste the review text.'); return; }
+
+    // Truncate long reviews for visual
+    const displayText = text.length > 200 ? text.substring(0, 197) + '...' : text;
+
+    // ── Visual ──
+    const rvPostHtml = '<div class="rv-post">' +
+        '<div class="bb-border"></div>' +
+        '<div class="rv-content">' +
+            '<div class="rv-stars">' + starsStr(stars) + '</div>' +
+            '<div class="rv-quote">\u201C' + esc(displayText) + '\u201D</div>' +
+            '<div class="rv-divider"></div>' +
+            '<div class="rv-author">' + esc(author || 'Happy Customer') + '</div>' +
+            '<div class="rv-platform">via ' + esc(platform) + '</div>' +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('rv-post-preview').innerHTML = rvPostHtml;
+
+    // Story
+    const rvStoryHtml = '<div class="ev-story" style="background:linear-gradient(180deg, #0a1420 0%, #0f1f33 50%, #142840 100%);">' +
+        '<div class="bb-border"></div>' +
+        '<div class="ev-content" style="max-width:900px;">' +
+            '<div class="ev-label" style="font-size:18px;letter-spacing:5px;">WHAT OUR CUSTOMERS SAY</div>' +
+            '<div style="font-size:56px;margin-bottom:30px;">' + starsStr(stars) + '</div>' +
+            '<div class="ev-name" style="font-size:48px;font-style:italic;font-weight:500;line-height:1.4;">\u201C' + esc(displayText) + '\u201D</div>' +
+            '<div class="ev-divider" style="margin-top:40px;"></div>' +
+            '<div class="ev-datetime" style="font-size:28px;color:var(--gold);">' + esc(author || 'Happy Customer') + '</div>' +
+            '<div class="ev-desc" style="font-size:20px;font-style:normal;color:#8ba4c4;">via ' + esc(platform) + '</div>' +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+            '<div class="ev-footer-loc">Whitburn \u2022 CAMRA Pub of the Year 2026</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('rv-story-preview').innerHTML = rvStoryHtml;
+
+    // ── Captions ──
+    let igCap = '\u2B50 ' + stars + '-Star Review on ' + platform + '\n\n';
+    igCap += '\u201C' + text + '\u201D\n';
+    igCap += '\u2014 ' + (author || 'Happy Customer') + '\n\n';
+    igCap += 'Thank you so much! Reviews like this make it all worthwhile. \u2764\uFE0F\n\n';
+    igCap += '\uD83D\uDCCD 1a Percy Terrace, Whitburn SR6 7EW\n\n';
+    igCap += '#BluesmicroPub #Whitburn #' + platform.replace(/\s/g,'') + 'Review #Micropub #CAMRA #RealAle #PubOfTheYear #CustomerLove';
+
+    document.getElementById('rv-ig-caption').textContent = igCap;
+
+    let fbText = '\u2B50 Another lovely ' + stars + '-star review!\n\n';
+    fbText += '\u201C' + text + '\u201D\n';
+    fbText += '\u2014 ' + (author || 'Happy Customer') + ', ' + platform + '\n\n';
+    fbText += 'We love hearing from you. Thank you for taking the time to leave a review \u2014 it means the world to a little micropub like ours. \u2764\uFE0F\n\n';
+    fbText += '\uD83D\uDCCD 1a Percy Terrace, Whitburn SR6 7EW\n';
+    fbText += '\uD83C\uDFC6 CAMRA Pub of the Year 2026\n\n';
+    fbText += '#BluesmicroPub #Whitburn #Micropub #CustomerReview';
+
+    document.getElementById('rv-fb-text').textContent = fbText;
+
+    let gText = 'Thank you for this wonderful ' + stars + '-star review!\n\n';
+    gText += '"' + text + '"\n\n';
+    gText += 'We\'re so glad you enjoyed your visit, ' + (author || '') + '. We look forward to welcoming you back soon!\n\n';
+    gText += 'Blue\'s Micro Pub | 1a Percy Terrace, Whitburn SR6 7EW | CAMRA Pub of the Year 2026';
+    if (gText.length > 1500) gText = gText.substring(0, 1497) + '...';
+
+    document.getElementById('rv-goog-text').textContent = gText;
+
+    document.getElementById('output-review').classList.add('visible');
+    requestAnimationFrame(function() {
+        scalePreview('rv-post-wrapper', 1080, 1080);
+        scalePreview('rv-story-wrapper', 1080, 1920);
+        document.getElementById('output-review').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// ═══════════════════════════════════════
+// GENERATE: BEHIND THE SCENES
+// ═══════════════════════════════════════
+
+function generateBTS() {
+    const title = document.getElementById('bts-title').value.trim();
+    const desc = document.getElementById('bts-desc').value.trim();
+    const mood = document.getElementById('bts-mood').value;
+
+    if (!title) { alert('Enter a moment title.'); return; }
+
+    const moodEmojis = {
+        excited: '\uD83D\uDE4C',
+        cosy: '\u2615',
+        proud: '\uD83D\uDCAA',
+        funny: '\uD83D\uDE02',
+        hardwork: '\uD83D\uDCAA'
+    };
+    const moodLabels = {
+        excited: 'BUZZING',
+        cosy: 'COSY VIBES',
+        proud: 'PROUD MOMENT',
+        funny: 'PUB LIFE',
+        hardwork: 'GRAFT'
+    };
+
+    // ── Visual ──
+    const btsPostHtml = '<div class="bts-post">' +
+        '<div class="bb-border"></div>' +
+        '<div class="bts-content">' +
+            '<div class="bts-label">' + esc(moodLabels[mood] || 'BEHIND THE SCENES') + '</div>' +
+            '<div class="bts-title">' + esc(title) + '</div>' +
+            '<div class="bts-divider"></div>' +
+            (desc ? '<div class="bts-desc">' + esc(desc) + '</div>' : '') +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('bts-post-preview').innerHTML = btsPostHtml;
+
+    // Story
+    const btsStoryHtml = '<div class="ev-story" style="background:linear-gradient(180deg, #0f1923 0%, #152535 50%, #1a2d42 100%);">' +
+        '<div class="bb-border"></div>' +
+        '<div class="ev-content">' +
+            '<div class="ev-label" style="font-size:20px;letter-spacing:6px;">' + esc(moodLabels[mood] || 'BEHIND THE SCENES') + '</div>' +
+            '<div class="ev-name" style="font-size:72px;">' + esc(title) + '</div>' +
+            '<div class="ev-divider"></div>' +
+            (desc ? '<div class="ev-desc" style="font-size:30px;">' + esc(desc) + '</div>' : '') +
+        '</div>' +
+        '<div class="ev-footer">' +
+            '<div class="ev-footer-name">Blue\'s Micro Pub</div>' +
+            '<div class="ev-footer-loc">Whitburn</div>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementById('bts-story-preview').innerHTML = btsStoryHtml;
+
+    // ── Captions ──
+    const emoji = moodEmojis[mood] || '\uD83C\uDF7A';
+
+    let igCap = emoji + ' ' + title + '\n\n';
+    if (desc) igCap += desc + '\n\n';
+    igCap += '\uD83D\uDCCD Blue\'s Micro Pub, Whitburn\n\n';
+    igCap += '#BluesmicroPub #Whitburn #BehindTheScenes #Micropub #PubLife #CAMRA #RealAle #SouthTyneside';
+
+    document.getElementById('bts-ig-caption').textContent = igCap;
+
+    let fbText = emoji + ' ' + title + '\n\n';
+    if (desc) fbText += desc + '\n\n';
+    fbText += 'That\'s pub life! \uD83C\uDF7B\n\n';
+    fbText += '\uD83D\uDCCD Blue\'s Micro Pub, 1a Percy Terrace, Whitburn SR6 7EW\n\n';
+    fbText += '#BluesmicroPub #Whitburn #PubLife #Micropub';
+
+    document.getElementById('bts-fb-text').textContent = fbText;
+
+    let gText = title + ' at Blue\'s Micro Pub\n\n';
+    if (desc) gText += desc + '\n\n';
+    gText += 'Life behind the bar at Whitburn\'s award-winning micropub.\n\n';
+    gText += 'Blue\'s Micro Pub | 1a Percy Terrace, Whitburn SR6 7EW';
+    if (gText.length > 1500) gText = gText.substring(0, 1497) + '...';
+
+    document.getElementById('bts-goog-text').textContent = gText;
+
+    document.getElementById('output-bts').classList.add('visible');
+    requestAnimationFrame(function() {
+        scalePreview('bts-post-wrapper', 1080, 1080);
+        scalePreview('bts-story-wrapper', 1080, 1920);
+        document.getElementById('output-bts').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// ═══════════════════════════════════════
+// GLOBAL RESIZE HANDLER
+// ═══════════════════════════════════════
+window.addEventListener('resize', scaleAllPreviews);
+
+</script>
+</body>
+</html>

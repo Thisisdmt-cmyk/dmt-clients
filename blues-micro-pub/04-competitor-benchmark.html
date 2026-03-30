@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Competitor Benchmark & Eclipse Roadmap — Blue's Micro Pub</title>
+<title>Benchmark Intelligence — Blue's Micro Pub</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,10 +43,8 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
 .header::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
   background: radial-gradient(circle at 30% 50%, rgba(212,168,83,0.05) 0%, transparent 50%),
               radial-gradient(circle at 70% 50%, rgba(27,75,122,0.1) 0%, transparent 50%);
   pointer-events: none;
@@ -76,7 +74,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
 .header p {
   font-size: 16px;
   color: var(--muted);
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
   position: relative;
 }
@@ -227,6 +225,11 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   font-weight: 600;
   color: var(--gold);
 }
+.award-badge.current {
+  background: linear-gradient(135deg, rgba(212,168,83,0.25), rgba(212,168,83,0.1));
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 12px rgba(212,168,83,0.15);
+}
 
 /* PLATFORM LIST */
 .platform-list { list-style: none; }
@@ -245,9 +248,9 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   min-width: 100px;
 }
 
-/* WEAKNESSES */
-.weakness-list { list-style: none; }
-.weakness-list li {
+/* OPPORTUNITY LIST */
+.opportunity-list { list-style: none; }
+.opportunity-list li {
   padding: 14px 16px;
   margin-bottom: 8px;
   background: rgba(16,185,129,0.06);
@@ -258,7 +261,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   position: relative;
   padding-left: 44px;
 }
-.weakness-list li::before {
+.opportunity-list li::before {
   content: '\2713';
   position: absolute;
   left: 14px;
@@ -268,10 +271,31 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   font-size: 16px;
 }
 
+/* WEAKNESS CALLOUT */
+.weakness-callout {
+  padding: 14px 16px 14px 44px;
+  margin-bottom: 8px;
+  background: rgba(27,75,122,0.08);
+  border: 1px solid rgba(27,75,122,0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+}
+.weakness-callout::before {
+  content: '\25B8';
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 16px;
+}
+
 /* TAB 2 - GAP ANALYSIS */
 .comparison-row {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 1.5fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 1.5fr;
   align-items: center;
   padding: 14px 16px;
   border-bottom: 1px solid rgba(30,58,95,0.3);
@@ -301,24 +325,11 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-.gap-lead { background: rgba(16,185,129,0.15); color: var(--success); }
-.gap-close { background: rgba(245,158,11,0.15); color: var(--warning); }
+.gap-blues-lead { background: rgba(16,185,129,0.15); color: var(--success); }
+.gap-tamworth-lead { background: rgba(245,158,11,0.15); color: var(--warning); }
 .gap-behind { background: rgba(239,68,68,0.12); color: var(--critical); }
-.gap-missing { background: rgba(239,68,68,0.2); color: var(--critical); }
 .gap-na { background: rgba(139,164,196,0.1); color: var(--muted); }
 .gap-matched { background: rgba(27,75,122,0.2); color: var(--muted); }
-
-.priority-tag {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 700;
-}
-.priority-critical { background: rgba(239,68,68,0.15); color: var(--critical); }
-.priority-high { background: rgba(245,158,11,0.15); color: var(--warning); }
-.priority-medium { background: rgba(27,75,122,0.25); color: var(--muted); }
-.priority-low { background: rgba(139,164,196,0.1); color: #6b8ab0; }
 
 /* PROGRESS BAR */
 .progress-compare {
@@ -335,7 +346,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
 }
 .progress-bar-wrap {
   flex: 1;
-  height: 24px;
+  height: 28px;
   background: rgba(15,25,35,0.6);
   border-radius: 12px;
   overflow: hidden;
@@ -355,6 +366,13 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
 }
 .progress-blues { background: linear-gradient(90deg, var(--primary), #2a6aad); }
 .progress-tamworth { background: linear-gradient(90deg, #8B4513, #cd853f); }
+.progress-na-bar {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  font-style: italic;
+}
 
 /* SUMMARY CARDS */
 .summary-grid {
@@ -377,9 +395,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   align-items: center;
   gap: 8px;
 }
-.summary-card ul {
-  list-style: none;
-}
+.summary-card ul { list-style: none; }
 .summary-card li {
   padding: 6px 0;
   font-size: 14px;
@@ -513,10 +529,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   align-items: center;
   gap: 10px;
 }
-.phase-target .target-icon {
-  font-size: 18px;
-  flex-shrink: 0;
-}
+.phase-target .target-icon { font-size: 18px; flex-shrink: 0; }
 .phase-target .target-text {
   font-size: 13px;
   color: var(--gold);
@@ -588,6 +601,235 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   line-height: 1.7;
 }
 
+/* SECTION DIVIDER */
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* COLLATERAL SECTION */
+.collateral-section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 2px solid var(--border);
+}
+.collateral-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.collateral-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* WALL PLANNER */
+.wall-planner-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  position: relative;
+}
+.wall-planner-container * { color: #1a1a1a; }
+.planner-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid #1B4B7A;
+}
+.planner-header h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1B4B7A;
+  margin-bottom: 4px;
+}
+.planner-header p {
+  font-size: 13px;
+  color: #666;
+}
+.planner-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+  min-width: 1000px;
+}
+.planner-week {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 6px;
+  font-size: 10px;
+  line-height: 1.4;
+  min-height: 120px;
+  position: relative;
+}
+.planner-week.phase-1-bg { background: rgba(27,75,122,0.06); border-top: 3px solid #1B4B7A; }
+.planner-week.phase-2-bg { background: rgba(212,168,83,0.06); border-top: 3px solid #D4A853; }
+.planner-week.phase-3-bg { background: rgba(16,185,129,0.06); border-top: 3px solid #10B981; }
+.planner-week-num {
+  font-weight: 800;
+  font-size: 11px;
+  margin-bottom: 6px;
+  font-family: 'Inter', sans-serif;
+}
+.planner-task {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 4px;
+  font-size: 9px;
+  line-height: 1.3;
+}
+.planner-checkbox {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid #999;
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.planner-milestone {
+  background: #D4A853;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 8px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-top: 6px;
+  text-align: center;
+}
+.planner-phase-label {
+  font-weight: 800;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  font-family: 'Inter', sans-serif;
+}
+.planner-phase-label.p1 { color: #1B4B7A; }
+.planner-phase-label.p2 { color: #b8903a; }
+.planner-phase-label.p3 { color: #0d9668; }
+
+/* BENCHMARK DASHBOARD PRINT */
+.dashboard-print {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  overflow-x: auto;
+}
+.dashboard-print * { color: #1a1a1a; }
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid #1B4B7A;
+}
+.dashboard-header h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1B4B7A;
+  margin-bottom: 4px;
+}
+.dashboard-header p {
+  font-size: 12px;
+  color: #666;
+}
+.dash-metric-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+}
+.dash-metric-label {
+  font-weight: 700;
+  font-size: 13px;
+  min-width: 140px;
+  font-family: 'Inter', sans-serif;
+}
+.dash-bars { flex: 1; }
+.dash-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.dash-bar-row:last-child { margin-bottom: 0; }
+.dash-bar-name {
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 70px;
+  text-align: right;
+}
+.dash-bar-track {
+  flex: 1;
+  height: 20px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.dash-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff !important;
+}
+.dash-bar-blues { background: #1B4B7A; }
+.dash-bar-tamworth { background: #cd853f; }
+.dash-bar-na {
+  font-size: 10px;
+  color: #999 !important;
+  font-style: italic;
+  padding: 2px 8px;
+}
+.dash-winner {
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 60px;
+  text-align: center;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.dash-winner.blues-win { background: rgba(27,75,122,0.1); color: #1B4B7A !important; }
+.dash-winner.tamworth-win { background: rgba(205,133,63,0.1); color: #8B4513 !important; }
+.dash-winner.no-data { background: #f5f5f5; color: #999 !important; }
+
+/* PRINT BUTTON */
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gold), #b8903a);
+  color: #0F1923;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.print-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212,168,83,0.3); }
+
 /* FOOTER */
 .footer {
   text-align: center;
@@ -611,6 +853,8 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   .card { padding: 20px; }
   .header { padding: 32px 16px 24px; }
   .phase-header { flex-direction: column; text-align: center; }
+  .wall-planner-container { padding: 16px; }
+  .dashboard-print { padding: 16px; }
 }
 
 /* SCROLL ANIMATION */
@@ -624,16 +868,12 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   transform: translateY(0);
 }
 
-/* SECTION DIVIDER */
-.section-title {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
+/* PRINT STYLES */
+@media print {
+  body { background: #fff; }
+  .header, .tab-nav, .footer, .print-btn, .tab-content:not(.printing) { display: none !important; }
+  .printing { display: block !important; }
+  .wall-planner-container, .dashboard-print { box-shadow: none; border: none; page-break-inside: avoid; }
 }
 </style>
 </head>
@@ -641,20 +881,26 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-badge">Competitor Intelligence</div>
-  <h1>The <span>Eclipse</span> Playbook</h1>
-  <p>How Blue's Micro Pub overtakes the Tamworth Tap to become the digitally dominant CAMRA Pub of the Year</p>
+  <div class="header-badge">Benchmark Intelligence</div>
+  <h1>Learning from the <span>Best</span></h1>
+  <p>Tamworth Tap is the gold standard. Blues already beats them in ways they don't expect. Here's the full picture.</p>
 </div>
 
 <!-- TABS -->
 <div class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('playbook')">The Tamworth Playbook</button>
-  <button class="tab-btn" onclick="switchTab('gap')">The Gap Analysis</button>
-  <button class="tab-btn" onclick="switchTab('roadmap')">The Eclipse Roadmap</button>
+  <button class="tab-btn" onclick="switchTab('gap')">Gap Analysis</button>
+  <button class="tab-btn" onclick="switchTab('roadmap')">The Roadmap</button>
 </div>
 
+<!-- ============================================================ -->
 <!-- TAB 1: THE TAMWORTH PLAYBOOK -->
+<!-- ============================================================ -->
 <div id="tab-playbook" class="tab-content active">
+
+  <div style="background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:var(--muted);line-height:1.6;">
+    <strong style="color:var(--gold);">Why Tamworth Tap?</strong> They are not a competitor &mdash; they are 170 miles away in Staffordshire. We use them as a <strong style="color:var(--text);">benchmark</strong> because they are the current CAMRA National Pub of the Year (a three-time winner) and represent what the best looks like. This is about learning from excellence, not competing for the same customers.
+  </div>
 
   <!-- IDENTITY -->
   <div class="card fade-in">
@@ -662,7 +908,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
       <div class="card-icon gold">&#127866;</div>
       <div>
         <h3>The Tamworth Tap at Tamworth Brewing Co</h3>
-        <p>Know your competitor inside and out</p>
+        <p>Understanding the benchmark inside and out</p>
       </div>
     </div>
     <div class="detail-grid">
@@ -676,19 +922,19 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
       </div>
       <div class="detail-item">
         <div class="label">Building</div>
-        <div class="value">16th century, 3 floors, medieval cellars, Georgian frontage</div>
+        <div class="value">16th century, 3 floors, medieval cellars</div>
       </div>
       <div class="detail-item">
         <div class="label">Beer Garden</div>
-        <div class="value">Overlooks Tamworth Castle (Saxon curtain wall)</div>
+        <div class="value">Overlooks Tamworth Castle</div>
       </div>
       <div class="detail-item">
         <div class="label">Brewing</div>
         <div class="value">Onsite microbrewery (Tamworth Brewing Co)</div>
       </div>
       <div class="detail-item">
-        <div class="label">Products</div>
-        <div class="value">Craft beer, gin, cider, mead</div>
+        <div class="label">Website</div>
+        <div class="value">tamworthtap.co.uk &mdash; professional, purpose-built</div>
       </div>
     </div>
   </div>
@@ -699,20 +945,16 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
       <div class="card-icon gold">&#127942;</div>
       <div>
         <h3>Their Trophy Cabinet</h3>
-        <p>The awards they wear like armour</p>
+        <p>Verified awards only</p>
       </div>
     </div>
     <div class="award-row">
-      <div class="award-badge">&#127942; CAMRA National Pub of the Year 2022</div>
-      <div class="award-badge">&#127942; CAMRA National Pub of the Year 2023</div>
-      <div class="award-badge">&#127942; CAMRA National Pub of the Year 2025</div>
+      <div class="award-badge">&#127942; CAMRA National POTY 2022</div>
+      <div class="award-badge">&#127942; CAMRA National POTY 2023</div>
+      <div class="award-badge current">&#127942; CAMRA National POTY 2025 (Current Holder)</div>
     </div>
-    <div class="award-row" style="margin-top:10px">
-      <div class="award-badge">&#127793; Best Beer Garden 2022</div>
-      <div class="award-badge">&#127866; Best Pub for Beer 2024</div>
-    </div>
-    <p style="margin-top:16px; font-size:14px; color:var(--muted);">
-      These CAMRA badges appear <strong style="color:var(--text)">everywhere</strong> — profile photos, cover photos, website hero section, window signage. They treat awards as marketing assets, not just accolades.
+    <p style="margin-top:16px; font-size:14px; color:var(--muted); line-height:1.6;">
+      Three-time national champion. They deploy these awards as marketing assets everywhere &mdash; profile photos, cover images, website hero section, window signage. They never let you forget.
     </p>
   </div>
 
@@ -721,31 +963,26 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
     <div class="card-header">
       <div class="card-icon blue">&#127760;</div>
       <div>
-        <h3>Digital Presence Audit</h3>
-        <p>Every channel, every touchpoint</p>
+        <h3>Their Digital Presence</h3>
+        <p>Verified metrics as of 30 March 2026</p>
       </div>
     </div>
 
-    <div class="section-title">Website — tamworthtap.co.uk</div>
+    <div class="section-title">Website &mdash; tamworthtap.co.uk</div>
     <ul class="platform-list" style="margin-bottom:24px">
       <li><span class="plat-name">Design</span> Professional, modern, purpose-built</li>
       <li><span class="plat-name">Beer Finder</span> Live beer board showing what's pouring now</li>
       <li><span class="plat-name">Virtual Tour</span> 360-degree tour of the venue</li>
       <li><span class="plat-name">Events</span> Full events calendar with upcoming listings</li>
-      <li><span class="plat-name">Food Menu</span> Bar snacks menu available online</li>
       <li><span class="plat-name">Newsletter</span> "The Tap Times" with email signup</li>
-      <li><span class="plat-name">Sustainability</span> Dedicated sustainability page</li>
     </ul>
 
-    <div class="section-title">Social Media & Platforms</div>
+    <div class="section-title">Social Media &amp; Review Platforms</div>
     <ul class="platform-list">
-      <li><span class="plat-name">Facebook</span> 14,000 followers &bull; 858 reviews (100% recommend)</li>
-      <li><span class="plat-name">Instagram</span> @tamworthbrewingco &mdash; 1,792 followers</li>
-      <li><span class="plat-name">TikTok</span> Active presence with video content</li>
-      <li><span class="plat-name">YouTube</span> Active channel</li>
-      <li><span class="plat-name">Twitter/X</span> @TamworthBrewing</li>
-      <li><span class="plat-name">Untappd</span> Beer finder integration</li>
-      <li><span class="plat-name">TripAdvisor</span> Pages of 5-star reviews</li>
+      <li><span class="plat-name">Facebook</span> ~14,000 followers &bull; 858 reviews (100% recommend) &mdash; <strong style="color:var(--success)">VERIFIED</strong></li>
+      <li><span class="plat-name">Instagram</span> @tamworthbrewingco &mdash; 1,792 followers, 33 posts &mdash; <strong style="color:var(--success)">VERIFIED</strong></li>
+      <li><span class="plat-name">Google</span> 4.8 stars, 619 reviews &mdash; <strong style="color:var(--success)">VERIFIED</strong></li>
+      <li><span class="plat-name">TripAdvisor</span> 4.4/5, 91 reviews &mdash; <strong style="color:var(--success)">VERIFIED</strong></li>
     </ul>
   </div>
 
@@ -755,46 +992,55 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
       <div class="card-icon blue">&#128273;</div>
       <div>
         <h3>What Makes Them Work</h3>
-        <p>Decoding the Tamworth formula</p>
+        <p>The formula behind the benchmark</p>
       </div>
     </div>
     <ol class="numbered-list">
-      <li>They tell their story everywhere &mdash; 16th century building, castle views, sustainability, local brewing. Every channel reinforces the same narrative.</li>
-      <li>CAMRA badges are deployed as marketing assets &mdash; on profile photos, cover photos, website hero, window signage. They never let you forget.</li>
-      <li>Multi-platform presence means they reach beer tourists, locals, and casual browsers simultaneously.</li>
-      <li>The newsletter keeps customers engaged between visits, building repeat trade and loyalty.</li>
-      <li>The virtual tour lets people "visit" before they visit &mdash; converting curious browsers into actual footfall.</li>
-      <li>Events are promoted across all channels simultaneously, maximising reach for every booking.</li>
-      <li>Food offering (bar snacks) adds revenue and extends dwell time per customer.</li>
-      <li>Owning a brewery gives them a unique story and product exclusivity that competitors can't replicate.</li>
-      <li>Their sustainability narrative resonates with modern, conscious consumers.</li>
-      <li>Community feel with professional execution &mdash; they feel authentic while looking polished.</li>
+      <li><strong>Own brewery</strong> gives them a unique story and product exclusivity that other micropubs cannot replicate.</li>
+      <li><strong>16th century building</strong> with medieval cellars and castle views &mdash; every channel reinforces the same narrative.</li>
+      <li><strong>Awards as assets</strong> &mdash; CAMRA badges are deployed on every profile photo, cover image, website hero, and window.</li>
+      <li><strong>Professional website</strong> with live beer board, virtual tour, events calendar, and newsletter signup.</li>
+      <li><strong>"The Tap Times" newsletter</strong> keeps customers engaged between visits, building repeat trade.</li>
+      <li><strong>Beer garden overlooking Tamworth Castle</strong> gives them an iconic visual that photographs beautifully.</li>
+      <li><strong>Multi-platform presence</strong> means they reach beer tourists, locals, and browsers simultaneously.</li>
     </ol>
   </div>
 
-  <!-- THEIR WEAKNESSES -->
+  <!-- WHAT THEY DON'T DO WELL -->
   <div class="card fade-in">
     <div class="card-header">
       <div class="card-icon green">&#127919;</div>
       <div>
-        <h3>Where Blues Can Win</h3>
-        <p>Their weaknesses are your opportunities</p>
+        <h3>What They Don't Do Well</h3>
+        <p>Even the best have blind spots</p>
       </div>
     </div>
-    <ul class="weakness-list">
-      <li><strong>Location advantage:</strong> Tamworth is a busy town centre. Blues is in Whitburn &mdash; a coastal village with charm, character, and a story that writes itself.</li>
-      <li><strong>Intimacy wins:</strong> Tamworth is a multi-floor venue. Blues has the intimate village micropub feel that people actually seek out and remember.</li>
-      <li><strong>The crown has moved:</strong> Tamworth held the title. Blues holds it NOW (2026). The current champion always has the spotlight.</li>
-      <li><strong>Double champion:</strong> Blues has CAMRA Cider Pub of the Year too. Tamworth doesn't. That's two national titles.</li>
-      <li><strong>Events diversity:</strong> Running club, whisky club, free cheeseboard Sundays, pie nights &mdash; Blues' events programme is more creative and varied.</li>
-      <li><strong>Authentic to the core:</strong> Cal and Alice ARE the pub. It's personal, genuine, and real. People connect with people, not brands.</li>
-    </ul>
+    <div class="weakness-callout">
+      <strong>Instagram:</strong> 33 posts. That's it. The three-time CAMRA National Pub of the Year has posted 33 times on Instagram. Blues has posted <strong style="color:var(--success)">1,745 times</strong> &mdash; that's 53x the content volume. Tamworth has the awards; Blues has the content engine.
+    </div>
+    <div class="weakness-callout">
+      <strong>Instagram followers:</strong> Tamworth has 1,792 followers. Blues has <strong style="color:var(--success)">2,200</strong> &mdash; a 23% lead over the three-time national champion. Blues wins this metric outright.
+    </div>
+    <div class="weakness-callout">
+      <strong>Google rating:</strong> Tamworth scores 4.8 stars. Blues scores <strong style="color:var(--success)">4.9 stars</strong>. Higher quality rating, even if the review volume needs work.
+    </div>
+    <p style="margin-top:16px; font-size:14px; color:var(--muted); line-height:1.6;">
+      The takeaway: Tamworth is brilliant at structure, website, reviews, and awards leverage. But they are barely trying on Instagram &mdash; the platform where Blues already dominates. This isn't just a gap to close; it's proof that Blues' content instincts are genuinely world-class.
+    </p>
   </div>
 
 </div>
 
-<!-- TAB 2: THE GAP ANALYSIS -->
+<!-- ============================================================ -->
+<!-- TAB 2: GAP ANALYSIS -->
+<!-- ============================================================ -->
 <div id="tab-gap" class="tab-content">
+
+  <!-- LEAD WITH WHERE BLUES WINS -->
+  <div class="insight-banner fade-in" style="margin-top:0;margin-bottom:28px;">
+    <h3>Blues Already Leads on Three Metrics</h3>
+    <p>Before looking at the gaps, recognise this: Blues outperforms the three-time CAMRA National Pub of the Year on Instagram followers, Instagram content, and Google rating. For a two-person micropub, that's remarkable.</p>
+  </div>
 
   <!-- COMPARISON TABLE -->
   <div class="card fade-in">
@@ -802,7 +1048,7 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
       <div class="card-icon gold">&#128202;</div>
       <div>
         <h3>Metric-by-Metric Comparison</h3>
-        <p>Blues vs Tamworth Tap &mdash; the honest picture</p>
+        <p>Verified data only &mdash; where data is unavailable, it says so</p>
       </div>
     </div>
 
@@ -811,149 +1057,97 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
         <span>Metric</span>
         <span>Blue's Micro Pub</span>
         <span>Tamworth Tap</span>
-        <span>Gap</span>
-        <span>Priority</span>
+        <span>Status</span>
       </div>
 
-      <div class="comparison-row">
-        <span>CAMRA National POTY</span>
-        <span style="color:var(--success);font-weight:700">2026 (Current Holder)</span>
-        <span>2022, 2023, 2025</span>
-        <span><span class="gap-tag gap-lead">Blues Lead</span></span>
-        <span>&mdash;</span>
+      <!-- BLUES LEADS -->
+      <div class="comparison-row" style="background:rgba(16,185,129,0.04);">
+        <span>Instagram Followers</span>
+        <span style="color:var(--success);font-weight:700">2,200</span>
+        <span>1,792</span>
+        <span><span class="gap-tag gap-blues-lead">Blues Leads (+23%)</span></span>
       </div>
-      <div class="comparison-row">
-        <span>CAMRA Cider POTY</span>
-        <span style="color:var(--success);font-weight:700">2026</span>
-        <span style="color:var(--muted)">No</span>
-        <span><span class="gap-tag gap-lead">Blues Lead</span></span>
-        <span>&mdash;</span>
+      <div class="comparison-row" style="background:rgba(16,185,129,0.04);">
+        <span>Instagram Posts</span>
+        <span style="color:var(--success);font-weight:700">1,745</span>
+        <span>33</span>
+        <span><span class="gap-tag gap-blues-lead">Blues Leads (53x)</span></span>
       </div>
-      <div class="comparison-row">
+      <div class="comparison-row" style="background:rgba(16,185,129,0.04);">
         <span>Google Rating</span>
-        <span>4.9 &#9733; (119 reviews)</span>
-        <span>~4.8 &#9733;</span>
-        <span><span class="gap-tag gap-close">Close</span></span>
-        <span><span class="priority-tag priority-medium">Medium</span></span>
+        <span style="color:var(--success);font-weight:700">4.9 &#9733;</span>
+        <span>4.8 &#9733;</span>
+        <span><span class="gap-tag gap-blues-lead">Blues Leads</span></span>
       </div>
+
+      <!-- TAMWORTH LEADS -->
       <div class="comparison-row">
-        <span>Google Review Volume</span>
+        <span>Google Reviews</span>
         <span>119</span>
-        <span>Likely 200+</span>
-        <span><span class="gap-tag gap-behind">Behind</span></span>
-        <span><span class="priority-tag priority-high">High</span></span>
+        <span style="font-weight:600">619</span>
+        <span><span class="gap-tag gap-tamworth-lead">Tamworth Leads</span></span>
       </div>
       <div class="comparison-row">
         <span>Facebook Followers</span>
-        <span style="color:var(--muted)">Low</span>
-        <span style="font-weight:600">14,000</span>
-        <span><span class="gap-tag gap-missing">Massive Gap</span></span>
-        <span><span class="priority-tag priority-critical">Critical</span></span>
+        <span>4,000</span>
+        <span style="font-weight:600">~14,000</span>
+        <span><span class="gap-tag gap-tamworth-lead">Tamworth 3.5x</span></span>
       </div>
       <div class="comparison-row">
         <span>Facebook Reviews</span>
-        <span style="color:var(--muted)">Low</span>
-        <span style="font-weight:600">858 (100%)</span>
-        <span><span class="gap-tag gap-missing">Massive Gap</span></span>
-        <span><span class="priority-tag priority-critical">Critical</span></span>
+        <span style="color:var(--muted)">Not visible (age gate)</span>
+        <span style="font-weight:600">858</span>
+        <span><span class="gap-tag gap-tamworth-lead">Tamworth Leads</span></span>
       </div>
       <div class="comparison-row">
-        <span>Instagram Followers</span>
-        <span style="color:var(--muted)">Low</span>
-        <span>1,792</span>
-        <span><span class="gap-tag gap-behind">Big Gap</span></span>
-        <span><span class="priority-tag priority-high">High</span></span>
+        <span>TripAdvisor Reviews</span>
+        <span>8 reviews</span>
+        <span style="font-weight:600">91 reviews</span>
+        <span><span class="gap-tag gap-tamworth-lead">Tamworth Leads</span></span>
       </div>
       <div class="comparison-row">
-        <span>TikTok</span>
-        <span style="color:var(--critical)">&#10007; None</span>
-        <span style="color:var(--success)">&#10003; Active</span>
-        <span><span class="gap-tag gap-missing">Missing</span></span>
-        <span><span class="priority-tag priority-high">High</span></span>
-      </div>
-      <div class="comparison-row">
-        <span>YouTube</span>
-        <span style="color:var(--critical)">&#10007; None</span>
-        <span style="color:var(--success)">&#10003; Active</span>
-        <span><span class="gap-tag gap-missing">Missing</span></span>
-        <span><span class="priority-tag priority-medium">Medium</span></span>
-      </div>
-      <div class="comparison-row">
-        <span>Twitter / X</span>
-        <span style="color:var(--critical)">&#10007; None</span>
-        <span style="color:var(--success)">&#10003; Active</span>
-        <span><span class="gap-tag gap-missing">Missing</span></span>
-        <span><span class="priority-tag priority-low">Low</span></span>
+        <span>TripAdvisor Rating</span>
+        <span style="color:var(--muted)">Not available</span>
+        <span>4.4/5</span>
+        <span><span class="gap-tag gap-na">Cannot Compare</span></span>
       </div>
       <div class="comparison-row">
         <span>Website</span>
-        <span style="color:var(--muted)">Basic (Square)</span>
-        <span style="font-weight:600">Professional</span>
-        <span><span class="gap-tag gap-missing">Massive Gap</span></span>
-        <span><span class="priority-tag priority-critical">Critical</span></span>
+        <span style="color:var(--muted)">Square (basic)</span>
+        <span style="font-weight:600">Professional (custom)</span>
+        <span><span class="gap-tag gap-tamworth-lead">Tamworth Leads</span></span>
       </div>
       <div class="comparison-row">
         <span>Newsletter</span>
-        <span style="color:var(--critical)">&#10007; None</span>
+        <span style="color:var(--muted)">None</span>
         <span>"The Tap Times"</span>
-        <span><span class="gap-tag gap-missing">Missing</span></span>
-        <span><span class="priority-tag priority-high">High</span></span>
+        <span><span class="gap-tag gap-tamworth-lead">Tamworth Leads</span></span>
       </div>
-      <div class="comparison-row">
-        <span>Virtual Tour</span>
-        <span style="color:var(--critical)">&#10007; None</span>
-        <span>360&deg; Tour</span>
-        <span><span class="gap-tag gap-missing">Missing</span></span>
-        <span><span class="priority-tag priority-medium">Medium</span></span>
-      </div>
-      <div class="comparison-row">
-        <span>Live Beer Board</span>
-        <span style="color:var(--critical)">&#10007; None</span>
-        <span>Online Board</span>
-        <span><span class="gap-tag gap-missing">Missing</span></span>
-        <span><span class="priority-tag priority-medium">Medium</span></span>
-      </div>
-      <div class="comparison-row">
-        <span>TripAdvisor</span>
-        <span style="color:var(--muted)">Minimal</span>
-        <span>Pages of 5&#9733;</span>
-        <span><span class="gap-tag gap-behind">Gap</span></span>
-        <span><span class="priority-tag priority-high">High</span></span>
-      </div>
+
+      <!-- STRUCTURAL / NOT COMPARABLE -->
       <div class="comparison-row">
         <span>Own Brewery</span>
-        <span style="color:var(--muted)">No</span>
-        <span style="color:var(--success)">&#10003; Yes</span>
-        <span><span class="gap-tag gap-na">N/A</span></span>
-        <span>&mdash;</span>
+        <span>No</span>
+        <span>Yes</span>
+        <span><span class="gap-tag gap-na">Structural</span></span>
       </div>
       <div class="comparison-row">
-        <span>Beer Garden</span>
-        <span style="color:var(--success)">&#10003; New!</span>
-        <span style="color:var(--success)">&#10003; Established</span>
-        <span><span class="gap-tag gap-close">Catching Up</span></span>
-        <span>&mdash;</span>
+        <span>CAMRA Awards</span>
+        <span>Branch POTY + Cider POTY 2026</span>
+        <span>National POTY 2022, 2023, 2025</span>
+        <span><span class="gap-tag gap-na">Different Levels</span></span>
       </div>
       <div class="comparison-row">
-        <span>Events Programme</span>
-        <span style="color:var(--success)">&#10003; Strong &amp; Diverse</span>
-        <span style="color:var(--success)">&#10003; Strong</span>
-        <span><span class="gap-tag gap-matched">Comparable</span></span>
-        <span>&mdash;</span>
+        <span>TikTok</span>
+        <span style="color:var(--muted)">No account</span>
+        <span style="color:var(--muted)">Not searched</span>
+        <span><span class="gap-tag gap-na">No Data</span></span>
       </div>
       <div class="comparison-row">
-        <span>Dog Friendly</span>
-        <span style="color:var(--success)">&#10003;</span>
-        <span style="color:var(--success)">&#10003;</span>
-        <span><span class="gap-tag gap-matched">Matched</span></span>
-        <span>&mdash;</span>
-      </div>
-      <div class="comparison-row">
-        <span>Food Offering</span>
-        <span>Pies (Thu) + Cheese (Sun)</span>
-        <span>Bar Snacks Menu</span>
-        <span><span class="gap-tag gap-close">Opportunity</span></span>
-        <span><span class="priority-tag priority-medium">Medium</span></span>
+        <span>Untappd</span>
+        <span>Listed (unverified venue)</span>
+        <span>Beer finder integration</span>
+        <span><span class="gap-tag gap-tamworth-lead">Tamworth Leads</span></span>
       </div>
     </div>
   </div>
@@ -963,68 +1157,40 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
     <div class="card-header">
       <div class="card-icon blue">&#128200;</div>
       <div>
-        <h3>Digital Presence Score</h3>
-        <p>Visual comparison of digital footprint</p>
+        <h3>Visual Comparison</h3>
+        <p>Verified metrics side by side</p>
       </div>
     </div>
 
-    <p style="font-size:12px;color:var(--muted);margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Facebook Followers</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Instagram Followers (Blues Leads)</p>
     <div class="progress-compare">
       <span class="progress-label" style="color:var(--primary)">Blues</span>
       <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-blues" style="width:3%">~50</div>
+        <div class="progress-bar-fill progress-blues" style="width:100%">2,200</div>
       </div>
     </div>
     <div class="progress-compare">
       <span class="progress-label" style="color:#cd853f">Tamworth</span>
       <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-tamworth" style="width:100%">14,000</div>
+        <div class="progress-bar-fill progress-tamworth" style="width:81%">1,792</div>
       </div>
     </div>
 
-    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Instagram Followers</p>
+    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Instagram Posts (Blues Leads)</p>
     <div class="progress-compare">
       <span class="progress-label" style="color:var(--primary)">Blues</span>
       <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-blues" style="width:5%">~Low</div>
+        <div class="progress-bar-fill progress-blues" style="width:100%">1,745</div>
       </div>
     </div>
     <div class="progress-compare">
       <span class="progress-label" style="color:#cd853f">Tamworth</span>
       <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-tamworth" style="width:100%">1,792</div>
+        <div class="progress-bar-fill progress-tamworth" style="width:2%">33</div>
       </div>
     </div>
 
-    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Google Reviews</p>
-    <div class="progress-compare">
-      <span class="progress-label" style="color:var(--primary)">Blues</span>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-blues" style="width:48%">119</div>
-      </div>
-    </div>
-    <div class="progress-compare">
-      <span class="progress-label" style="color:#cd853f">Tamworth</span>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-tamworth" style="width:80%">~200+</div>
-      </div>
-    </div>
-
-    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Digital Channels Active</p>
-    <div class="progress-compare">
-      <span class="progress-label" style="color:var(--primary)">Blues</span>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-blues" style="width:28%">2 / 7</div>
-      </div>
-    </div>
-    <div class="progress-compare">
-      <span class="progress-label" style="color:#cd853f">Tamworth</span>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-tamworth" style="width:100%">7 / 7</div>
-      </div>
-    </div>
-
-    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Google Rating</p>
+    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Google Rating (Blues Leads)</p>
     <div class="progress-compare">
       <span class="progress-label" style="color:var(--primary)">Blues</span>
       <div class="progress-bar-wrap">
@@ -1034,7 +1200,49 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
     <div class="progress-compare">
       <span class="progress-label" style="color:#cd853f">Tamworth</span>
       <div class="progress-bar-wrap">
-        <div class="progress-bar-fill progress-tamworth" style="width:96%">~4.8 &#9733;</div>
+        <div class="progress-bar-fill progress-tamworth" style="width:96%">4.8 &#9733;</div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Google Reviews (Tamworth Leads)</p>
+    <div class="progress-compare">
+      <span class="progress-label" style="color:var(--primary)">Blues</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill progress-blues" style="width:19%">119</div>
+      </div>
+    </div>
+    <div class="progress-compare">
+      <span class="progress-label" style="color:#cd853f">Tamworth</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill progress-tamworth" style="width:100%">619</div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">TripAdvisor Reviews (Tamworth Leads)</p>
+    <div class="progress-compare">
+      <span class="progress-label" style="color:var(--primary)">Blues</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill progress-blues" style="width:9%">8</div>
+      </div>
+    </div>
+    <div class="progress-compare">
+      <span class="progress-label" style="color:#cd853f">Tamworth</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill progress-tamworth" style="width:100%">91</div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--muted);margin:24px 0 20px;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Facebook Followers</p>
+    <div class="progress-compare">
+      <span class="progress-label" style="color:var(--primary)">Blues</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill progress-blues" style="width:29%">4,000</div>
+      </div>
+    </div>
+    <div class="progress-compare">
+      <span class="progress-label" style="color:#cd853f">Tamworth</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill progress-tamworth" style="width:100%">~14,000</div>
       </div>
     </div>
   </div>
@@ -1042,63 +1250,134 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
   <!-- SUMMARY CARDS -->
   <div class="summary-grid fade-in">
     <div class="summary-card" style="border-left: 3px solid var(--success);">
-      <h4 style="color:var(--success);">&#9650; Where Blues Leads</h4>
+      <h4 style="color:var(--success);">Where Blues Leads</h4>
       <ul>
-        <li>CAMRA Pub of the Year 2026 (current holder)</li>
-        <li>CAMRA Cider Pub of the Year 2026 (double champion)</li>
-        <li>Coastal village charm and character</li>
-        <li>Personal authenticity &mdash; Cal & Alice</li>
-        <li>Events diversity and creativity</li>
-        <li>Google star rating (4.9 vs ~4.8)</li>
+        <li>Instagram followers: 2,200 vs 1,792 (+23%)</li>
+        <li>Instagram content volume: 1,745 posts vs 33 (53x)</li>
+        <li>Google star rating: 4.9 vs 4.8</li>
+        <li>CAMRA Branch double champion (POTY + Cider POTY 2026)</li>
+        <li>Coastal village charm and personal authenticity</li>
+        <li>Events diversity: running club, whisky club, pie night, cheeseboard Sunday</li>
       </ul>
     </div>
-    <div class="summary-card" style="border-left: 3px solid var(--critical);">
-      <h4 style="color:var(--critical);">&#9660; Where Tamworth Leads</h4>
+    <div class="summary-card" style="border-left: 3px solid var(--warning);">
+      <h4 style="color:var(--warning);">Where Tamworth Leads</h4>
       <ul>
-        <li>Digital presence (7 active channels vs 2)</li>
-        <li>Review volume (858 FB reviews, 200+ Google)</li>
-        <li>Professional website with beer board</li>
-        <li>Multi-platform content distribution</li>
-        <li>Email newsletter ("The Tap Times")</li>
-        <li>Beer discovery tools (Untappd, virtual tour)</li>
+        <li>Facebook: ~14,000 followers vs Blues 4,000 (3.5x gap), 858 reviews</li>
+        <li>Google review volume: 619 vs 119</li>
+        <li>TripAdvisor: 91 reviews vs 8</li>
+        <li>Professional custom website with beer board</li>
+        <li>Newsletter ("The Tap Times")</li>
+        <li>Untappd integration and virtual tour</li>
       </ul>
     </div>
   </div>
 
   <!-- KEY INSIGHT -->
   <div class="insight-banner fade-in">
-    <h3>The Key Insight</h3>
-    <p>Blues is the <strong>better pub</strong>. Tamworth just has the better <strong>digital pub</strong>. Fix the digital gap and Blues wins outright &mdash; on merit AND online.</p>
+    <h3>The Honest Picture</h3>
+    <p>Blues already wins where content and quality matter most &mdash; Instagram and Google rating. The gaps are in review volume, website sophistication, and channels Blues hasn't activated yet. These are fixable. The content instinct that produced 1,745 Instagram posts is not &mdash; that's genuine and rare.</p>
+  </div>
+
+  <!-- LOCAL LANDSCAPE -->
+  <div class="card fade-in" style="margin-top:32px;">
+    <div class="card-header">
+      <div class="card-icon gold">&#127963;</div>
+      <div>
+        <h3>Your Local Landscape</h3>
+        <p>Tamworth Tap is a benchmark, not a competitor. These are the venues within 5 miles sharing your actual customer base.</p>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <div class="comparison-row comparison-header">
+        <span>Venue</span>
+        <span>Distance</span>
+        <span>Type</span>
+        <span>Threat</span>
+      </div>
+      <div class="comparison-row">
+        <span><strong>The Stables</strong> (Cleadon)</span>
+        <span>1 mile</span>
+        <span>Micropub + Lazy Lizard Brewery. 4.7&star;, 4,312 FB, 1,522 IG</span>
+        <span><span class="gap-tag gap-na">Neighbour</span></span>
+      </div>
+      <div class="comparison-row">
+        <span><strong>The Lighthouse</strong> (Fulwell)</span>
+        <span>1.5 mi</span>
+        <span>Micropub. 5.0&star; TripAdvisor, 2,332 FB</span>
+        <span><span class="gap-tag gap-tamworth-lead">Medium</span></span>
+      </div>
+      <div class="comparison-row">
+        <span><strong>Ocean Micro Bar</strong> (Fulwell)</span>
+        <span>1.5 mi</span>
+        <span>Micropub. 1,026 FB</span>
+        <span><span class="gap-tag gap-na">Medium</span></span>
+      </div>
+      <div class="comparison-row">
+        <span><strong>The Avenue</strong> (Roker)</span>
+        <span>2.5 mi</span>
+        <span>Real ale pub. 18 real ciders. 2024 Branch Cider POTY</span>
+        <span><span class="gap-tag gap-na">Medium</span></span>
+      </div>
+      <div class="comparison-row">
+        <span><strong>Jolly Sailor</strong> (Whitburn)</span>
+        <span>0.1 mi</span>
+        <span>Traditional pub. 4.4&star;, ~147 FB. 300+ years old</span>
+        <span><span class="gap-tag gap-blues-lead">Low</span></span>
+      </div>
+      <div class="comparison-row">
+        <span><strong>Marsden Grotto</strong></span>
+        <span>2 mi</span>
+        <span>Cave bar/restaurant. 4.2&star;, 34K FB. Tourist attraction</span>
+        <span><span class="gap-tag gap-blues-lead">Low</span></span>
+      </div>
+      <div class="comparison-row">
+        <span><strong>STACK Seaburn</strong></span>
+        <span>1.5 mi</span>
+        <span>Container village, multiple bars. Destination model</span>
+        <span><span class="gap-tag gap-blues-lead">Low</span></span>
+      </div>
+    </div>
+
+    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:14px 18px;margin-top:20px;font-size:13px;line-height:1.7;">
+      <strong style="color:var(--success);">Your position:</strong> Blue's holds both the Sunderland &amp; South Tyneside Branch Pub of the Year <em>and</em> Cider Pub of the Year 2026 &mdash; the only venue in the area with either title. The Stables in Cleadon is a fellow micropub doing great work with their own Lazy Lizard brewery and strong social media &mdash; a good neighbour in a growing local micropub scene. The Avenue in Roker is the area's other serious cider destination. Together, these venues are raising the bar for independent drinking in South Tyneside. Your double-win puts you at the front of that movement.
+    </div>
   </div>
 
 </div>
 
-<!-- TAB 3: THE ECLIPSE ROADMAP -->
+<!-- ============================================================ -->
+<!-- TAB 3: THE ROADMAP -->
+<!-- ============================================================ -->
 <div id="tab-roadmap" class="tab-content">
+
+  <div style="background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:var(--muted);line-height:1.6;">
+    <strong style="color:var(--gold);">Built for two people.</strong> This 90-day plan is designed for Cal and Alice &mdash; a two-person operation running a pub. Every task is realistic, achievable, and builds on what Blues already does well.
+  </div>
 
   <!-- PHASE 1 -->
   <div class="phase-block phase-1 fade-in">
     <div class="phase-header">
       <div class="phase-number">1</div>
       <div>
-        <h3>Foundations</h3>
-        <div class="phase-dates">Weeks 1&ndash;4 &bull; Laying the groundwork</div>
+        <h3>Quick Wins</h3>
+        <div class="phase-dates">Weeks 1&ndash;4 &bull; Claim, optimise, start the review push</div>
       </div>
     </div>
     <div class="phase-body">
       <ul class="checklist">
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Fix Facebook page visibility &mdash; set to Public so people can actually find it</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Update Facebook cover photo with CAMRA Pub of the Year 2026 branding</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Pin a celebration post about the CAMRA win to the top of the Facebook page</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Set up Instagram content rhythm &mdash; daily stories, 3x weekly feed posts</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Create TikTok account and post first 3 videos (pub tour, pour shot, village walk)</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Claim and optimise Google Business Profile &mdash; description, photos, hours, awards</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Set up and optimise TripAdvisor listing with photos and description</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Launch Google review drive &mdash; print QR code cards for the bar</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Claim Untappd venue</strong> &mdash; the listing exists but is unverified. Claim it so beers and check-ins link back to Blues</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Optimise Google Business Profile</strong> &mdash; update description, add CAMRA award mention, upload 10+ quality photos, verify hours</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Print Google review QR code cards</strong> &mdash; place on bar, hand out with every tab. Make it effortless for customers to review</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Start TripAdvisor push</strong> &mdash; optimise the listing with photos and full description. Ask regulars to review (8 reviews to 30 is realistic)</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Update Instagram bio</strong> &mdash; add "CAMRA Branch Pub of the Year 2026" and "Cider POTY 2026" to bio</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Pin CAMRA award celebration post</strong> on Instagram and Facebook</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Respond to every existing Google review</strong> &mdash; go through all 119 and reply to any unanswered ones</span></li>
       </ul>
       <div class="phase-target">
         <span class="target-icon">&#127919;</span>
-        <span class="target-text">End of Phase 1 targets: 150+ Google reviews, Facebook page fully optimised and public, all core social channels live</span>
+        <span class="target-text">End of Phase 1: Google reviews to 150+, TripAdvisor reviews to 25+, Untappd claimed, all profiles updated with CAMRA awards</span>
       </div>
     </div>
   </div>
@@ -1108,23 +1387,22 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
     <div class="phase-header">
       <div class="phase-number">2</div>
       <div>
-        <h3>Content Engine</h3>
-        <div class="phase-dates">Weeks 5&ndash;8 &bull; Building momentum</div>
+        <h3>Content Rhythm</h3>
+        <div class="phase-dates">Weeks 5&ndash;8 &bull; Formalise what works, expand reach</div>
       </div>
     </div>
     <div class="phase-body">
       <ul class="checklist">
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Begin weekly content calendar across all platforms &mdash; plan, create, schedule</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Start "The Blues Brief" newsletter &mdash; monthly edition via Mailchimp free tier</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Create Facebook Events for EVERY recurring event (running club, whisky club, pie night, etc.)</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Photograph all events systematically to build a content library</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Book a professional photography session &mdash; venue, drinks, food, Cal & Alice</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Get 5 short TikTok/Reels videos filmed and scheduled</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Start responding to ALL reviews on Google and TripAdvisor &mdash; every single one</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Formalise Instagram excellence</strong> &mdash; Blues already posts brilliantly. Add a weekly rhythm: 3 feed posts + daily stories when open</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Start Facebook consistency</strong> &mdash; cross-post best Instagram content to Facebook. Aim for 3 posts per week</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Create Facebook Events</strong> for every recurring session &mdash; whisky club, pie &amp; pint Thursday, running club, cheeseboard Sunday</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Build a content library</strong> &mdash; photograph events, pours, the village, the customers (with permission). Bank content for quiet days</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Respond to every new review</strong> on Google and TripAdvisor within 48 hours &mdash; make it a habit, not a task</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Continue review generation push</strong> &mdash; keep the QR cards prominent, verbally ask happy customers</span></li>
       </ul>
       <div class="phase-target">
         <span class="target-icon">&#127919;</span>
-        <span class="target-text">End of Phase 2 targets: 200+ Google reviews, 500+ Instagram followers, TikTok launched and active, newsletter live</span>
+        <span class="target-text">End of Phase 2: Google reviews to 175+, TripAdvisor to 35+, Facebook posting consistently 3x/week, Instagram rhythm formalised</span>
       </div>
     </div>
   </div>
@@ -1134,22 +1412,22 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
     <div class="phase-header">
       <div class="phase-number">3</div>
       <div>
-        <h3>Acceleration</h3>
-        <div class="phase-dates">Weeks 9&ndash;12 &bull; Overtaking the competition</div>
+        <h3>Growth</h3>
+        <div class="phase-dates">Weeks 9&ndash;12 &bull; Expand, experiment, build the foundation for what's next</div>
       </div>
     </div>
     <div class="phase-body">
       <ul class="checklist">
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Website upgrade &mdash; Square to a proper site with events, beer board, about page, awards</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Launch "Beer of the Week" series across all platforms</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Cross-promote with local businesses &mdash; Whitburn Coastal Flooring, village shops</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Pitch local press about the 90-day digital transformation story</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Explore merchandise &mdash; CAMRA Pub of the Year branded glasses, t-shirts</span></li>
-        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label">Consider Untappd beer board integration on the new website</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Explore TikTok</strong> &mdash; create an account. Post 2&ndash;3 simple videos: a pour, a pub tour, a village walk. See what sticks before committing</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Consider a newsletter</strong> &mdash; Mailchimp free tier. Monthly "Blues Brief" with what's coming up, new beers, events. Start collecting emails with a signup sheet at the bar</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Review generation final push</strong> &mdash; target 200 Google reviews by end of 90 days. Continue TripAdvisor momentum</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Cross-promote with local businesses</strong> &mdash; tag and collaborate with Whitburn village businesses on social</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Audit what's working</strong> &mdash; review Instagram insights, Google analytics, and review growth. Double down on what works</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box">&#10003;</div><span class="check-label"><strong>Plan next steps</strong> &mdash; website upgrade? Untappd beer board? Merchandise? Decide based on actual data, not guesswork</span></li>
       </ul>
       <div class="phase-target">
         <span class="target-icon">&#127919;</span>
-        <span class="target-text">End of Phase 3 targets: 300+ Google reviews, 1,000+ Instagram followers, newsletter list 200+, professional website live</span>
+        <span class="target-text">End of Phase 3: Google reviews to 200+, TripAdvisor to 20&ndash;25, TikTok tested, newsletter explored, content rhythm sustainable long-term</span>
       </div>
     </div>
   </div>
@@ -1160,61 +1438,372 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
       <div class="card-icon gold">&#127937;</div>
       <div>
         <h3>90-Day Success Metrics</h3>
-        <p>Where Blues should be at the end of the Eclipse plan</p>
+        <p>Realistic targets for a two-person operation</p>
       </div>
     </div>
 
     <div class="metrics-grid">
       <div class="metric-card">
-        <div class="metric-value">300+</div>
-        <div class="metric-label">Google Reviews</div>
-        <div class="metric-bar"><div class="metric-bar-fill" style="width:60%"></div></div>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Currently: 119 &rarr; Target: 300+</p>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">1,000+</div>
-        <div class="metric-label">Instagram Followers</div>
-        <div class="metric-bar"><div class="metric-bar-fill" style="width:56%"></div></div>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Closing the gap on Tamworth's 1,792</p>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">500+</div>
-        <div class="metric-label">TikTok Followers</div>
-        <div class="metric-bar"><div class="metric-bar-fill" style="width:40%"></div></div>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px;">From zero to contender</p>
-      </div>
-      <div class="metric-card">
         <div class="metric-value">200+</div>
-        <div class="metric-label">Newsletter Subs</div>
-        <div class="metric-bar"><div class="metric-bar-fill" style="width:35%"></div></div>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Building direct-to-customer channel</p>
+        <div class="metric-label">Google Reviews</div>
+        <div class="metric-bar"><div class="metric-bar-fill" style="width:32%"></div></div>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Now: 119 &rarr; Target: 200+</p>
       </div>
       <div class="metric-card">
-        <div class="metric-value">PRO</div>
-        <div class="metric-label">Website</div>
-        <div class="metric-bar"><div class="metric-bar-fill" style="width:100%"></div></div>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Professional, SEO-optimised</p>
+        <div class="metric-value">45+</div>
+        <div class="metric-label">TripAdvisor Reviews</div>
+        <div class="metric-bar"><div class="metric-bar-fill" style="width:18%"></div></div>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Now: 8 &rarr; Target: 45+</p>
       </div>
       <div class="metric-card">
-        <div class="metric-value">7/7</div>
-        <div class="metric-label">Digital Channels</div>
+        <div class="metric-value">2,400+</div>
+        <div class="metric-label">Instagram Followers</div>
+        <div class="metric-bar"><div class="metric-bar-fill" style="width:92%"></div></div>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Now: 2,200 &rarr; Keep growing</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">3x/wk</div>
+        <div class="metric-label">Facebook Posts</div>
+        <div class="metric-bar"><div class="metric-bar-fill" style="width:50%"></div></div>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Consistent cross-posting rhythm</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">&#10003;</div>
+        <div class="metric-label">Untappd Claimed</div>
         <div class="metric-bar"><div class="metric-bar-fill" style="width:100%"></div></div>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Currently: 2/7 &rarr; Target: 7/7</p>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Verified venue status</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">TEST</div>
+        <div class="metric-label">TikTok</div>
+        <div class="metric-bar"><div class="metric-bar-fill" style="width:25%"></div></div>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px;">Explore &mdash; no pressure targets</p>
       </div>
     </div>
   </div>
 
   <!-- CROWN BANNER -->
   <div class="crown-banner fade-in">
-    <h3>The Crown Stays with Blues</h3>
-    <p>Blues as the reigning, digitally dominant CAMRA Pub of the Year. The better pub with the better digital presence. That's the endgame &mdash; and this is how we get there.</p>
+    <h3>The Goal</h3>
+    <p>Blues is already a brilliant pub with a double CAMRA Branch win and Instagram dominance over the three-time national champion. Close the review gap, activate the untouched channels, and Blues becomes one of the best-marketed micropubs in the country &mdash; not just one of the best pubs.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- COLLATERAL: PRINTABLE MATERIALS -->
+  <!-- ============================================================ -->
+  <div class="collateral-section">
+    <div class="collateral-title">Tier 1&ndash;2 Collateral</div>
+    <div class="collateral-subtitle">Print these out, pin them up, use them as daily motivation</div>
+
+    <!-- PRINT BUTTON: WALL PLANNER -->
+    <button class="print-btn" onclick="printElement('wall-planner')">Print 90-Day Wall Planner (A3 Landscape)</button>
+
+    <!-- WALL PLANNER -->
+    <div id="wall-planner" class="wall-planner-container">
+      <div class="planner-header">
+        <h3>Blue's Micro Pub &mdash; 90-Day Wall Planner</h3>
+        <p>CAMRA Branch Pub of the Year 2026 &bull; The roadmap to digital excellence</p>
+      </div>
+
+      <div style="display:flex;gap:16px;margin-bottom:16px;font-size:11px;font-weight:600;">
+        <span style="display:flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;background:#1B4B7A;border-radius:3px;display:inline-block;"></span> Phase 1: Quick Wins</span>
+        <span style="display:flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;background:#D4A853;border-radius:3px;display:inline-block;"></span> Phase 2: Content Rhythm</span>
+        <span style="display:flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;background:#10B981;border-radius:3px;display:inline-block;"></span> Phase 3: Growth</span>
+      </div>
+
+      <div class="planner-grid">
+        <!-- WEEK 1 -->
+        <div class="planner-week phase-1-bg">
+          <div class="planner-week-num" style="color:#1B4B7A;">Week 1</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Claim Untappd</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Update Google profile</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Print QR cards</span></div>
+        </div>
+        <!-- WEEK 2 -->
+        <div class="planner-week phase-1-bg">
+          <div class="planner-week-num" style="color:#1B4B7A;">Week 2</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Optimise TripAdvisor</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Update IG bio</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Pin CAMRA post</span></div>
+        </div>
+        <!-- WEEK 3 -->
+        <div class="planner-week phase-1-bg">
+          <div class="planner-week-num" style="color:#1B4B7A;">Week 3</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Reply to all Google reviews</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Ask regulars for TA reviews</span></div>
+        </div>
+        <!-- WEEK 4 -->
+        <div class="planner-week phase-1-bg">
+          <div class="planner-week-num" style="color:#1B4B7A;">Week 4</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Review push check-in</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Upload GBP photos</span></div>
+          <div class="planner-milestone">MILESTONE: 150 Google reviews</div>
+        </div>
+        <!-- WEEK 5 -->
+        <div class="planner-week phase-2-bg">
+          <div class="planner-week-num" style="color:#b8903a;">Week 5</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Set IG rhythm: 3/wk</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Start FB cross-posting</span></div>
+        </div>
+        <!-- WEEK 6 -->
+        <div class="planner-week phase-2-bg">
+          <div class="planner-week-num" style="color:#b8903a;">Week 6</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Create FB Events</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Start content library</span></div>
+        </div>
+        <!-- WEEK 7 -->
+        <div class="planner-week phase-2-bg">
+          <div class="planner-week-num" style="color:#b8903a;">Week 7</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Review all new reviews</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Photograph events</span></div>
+        </div>
+        <!-- WEEK 8 -->
+        <div class="planner-week phase-2-bg">
+          <div class="planner-week-num" style="color:#b8903a;">Week 8</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Consistency check-in</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Review FB engagement</span></div>
+          <div class="planner-milestone">MILESTONE: 175 Google, 35 TA</div>
+        </div>
+        <!-- WEEK 9 -->
+        <div class="planner-week phase-3-bg">
+          <div class="planner-week-num" style="color:#0d9668;">Week 9</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Create TikTok account</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Film first 2 videos</span></div>
+        </div>
+        <!-- WEEK 10 -->
+        <div class="planner-week phase-3-bg">
+          <div class="planner-week-num" style="color:#0d9668;">Week 10</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Set up Mailchimp</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Email signup at bar</span></div>
+        </div>
+        <!-- WEEK 11 -->
+        <div class="planner-week phase-3-bg">
+          <div class="planner-week-num" style="color:#0d9668;">Week 11</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Local cross-promos</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Audit what's working</span></div>
+        </div>
+        <!-- WEEK 12 -->
+        <div class="planner-week phase-3-bg">
+          <div class="planner-week-num" style="color:#0d9668;">Week 12</div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Final review push</span></div>
+          <div class="planner-task"><div class="planner-checkbox"></div><span>Plan next quarter</span></div>
+          <div class="planner-milestone">MILESTONE: 200 Google, 45 TA</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid #ddd;display:flex;justify-content:space-between;font-size:10px;color:#999;">
+        <span>Blue's Micro Pub &bull; 1a Percy Terrace, Whitburn SR6 7EW</span>
+        <span>Prepared 30 March 2026 &bull; Pink House Trading</span>
+      </div>
+    </div>
+
+    <!-- PRINT BUTTON: BENCHMARK DASHBOARD -->
+    <button class="print-btn" onclick="printElement('benchmark-dashboard')">Print Benchmark Dashboard</button>
+
+    <!-- BENCHMARK DASHBOARD -->
+    <div id="benchmark-dashboard" class="dashboard-print">
+      <div class="dashboard-header">
+        <h3>Benchmark Dashboard &mdash; Blues vs Tamworth Tap</h3>
+        <p>Verified metrics as of 30 March 2026 &bull; Pin this up. Track your progress.</p>
+      </div>
+
+      <!-- Instagram Followers -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">Instagram Followers</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-blues" style="width:100%">2,200</div>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:81%">1,792</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner blues-win">BLUES</div>
+      </div>
+
+      <!-- Instagram Posts -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">Instagram Posts</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-blues" style="width:100%">1,745</div>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:2%">33</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner blues-win">BLUES</div>
+      </div>
+
+      <!-- Google Rating -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">Google Rating</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-blues" style="width:98%">4.9</div>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:96%">4.8</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner blues-win">BLUES</div>
+      </div>
+
+      <!-- Google Reviews -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">Google Reviews</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-blues" style="width:19%">119</div>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:100%">619</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner tamworth-win">TAMWORTH</div>
+      </div>
+
+      <!-- TripAdvisor Reviews -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">TripAdvisor Reviews</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-blues" style="width:9%">8</div>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:100%">91</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner tamworth-win">TAMWORTH</div>
+      </div>
+
+      <!-- Facebook Followers -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">Facebook Followers</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-blues" style="width:29%">4,000</div>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:100%">~14,000</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner tamworth-win">TAMWORTH</div>
+      </div>
+
+      <!-- Facebook Reviews -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">Facebook Reviews</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <span class="dash-bar-na">Not visible (age gate)</span>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:100%">858</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner no-data">NO DATA</div>
+      </div>
+
+      <!-- Website -->
+      <div class="dash-metric-row">
+        <div class="dash-metric-label">Website</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-blues" style="width:25%">Basic</div>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:100%">Professional</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner tamworth-win">TAMWORTH</div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="dash-metric-row" style="border-bottom:none;">
+        <div class="dash-metric-label">Newsletter</div>
+        <div class="dash-bars">
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#1B4B7A !important;">Blues</span>
+            <div class="dash-bar-track">
+              <span class="dash-bar-na">None</span>
+            </div>
+          </div>
+          <div class="dash-bar-row">
+            <span class="dash-bar-name" style="color:#8B4513 !important;">Tamworth</span>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill dash-bar-tamworth" style="width:100%">The Tap Times</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-winner tamworth-win">TAMWORTH</div>
+      </div>
+
+      <div style="margin-top:20px;padding:14px;background:#f8f8f8;border-radius:8px;text-align:center;">
+        <div style="font-weight:800;font-size:14px;color:#1B4B7A !important;margin-bottom:4px;font-family:'Playfair Display',serif;">Score: Blues 3 &mdash; Tamworth 5 &mdash; No Data 2</div>
+        <div style="font-size:11px;color:#666 !important;">Blues wins on quality and content. Tamworth wins on volume and infrastructure. The gaps are closeable.</div>
+      </div>
+
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid #ddd;display:flex;justify-content:space-between;font-size:10px;color:#999 !important;">
+        <span style="color:#999 !important;">Blue's Micro Pub &bull; 1a Percy Terrace, Whitburn SR6 7EW</span>
+        <span style="color:#999 !important;">Verified data as of 30 March 2026 &bull; Pink House Trading</span>
+      </div>
+    </div>
   </div>
 
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
-  <p>A gift from Pink House Trading &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
+  <p>A Pink House Trading Product &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
 </div>
 
 <script>
@@ -1225,7 +1814,6 @@ function switchTab(tabId) {
   document.getElementById('tab-' + tabId).classList.add('active');
   const tabs = { playbook: 0, gap: 1, roadmap: 2 };
   document.querySelectorAll('.tab-btn')[tabs[tabId]].classList.add('active');
-  // Trigger fade-in for newly visible elements
   setTimeout(() => {
     document.querySelectorAll('#tab-' + tabId + ' .fade-in').forEach(el => {
       el.classList.add('visible');
@@ -1250,6 +1838,41 @@ function handleFadeIn() {
 }
 window.addEventListener('scroll', handleFadeIn);
 window.addEventListener('load', handleFadeIn);
+
+// PRINT SPECIFIC ELEMENT
+function printElement(elementId) {
+  const el = document.getElementById(elementId);
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Print</title>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; }
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+        @page {
+          size: ${elementId === 'wall-planner' ? 'A3 landscape' : 'A4 portrait'};
+          margin: 12mm;
+        }
+        @media print {
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+      </style>
+      <style>${document.querySelector('style').textContent}</style>
+    </head>
+    <body style="padding:20px;">
+      ${el.outerHTML}
+    </body>
+    </html>
+  `);
+  printWindow.document.close();
+  printWindow.onload = function() {
+    setTimeout(() => { printWindow.print(); }, 300);
+  };
+}
 </script>
 
 </body>

@@ -58,11 +58,6 @@
             50% { box-shadow: 0 0 40px rgba(212, 168, 83, 0.3); }
         }
 
-        @keyframes borderGlow {
-            0%, 100% { border-color: var(--border); }
-            50% { border-color: rgba(212, 168, 83, 0.3); }
-        }
-
         @keyframes starTwinkle {
             0%, 100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.2); }
@@ -85,6 +80,7 @@
         .reveal-delay-4 { transition-delay: 0.4s; }
         .reveal-delay-5 { transition-delay: 0.5s; }
         .reveal-delay-6 { transition-delay: 0.6s; }
+        .reveal-delay-7 { transition-delay: 0.7s; }
 
         /* ── Hero ── */
         .hero {
@@ -193,16 +189,24 @@
             animation: fadeInUp 1s ease 0.7s both;
         }
 
+        .award-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
         .award-badge {
             display: inline-flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            padding: 24px 40px;
+            gap: 6px;
+            padding: 20px 32px;
             border: 2px solid var(--gold);
             border-radius: 12px;
             background: linear-gradient(135deg, rgba(212, 168, 83, 0.08), rgba(212, 168, 83, 0.03));
-            animation: fadeInUp 1s ease 0.9s both, goldPulse 4s ease-in-out infinite 2s;
+            animation: goldPulse 4s ease-in-out infinite 2s;
             position: relative;
             overflow: hidden;
         }
@@ -227,50 +231,29 @@
         }
 
         .award-icon {
-            font-size: 28px;
+            font-size: 24px;
             position: relative;
             z-index: 1;
         }
 
         .award-badge-title {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--gold);
             position: relative;
             z-index: 1;
+            line-height: 1.3;
         }
 
         .award-badge-subtitle {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--gold-light);
             position: relative;
             z-index: 1;
-        }
-
-        .award-dual {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 4px;
-            animation: fadeInUp 1s ease 1.1s both;
-        }
-
-        .award-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 16px;
-            border: 1px solid rgba(212, 168, 83, 0.3);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--gold-light);
-            letter-spacing: 0.5px;
         }
 
         .hero-scroll-hint {
@@ -294,6 +277,95 @@
             height: 40px;
             background: linear-gradient(to bottom, var(--muted), transparent);
             animation: fadeIn 2s ease infinite alternate;
+        }
+
+        /* ── Insight Callout ── */
+        .insight-section {
+            padding: 0 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .insight-card {
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 48px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 168, 83, 0.06), rgba(27, 75, 122, 0.08));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .insight-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .insight-headline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .insight-headline em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .insight-proof {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(212, 168, 83, 0.2);
+        }
+
+        .insight-proof-item {
+            text-align: center;
+        }
+
+        .insight-proof-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .insight-proof-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .insight-context {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto;
         }
 
         /* ── Section: Congratulations ── */
@@ -513,15 +585,10 @@
             color: var(--gold);
         }
 
-        .footer-tagline {
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 6px;
-        }
-
         .footer-contact {
             font-size: 13px;
             color: var(--muted);
+            margin-top: 6px;
         }
 
         .footer-contact a {
@@ -543,17 +610,163 @@
         }
 
         /* ── Responsive ── */
+        /* ── Print ── */
+        @media print {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            body {
+                background: #fff !important;
+                color: #1a1a1a !important;
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+
+            :root {
+                --dark-bg: #fff;
+                --card-bg: #fff;
+                --border: #ddd;
+                --text: #1a1a1a;
+                --muted: #555;
+                --gold: #8B6914;
+                --gold-light: #8B6914;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 40px 24px;
+                page-break-after: always;
+            }
+
+            .hero::before,
+            .hero-stars,
+            .star,
+            .hero-scroll-hint,
+            .scroll-line {
+                display: none !important;
+            }
+
+            .award-badge {
+                animation: none !important;
+                box-shadow: none !important;
+                border: 2px solid #8B6914;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .award-badge::before {
+                display: none !important;
+            }
+
+            .award-badge-title,
+            .award-badge-subtitle {
+                color: #8B6914 !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .gift-ribbon {
+                color: #8B6914 !important;
+                border-color: #8B6914 !important;
+                animation: none !important;
+            }
+
+            .hero-pub-name {
+                color: #1a1a1a !important;
+                animation: none !important;
+            }
+
+            .hero-pub-name span {
+                color: #8B6914 !important;
+            }
+
+            .hero-location {
+                color: #555 !important;
+                animation: none !important;
+            }
+
+            .insight-card {
+                border: 2px solid #8B6914;
+                background: #faf7f0 !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .insight-card::before {
+                display: none !important;
+            }
+
+            .insight-proof-value {
+                color: #8B6914 !important;
+            }
+
+            .section {
+                padding: 32px 24px;
+            }
+
+            .pack-card {
+                background: #fff !important;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+
+            .pack-card::before {
+                display: none !important;
+            }
+
+            .pack-card-number {
+                color: rgba(139, 105, 20, 0.2) !important;
+            }
+
+            .congrats-heading em {
+                color: #8B6914 !important;
+            }
+
+            .stat-value {
+                color: #8B6914 !important;
+            }
+
+            .footer-brand span {
+                color: #8B6914 !important;
+            }
+
+            .footer-contact a {
+                color: #8B6914 !important;
+            }
+
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 600px) {
             .hero {
                 padding: 48px 20px;
             }
 
+            .award-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .award-badge {
-                padding: 20px 28px;
+                padding: 18px 24px;
             }
 
             .section {
                 padding: 56px 20px;
+            }
+
+            .insight-card {
+                padding: 36px 24px;
+            }
+
+            .insight-proof {
+                gap: 20px;
             }
 
             .stat-row {
@@ -592,20 +805,49 @@
 
         <p class="hero-location">Whitburn Village &middot; Est. 2020</p>
 
-        <div class="award-badge">
-            <div class="award-icon">&star;</div>
-            <div class="award-badge-title">CAMRA Pub of the Year</div>
-            <div class="award-badge-subtitle">2026 National Winner</div>
-        </div>
-
-        <div class="award-dual" style="margin-top: 20px;">
-            <div class="award-chip">&star; Pub of the Year 2026</div>
-            <div class="award-chip">&star; Cider Pub of the Year 2026</div>
+        <div class="award-badges">
+            <div class="award-badge">
+                <div class="award-icon">&star;</div>
+                <div class="award-badge-title">Branch Pub of the Year</div>
+                <div class="award-badge-subtitle">Sunderland &amp; South Tyneside &middot; 2026</div>
+            </div>
+            <div class="award-badge">
+                <div class="award-icon">&star;</div>
+                <div class="award-badge-title">Branch Cider Pub of the Year</div>
+                <div class="award-badge-subtitle">Sunderland &amp; South Tyneside &middot; 2026</div>
+            </div>
         </div>
 
         <div class="hero-scroll-hint">
             <span>Scroll</span>
             <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ════════════════════ KEY INSIGHT ════════════════════ -->
+    <section class="insight-section reveal">
+        <div class="insight-card">
+            <div class="insight-label">The Number That Caught Our Eye</div>
+            <h2 class="insight-headline">You outperform the three-time national champion <em>on Instagram.</em></h2>
+            <div class="insight-proof">
+                <div class="insight-proof-item">
+                    <div class="insight-proof-value">2,200</div>
+                    <div class="insight-proof-label">Blue's Followers</div>
+                </div>
+                <div class="insight-proof-item">
+                    <div class="insight-proof-value">1,792</div>
+                    <div class="insight-proof-label">Tamworth Tap Followers</div>
+                </div>
+                <div class="insight-proof-item">
+                    <div class="insight-proof-value">1,745</div>
+                    <div class="insight-proof-label">Blue's Posts</div>
+                </div>
+                <div class="insight-proof-item">
+                    <div class="insight-proof-value">33</div>
+                    <div class="insight-proof-label">Tamworth Tap Posts</div>
+                </div>
+            </div>
+            <p class="insight-context">Tamworth Tap has won CAMRA National Pub of the Year three times. They have their own brewery, three floors, medieval cellars, and a beer garden overlooking a castle. You have two people and a room in Whitburn. And you are beating them on Instagram by 23%.</p>
         </div>
     </section>
 
@@ -623,13 +865,13 @@
 
         <div class="congrats-body reveal reveal-delay-2">
             <p>
-                From everyone at Pink House Trading &mdash; congratulations on an extraordinary achievement. What you've built at 1A Percy Terrace since February 2020 is remarkable: a micropub that doesn't just serve great cask ale and cider, but one that has become the heart of Whitburn village.
+                What you have built at 1a Percy Terrace since February 2020 is genuinely impressive. A two-person micropub that has become the heart of Whitburn village &mdash; a village of ~7,170 residents where 44% are retired and the median age is 46. Perfect micropub territory. With 4.9 stars across 119+ Google reviews, 4,000 Facebook followers, and a community that clearly loves what you do, this is not a small business struggling for attention. It is a small business that has already won its audience.
             </p>
             <p>
-                Whitburn's best-kept secret is now nationally recognised. <strong>CAMRA Pub of the Year and Cider Pub of the Year in the same year</strong> &mdash; that's not just rare, it's historic. Your 4.9-star reputation from 119 Google reviews tells the same story your regulars already know: Blue's is something special.
+                <strong>Winning both your Sunderland &amp; South Tyneside Branch Pub of the Year and Cider Pub of the Year in the same year speaks for itself.</strong> Your Instagram presence &mdash; 2,200 followers and 1,745 posts &mdash; is something most pubs with ten times your resources have not managed.
             </p>
             <p>
-                We put this pack together because what you've built deserves a digital presence that matches it. Everything inside is yours &mdash; no strings, no pitch, no follow-up call. Just our way of saying well done, and here's something we hope is useful.
+                We put this pack together because what you have built deserves a digital presence that matches it. Everything inside is yours &mdash; no strings, no pitch, no follow-up call. Just our way of saying well done.
             </p>
         </div>
 
@@ -639,16 +881,20 @@
                 <div class="stat-label">Google Rating</div>
             </div>
             <div class="stat-item">
-                <div class="stat-value">119</div>
-                <div class="stat-label">Reviews</div>
+                <div class="stat-value">119+</div>
+                <div class="stat-label">Google Reviews</div>
             </div>
             <div class="stat-item">
-                <div class="stat-value">2020</div>
-                <div class="stat-label">Established</div>
+                <div class="stat-value">2,200</div>
+                <div class="stat-label">Instagram Followers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">4,000</div>
+                <div class="stat-label">Facebook Followers</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value">2&times;</div>
-                <div class="stat-label">CAMRA Winner</div>
+                <div class="stat-label">Branch CAMRA Winner</div>
             </div>
         </div>
     </section>
@@ -658,7 +904,7 @@
         <p class="section-label reveal">The Pack</p>
         <h2 class="section-title reveal reveal-delay-1">What's Inside</h2>
         <p class="section-subtitle reveal reveal-delay-2">
-            Six documents, ready to use. Each one built specifically for Blue's Micro Pub.
+            Eleven documents and five interactive tools, built specifically for Blue's Micro Pub.
         </p>
 
         <div class="pack-grid">
@@ -682,14 +928,14 @@
 
             <div class="pack-card reveal reveal-delay-4">
                 <div class="pack-card-number">04</div>
-                <div class="pack-card-title">Competitor Benchmark</div>
-                <div class="pack-card-desc">The Tamworth Tap playbook, decoded. What they do well, where they fall short, and where Blue's can pull ahead decisively.</div>
+                <div class="pack-card-title">Benchmark Analysis</div>
+                <div class="pack-card-desc">The Tamworth Tap playbook, decoded. What they do well digitally, where they fall short, and what Blue's can learn from the current national CAMRA champion.</div>
             </div>
 
             <div class="pack-card reveal reveal-delay-5">
                 <div class="pack-card-number">05</div>
                 <div class="pack-card-title">Revenue Opportunities</div>
-                <div class="pack-card-desc">Streams you haven't tapped yet. From merchandise to events to digital channels &mdash; practical ideas with real numbers behind them.</div>
+                <div class="pack-card-desc">Streams you have not tapped yet. From merchandise to events to digital channels &mdash; practical ideas with real numbers behind them.</div>
             </div>
 
             <div class="pack-card reveal reveal-delay-6">
@@ -697,13 +943,18 @@
                 <div class="pack-card-title">Content &amp; Events Strategy</div>
                 <div class="pack-card-desc">A 90-day plan with ready-made assets. Social posts, event concepts, seasonal campaigns &mdash; all tailored to Whitburn and your regulars.</div>
             </div>
+
+            <div class="pack-card reveal reveal-delay-7">
+                <div class="pack-card-number">07</div>
+                <div class="pack-card-title">Branded Collateral</div>
+                <div class="pack-card-desc">Print-ready and digital assets you can use straight away. Menus, social templates, signage &mdash; all designed in your colours and your voice.</div>
+            </div>
         </div>
     </section>
 
     <!-- ════════════════════ FOOTER ════════════════════ -->
     <footer class="footer reveal">
-        <div class="footer-brand">A gift from <span>Pink House Trading</span></div>
-        <div class="footer-tagline">Digital consultancy &middot; Built with care</div>
+        <div class="footer-brand">A <span>Pink House Trading</span> Product</div>
         <div class="footer-contact">
             <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a>
         </div>

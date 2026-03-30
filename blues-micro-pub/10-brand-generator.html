@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue's Micro Pub — Brand Asset Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-primary: #1B4B7A;
+            --blue-dark: #133658;
+            --blue-light: #2A6BAA;
+            --gold: #D4A853;
+            --gold-light: #E8C97A;
+            --dark-bg: #0F1923;
+            --card-bg: #152535;
+            --card-hover: #1A2E42;
+            --border: #1E3A5F;
+            --text: #E8EDF3;
+            --muted: #8BA4C4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-dark) 100%);
+            padding: 28px 40px 20px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .site-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .site-header .subtitle {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 2px;
+        }
+
+        /* ── Tabs ── */
+        .tab-bar {
+            display: flex;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 14px 22px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        /* ── Content ── */
+        .tab-content { display: none; padding: 30px 40px 50px; }
+        .tab-content.active { display: block; }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .section-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .asset-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .asset-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .asset-card .dimensions {
+            font-size: 0.7rem;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            background: #1A1A2E;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        .screenshot-note {
+            font-size: 0.7rem;
+            color: var(--gold);
+            background: rgba(212,168,83,0.1);
+            border: 1px solid rgba(212,168,83,0.2);
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-top: 10px;
+        }
+
+        .screenshot-note strong { color: var(--gold-light); }
+
+        /* ── Social Header Previews ── */
+        .fb-cover {
+            width: 820px;
+            height: 312px;
+            transform: scale(0.55);
+            transform-origin: center;
+            background: linear-gradient(135deg, var(--blue-primary) 0%, #0D2E4A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .fb-cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 80px);
+        }
+
+        .fb-cover .pub-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            z-index: 1;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .fb-cover .tagline {
+            font-size: 16px;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            z-index: 1;
+            margin-top: 6px;
+        }
+
+        .fb-cover .awards-line {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            z-index: 1;
+            margin-top: 16px;
+        }
+
+        .fb-cover .gold-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gold);
+            z-index: 1;
+        }
+
+        .fb-cover .corner-badge {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: var(--gold);
+            color: var(--blue-dark);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 5px 14px;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        /* Instagram Circle */
+        .ig-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue-primary) 0%, #0D2E4A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px var(--gold);
+        }
+
+        /* Twitter Header */
+        .tw-header {
+            width: 1500px;
+            height: 500px;
+            transform: scale(0.35);
+            transform-origin: center;
+            background: linear-gradient(135deg, #0D2E4A 0%, var(--blue-primary) 50%, #0D2E4A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .tw-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(212,168,83,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(212,168,83,0.08) 0%, transparent 50%);
+        }
+
+        .tw-header .pub-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 700;
+            z-index: 1;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+
+        .tw-header .tagline {
+            font-size: 22px;
+            color: var(--gold);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            z-index: 1;
+            margin-top: 8px;
+        }
+
+        .tw-header .awards-line {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            z-index: 1;
+            margin-top: 24px;
+        }
+
+        .tw-header .gold-bar {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 5px;
+            background: var(--gold);
+            z-index: 1;
+        }
+
+        /* ── Email Signature ── */
+        .sig-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            align-items: center;
+        }
+
+        .sig-controls label {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .sig-toggle {
+            display: flex;
+            background: var(--dark-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .sig-toggle button {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            padding: 6px 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sig-toggle button.active {
+            background: var(--blue-primary);
+            color: white;
+        }
+
+        .sig-preview {
+            background: white;
+            border-radius: 6px;
+            padding: 24px;
+            color: #333;
+        }
+
+        .copy-btn, .print-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--blue-primary);
+            color: white;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 12px;
+        }
+
+        .copy-btn:hover, .print-btn:hover { background: var(--blue-light); }
+
+        .copy-btn.copied {
+            background: #2D8A4E;
+        }
+
+        /* ── Business Card ── */
+        .card-grid {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .biz-card {
+            width: 85mm;
+            height: 55mm;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            color: #333;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        .biz-card-front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .biz-card-front .card-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--blue-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .biz-card-front .card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--blue-primary);
+        }
+
+        .biz-card-front .card-tagline {
+            font-size: 7px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 4px;
+        }
+
+        .biz-card-front .card-bar {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .biz-card-back {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 14px 16px;
+            font-size: 8px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .biz-card-back .back-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--blue-primary);
+            margin-bottom: 2px;
+        }
+
+        .biz-card-back .back-title {
+            font-size: 7.5px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .biz-card-back .back-details {
+            border-top: 1px solid #E0E0E0;
+            padding-top: 6px;
+        }
+
+        .biz-card-back .back-details div {
+            margin-bottom: 1px;
+        }
+
+        .biz-card-back .back-awards {
+            margin-top: 6px;
+            padding-top: 5px;
+            border-top: 1px solid #E0E0E0;
+            font-size: 6.5px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .biz-card-back .card-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--blue-primary);
+        }
+
+        .card-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        /* ── Letterhead ── */
+        .letterhead-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+        .letterhead {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .lh-header {
+            padding: 28px 36px 18px;
+            border-bottom: 2px solid var(--blue-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .lh-header-left .lh-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--blue-primary);
+        }
+
+        .lh-header-left .lh-tagline {
+            font-size: 9px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 2px;
+        }
+
+        .lh-header-right {
+            text-align: right;
+            font-size: 9px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .lh-body {
+            flex: 1;
+            padding: 36px;
+            font-size: 12px;
+            line-height: 1.8;
+            min-height: 200mm;
+            outline: none;
+        }
+
+        .lh-body:empty::before {
+            content: 'Click here and start typing your letter...';
+            color: #bbb;
+            font-style: italic;
+        }
+
+        .lh-footer {
+            padding: 14px 36px;
+            border-top: 1px solid #DDD;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8px;
+            color: #999;
+        }
+
+        .lh-footer .lh-awards {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* ── Print Styles ── */
+        @media print {
+            body { background: white; }
+            .site-header, .tab-bar, .screenshot-note, .copy-btn, .print-btn, .sig-controls, .site-footer { display: none; }
+            .tab-content { display: block !important; padding: 0; }
+            .asset-card { border: none; box-shadow: none; background: none; padding: 0; }
+            .letterhead { box-shadow: none; }
+            .biz-card { box-shadow: 0 0 1px #ccc; }
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            text-align: center;
+            padding: 24px 40px;
+            font-size: 0.7rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .site-footer .brand {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="site-header">
+        <h1>Brand Asset Generator</h1>
+        <div class="subtitle">Blue's Micro Pub &mdash; Ready-to-use brand assets</div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('headers')">Social Media Headers</button>
+        <button class="tab-btn" onclick="switchTab('signature')">Email Signature</button>
+        <button class="tab-btn" onclick="switchTab('cards')">Business Card</button>
+        <button class="tab-btn" onclick="switchTab('letterhead')">Letterhead</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TAB 1: Social Media Headers             -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="tab-content active" id="tab-headers">
+        <h2 class="section-title">Social Media Headers</h2>
+        <p class="section-desc">Pre-designed headers sized for each platform. Use your browser's screenshot tool or Snipping Tool to capture each one.</p>
+
+        <!-- Facebook Cover -->
+        <div class="asset-card">
+            <h3>Facebook Cover Photo</h3>
+            <div class="dimensions">820 &times; 312 px</div>
+            <div class="preview-container" style="min-height: 200px;">
+                <div class="fb-cover" id="fb-cover">
+                    <div class="corner-badge">CAMRA Award Winner 2026</div>
+                    <div class="pub-name">Blue's Micro Pub</div>
+                    <div class="tagline">Whitburn's Micropub</div>
+                    <div class="awards-line">CAMRA Branch Pub of the Year &amp; Cider Pub of the Year 2026</div>
+                    <div class="gold-bar"></div>
+                </div>
+            </div>
+            <div class="screenshot-note">
+                <strong>To capture:</strong> Right-click the image above &rarr; use your browser's screenshot tool, or press Win+Shift+S (Windows) / Cmd+Shift+4 (Mac) and drag over the blue area. The result will be exactly 820&times;312 pixels at 100% zoom.
+            </div>
+        </div>
+
+        <!-- Instagram Profile -->
+        <div class="asset-card">
+            <h3>Instagram Profile Picture</h3>
+            <div class="dimensions">110 &times; 110 px (circle)</div>
+            <div class="preview-container">
+                <div class="ig-circle" id="ig-circle">B</div>
+            </div>
+            <div class="screenshot-note">
+                <strong>To capture:</strong> Screenshot the circle above. Instagram will crop it to a circle automatically, so capture the full square area including the gold ring.
+            </div>
+        </div>
+
+        <!-- Twitter/X Header -->
+        <div class="asset-card">
+            <h3>Twitter / X Header</h3>
+            <div class="dimensions">1500 &times; 500 px</div>
+            <div class="preview-container" style="min-height: 200px;">
+                <div class="tw-header" id="tw-header">
+                    <div class="pub-name">Blue's Micro Pub</div>
+                    <div class="tagline">Whitburn's Micropub</div>
+                    <div class="awards-line">CAMRA Branch Pub of the Year &bull; Cider Pub of the Year 2026 &bull; Whitburn, SR6 7EW</div>
+                    <div class="gold-bar"></div>
+                </div>
+            </div>
+            <div class="screenshot-note">
+                <strong>To capture:</strong> Screenshot the banner above. At 100% browser zoom, the preview renders at the correct aspect ratio. For pixel-perfect results, zoom your browser to 100% before capturing.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TAB 2: Email Signature                  -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="tab-content" id="tab-signature">
+        <h2 class="section-title">Email Signature</h2>
+        <p class="section-desc">Professional HTML email signature. Select the name, then copy the HTML to paste into your email settings.</p>
+
+        <div class="asset-card">
+            <div class="sig-controls">
+                <label>Signature for:</label>
+                <div class="sig-toggle">
+                    <button class="active" onclick="setSigName('Cal', this)">Cal</button>
+                    <button onclick="setSigName('Alice', this)">Alice</button>
+                </div>
+            </div>
+
+            <div class="sig-preview" id="sig-preview">
+                <!-- Rendered by JS -->
+            </div>
+
+            <button class="copy-btn" id="copy-sig-btn" onclick="copySigHTML()">
+                <span id="copy-sig-label">Copy HTML</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TAB 3: Business Card                    -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="tab-content" id="tab-cards">
+        <h2 class="section-title">Business Card Layout</h2>
+        <p class="section-desc">Standard UK business card (85 &times; 55mm). Screenshot or print this page and trim to size.</p>
+
+        <div class="asset-card">
+            <div class="card-grid">
+                <div>
+                    <div class="biz-card">
+                        <div class="biz-card-front">
+                            <div class="card-logo">B</div>
+                            <div class="card-name">Blue's Micro Pub</div>
+                            <div class="card-tagline">Whitburn's Micropub</div>
+                            <div class="card-bar"></div>
+                        </div>
+                    </div>
+                    <div class="card-label">Front</div>
+                </div>
+                <div>
+                    <div class="biz-card">
+                        <div class="biz-card-back">
+                            <div class="card-bar"></div>
+                            <div class="back-name" id="card-back-name">Cal Watson</div>
+                            <div class="back-title">Co-Owner, Blue's Micro Pub</div>
+                            <div class="back-details">
+                                <div>1a Percy Terrace, Whitburn, SR6 7EW</div>
+                                <div>Tel: [your number]</div>
+                                <div>@bluesmicropub</div>
+                                <div>bluesmicropub.square.site</div>
+                            </div>
+                            <div class="back-awards">CAMRA Branch Pub of the Year 2026 &bull; Cider Pub of the Year 2026</div>
+                        </div>
+                    </div>
+                    <div class="card-label">Back</div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top: 16px;">
+                <button class="print-btn" onclick="window.print()">Print Business Cards</button>
+            </div>
+
+            <div class="screenshot-note" style="margin-top:16px;">
+                <strong>Tip:</strong> Send these to a local print shop as a screenshot. Standard UK business cards are 85&times;55mm. Ask for 400gsm card, matt or silk laminated.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TAB 4: Letterhead                       -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="tab-content" id="tab-letterhead">
+        <h2 class="section-title">Letterhead</h2>
+        <p class="section-desc">A4 letterhead with your branding. Click the body area to type, then print directly from this page.</p>
+
+        <div class="asset-card" style="padding: 16px;">
+            <div class="letterhead-wrapper">
+                <div class="letterhead" id="letterhead">
+                    <div class="lh-header">
+                        <div class="lh-header-left">
+                            <div class="lh-name">Blue's Micro Pub</div>
+                            <div class="lh-tagline">Whitburn's Micropub</div>
+                        </div>
+                        <div class="lh-header-right">
+                            1a Percy Terrace<br>
+                            Whitburn, SR6 7EW<br>
+                            @bluesmicropub<br>
+                            bluesmicropub.square.site
+                        </div>
+                    </div>
+
+                    <div class="lh-body" contenteditable="true" id="lh-body"></div>
+
+                    <div class="lh-footer">
+                        <div class="lh-awards">CAMRA Branch Pub of the Year 2026 &bull; Cider Pub of the Year 2026</div>
+                        <div>@bluesmicropub &bull; bluesmicropub.square.site</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top: 16px;">
+                <button class="print-btn" onclick="printLetterhead()">Print Letterhead</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="site-footer">
+        A <span class="brand">Pink House Trading</span> Product &nbsp;|&nbsp; thisisdmt@icloud.com
+    </div>
+
+    <script>
+        // ── Tab switching ──
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ── Email Signature ──
+        let sigName = 'Cal';
+        const sigNames = {
+            'Cal': { full: 'Cal Watson', first: 'Cal' },
+            'Alice': { full: 'Alice Pye', first: 'Alice' }
+        };
+
+        function getSigHTML(name) {
+            const person = sigNames[name];
+            return `<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #333333; line-height: 1.5;">
+    <tr>
+        <td style="padding-right: 16px; border-right: 2px solid #1B4B7A; vertical-align: top;">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #1B4B7A; color: white; font-family: Georgia, 'Times New Roman', serif; font-size: 24px; font-weight: bold; text-align: center; line-height: 50px;">B</div>
+        </td>
+        <td style="padding-left: 16px; vertical-align: top;">
+            <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 16px; font-weight: bold; color: #1B4B7A;">${person.full}</div>
+            <div style="font-size: 12px; color: #666666;">Co-Owner, Blue's Micro Pub</div>
+            <div style="margin-top: 8px; font-size: 12px; color: #555555;">
+                1a Percy Terrace, Whitburn, SR6 7EW<br>
+                Tel: <span style="color:#999;">[your number]</span><br>
+                Instagram: <a href="https://instagram.com/bluesmicropub" style="color: #1B4B7A; text-decoration: none;">@bluesmicropub</a>
+            </div>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #E0E0E0; font-size: 11px; color: #D4A853; font-weight: bold;">
+                CAMRA Branch Pub of the Year 2026 &bull; Cider Pub of the Year 2026
+            </div>
+        </td>
+    </tr>
+</table>`;
+        }
+
+        function renderSignature() {
+            const html = getSigHTML(sigName);
+            document.getElementById('sig-preview').innerHTML = html;
+        }
+
+        function setSigName(name, btn) {
+            sigName = name;
+            document.querySelectorAll('.sig-toggle button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderSignature();
+        }
+
+        function copySigHTML() {
+            const html = getSigHTML(sigName);
+            navigator.clipboard.writeText(html).then(() => {
+                const btn = document.getElementById('copy-sig-btn');
+                const label = document.getElementById('copy-sig-label');
+                btn.classList.add('copied');
+                label.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    label.textContent = 'Copy HTML';
+                }, 2000);
+            }).catch(() => {
+                // Fallback
+                const ta = document.createElement('textarea');
+                ta.value = getSigHTML(sigName);
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                const label = document.getElementById('copy-sig-label');
+                label.textContent = 'Copied!';
+                setTimeout(() => { label.textContent = 'Copy HTML'; }, 2000);
+            });
+        }
+
+        // ── Letterhead print ──
+        function printLetterhead() {
+            const lh = document.getElementById('letterhead');
+            const printWin = window.open('', '_blank');
+            printWin.document.write(`<!DOCTYPE html><html><head>
+                <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+                <style>
+                    @page { size: A4; margin: 0; }
+                    body { margin: 0; font-family: 'Inter', Arial, sans-serif; }
+                    .letterhead { width: 210mm; min-height: 297mm; display: flex; flex-direction: column; }
+                    .lh-header { padding: 28px 36px 18px; border-bottom: 2px solid #1B4B7A; display: flex; justify-content: space-between; align-items: flex-end; }
+                    .lh-header-left .lh-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #1B4B7A; }
+                    .lh-header-left .lh-tagline { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 2px; }
+                    .lh-header-right { text-align: right; font-size: 9px; color: #666; line-height: 1.6; }
+                    .lh-body { flex: 1; padding: 36px; font-size: 12px; line-height: 1.8; }
+                    .lh-footer { padding: 14px 36px; border-top: 1px solid #DDD; display: flex; justify-content: space-between; font-size: 8px; color: #999; }
+                    .lh-footer .lh-awards { color: #D4A853; font-weight: 600; }
+                </style></head><body>`);
+            printWin.document.write(lh.outerHTML);
+            printWin.document.write('</body></html>');
+            printWin.document.close();
+            printWin.onload = function() { printWin.print(); };
+        }
+
+        // Init
+        renderSignature();
+    </script>
+</body>
+</html>

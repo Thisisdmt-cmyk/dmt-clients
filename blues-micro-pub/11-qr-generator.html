@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue's Micro Pub — QR Code Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-primary: #1B4B7A;
+            --blue-dark: #133658;
+            --blue-light: #2A6BAA;
+            --gold: #D4A853;
+            --gold-light: #E8C97A;
+            --dark-bg: #0F1923;
+            --card-bg: #152535;
+            --card-hover: #1A2E42;
+            --border: #1E3A5F;
+            --text: #E8EDF3;
+            --muted: #8BA4C4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .site-header {
+            background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-dark) 100%);
+            padding: 28px 40px 20px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .site-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .site-header .subtitle {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 40px 60px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .section-intro {
+            color: var(--muted);
+            font-size: 0.88rem;
+            margin-bottom: 28px;
+            max-width: 700px;
+        }
+
+        /* ── Section Dividers ── */
+        .section { margin-bottom: 48px; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .section-header .icon {
+            width: 36px;
+            height: 36px;
+            background: var(--blue-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+            margin-bottom: 32px;
+        }
+
+        /* ── QR Card Grid ── */
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .qr-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            text-align: center;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .qr-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 4px 24px rgba(212,168,83,0.08);
+        }
+
+        .qr-card .platform-icon {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .qr-card .platform-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--gold);
+        }
+
+        .qr-card .platform-url {
+            font-size: 0.72rem;
+            color: var(--muted);
+            word-break: break-all;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .qr-card .qr-wrapper {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        .qr-card .qr-wrapper canvas {
+            display: block;
+        }
+
+        .qr-card .save-hint {
+            font-size: 0.72rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .qr-card .setup-note {
+            background: rgba(212,168,83,0.1);
+            border: 1px solid rgba(212,168,83,0.25);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 12px;
+            font-size: 0.78rem;
+            color: var(--gold-light);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .qr-card .setup-note strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .qr-card .setup-note ol {
+            margin-left: 16px;
+        }
+
+        .offline-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: rgba(76,175,80,0.15);
+            color: #81C784;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        /* ── Custom Generator ── */
+        .custom-gen {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(139,164,196,0.5);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--gold) 0%, #C49A45 100%);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(212,168,83,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: rgba(212,168,83,0.1);
+        }
+
+        .custom-result {
+            margin-top: 24px;
+            text-align: center;
+            display: none;
+        }
+
+        .custom-result.visible { display: block; }
+
+        .custom-result .qr-wrapper {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .custom-result .qr-label {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .custom-result .qr-url {
+            font-size: 0.72rem;
+            color: var(--muted);
+            word-break: break-all;
+        }
+
+        .download-row {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── Print Layout ── */
+        .print-section { margin-top: 24px; }
+
+        .print-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .print-controls .note {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .print-page {
+            background: #fff;
+            color: #1a1a1a;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 800px;
+        }
+
+        .print-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .print-card {
+            border: 1px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        .print-card .print-icon {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
+
+        .print-card .print-platform {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--blue-primary);
+            margin-bottom: 2px;
+        }
+
+        .print-card .print-scan-label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+
+        .print-card .qr-wrapper {
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .print-card .print-branding {
+            font-size: 0.6rem;
+            color: #999;
+            margin-top: 6px;
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            text-align: center;
+            padding: 32px 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .site-footer p {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .site-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .site-header, .container { padding-left: 20px; padding-right: 20px; }
+            .qr-grid { grid-template-columns: 1fr; }
+            .form-row { flex-direction: column; }
+            .print-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── Print Styles ── */
+        @media print {
+            body { background: #fff; color: #000; }
+            .site-header, .section:not(.print-section-wrapper), .site-footer, .print-controls, .no-print { display: none !important; }
+            .print-page { max-width: 100%; padding: 0; box-shadow: none; border-radius: 0; }
+            .print-card { border: 1px dashed #ccc; }
+            .print-grid { grid-template-columns: 1fr 1fr; }
+            .container { padding: 0; max-width: 100%; }
+            @page { margin: 10mm; size: A4 portrait; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <h1>Blue's Micro Pub</h1>
+    <div class="subtitle">QR Code Generator</div>
+</header>
+
+<div class="container">
+
+    <!-- ─── Pre-loaded QR Codes ─── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="icon">&#9634;</div>
+            <h2>Your QR Codes</h2>
+        </div>
+        <p class="section-intro">Ready-to-use QR codes for all your platforms. Right-click any QR code and choose "Save image as..." to download, or use the download button. All codes are generated offline in your browser.</p>
+        <div class="section-divider"></div>
+        <div class="qr-grid" id="preloadedGrid"></div>
+    </div>
+
+    <!-- ─── Custom Generator ─── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="icon">&#10010;</div>
+            <h2>Custom QR Code</h2>
+        </div>
+        <p class="section-intro">Generate a QR code for any URL &mdash; event pages, menus, booking links, special offers, or anything else.</p>
+        <div class="section-divider"></div>
+        <div class="custom-gen">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="url" id="customUrl" placeholder="https://example.com/your-link">
+                </div>
+                <div class="form-group">
+                    <label>Label (optional)</label>
+                    <input type="text" id="customLabel" placeholder="e.g. Spring Menu, Event Page">
+                </div>
+            </div>
+            <button class="btn" onclick="generateCustomQR()">&#9634; Generate QR Code</button>
+            <div class="custom-result" id="customResult">
+                <div class="qr-label" id="customResultLabel"></div>
+                <div class="qr-wrapper">
+                    <canvas id="customCanvas" width="300" height="300"></canvas>
+                </div>
+                <div class="qr-url" id="customResultUrl"></div>
+                <div class="download-row">
+                    <button class="btn" onclick="downloadQR('customCanvas', document.getElementById('customLabel').value || 'custom-qr')">&#8615; Download PNG</button>
+                </div>
+                <span class="offline-badge">Works offline</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Printable Cards ─── -->
+    <div class="section print-section-wrapper">
+        <div class="section-header no-print">
+            <div class="icon">&#9113;</div>
+            <h2>Printable QR Cards</h2>
+        </div>
+        <p class="section-intro no-print">Print these cards on A4 paper and cut along the dashed lines. Each card is roughly A6 size &mdash; perfect for table tents, menus, or the bar counter.</p>
+        <div class="section-divider no-print"></div>
+        <div class="print-controls no-print">
+            <button class="btn" onclick="window.print()">&#128424; Print Cards</button>
+            <span class="note">Prints a clean white layout &mdash; cut along the dashed lines</span>
+        </div>
+        <div class="print-page" id="printPage">
+            <div class="print-grid" id="printGrid"></div>
+        </div>
+    </div>
+
+</div>
+
+<footer class="site-footer">
+    <p>A <strong>Pink House Trading</strong> Product &nbsp;|&nbsp; <a href="mailto:thisisdmt@icloud.com">thisisdmt@icloud.com</a></p>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// Minimal QR Code Generator (pure JS, no dependencies)
+// Based on the QR code specification — supports alphanumeric/byte
+// mode with error correction level M, versions 1-10
+// ══════════════════════════════════════════════════════════════
+var QRCode = (function() {
+    // Galois Field GF(2^8) math
+    var EXP = new Array(256), LOG = new Array(256);
+    (function() {
+        var x = 1;
+        for (var i = 0; i < 255; i++) {
+            EXP[i] = x;
+            LOG[x] = i;
+            x <<= 1;
+            if (x & 256) x ^= 285;
+        }
+        for (var i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+    })();
+
+    function gfMul(a, b) {
+        if (a === 0 || b === 0) return 0;
+        return EXP[LOG[a] + LOG[b]];
+    }
+
+    // Reed-Solomon error correction
+    function rsGenPoly(nsym) {
+        var g = [1];
+        for (var i = 0; i < nsym; i++) {
+            var ng = new Array(g.length + 1);
+            for (var j = 0; j < ng.length; j++) ng[j] = 0;
+            for (var j = 0; j < g.length; j++) {
+                ng[j] ^= gfMul(g[j], EXP[i]);
+                ng[j + 1] ^= g[j];
+            }
+            g = ng;
+        }
+        return g;
+    }
+
+    function rsEncode(data, nsym) {
+        var gen = rsGenPoly(nsym);
+        var res = new Array(data.length + nsym);
+        for (var i = 0; i < res.length; i++) res[i] = 0;
+        for (var i = 0; i < data.length; i++) res[i] = data[i];
+        for (var i = 0; i < data.length; i++) {
+            var coef = res[i];
+            if (coef !== 0) {
+                for (var j = 0; j < gen.length; j++) {
+                    res[i + j] ^= gfMul(gen[j], coef);
+                }
+            }
+        }
+        return res.slice(data.length);
+    }
+
+    // QR version capacity (byte mode, EC level M)
+    var CAPACITIES = [0, 14, 26, 42, 62, 84, 106, 122, 152, 180, 213];
+    var EC_CODEWORDS = [0, 10, 16, 26, 36, 48, 64, 72, 88, 110, 130];
+    var SIZES = [0, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57];
+
+    // Number of data codewords per version (EC level M)
+    var DATA_CODEWORDS = [];
+    for (var v = 0; v <= 10; v++) {
+        var total = 0;
+        if (v > 0) {
+            var s = SIZES[v];
+            var totalModules = s * s;
+            // Rough estimate of data modules
+            total = CAPACITIES[v];
+        }
+        DATA_CODEWORDS[v] = total;
+    }
+
+    // EC blocks for level M (simplified for versions 1-10)
+    var EC_BLOCKS = [
+        null,
+        [{count:1, dataCodewords:16, ecCodewords:10}],    // v1
+        [{count:1, dataCodewords:28, ecCodewords:16}],    // v2
+        [{count:1, dataCodewords:44, ecCodewords:26}],    // v3
+        [{count:2, dataCodewords:32, ecCodewords:18}],    // v4
+        [{count:2, dataCodewords:43, ecCodewords:24}],    // v5
+        [{count:4, dataCodewords:27, ecCodewords:16}],    // v6
+        [{count:4, dataCodewords:31, ecCodewords:18}],    // v7
+        [{count:2, dataCodewords:38, ecCodewords:22},{count:2, dataCodewords:39, ecCodewords:22}], // v8
+        [{count:3, dataCodewords:36, ecCodewords:22},{count:2, dataCodewords:37, ecCodewords:22}], // v9
+        [{count:4, dataCodewords:43, ecCodewords:26},{count:1, dataCodewords:44, ecCodewords:26}], // v10
+    ];
+
+    // Total data codewords per version (M)
+    var TOTAL_DATA = [0, 16, 28, 44, 64, 86, 108, 124, 154, 182, 216];
+    var TOTAL_EC   = [0, 10, 16, 26, 36, 48, 64, 72, 88, 110, 130];
+
+    function getVersion(dataLen) {
+        // byte mode: 4 bit mode + char count bits + data + terminator
+        for (var v = 1; v <= 10; v++) {
+            var ccBits = v <= 9 ? 8 : 16;
+            var bits = 4 + ccBits + dataLen * 8;
+            var capacity = TOTAL_DATA[v] * 8;
+            if (bits <= capacity) return v;
+        }
+        return 10; // max we support
+    }
+
+    function encodeData(text, version) {
+        var ccBits = version <= 9 ? 8 : 16;
+        var totalDataCodewords = TOTAL_DATA[version];
+        var bits = [];
+
+        // Mode indicator: byte mode = 0100
+        bits.push(0,1,0,0);
+
+        // Character count
+        var len = text.length;
+        for (var i = ccBits - 1; i >= 0; i--) bits.push((len >> i) & 1);
+
+        // Data
+        for (var i = 0; i < text.length; i++) {
+            var c = text.charCodeAt(i);
+            for (var j = 7; j >= 0; j--) bits.push((c >> j) & 1);
+        }
+
+        // Terminator (up to 4 zeros)
+        var maxBits = totalDataCodewords * 8;
+        var term = Math.min(4, maxBits - bits.length);
+        for (var i = 0; i < term; i++) bits.push(0);
+
+        // Pad to byte boundary
+        while (bits.length % 8 !== 0) bits.push(0);
+
+        // Pad codewords
+        var padBytes = [0xEC, 0x11];
+        var pi = 0;
+        while (bits.length < maxBits) {
+            var pb = padBytes[pi % 2];
+            for (var j = 7; j >= 0; j--) bits.push((pb >> j) & 1);
+            pi++;
+        }
+
+        // Convert to bytes
+        var data = [];
+        for (var i = 0; i < bits.length; i += 8) {
+            var byte = 0;
+            for (var j = 0; j < 8; j++) byte = (byte << 1) | bits[i + j];
+            data.push(byte);
+        }
+
+        return data;
+    }
+
+    function addErrorCorrection(data, version) {
+        var blocks = EC_BLOCKS[version];
+        var dataBlocks = [];
+        var ecBlocks = [];
+        var offset = 0;
+
+        for (var b = 0; b < blocks.length; b++) {
+            for (var c = 0; c < blocks[b].count; c++) {
+                var blockData = data.slice(offset, offset + blocks[b].dataCodewords);
+                offset += blocks[b].dataCodewords;
+                dataBlocks.push(blockData);
+                ecBlocks.push(rsEncode(blockData, blocks[b].ecCodewords));
+            }
+        }
+
+        // Interleave data blocks
+        var result = [];
+        var maxDataLen = 0;
+        for (var i = 0; i < dataBlocks.length; i++) maxDataLen = Math.max(maxDataLen, dataBlocks[i].length);
+        for (var i = 0; i < maxDataLen; i++) {
+            for (var j = 0; j < dataBlocks.length; j++) {
+                if (i < dataBlocks[j].length) result.push(dataBlocks[j][i]);
+            }
+        }
+
+        // Interleave EC blocks
+        var maxEcLen = 0;
+        for (var i = 0; i < ecBlocks.length; i++) maxEcLen = Math.max(maxEcLen, ecBlocks[i].length);
+        for (var i = 0; i < maxEcLen; i++) {
+            for (var j = 0; j < ecBlocks.length; j++) {
+                if (i < ecBlocks[j].length) result.push(ecBlocks[j][i]);
+            }
+        }
+
+        return result;
+    }
+
+    // Alignment pattern positions
+    var ALIGNMENT = [
+        null, [], [6,18], [6,22], [6,26], [6,30], [6,34],
+        [6,22,38], [6,24,42], [6,26,46], [6,28,50]
+    ];
+
+    function createMatrix(version) {
+        var size = SIZES[version];
+        var matrix = [];
+        var reserved = [];
+        for (var i = 0; i < size; i++) {
+            matrix[i] = new Array(size);
+            reserved[i] = new Array(size);
+            for (var j = 0; j < size; j++) {
+                matrix[i][j] = 0;
+                reserved[i][j] = false;
+            }
+        }
+        return {matrix: matrix, reserved: reserved, size: size};
+    }
+
+    function addFinderPattern(m, row, col) {
+        for (var r = -1; r <= 7; r++) {
+            for (var c = -1; c <= 7; c++) {
+                var mr = row + r, mc = col + c;
+                if (mr < 0 || mr >= m.size || mc < 0 || mc >= m.size) continue;
+                var inOuter = (r === 0 || r === 6 || c === 0 || c === 6);
+                var inInner = (r >= 2 && r <= 4 && c >= 2 && c <= 4);
+                var inBorder = (r === -1 || r === 7 || c === -1 || c === 7);
+                m.matrix[mr][mc] = (inBorder) ? 0 : (inOuter || inInner) ? 1 : 0;
+                m.reserved[mr][mc] = true;
+            }
+        }
+    }
+
+    function addAlignmentPattern(m, row, col) {
+        for (var r = -2; r <= 2; r++) {
+            for (var c = -2; c <= 2; c++) {
+                var mr = row + r, mc = col + c;
+                if (m.reserved[mr][mc]) return; // overlaps finder
+            }
+        }
+        for (var r = -2; r <= 2; r++) {
+            for (var c = -2; c <= 2; c++) {
+                var mr = row + r, mc = col + c;
+                var isEdge = (r === -2 || r === 2 || c === -2 || c === 2);
+                var isCenter = (r === 0 && c === 0);
+                m.matrix[mr][mc] = (isEdge || isCenter) ? 1 : 0;
+                m.reserved[mr][mc] = true;
+            }
+        }
+    }
+
+    function addTimingPatterns(m) {
+        for (var i = 8; i < m.size - 8; i++) {
+            var val = (i % 2 === 0) ? 1 : 0;
+            if (!m.reserved[6][i]) { m.matrix[6][i] = val; m.reserved[6][i] = true; }
+            if (!m.reserved[i][6]) { m.matrix[i][6] = val; m.reserved[i][6] = true; }
+        }
+    }
+
+    function reserveFormatInfo(m) {
+        // Around top-left finder
+        for (var i = 0; i <= 8; i++) {
+            if (i < m.size) { m.reserved[8][i] = true; m.reserved[i][8] = true; }
+        }
+        // Around top-right finder
+        for (var i = 0; i <= 7; i++) {
+            m.reserved[8][m.size - 1 - i] = true;
+        }
+        // Around bottom-left finder
+        for (var i = 0; i <= 7; i++) {
+            m.reserved[m.size - 1 - i][8] = true;
+        }
+        // Dark module
+        m.matrix[m.size - 8][8] = 1;
+        m.reserved[m.size - 8][8] = true;
+    }
+
+    function reserveVersionInfo(m, version) {
+        if (version < 7) return;
+        for (var i = 0; i < 6; i++) {
+            for (var j = 0; j < 3; j++) {
+                m.reserved[i][m.size - 11 + j] = true;
+                m.reserved[m.size - 11 + j][i] = true;
+            }
+        }
+    }
+
+    function placeData(m, data) {
+        var bits = [];
+        for (var i = 0; i < data.length; i++) {
+            for (var j = 7; j >= 0; j--) bits.push((data[i] >> j) & 1);
+        }
+
+        var bitIndex = 0;
+        var upward = true;
+
+        for (var col = m.size - 1; col >= 0; col -= 2) {
+            if (col === 6) col = 5; // skip timing column
+
+            var rows = upward ?
+                Array.from({length: m.size}, function(_, i) { return m.size - 1 - i; }) :
+                Array.from({length: m.size}, function(_, i) { return i; });
+
+            for (var ri = 0; ri < rows.length; ri++) {
+                var row = rows[ri];
+                for (var dc = 0; dc <= 1; dc++) {
+                    var c = col - dc;
+                    if (c < 0) continue;
+                    if (m.reserved[row][c]) continue;
+                    m.matrix[row][c] = bitIndex < bits.length ? bits[bitIndex++] : 0;
+                }
+            }
+            upward = !upward;
+        }
+    }
+
+    // Mask patterns
+    var MASKS = [
+        function(r,c) { return (r + c) % 2 === 0; },
+        function(r,c) { return r % 2 === 0; },
+        function(r,c) { return c % 3 === 0; },
+        function(r,c) { return (r + c) % 3 === 0; },
+        function(r,c) { return (Math.floor(r/2) + Math.floor(c/3)) % 2 === 0; },
+        function(r,c) { return (r*c)%2 + (r*c)%3 === 0; },
+        function(r,c) { return ((r*c)%2 + (r*c)%3) % 2 === 0; },
+        function(r,c) { return ((r+c)%2 + (r*c)%3) % 2 === 0; },
+    ];
+
+    function applyMask(m, maskIndex) {
+        var fn = MASKS[maskIndex];
+        for (var r = 0; r < m.size; r++) {
+            for (var c = 0; c < m.size; c++) {
+                if (!m.reserved[r][c]) {
+                    if (fn(r, c)) m.matrix[r][c] ^= 1;
+                }
+            }
+        }
+    }
+
+    // Format info (EC level M = 00, mask patterns 0-7)
+    var FORMAT_BITS = [
+        0x5412, 0x5125, 0x5E7C, 0x5B4B, 0x45F9, 0x40CE, 0x4F97, 0x4AA0,
+    ];
+
+    function addFormatInfo(m, maskIndex) {
+        var bits = FORMAT_BITS[maskIndex];
+        // Top-left
+        var positions1 = [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],[7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]];
+        for (var i = 0; i < 15; i++) {
+            m.matrix[positions1[i][0]][positions1[i][1]] = (bits >> (14 - i)) & 1;
+        }
+        // Top-right + bottom-left
+        for (var i = 0; i < 8; i++) {
+            m.matrix[8][m.size - 1 - i] = (bits >> (14 - i)) & 1;
+        }
+        for (var i = 0; i < 7; i++) {
+            m.matrix[m.size - 1 - i][8] = (bits >> (6 - i)) & 1;
+        }
+    }
+
+    function scoreMask(m) {
+        var s = m.size, penalty = 0;
+        // Rule 1: consecutive same-color modules in row/col
+        for (var r = 0; r < s; r++) {
+            var count = 1;
+            for (var c = 1; c < s; c++) {
+                if (m.matrix[r][c] === m.matrix[r][c-1]) { count++; }
+                else { if (count >= 5) penalty += count - 2; count = 1; }
+            }
+            if (count >= 5) penalty += count - 2;
+        }
+        for (var c = 0; c < s; c++) {
+            var count = 1;
+            for (var r = 1; r < s; r++) {
+                if (m.matrix[r][c] === m.matrix[r-1][c]) { count++; }
+                else { if (count >= 5) penalty += count - 2; count = 1; }
+            }
+            if (count >= 5) penalty += count - 2;
+        }
+        return penalty;
+    }
+
+    function generate(text) {
+        var version = getVersion(text.length);
+        var data = encodeData(text, version);
+        var fullData = addErrorCorrection(data, version);
+
+        var bestMask = 0, bestScore = Infinity;
+        var bestMatrix = null;
+
+        for (var mask = 0; mask < 8; mask++) {
+            var m = createMatrix(version);
+
+            // Finder patterns
+            addFinderPattern(m, 0, 0);
+            addFinderPattern(m, 0, m.size - 7);
+            addFinderPattern(m, m.size - 7, 0);
+
+            // Alignment patterns
+            if (ALIGNMENT[version]) {
+                var pos = ALIGNMENT[version];
+                for (var i = 0; i < pos.length; i++) {
+                    for (var j = 0; j < pos.length; j++) {
+                        addAlignmentPattern(m, pos[i], pos[j]);
+                    }
+                }
+            }
+
+            addTimingPatterns(m);
+            reserveFormatInfo(m);
+            reserveVersionInfo(m, version);
+
+            placeData(m, fullData);
+            applyMask(m, mask);
+            addFormatInfo(m, mask);
+
+            var score = scoreMask(m);
+            if (score < bestScore) {
+                bestScore = score;
+                bestMask = mask;
+                bestMatrix = m.matrix;
+            }
+        }
+
+        return { matrix: bestMatrix, size: SIZES[version], version: version };
+    }
+
+    // Render to canvas
+    function renderCanvas(canvas, text, moduleSize) {
+        moduleSize = moduleSize || 8;
+        var qr = generate(text);
+        var quiet = 4;
+        var totalSize = (qr.size + quiet * 2) * moduleSize;
+        canvas.width = totalSize;
+        canvas.height = totalSize;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, totalSize, totalSize);
+        ctx.fillStyle = '#000000';
+        for (var r = 0; r < qr.size; r++) {
+            for (var c = 0; c < qr.size; c++) {
+                if (qr.matrix[r][c]) {
+                    ctx.fillRect((c + quiet) * moduleSize, (r + quiet) * moduleSize, moduleSize, moduleSize);
+                }
+            }
+        }
+    }
+
+    return { generate: generate, renderCanvas: renderCanvas };
+})();
+
+
+// ══════════════════════════════════════════════════════════════
+// Platform Data
+// ══════════════════════════════════════════════════════════════
+var platforms = [
+    {
+        id: 'google',
+        icon: '&#9733;',
+        name: 'Google Reviews',
+        url: 'https://search.google.com/local/writereview?placeid=PLACE_ID_HERE',
+        scanLabel: 'Scan to leave a review',
+        hasSetup: true,
+        setupNote: '<strong>&#9888; Setup required:</strong> You need your Google Place ID.<ol><li>Go to <a href="https://developers.google.com/maps/documentation/places/web-service/place-id" target="_blank" style="color:#D4A853">Google Place ID Finder</a></li><li>Search for "Blues Micro Pub"</li><li>Copy the Place ID (starts with "ChIJ...")</li><li>Replace PLACE_ID_HERE in the URL above</li></ol>'
+    },
+    {
+        id: 'instagram',
+        icon: '&#128247;',
+        name: 'Instagram',
+        url: 'https://instagram.com/bluesmicropub',
+        scanLabel: 'Scan to follow us'
+    },
+    {
+        id: 'facebook',
+        icon: '&#128077;',
+        name: 'Facebook',
+        url: 'https://facebook.com/Bluesmicropub',
+        scanLabel: 'Scan to find us'
+    },
+    {
+        id: 'untappd',
+        icon: '&#127866;',
+        name: 'Untappd',
+        url: 'https://untappd.com/v/blue-s-micro-pub/9812911',
+        scanLabel: 'Scan to check in'
+    },
+    {
+        id: 'website',
+        icon: '&#127968;',
+        name: 'Website',
+        url: 'https://bluesmicropub.square.site',
+        scanLabel: 'Scan to visit our site'
+    },
+    {
+        id: 'tripadvisor',
+        icon: '&#9992;',
+        name: 'TripAdvisor',
+        url: 'https://www.tripadvisor.co.uk',
+        hasSetup: true,
+        scanLabel: 'Scan to review us',
+        setupNote: '<strong>&#9888; Setup required:</strong> Find your TripAdvisor URL.<ol><li>Search for "Blues Micro Pub" on <a href="https://www.tripadvisor.co.uk" target="_blank" style="color:#D4A853">TripAdvisor</a></li><li>Open your listing page</li><li>Copy the full URL from the address bar</li><li>Replace the URL above with your actual listing URL</li></ol>'
+    }
+];
+
+// ══════════════════════════════════════════════════════════════
+// Build UI
+// ══════════════════════════════════════════════════════════════
+function buildPreloadedCards() {
+    var grid = document.getElementById('preloadedGrid');
+    grid.innerHTML = '';
+
+    platforms.forEach(function(p) {
+        var card = document.createElement('div');
+        card.className = 'qr-card';
+
+        var canvasId = 'qr-' + p.id;
+
+        card.innerHTML =
+            '<div class="platform-icon">' + p.icon + '</div>' +
+            '<div class="platform-name">' + p.name + '</div>' +
+            '<div class="platform-url">' + escapeHtml(p.url) + '</div>' +
+            '<div class="qr-wrapper"><canvas id="' + canvasId + '"></canvas></div>' +
+            '<div class="download-row">' +
+                '<button class="btn" onclick="downloadQR(\'' + canvasId + '\', \'' + p.id + '\')">&#8615; Download PNG</button>' +
+            '</div>' +
+            '<div class="save-hint">Or right-click the QR code &rarr; Save image as...</div>' +
+            '<span class="offline-badge">Works offline</span>' +
+            (p.hasSetup ? '<div class="setup-note">' + p.setupNote + '</div>' : '');
+
+        grid.appendChild(card);
+
+        // Render QR code
+        setTimeout(function() {
+            var canvas = document.getElementById(canvasId);
+            if (canvas) QRCode.renderCanvas(canvas, p.url, 8);
+        }, 10);
+    });
+}
+
+function buildPrintCards() {
+    var grid = document.getElementById('printGrid');
+    grid.innerHTML = '';
+
+    platforms.forEach(function(p) {
+        var card = document.createElement('div');
+        card.className = 'print-card';
+        var canvasId = 'print-qr-' + p.id;
+
+        card.innerHTML =
+            '<div class="print-icon">' + p.icon + '</div>' +
+            '<div class="print-platform">' + p.name + '</div>' +
+            '<div class="print-scan-label">' + p.scanLabel + '</div>' +
+            '<div class="qr-wrapper"><canvas id="' + canvasId + '"></canvas></div>' +
+            '<div class="print-branding">Blue\'s Micro Pub</div>';
+
+        grid.appendChild(card);
+
+        setTimeout(function() {
+            var canvas = document.getElementById(canvasId);
+            if (canvas) QRCode.renderCanvas(canvas, p.url, 6);
+        }, 10);
+    });
+}
+
+function generateCustomQR() {
+    var url = document.getElementById('customUrl').value.trim();
+    if (!url) { alert('Please enter a URL.'); return; }
+    if (!url.match(/^https?:\/\//)) url = 'https://' + url;
+
+    var label = document.getElementById('customLabel').value.trim() || 'Custom QR Code';
+    var canvas = document.getElementById('customCanvas');
+
+    QRCode.renderCanvas(canvas, url, 8);
+
+    document.getElementById('customResultLabel').textContent = label;
+    document.getElementById('customResultUrl').textContent = url;
+    document.getElementById('customResult').classList.add('visible');
+}
+
+function downloadQR(canvasId, filename) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    var link = document.createElement('a');
+    link.download = 'blues-qr-' + filename + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// Init
+buildPreloadedCards();
+buildPrintCards();
+</script>
+
+</body>
+</html>
